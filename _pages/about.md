@@ -2,15 +2,15 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='https://sled.eecs.umich.edu/author/zekun-anderson-wang/'>University of Michigan</a>
+subtitle: <a href='https://tail.cc.gatech.edu/people.html'>Georgia Institute of Technology</a>
 
 profile:
   align: right
   image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
-    <p>2260 Hayward</p>
-    <p>Ann Arbor, MI 48103</p>
+    <p>TSRB 230B</p>
+    <p>Atlanta, GA 30332</p>
 
 news: true  # includes a list of news items
 latest_posts: false  # includes a list of the newest posts
