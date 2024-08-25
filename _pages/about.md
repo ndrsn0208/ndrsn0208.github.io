@@ -19,7 +19,7 @@ social: true  # includes social icons at the bottom of the page
 ---
 **About Me**
 
-Hello there! I'm Zekun "Anderson" Wang. I'm an incoming Ph.D. student at Georgia Tech with Prof. [Christopher J. MacLellan](https://chrismaclellan.com/). I'm interested in the intersection of cognitive science and artificial intelligence and how we can "learn so much from so little" that supports far transfer. Before joining Georgia Tech, I completed my M.S. in Computer Science at the University of Michigan, where I had a great fortune to work with [Dr. Joyce Chai](https://web.eecs.umich.edu/~chaijy/) and [Dr. Rada Mihalcea](https://web.eecs.umich.edu/~mihalcea/). I obtained my B.S. in Computer Science and B.S. in Mathematics from the Pennsylvania State University, where I worked with [Dr. Rebecca J. Passonneau](https://sites.psu.edu/becky/) in NLP.
+Hello there! I'm Zekun "Anderson" Wang. I'm a first year Ph.D. student at Georgia Tech with Prof. [Christopher J. MacLellan](https://chrismaclellan.com/). I'm interested in the intersection of cognitive science and artificial intelligence and how we can "learn so much from so little" that supports far transfer. Before joining Georgia Tech, I completed my M.S. in Computer Science at the University of Michigan, where I had a great fortune to work with [Dr. Joyce Chai](https://web.eecs.umich.edu/~chaijy/) and [Dr. Rada Mihalcea](https://web.eecs.umich.edu/~mihalcea/). I obtained my B.S. in Computer Science and B.S. in Mathematics from the Pennsylvania State University, where I worked with [Dr. Rebecca J. Passonneau](https://sites.psu.edu/becky/) in NLP.
 
 **Research Interests**
 
