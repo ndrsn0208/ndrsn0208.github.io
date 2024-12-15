@@ -6,7 +6,7 @@ subtitle: <a href='https://tail.cc.gatech.edu/people.html'>Georgia Institute of 
 
 profile:
   align: right
-  image: prof_pic.jpg
+  image: profile_pic.JPG
   image_circular: false # crops the image to make it circular
   more_info: >
     <p>TSRB 230B</p>
