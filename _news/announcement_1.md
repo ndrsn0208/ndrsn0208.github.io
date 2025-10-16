@@ -1,8 +1,8 @@
 ---
 layout: post
-date: 2025-9-18
+date: 2025-9-24
 inline: true
 related_posts: false
 ---
  
- Our "Deep Taxonomic Networks for Unsupervised Hierarchical Prototype Discovery" was accepted to NeurIPS 2025 as a poster. See you in San Diego!
+ We showed Diffusion models have a rank-1 Fisher information matrix and achieve no catastrophic forgetting in class incremental image generation task.
