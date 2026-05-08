@@ -51,7 +51,7 @@ export default function PublicationCard({ pub, aspect = 'tall', index = 0 }: Pro
               </span>
               <span>#{String(index + 1).padStart(2, '0')}</span>
             </div>
-            <h3 className="font-display foil-text font-semibold text-[22px] sm:text-[24px] lg:text-[26px] leading-[1.05] tracking-tightest line-clamp-4">
+            <h3 className="font-display foil-text font-semibold text-[24px] lg:text-[26px] leading-[1.05] tracking-tightest line-clamp-4">
               {pub.title}
             </h3>
           </div>

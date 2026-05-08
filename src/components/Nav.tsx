@@ -36,8 +36,9 @@ export default function Nav() {
     <nav
       className="sticky top-0 z-40 backdrop-blur-md"
       style={{
-        background: 'linear-gradient(180deg, rgba(11,9,16,.85) 0%, rgba(11,9,16,.45) 100%)',
-        borderBottom: '1px solid rgba(255,255,255,.05)',
+        background:
+          'linear-gradient(180deg, var(--surface-solid-1) 0%, var(--surface-solid-2) 100%)',
+        borderBottom: '1px solid var(--border-soft)',
       }}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
@@ -121,7 +122,10 @@ export default function Nav() {
       {open && (
         <div
           className="md:hidden border-t"
-          style={{ borderColor: 'rgba(255,255,255,.06)', background: 'rgba(11,9,16,.95)' }}
+          style={{
+            borderColor: 'var(--border-soft)',
+            background: 'rgb(var(--bg-rgb) / 0.95)',
+          }}
         >
           <div className="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-1">
             {links.map((l) => (
