@@ -1,0 +1,681 @@
+{
+  "lastUpdated": "2026-05-08T14:23:09+00:00",
+  "publications": [
+    {
+      "id": "computer-vision-models-show-human-like-sensitivi-2026",
+      "title": "Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts",
+      "authors": [
+        "Zekun Wang",
+        "Sashank Varma"
+      ],
+      "venue": "CogSci 2026",
+      "year": 2026,
+      "arxivId": "2505.13281",
+      "arxivUrl": "https://arxiv.org/abs/2505.13281",
+      "arxivHtmlUrl": "https://arxiv.org/html/2505.13281",
+      "arxivHtmlAvailable": true,
+      "pdfUrl": "https://arxiv.org/pdf/2505.13281",
+      "summary": "Cognitive scientists debate whether sensitivity to geometric and topological concepts is innate or learned from visual experience. The authors evaluate three classes of computer vision models — CNNs, transformers, and vision-language models — on a 43-concept odd-one-out task used with humans. Transformers exceed young children's accuracy and align with their concept-difficulty profile, while adding language degrades geometric sensitivity.",
+      "tldr": "Tests CNNs, vision transformers, and vision-language models on a 43-concept odd-one-out task and finds transformers match children's geometric sensitivity while VLMs underperform.",
+      "tags": [
+        "concept learning"
+      ],
+      "gradient": {
+        "stops": [
+          {
+            "color": "#FFE3D8",
+            "pos": 20.3750046947971
+          },
+          {
+            "color": "#FBCFE8",
+            "pos": 122.48440128285438
+          },
+          {
+            "color": "#FF6B6B",
+            "pos": 268.00835432019085
+          }
+        ],
+        "fromAngle": 25,
+        "cx": 26,
+        "cy": 67,
+        "hx": 7,
+        "hy": 13,
+        "hIntensity": 0.528911,
+        "noiseFreq": 1.289035,
+        "noiseOpacity": 0.45654
+      },
+      "addedAt": "2026-05-08T14:18:38+00:00"
+    },
+    {
+      "id": "computer-vision-modeling-development-geometric-n-2026",
+      "title": "Computer Vision Modeling of the Development of Geometric and Numerical Concepts in Humans",
+      "authors": [
+        "Zekun Wang",
+        "Sashank Varma"
+      ],
+      "venue": "AAAI 2026",
+      "year": 2026,
+      "arxivId": "2511.15029",
+      "arxivUrl": "https://arxiv.org/abs/2511.15029",
+      "arxivHtmlUrl": "https://arxiv.org/html/2511.15029",
+      "arxivHtmlAvailable": true,
+      "pdfUrl": "https://arxiv.org/pdf/2511.15029",
+      "summary": "Prior work shows CV models trained on image classification develop adult-like representations of geometric and numerical concepts, but it is unclear whether their training trajectories match how these abilities emerge in children. The authors track a ResNet-50 across ImageNet checkpoints on Dehaene's 43-concept odd-one-out task and on number-line tasks. They find developmental alignment for Euclidean Geometry, Geometrical Figures, Metric Properties, Topology, and the mental number line, but not for Chiral Figures, Geometric Transformations, or Symmetrical Figures.",
+      "tldr": "ResNet-50's accuracy on Dehaene's odd-one-out tasks for geometry and number, tracked across ImageNet training checkpoints, mirrors developmental trajectories observed in children.",
+      "tags": [
+        "concept learning"
+      ],
+      "gradient": {
+        "stops": [
+          {
+            "color": "#FFE3D8",
+            "pos": 0.0
+          },
+          {
+            "color": "#FCA5A5",
+            "pos": 127.35608389601111
+          },
+          {
+            "color": "#FF6B6B",
+            "pos": 251.28789137117565
+          }
+        ],
+        "fromAngle": 42,
+        "cx": 75,
+        "cy": 61,
+        "hx": 70,
+        "hy": 66,
+        "hIntensity": 0.453071,
+        "noiseFreq": 1.299194,
+        "noiseOpacity": 0.449416
+      },
+      "addedAt": "2026-05-08T14:13:55+00:00"
+    },
+    {
+      "id": "grounded-concreteness-human-like-concreteness-se-2026",
+      "title": "Grounded Concreteness: Human-Like Concreteness Sensitivity in Vision-Language Models",
+      "authors": [
+        "Aryan Roy",
+        "Zekun Wang",
+        "Christopher J. MacLellan"
+      ],
+      "venue": "ACL 2026",
+      "year": 2026,
+      "arxivId": "2601.18065",
+      "arxivUrl": "https://arxiv.org/abs/2601.18065",
+      "arxivHtmlUrl": "https://arxiv.org/html/2601.18065",
+      "arxivHtmlAvailable": true,
+      "pdfUrl": "https://arxiv.org/pdf/2601.18065",
+      "summary": "Text-only LLMs lack perceptual grounding, raising doubts about whether they encode concreteness like humans do. The authors run a controlled LLM-vs-VLM ablation across Llama scales, measuring QA accuracy by concreteness, embedding geometry via t-SNE dispersion, and attention entropy. VLMs show larger gains on concrete inputs, clearer concreteness-structured representations, and ratings closer to human norms.",
+      "tldr": "Compares matched Llama text and Llama Vision models on text-only prompts to test whether multimodal pretraining yields more human-like sensitivity to word concreteness.",
+      "tags": [
+        "language models",
+        "concept learning"
+      ],
+      "gradient": {
+        "stops": [
+          {
+            "color": "#FF6B6B",
+            "pos": 16.30608477629721
+          },
+          {
+            "color": "#FFE3D8",
+            "pos": 68.1063945600763
+          },
+          {
+            "color": "#FFA94D",
+            "pos": 141.24007221870124
+          },
+          {
+            "color": "#FBCFE8",
+            "pos": 221.63003324903548
+          },
+          {
+            "color": "#F97316",
+            "pos": 302.76660908572376
+          }
+        ],
+        "fromAngle": 274,
+        "cx": 26,
+        "cy": 35,
+        "hx": 32,
+        "hy": 78,
+        "hIntensity": 0.602572,
+        "noiseFreq": 0.663958,
+        "noiseOpacity": 0.431908
+      },
+      "addedAt": "2026-05-08T14:09:48+00:00"
+    },
+    {
+      "id": "trust-region-continual-learning-as-implicit-meta-2026",
+      "title": "Trust Region Continual Learning as an Implicit Meta-Learner",
+      "authors": [
+        "Zekun Wang",
+        "Anant Gupta",
+        "Christopher J. MacLellan"
+      ],
+      "venue": "arXiv 2026",
+      "year": 2026,
+      "arxivId": "2602.02417",
+      "arxivUrl": "https://arxiv.org/abs/2602.02417",
+      "arxivHtmlUrl": "https://arxiv.org/html/2602.02417",
+      "arxivHtmlAvailable": true,
+      "pdfUrl": "https://arxiv.org/pdf/2602.02417",
+      "summary": "Continual learning methods trade off regularization that overconstrains updates against replay that drifts under imperfect generations. The authors combine generative replay with an EWC Fisher-metric trust region and prove that, under local approximations, the update takes a one-step MAML form where replay acts as the query gradient and the Fisher as offline curvature. On ImageNet-500 diffusion generation and Continual-World-10 diffusion policies, it beats EWC, replay, FTML, and VR-MCL on retention and re-convergence speed.",
+      "tldr": "Combines generative replay with a Fisher-metric trust region for continual diffusion training, and shows the update reduces to a one-step MAML form.",
+      "tags": [
+        "continual learning",
+        "diffusion models"
+      ],
+      "gradient": {
+        "stops": [
+          {
+            "color": "#FB7185",
+            "pos": 6.062507743947208
+          },
+          {
+            "color": "#FBCFE8",
+            "pos": 58.631293452344835
+          },
+          {
+            "color": "#A78BFA",
+            "pos": 135.00994392950088
+          },
+          {
+            "color": "#F43F5E",
+            "pos": 202.51063065044582
+          },
+          {
+            "color": "#FCA5A5",
+            "pos": 273.8806086620316
+          }
+        ],
+        "fromAngle": 78,
+        "cx": 29,
+        "cy": 22,
+        "hx": 10,
+        "hy": 91,
+        "hIntensity": 0.523172,
+        "noiseFreq": 1.074478,
+        "noiseOpacity": 0.408467
+      },
+      "addedAt": "2026-05-08T14:09:26+00:00"
+    },
+    {
+      "id": "cobwebtm-probabilistic-concept-formation-lifelon-2026",
+      "title": "CobwebTM: Probabilistic Concept Formation for Lifelong and Hierarchical Topic Modeling",
+      "authors": [
+        "Karthik Singaravadivelan",
+        "Anant Gupta",
+        "Zekun Wang",
+        "Christopher J. MacLellan"
+      ],
+      "venue": "ACL 2026",
+      "year": 2026,
+      "arxivId": "2604.14489",
+      "arxivUrl": "https://arxiv.org/abs/2604.14489",
+      "arxivHtmlUrl": "https://arxiv.org/html/2604.14489",
+      "arxivHtmlAvailable": true,
+      "pdfUrl": "https://arxiv.org/pdf/2604.14489",
+      "summary": "Neural topic models forget catastrophically and have fixed capacity, while LDA-style models can't adapt to streaming data or learn hierarchies online. CobwebTM applies incremental probabilistic concept formation over pretrained document embeddings, growing a semantic tree without predefining topic count. Across multiple datasets it matches or beats neural and clustering baselines on topic coherence, temporal stability, and hierarchy quality.",
+      "tldr": "CobwebTM adapts the Cobweb concept-formation algorithm to dense document embeddings, building a topic hierarchy incrementally as documents stream in.",
+      "tags": [
+        "continual learning",
+        "concept learning",
+        "language models"
+      ],
+      "gradient": {
+        "stops": [
+          {
+            "color": "#FFE3D8",
+            "pos": 13.75271829077974
+          },
+          {
+            "color": "#FF6B6B",
+            "pos": 70.43821445899084
+          },
+          {
+            "color": "#F43F5E",
+            "pos": 114.61344440001994
+          },
+          {
+            "color": "#FFA94D",
+            "pos": 185.21304518915713
+          },
+          {
+            "color": "#FB7185",
+            "pos": 225.84467493463308
+          },
+          {
+            "color": "#F97316",
+            "pos": 304.2931876494549
+          }
+        ],
+        "fromAngle": 39,
+        "cx": 74,
+        "cy": 30,
+        "hx": 29,
+        "hy": 16,
+        "hIntensity": 0.631722,
+        "noiseFreq": 1.221936,
+        "noiseOpacity": 0.522435
+      },
+      "addedAt": "2026-05-08T14:05:37+00:00"
+    },
+    {
+      "id": "avoid-catastrophic-forgetting-rank-1-fisher-from-2026",
+      "title": "Avoid Catastrophic Forgetting with Rank-1 Fisher from Diffusion Models",
+      "authors": [
+        "Zekun Wang",
+        "Anant Gupta",
+        "Zihan Dong",
+        "Christopher J. MacLellan"
+      ],
+      "venue": "ICLR 2026",
+      "year": 2026,
+      "arxivId": "2509.23593",
+      "arxivUrl": "https://arxiv.org/abs/2509.23593",
+      "arxivHtmlUrl": "https://arxiv.org/html/2509.23593",
+      "arxivHtmlAvailable": true,
+      "pdfUrl": "https://arxiv.org/pdf/2509.23593",
+      "summary": "Continual learning of diffusion models suffers from catastrophic forgetting: replay drifts and diagonal-Fisher EWC misses cross-parameter curvature. The authors show diffusion gradients become rank-1 and aligned with the mean gradient at low SNR, and use this to build a rank-1 EWC penalty combined with replay. On MNIST, FashionMNIST, CIFAR-10, and ImageNet-1k, forgetting is halved or nearly eliminated versus baselines.",
+      "tldr": "Proposes a rank-1 Fisher approximation for EWC that exploits the collinear per-sample gradients of diffusion models at low SNR, paired with generative replay for continual image generation.",
+      "tags": [
+        "continual learning",
+        "diffusion models"
+      ],
+      "gradient": {
+        "stops": [
+          {
+            "color": "#F43F5E",
+            "pos": 0.0
+          },
+          {
+            "color": "#FFE3D8",
+            "pos": 71.38328952994198
+          },
+          {
+            "color": "#FB7185",
+            "pos": 133.17460326757282
+          },
+          {
+            "color": "#FFD7B5",
+            "pos": 199.37813473306596
+          },
+          {
+            "color": "#A78BFA",
+            "pos": 291.39268922712654
+          }
+        ],
+        "fromAngle": 310,
+        "cx": 32,
+        "cy": 45,
+        "hx": 87,
+        "hy": 45,
+        "hIntensity": 0.679934,
+        "noiseFreq": 1.176138,
+        "noiseOpacity": 0.43513
+      },
+      "addedAt": "2026-05-08T13:51:32+00:00"
+    },
+    {
+      "id": "rational-account-categorization-based-informatio-2026",
+      "title": "A Rational Account of Categorization Based on Information Theory",
+      "authors": [
+        "Christopher J. MacLellan",
+        "Karthik Singaravadivelan",
+        "Xin Lian",
+        "Zekun Wang",
+        "Pat Langley"
+      ],
+      "venue": "CogSci 2026",
+      "year": 2026,
+      "arxivId": "2603.29895",
+      "arxivUrl": "https://arxiv.org/abs/2603.29895",
+      "arxivHtmlUrl": "https://arxiv.org/html/2603.29895",
+      "arxivHtmlAvailable": true,
+      "pdfUrl": "https://arxiv.org/pdf/2603.29895",
+      "summary": "Existing rational models of human categorization rely on minimizing feature predictive error over flat partitions, leaving room for tighter fits to classic experimental data. The authors recast categorization as maximizing mutual information between concepts and features within a hierarchical Cobweb taxonomy, using pointwise mutual information for both inference and tree updates. The resulting model matches or outperforms the independent cue, context, rational, and hierarchical Dirichlet process models on three benchmark studies.",
+      "tldr": "Extends Cobweb with pointwise mutual information to model human categorization, fitting classic Hayes-Roth, Medin & Schaffer, and Smith & Minda data better than Anderson's rational model.",
+      "tags": [
+        "concept learning"
+      ],
+      "gradient": {
+        "stops": [
+          {
+            "color": "#FFE3D8",
+            "pos": 0.0
+          },
+          {
+            "color": "#FF6B6B",
+            "pos": 145.10788367595524
+          }
+        ],
+        "fromAngle": 161,
+        "cx": 65,
+        "cy": 79,
+        "hx": 62,
+        "hy": 51,
+        "hIntensity": 0.640493,
+        "noiseFreq": 1.140512,
+        "noiseOpacity": 0.40801
+      },
+      "addedAt": "2026-05-08T13:46:50+00:00"
+    },
+    {
+      "id": "babysit-language-model-from-scratch-interactive-2025",
+      "title": "Babysit A Language Model From Scratch: Interactive Language Learning by Trials and Demonstrations",
+      "authors": [
+        "Ziqiao Ma",
+        "Zekun Wang",
+        "Joyce Chai"
+      ],
+      "venue": "NAACL 2025",
+      "year": 2025,
+      "arxivId": "2405.13828",
+      "arxivUrl": "https://arxiv.org/abs/2405.13828",
+      "arxivHtmlUrl": "https://arxiv.org/html/2405.13828",
+      "arxivHtmlAvailable": true,
+      "pdfUrl": "https://arxiv.org/pdf/2405.13828",
+      "summary": "Standard language models learn non-interactively from corpora, unlike children who get corrective feedback from caregivers. The authors propose Trial-and-Demonstration (TnD): a randomly initialized GPT-2 student produces trials, a teacher model gives demonstrations, and an age-conditioned reward drives RL updates. TnD speeds up word acquisition for equal- and smaller-sized students, with trial frequency strongly correlating with per-word learning curves.",
+      "tldr": "Trains GPT-2 from scratch with a teacher model giving demonstrations on student trials, scored by an age-conditioned reward, to accelerate word acquisition.",
+      "tags": [
+        "language models",
+        "reinforcement learning"
+      ],
+      "gradient": {
+        "stops": [
+          {
+            "color": "#F97316",
+            "pos": 11.102829077281058
+          },
+          {
+            "color": "#FFA94D",
+            "pos": 93.65724907256663
+          },
+          {
+            "color": "#F59E0B",
+            "pos": 181.55807187315077
+          },
+          {
+            "color": "#FCA5A5",
+            "pos": 277.0889625046402
+          }
+        ],
+        "fromAngle": 132,
+        "cx": 26,
+        "cy": 44,
+        "hx": 36,
+        "hy": 81,
+        "hIntensity": 0.540025,
+        "noiseFreq": 1.134601,
+        "noiseOpacity": 0.636447
+      },
+      "addedAt": "2026-05-08T14:19:43+00:00"
+    },
+    {
+      "id": "hierarchical-semantic-retrieval-cobweb-2025",
+      "title": "Hierarchical Semantic Retrieval with Cobweb",
+      "authors": [
+        "Anant Gupta",
+        "Karthik Singaravadivelan",
+        "Zekun Wang"
+      ],
+      "venue": "ACS 2025",
+      "year": 2025,
+      "arxivId": "2510.02539",
+      "arxivUrl": "https://arxiv.org/abs/2510.02539",
+      "arxivHtmlUrl": "https://arxiv.org/html/2510.02539",
+      "arxivHtmlAvailable": true,
+      "pdfUrl": "https://arxiv.org/pdf/2510.02539",
+      "summary": "Flat dense retrievers ignore corpus structure and offer no rationale for their rankings. The authors use Cobweb to incrementally build a prototype tree over sentence embeddings and rank documents via best-first search or path-sum scoring along the traversal. On MS MARCO and QQP, the method matches dot-product retrieval with BERT/T5 vectors and remains effective with GPT-2 embeddings where kNN collapses.",
+      "tldr": "Organizes sentence embeddings into a Cobweb prototype tree and retrieves documents via coarse-to-fine traversal, matching dot-product retrieval and staying robust when GPT-2 embeddings degrade.",
+      "tags": [
+        "language models",
+        "concept learning"
+      ],
+      "gradient": {
+        "stops": [
+          {
+            "color": "#FFE3D8",
+            "pos": 8.610724235186353
+          },
+          {
+            "color": "#FBCFE8",
+            "pos": 92.72737360093743
+          },
+          {
+            "color": "#F97316",
+            "pos": 165.481221859809
+          },
+          {
+            "color": "#FFA94D",
+            "pos": 264.1466800798662
+          }
+        ],
+        "fromAngle": 132,
+        "cx": 50,
+        "cy": 57,
+        "hx": 42,
+        "hy": 25,
+        "hIntensity": 0.563009,
+        "noiseFreq": 1.195387,
+        "noiseOpacity": 0.492779
+      },
+      "addedAt": "2026-05-08T14:06:47+00:00"
+    },
+    {
+      "id": "taxonomic-networks-representation-neuro-symbolic-2025",
+      "title": "Taxonomic Networks: A Representation for Neuro-Symbolic Pairing",
+      "authors": [
+        "Zekun Wang",
+        "Ethan L. Haarer",
+        "Nicki Barari",
+        "Christopher J. MacLellan"
+      ],
+      "venue": "NeuS 2025",
+      "year": 2025,
+      "arxivId": "2505.24601",
+      "arxivUrl": "https://arxiv.org/abs/2505.24601",
+      "arxivHtmlUrl": "https://arxiv.org/html/2505.24601",
+      "arxivHtmlAvailable": true,
+      "pdfUrl": "https://arxiv.org/pdf/2505.24601",
+      "summary": "Combining neural and symbolic AI usually means stitching them together as separate modules, preserving each paradigm's weaknesses. The authors define neuro-symbolic pairs linked by a common representation, propose taxonomic networks (hierarchical discrimination nets), and build paired symbolic and neural learners over them. The symbolic method is more data- and compute-efficient; the neural method reaches higher accuracy with more resources, and models translate between them.",
+      "tldr": "Introduces taxonomic networks as a shared representation that pairs a symbolic learner and a neural learner, allowing models to be translated between paradigms.",
+      "tags": [
+        "concept learning"
+      ],
+      "gradient": {
+        "stops": [
+          {
+            "color": "#FF6B6B",
+            "pos": 0.0
+          },
+          {
+            "color": "#FFA94D",
+            "pos": 73.67094772984274
+          },
+          {
+            "color": "#FFE3D8",
+            "pos": 187.2366080840584
+          },
+          {
+            "color": "#FCA5A5",
+            "pos": 291.1271740333177
+          }
+        ],
+        "fromAngle": 80,
+        "cx": 70,
+        "cy": 59,
+        "hx": 56,
+        "hy": 63,
+        "hIntensity": 0.634337,
+        "noiseFreq": 0.953237,
+        "noiseOpacity": 0.500887
+      },
+      "addedAt": "2026-05-08T13:54:56+00:00"
+    },
+    {
+      "id": "deep-taxonomic-networks-unsupervised-hierarchica-2025",
+      "title": "Deep Taxonomic Networks for Unsupervised Hierarchical Prototype Discovery",
+      "authors": [
+        "Zekun Wang",
+        "Ethan Haarer",
+        "Tianyi Zhu",
+        "Zhiyi Dai",
+        "Christopher J. MacLellan"
+      ],
+      "venue": "NeurIPS 2025",
+      "year": 2025,
+      "arxivId": "2509.23602",
+      "arxivUrl": "https://arxiv.org/abs/2509.23602",
+      "arxivHtmlUrl": "https://arxiv.org/html/2509.23602",
+      "arxivHtmlAvailable": true,
+      "pdfUrl": "https://arxiv.org/pdf/2509.23602",
+      "summary": "Existing deep hierarchical clustering ties structure to known class counts and ignores intermediate-level prototypes. The authors propose deep taxonomic networks, a variational autoencoder whose prior is a complete binary tree of Gaussian mixtures, optionally combined with contrastive learning. Across image classification datasets it beats hierarchical clustering baselines under an evaluation that scores prototypes at every tree level.",
+      "tldr": "Trains a VAE with a complete binary-tree mixture-of-Gaussians prior to discover hierarchical prototype clusters from unlabeled images without specifying class counts.",
+      "tags": [
+        "concept learning"
+      ],
+      "gradient": {
+        "stops": [
+          {
+            "color": "#FF6B6B",
+            "pos": 9.355436316691339
+          },
+          {
+            "color": "#FFE3D8",
+            "pos": 110.22160407621413
+          },
+          {
+            "color": "#FFA94D",
+            "pos": 264.14717603009194
+          }
+        ],
+        "fromAngle": 269,
+        "cx": 79,
+        "cy": 70,
+        "hx": 64,
+        "hy": 65,
+        "hIntensity": 0.548469,
+        "noiseFreq": 1.217154,
+        "noiseOpacity": 0.643081
+      },
+      "addedAt": "2026-05-08T13:54:37+00:00"
+    },
+    {
+      "id": "has-it-all-been-solved-open-nlp-research-questio-2024",
+      "title": "Has It All Been Solved? Open NLP Research Questions Not Solved by Large Language Models",
+      "authors": [
+        "Oana Ignat",
+        "Zhijing Jin",
+        "Artem Abzaliev",
+        "Laura Biester",
+        "Santiago Castro",
+        "Naihao Deng",
+        "Xinyi Gao",
+        "Aylin Gunal",
+        "Jacky He",
+        "Ashkan Kazemi",
+        "Muhammad Khalifa",
+        "Namho Koh",
+        "Andrew Lee",
+        "Siyang Liu",
+        "Do June Min",
+        "Shinka Mori",
+        "Joan Nwatu",
+        "Veronica Perez-Rosas",
+        "Siqi Shen",
+        "Zekun Wang",
+        "Winston Wu",
+        "Rada Mihalcea"
+      ],
+      "venue": "COLING 2024",
+      "year": 2024,
+      "arxivId": "2305.12544",
+      "arxivUrl": "https://arxiv.org/abs/2305.12544",
+      "arxivHtmlUrl": "https://arxiv.org/html/2305.12544",
+      "arxivHtmlAvailable": true,
+      "pdfUrl": "https://arxiv.org/pdf/2305.12544",
+      "summary": "Public discourse around LLMs has convinced many junior researchers that NLP is 'solved,' creating uncertainty about what to work on. The University of Michigan LIT lab compiles 45 research directions across fundamental, responsible, and applied NLP that LLMs do not address and that fit academic compute budgets. The result is a roadmap of PhD-scale problems outside the LLM-scaling paradigm.",
+      "tldr": "This position paper catalogs 14 NLP research areas and 45 specific directions that remain open and tractable for academic labs despite LLM progress.",
+      "tags": [
+        "language models"
+      ],
+      "gradient": {
+        "stops": [
+          {
+            "color": "#FFA94D",
+            "pos": 0.0
+          },
+          {
+            "color": "#FCA5A5",
+            "pos": 101.72826495487243
+          },
+          {
+            "color": "#F97316",
+            "pos": 225.10321991052479
+          }
+        ],
+        "fromAngle": 148,
+        "cx": 58,
+        "cy": 67,
+        "hx": 39,
+        "hy": 17,
+        "hIntensity": 0.532363,
+        "noiseFreq": 0.947888,
+        "noiseOpacity": 0.62762
+      },
+      "addedAt": "2026-05-08T14:20:23+00:00"
+    },
+    {
+      "id": "foundations-nlp-assisted-formative-assessment-fe-2022",
+      "title": "Foundations for NLP-assisted formative assessment feedback for short-answer tasks in large-enrollment classes",
+      "authors": [
+        "Susan Lloyd",
+        "Matthew Beckman",
+        "Dennis Pearl",
+        "Rebecca Passonneau",
+        "Zhaohui Li",
+        "Zekun Wang"
+      ],
+      "venue": "ICOTS 2022",
+      "year": 2022,
+      "arxivId": "2205.02829",
+      "arxivUrl": "https://arxiv.org/abs/2205.02829",
+      "arxivHtmlUrl": "https://arxiv.org/html/2205.02829",
+      "arxivHtmlAvailable": false,
+      "pdfUrl": "https://arxiv.org/pdf/2205.02829",
+      "summary": "Constructed-response formative assessment doesn't scale to large-enrollment classes. The authors had multiple human raters and an algorithm score six short-answer tasks from 1,935 students using a detailed rubric, then piloted cluster analysis of response text. Inter-rater agreement was strong (pairwise QWK > 0.74, Fleiss κ = 0.68), supporting clusters as a basis for instructor-assigned feedback categories.",
+      "tldr": "Evaluates an NLP scoring algorithm and response-text clustering on 1,935 students' short answers to enable scalable formative feedback in large classes.",
+      "tags": [
+        "language models"
+      ],
+      "gradient": {
+        "stops": [
+          {
+            "color": "#F97316",
+            "pos": 0.0
+          },
+          {
+            "color": "#FFA94D",
+            "pos": 148.9225293835625
+          },
+          {
+            "color": "#FFD7B5",
+            "pos": 214.9977830098942
+          }
+        ],
+        "fromAngle": 216,
+        "cx": 41,
+        "cy": 52,
+        "hx": 75,
+        "hy": 79,
+        "hIntensity": 0.592819,
+        "noiseFreq": 0.967416,
+        "noiseOpacity": 0.464781
+      },
+      "addedAt": "2026-05-08T14:23:09+00:00"
+    }
+  ]
+}

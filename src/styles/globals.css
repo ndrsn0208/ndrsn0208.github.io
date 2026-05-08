@@ -1,0 +1,232 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Theme tokens — values are space-separated RGB triplets so Tailwind's
+     opacity modifiers (`text-ink/80`, `bg-bg/85`) work cleanly via the
+     `rgb(var(--*) / <alpha-value>)` form in tailwind.config.ts. */
+  :root,
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+    --bg-rgb: 11 9 16;
+    --bg-soft-rgb: 20 16 28;
+    --ink-rgb: 244 237 228;
+    --ink-dim-rgb: 181 171 160;
+    --ink-deep-rgb: 15 15 18;
+    --line-rgb: 255 255 255;
+
+    /* surfaces consumed by glass.css */
+    --surface-1: rgba(255, 255, 255, 0.07);
+    --surface-2: rgba(255, 255, 255, 0.02);
+    --surface-recessed-1: rgba(0, 0, 0, 0.18);
+    --surface-recessed-2: rgba(0, 0, 0, 0.06);
+    --surface-solid-1: rgba(11, 9, 16, 0.92);
+    --surface-solid-2: rgba(11, 9, 16, 0.82);
+    --surface-btn-1: rgba(255, 255, 255, 0.08);
+    --surface-btn-2: rgba(255, 255, 255, 0.02);
+    --surface-btn-1-hover: rgba(255, 255, 255, 0.14);
+    --surface-btn-2-hover: rgba(255, 255, 255, 0.05);
+    --border: rgba(255, 255, 255, 0.10);
+    --border-soft: rgba(255, 255, 255, 0.06);
+    --border-strong: rgba(255, 255, 255, 0.18);
+    --highlight-rim: rgba(255, 255, 255, 0.18);
+    --highlight-rim-soft: rgba(255, 255, 255, 0.04);
+    --shadow-card: rgba(0, 0, 0, 0.55);
+    --shadow-glow: rgba(255, 169, 77, 0.18);
+
+    --grain-blend: overlay;
+    --grain-opacity: 0.18;
+    --grid-line: rgba(255, 255, 255, 0.04);
+    --grid-opacity: 0.14;
+    --haze-rose-alpha: 0.42;
+    --haze-amber-alpha: 0.32;
+    --haze-lav-alpha: 0.30;
+    --haze-cyan-alpha: 0.18;
+  }
+
+  :root[data-theme='light'] {
+    color-scheme: light;
+    --bg-rgb: 248 244 236;       /* warm cream paper */
+    --bg-soft-rgb: 255 252 245;
+    --ink-rgb: 24 18 24;          /* near-black with warm undertone */
+    --ink-dim-rgb: 92 80 74;      /* mid-grey */
+    --ink-deep-rgb: 11 9 16;
+    --line-rgb: 24 18 24;
+
+    --surface-1: rgba(255, 255, 255, 0.55);
+    --surface-2: rgba(255, 255, 255, 0.25);
+    --surface-recessed-1: rgba(255, 255, 255, 0.85);
+    --surface-recessed-2: rgba(255, 255, 255, 0.55);
+    --surface-solid-1: rgba(248, 244, 236, 0.94);
+    --surface-solid-2: rgba(248, 244, 236, 0.84);
+    --surface-btn-1: rgba(255, 255, 255, 0.65);
+    --surface-btn-2: rgba(255, 255, 255, 0.30);
+    --surface-btn-1-hover: rgba(255, 255, 255, 0.85);
+    --surface-btn-2-hover: rgba(255, 255, 255, 0.55);
+    --border: rgba(24, 18, 24, 0.14);
+    --border-soft: rgba(24, 18, 24, 0.08);
+    --border-strong: rgba(24, 18, 24, 0.24);
+    --highlight-rim: rgba(255, 255, 255, 0.85);
+    --highlight-rim-soft: rgba(24, 18, 24, 0.04);
+    --shadow-card: rgba(24, 18, 24, 0.18);
+    --shadow-glow: rgba(255, 107, 107, 0.18);
+
+    --grain-blend: multiply;
+    --grain-opacity: 0.10;
+    --grid-line: rgba(24, 18, 24, 0.05);
+    --grid-opacity: 0.30;
+    --haze-rose-alpha: 0.22;
+    --haze-amber-alpha: 0.18;
+    --haze-lav-alpha: 0.18;
+    --haze-cyan-alpha: 0.12;
+  }
+
+  html {
+    background: rgb(var(--bg-rgb));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply font-sans text-ink bg-bg;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: rgba(255, 169, 77, 0.35);
+    color: rgb(var(--ink-rgb));
+  }
+
+  /* respect reduced motion globally */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  a { color: inherit; }
+  button { font: inherit; }
+}
+
+@layer components {
+  /* iridescent shimmering text — light-tone highlight + warm hues. */
+  .iri-text {
+    background-image: linear-gradient(
+      105deg,
+      #F4EDE4 0%, #FF9D5C 22%, #C4B5FD 44%,
+      #F4EDE4 66%, #FFA94D 88%, #F4EDE4 100%
+    );
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    @apply animate-iri;
+  }
+  /* On light theme the cream "highlights" disappear into the cream bg —
+     swap them for a deep ink stop so the shimmer reads as dark→saturated→dark. */
+  [data-theme='light'] .iri-text {
+    background-image: linear-gradient(
+      105deg,
+      #18121A 0%, #C2410C 22%, #6D28D9 44%,
+      #18121A 66%, #B91C1C 88%, #18121A 100%
+    );
+  }
+
+  /* Research-direction interests: silver-metal default that matches the
+     "Zekun" word; on hover the per-hue 5-stop foil gradient swaps in and
+     starts shimmering. Each `.tone-*` exposes a `--hue` custom property
+     so the gradient is defined once and consumed by both the desktop
+     `:hover` rule and the touch-device `(hover: none)` fallback. */
+  .interest-text {
+    background-image: linear-gradient(180deg, #F4EDE4 0%, #ABA0A0 55%, #F4EDE4 100%);
+    background-size: 100% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  [data-theme='light'] .interest-text {
+    background-image: linear-gradient(180deg, #2A2228 0%, #6E5F60 55%, #2A2228 100%);
+  }
+  .tone-rose   { --hue: linear-gradient(105deg, #FFE4E9 0%, #FB7185 22%, #F43F5E 44%, #FFE4E9 66%, #FF8B9A 88%, #FFE4E9 100%); }
+  .tone-purple { --hue: linear-gradient(105deg, #F3E8FF 0%, #C084FC 22%, #A855F7 44%, #F3E8FF 66%, #D8B4FE 88%, #F3E8FF 100%); }
+  .tone-blue   { --hue: linear-gradient(105deg, #DBEAFE 0%, #93C5FD 22%, #3B82F6 44%, #DBEAFE 66%, #60A5FA 88%, #DBEAFE 100%); }
+  .tone-yellow { --hue: linear-gradient(105deg, #FEF9C3 0%, #FDE68A 22%, #EAB308 44%, #FEF9C3 66%, #FACC15 88%, #FEF9C3 100%); }
+  .tone-orange { --hue: linear-gradient(105deg, #FFEDD5 0%, #FDBA74 22%, #F97316 44%, #FFEDD5 66%, #FB923C 88%, #FFEDD5 100%); }
+  .tone-cyan   { --hue: linear-gradient(105deg, #CFFAFE 0%, #67E8F9 22%, #06B6D4 44%, #CFFAFE 66%, #22D3EE 88%, #CFFAFE 100%); }
+
+  /* Desktop hover: the silver swaps to the hue and the shimmer starts. */
+  .interest-link:hover .interest-text {
+    background-image: var(--hue);
+    background-size: 220% 100%;
+    animation: iri 5s linear infinite;
+  }
+
+  /* Touch devices have no real hover — show the colored shimmer always. */
+  @media (hover: none) {
+    .interest-text {
+      background-image: var(--hue);
+      background-size: 220% 100%;
+      animation: iri 8s linear infinite;
+    }
+  }
+
+  /* brushed-metal text — silver on dark, gunmetal on light. */
+  .metal-text {
+    background-image: linear-gradient(180deg, #F4EDE4 0%, #ABA0A0 55%, #F4EDE4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  [data-theme='light'] .metal-text {
+    background-image: linear-gradient(180deg, #2A2228 0%, #6E5F60 55%, #2A2228 100%);
+  }
+
+  /* foil panel meta label (venue · year) */
+  .foil-meta {
+    @apply font-mono uppercase font-medium;
+    font-size: 13px;
+    line-height: 1;
+    letter-spacing: 0.16em;
+  }
+
+  /* white text on foil background — readable layered */
+  .foil-text {
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.18);
+    mix-blend-mode: hard-light;
+  }
+}
+
+@layer utilities {
+  /* horizontal-scroll filter row on mobile */
+  .scroll-x {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .scroll-x::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ---- Light-theme overrides for hardcoded white-opacity utilities ----
+   Components use Tailwind's `bg-white/N` / `border-white/N` for subtle
+   inner borders & dividers. On light theme we flip those to ink so they
+   still read as gentle separators. Only the opacities actually in use
+   are listed (grep'd from src/). */
+[data-theme='light'] .bg-white\/5    { background-color: rgb(var(--ink-rgb) / 0.05); }
+[data-theme='light'] .bg-white\/10   { background-color: rgb(var(--ink-rgb) / 0.08); }
+[data-theme='light'] .bg-white\/15   { background-color: rgb(var(--ink-rgb) / 0.12); }
+[data-theme='light'] .border-white\/5  { border-color: rgb(var(--ink-rgb) / 0.06); }
+[data-theme='light'] .border-white\/10 { border-color: rgb(var(--ink-rgb) / 0.10); }
+[data-theme='light'] .border-white\/20 { border-color: rgb(var(--ink-rgb) / 0.18); }
+
+@media (max-width: 480px) {
+  .foil-meta {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+  }
+}

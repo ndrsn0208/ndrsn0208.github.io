@@ -1,0 +1,452 @@
+/* =============================================================
+   Liquid Glass — translucent backdrop-blur surfaces, foil panels,
+   atmospheric color haze. Names retained from the previous theme
+   (`.chrome`, `.btn-chrome`, …) so component code is unchanged;
+   what's underneath them is now real frosted glass.
+   ============================================================= */
+
+/* --- ambient haze (saturated colored orbs behind everything) --
+   Bigger + more saturated than before, plus a 4th cyan orb so the
+   broader spectrum (matching the research-direction tones) bleeds
+   through the glass surfaces above. */
+.haze {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.haze::before,
+.haze::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(28px);
+}
+.haze::before {
+  width: 880px; height: 880px; top: -240px; left: -220px;
+  background: radial-gradient(circle, rgba(255, 107, 107, var(--haze-rose-alpha)) 0%, transparent 65%);
+}
+.haze::after {
+  width: 760px; height: 760px; top: 22%; right: -260px;
+  background: radial-gradient(circle, rgba(255, 169, 77, var(--haze-amber-alpha)) 0%, transparent 65%);
+}
+.haze-c {
+  position: absolute;
+  width: 620px; height: 620px; bottom: -200px; left: 22%;
+  border-radius: 50%;
+  filter: blur(170px);
+  background: radial-gradient(circle, rgba(196, 181, 253, var(--haze-lav-alpha)) 0%, transparent 65%);
+}
+.haze-d {
+  position: absolute;
+  width: 520px; height: 520px;
+  top: 55%; right: 14%;
+  border-radius: 50%;
+  filter: blur(160px);
+  background: radial-gradient(circle, rgba(34, 211, 238, var(--haze-cyan-alpha)) 0%, transparent 65%);
+}
+
+/* --- scan grid (almost invisible — was reading "tech-shop") --- */
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: var(--grid-opacity);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 80% 65% at 50% 35%, #000 25%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 65% at 50% 35%, #000 25%, transparent 80%);
+}
+
+/* --- film grain (kept; adds texture so the glass doesn't look digital) -- */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: var(--grain-blend);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .32 0'/></filter><rect width='220' height='220' filter='url(%23n)'/></svg>");
+}
+
+/* --- glass surfaces (cards / panels) -------------------------
+   Real frosted glass: translucent fill + backdrop blur + saturate
+   boost (so the haze behind shines through richer), top-edge
+   inner highlight, soft outer shadow. */
+.chrome {
+  position: relative;
+  background: linear-gradient(180deg, var(--surface-1) 0%, var(--surface-2) 100%);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--border);
+  box-shadow:
+    inset 0 1px 0 var(--highlight-rim),
+    inset 0 -1px 0 var(--highlight-rim-soft),
+    0 14px 44px -18px var(--shadow-card),
+    0 0 56px -24px var(--shadow-glow);
+}
+/* Recessed glass — for nested panels (the search input that lives
+   inside a glass card). Slightly darker fill so it reads "below". */
+.chrome-r {
+  position: relative;
+  background: linear-gradient(180deg, var(--surface-recessed-1) 0%, var(--surface-recessed-2) 100%);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--border-soft);
+  box-shadow: inset 0 1px 0 var(--highlight-rim-soft);
+}
+
+/* Solid glass — same edge treatment as .chrome but with an opaque
+   theme-base fill. Used by toolbars / panels that need to obscure
+   content scrolling underneath. */
+.chrome-solid {
+  position: relative;
+  background: linear-gradient(180deg, var(--surface-solid-1) 0%, var(--surface-solid-2) 100%);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--border);
+  box-shadow:
+    inset 0 1px 0 var(--highlight-rim),
+    0 14px 44px -18px var(--shadow-card);
+}
+
+/* --- glass buttons -------------------------------------------- */
+.btn-chrome {
+  background: linear-gradient(180deg, var(--surface-btn-1) 0%, var(--surface-btn-2) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--border);
+  box-shadow:
+    inset 0 1px 0 var(--highlight-rim);
+  transition:
+    background 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.btn-chrome:hover {
+  background: linear-gradient(180deg, var(--surface-btn-1-hover) 0%, var(--surface-btn-2-hover) 100%);
+  border-color: rgba(255, 169, 77, 0.40);
+  box-shadow:
+    inset 0 1px 0 var(--highlight-rim),
+    0 0 0 1px rgba(255, 169, 77, 0.18),
+    0 8px 28px -10px rgba(255, 169, 77, 0.36);
+  transform: translateY(-1px);
+}
+
+/* --- glass chips ---------------------------------------------- */
+.chip {
+  border: 1px solid var(--border-soft);
+  background: var(--surface-2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: rgb(var(--ink-dim-rgb));
+  white-space: nowrap;
+  transition: all 220ms ease;
+}
+.chip:hover {
+  color: rgb(var(--ink-rgb));
+  background: var(--surface-1);
+  border-color: var(--border);
+}
+.chip-on {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.22) 0%, rgba(196, 181, 253, 0.12) 100%);
+  border-color: rgba(255, 169, 77, 0.50);
+  color: #FFD7B5;
+  box-shadow:
+    inset 0 1px 0 var(--highlight-rim),
+    0 0 22px -6px rgba(255, 107, 107, 0.45);
+}
+[data-theme='light'] .chip-on {
+  color: #B91C1C;
+}
+
+/* --- toggle -------------------------------------------------- */
+.toggle {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  height: 20px; width: 36px;
+  border-radius: 9999px;
+  transition: background 220ms ease, border-color 220ms ease;
+}
+.toggle-on {
+  background: linear-gradient(135deg, #FF6B6B 0%, #C4B5FD 100%);
+  border-color: transparent;
+}
+.toggle-knob {
+  position: absolute;
+  top: 2px; left: 2px;
+  height: 16px; width: 16px;
+  border-radius: 9999px;
+  background: #fff;
+  transition: transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.toggle-on .toggle-knob {
+  transform: translateX(16px);
+}
+
+/* --- nav link underline -------------------------------------- */
+.nav-link {
+  position: relative;
+  color: rgb(var(--ink-dim-rgb));
+  transition: color 180ms ease;
+}
+.nav-link:hover,
+.nav-link[data-active='true'] {
+  color: rgb(var(--ink-rgb));
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #FF6B6B, #C4B5FD);
+  transition: width 220ms ease;
+}
+.nav-link:hover::after,
+.nav-link[data-active='true']::after {
+  width: 100%;
+}
+
+/* --- foil card hover lift (3D tilt) -------------------------- */
+.card-tilt {
+  transform-style: preserve-3d;
+  transition:
+    transform 380ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 380ms;
+}
+.card-tilt:hover {
+  transform: translateY(-3px) rotateX(2deg) rotateY(-2deg);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 36px 80px -28px rgba(255, 107, 107, 0.25),
+    0 0 0 1px rgba(255, 169, 77, 0.18);
+}
+@media (max-width: 767px) {
+  .card-tilt:hover { transform: none; }
+}
+
+/* --- foil overlays (vignette + specular highlight + noise) --- */
+.foil-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    transparent 35%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+}
+.foil-highlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+.foil-noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* --- horizontal divider -------------------------------------- */
+.line { border: 0; border-top: 1px solid var(--border-soft); }
+
+/* =============================================================
+   .arxiv-prose — re-themed LaTeXML output for paper detail.
+   Uses the global theme vars (--ink-rgb, --border, --surface-*) so
+   the rendered paper switches with the theme toggle.
+   ============================================================= */
+
+.arxiv-prose {
+  color: rgb(var(--ink-rgb) / 0.86);
+  font-size: 15px;
+  line-height: 1.7;
+}
+.arxiv-prose h1.ltx_title,
+.arxiv-prose .ltx_title_document {
+  font-family: 'Bricolage Grotesque', 'Geist', 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+  color: rgb(var(--ink-rgb));
+  margin: 0 0 0.5rem;
+}
+.arxiv-prose h2,
+.arxiv-prose .ltx_title_section {
+  font-family: 'Bricolage Grotesque', 'Geist', 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.015em;
+  color: rgb(var(--ink-rgb));
+  margin: 2.5rem 0 1rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border-soft);
+}
+.arxiv-prose h3,
+.arxiv-prose .ltx_title_subsection {
+  font-family: 'Bricolage Grotesque', 'Geist', 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  color: rgb(var(--ink-rgb));
+  margin: 1.75rem 0 0.5rem;
+}
+.arxiv-prose .ltx_abstract {
+  background: linear-gradient(180deg, var(--surface-1), var(--surface-2));
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0 2rem;
+}
+.arxiv-prose .ltx_abstract .ltx_title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgb(var(--ink-dim-rgb));
+  margin-bottom: 0.5rem;
+}
+.arxiv-prose p { margin: 0.75rem 0; }
+.arxiv-prose a {
+  color: #FFA94D;
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(255, 169, 77, 0.4);
+}
+[data-theme='light'] .arxiv-prose a { color: #B45309; border-bottom-color: rgba(180, 83, 9, 0.45); }
+.arxiv-prose a:hover { border-bottom-color: rgba(255, 169, 77, 0.8); }
+[data-theme='light'] .arxiv-prose a:hover { border-bottom-color: rgba(180, 83, 9, 0.85); }
+
+/* Figure container — caps width so wide images don't blow out the
+   column, gives images a sane max height so very tall figures don't
+   take half the viewport. */
+.arxiv-prose .ltx_figure,
+.arxiv-prose figure {
+  margin: 2rem 0;
+  background: var(--surface-2);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 1rem;
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Multi-panel figures: LaTeXML wraps sub-figures (e.g. (a) MNIST,
+   (b) FMNIST, (c) CIFAR-10, (d) ImageNet-1k) in a `.ltx_flex_figure`
+   div. Without flex layout each child <figure> inherits `display: block`
+   and stacks vertically — wrong. Force the flex container to a wrapping
+   row, strip the panel decoration off subfigures (the outer figure
+   already has it), and shrink the per-subfigure image cap accordingly. */
+.arxiv-prose .ltx_flex_figure {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 0.5rem 0;
+}
+.arxiv-prose .ltx_flex_figure > figure,
+.arxiv-prose .ltx_flex_figure > .ltx_figure,
+.arxiv-prose .ltx_flex_figure .ltx_figure_panel {
+  flex: 1 1 220px;
+  margin: 0;
+  background: transparent;
+  border: 0;
+  padding: 0.25rem;
+  min-width: 0;
+  max-width: 100%;
+}
+.arxiv-prose .ltx_flex_figure img,
+.arxiv-prose .ltx_flex_figure .arxiv-figure-img,
+.arxiv-prose .ltx_flex_figure svg {
+  max-height: 280px;
+}
+.arxiv-prose .arxiv-figure-img,
+.arxiv-prose img {
+  max-width: 50%;
+  max-height: 200px;
+  width: auto;
+  height: auto;
+  display: inline-block;
+  border-radius: 4px;
+  object-fit: contain;
+}
+/* SVGs from LaTeXML sometimes have explicit large viewBoxes — same caps. */
+.arxiv-prose svg {
+  max-width: 20%;
+  max-height: 200px;
+  height: auto;
+}
+/* Some figures wrap their image in a deeply nested `.ltx_picture` /
+   `.ltx_graphics`; constrain those too. */
+.arxiv-prose .ltx_picture,
+.arxiv-prose .ltx_graphics {
+  max-width: 50%;
+  max-height: 200px;
+  display: inline-block;
+}
+.arxiv-prose figcaption,
+.arxiv-prose .ltx_caption {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: rgb(var(--ink-dim-rgb));
+  margin-top: 0.75rem;
+  text-align: left;
+}
+
+.arxiv-prose .ltx_equation,
+.arxiv-prose .ltx_equationgroup {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+.arxiv-prose math {
+  font-size: 1.05em;
+  color: rgb(var(--ink-rgb));
+}
+.arxiv-prose .ltx_cite { color: #C4B5FD; }
+[data-theme='light'] .arxiv-prose .ltx_cite { color: #6D28D9; }
+.arxiv-prose .ltx_bibliography .ltx_bibitem {
+  font-size: 13px;
+  color: rgb(var(--ink-dim-rgb));
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+  text-indent: -1.5rem;
+}
+.arxiv-prose ul,
+.arxiv-prose ol {
+  margin: 0.75rem 0 0.75rem 1.5rem;
+}
+.arxiv-prose li { margin: 0.25rem 0; }
+.arxiv-prose pre,
+.arxiv-prose .ltx_verbatim {
+  background: var(--surface-recessed-1);
+  border: 1px solid var(--border-soft);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: rgb(var(--ink-rgb));
+}
+.arxiv-prose table.ltx_tabular {
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 13px;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.arxiv-prose table.ltx_tabular td,
+.arxiv-prose table.ltx_tabular th {
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.75rem;
+  color: rgb(var(--ink-rgb) / 0.92);
+}
+.arxiv-prose .katex { color: rgb(var(--ink-rgb)); }

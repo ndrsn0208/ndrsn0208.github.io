@@ -1,0 +1,74 @@
+# papers.toml — your publication list (edit by hand).
+#
+# Add an entry per paper. After editing, run:
+#
+#   python scripts/update_publications.py
+#
+# The script will:
+#   • fetch title / authors / abstract from arxiv,
+#   • cache the HTML version under public/arxiv-cache/,
+#   • summarize via the local Claude Code CLI (no API key needed),
+#   • generate the per-paper foil gradient,
+#   • write src/data/publications.json.
+#
+# Once you commit publications.json, the deployed site runs zero AI calls
+# in production — everything is baked in at update time.
+#
+# ── Schema ─────────────────────────────────────────────────────────────
+#   arxiv  (required) — arxiv id; bare ("2401.12345"), URL, or with `vN`
+#   venue  (optional) — e.g. "ICML 2026", "NeurIPS 2025". Defaults to
+#                       "arXiv {YYYY}" inferred from the arxiv id.
+#   award  (optional) — "spotlight", "oral", "best paper", etc. Renders
+#                       as a small badge on the card and detail page.
+# ───────────────────────────────────────────────────────────────────────
+
+[[paper]]
+arxiv = "2603.29895"
+venue = "CogSci 2026"
+
+[[paper]]
+arxiv = "2604.14489"
+venue = "ACL 2026"
+
+[[paper]]
+arxiv = "2510.02539"
+venue = "ACS 2025"
+
+[[paper]]
+arxiv = "2602.02417"
+
+[[paper]]
+arxiv = "2509.23593"
+venue = "ICLR 2026"
+
+[[paper]]
+arxiv = "2601.18065"
+venue = "ACL 2026"
+
+[[paper]]
+arxiv = "2511.15029"
+venue = "AAAI 2026"
+
+[[paper]]
+arxiv = "2509.23602"
+venue = "NeurIPS 2025"
+
+[[paper]]
+arxiv = "2505.24601"
+venue = "NeuS 2025"
+
+[[paper]]
+arxiv = "2505.13281"
+venue = "CogSci 2026"
+
+[[paper]]
+arxiv = "2405.13828"
+venue = "NAACL 2025"
+
+[[paper]]
+arxiv = "2305.12544"
+venue = "COLING 2024"
+
+[[paper]]
+arxiv = "2205.02829"
+venue = "ICOTS 2022"

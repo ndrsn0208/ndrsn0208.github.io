@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+<title>Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts</title>
+<!--Generated on Mon May 19 16:00:52 2025 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.-->
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/browse/0.3.4/css/ar5iv.0.7.9.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/browse/0.3.4/css/ar5iv-fonts.0.7.9.min.css" rel="stylesheet" type="text/css"/>
+<link href="/static/browse/0.3.4/css/latexml_styles.css" rel="stylesheet" type="text/css"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.3/html2canvas.min.js"></script>
+<script src="/static/browse/0.3.4/js/addons_new.js"></script>
+<script src="/static/browse/0.3.4/js/feedbackOverlay.js"></script>
+<base href="/html/2505.13281v1/"/></head>
+<body>
+<nav class="ltx_page_navbar">
+<nav class="ltx_TOC">
+<ol class="ltx_toclist">
+<li class="ltx_tocentry ltx_tocentry_section"><a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx1" title="In Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_title">Introduction</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx2" title="In Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_title">Related Work</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx2.SSx1" title="In Related Work ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_title">GT concept understanding in humans</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx2.SSx2" title="In Related Work ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_title">GT concept understanding in ML models</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx3" title="In Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_title">Method</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx3.SSx1" title="In Method ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_title">Models</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx3.SSx2" title="In Method ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_title">Stimuli and Datasets</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx3.SSx3" title="In Method ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_title">Evaluation on Neural Models</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx4" title="In Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_title">Results</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx4.SSx1" title="In Results ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_title">Overall sensitivity</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx4.SSx2" title="In Results ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_title">Sensitivity by class</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx4.SSx3" title="In Results ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_title">Alignment to human profiles</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx5" title="In Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_title">Discussion</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx5.SSx1" title="In Discussion ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_title">Transformer models show higher sensitivity to GT concepts</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx5.SSx2" title="In Discussion ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_title">Modality alignment with text reduces the sensitivity to GT concepts</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx5.SSx3" title="In Discussion ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_title">From cognitive alignment to developmental alignment</span></a></li>
+</ol>
+</li>
+</ol></nav>
+</nav>
+<div class="ltx_page_main">
+<div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_title_document">Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><span class="ltx_text ltx_font_bold" id="id1.1.id1">Zekun Wang (zekun@gatech.edu)</span>
+<br class="ltx_break"/>School of Interactive Computing 
+<br class="ltx_break"/>Atlanta, GA 30332 USA
+<span class="ltx_ERROR undefined" id="id2.2.id2">\AND</span><span class="ltx_text ltx_font_bold" id="id3.3.id3">Sashank Varma (varma@gatech.edu)</span>
+<br class="ltx_break"/>School of Interactive Computing 
+<br class="ltx_break"/>School of Psychology 
+<br class="ltx_break"/>Atlanta, GA 30332 USA
+</span></span>
+</div>
+<div class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="id4.id1">With the rapid improvement of machine learning (ML) models, cognitive scientists are increasingly asking about their alignment with how humans think. Here, we ask this question for computer vision models and human sensitivity to geometric and topological (GT) concepts. Under the <em class="ltx_emph ltx_font_italic" id="id4.id1.1">core knowledge</em> account, these concepts are innate and supported by dedicated neural circuitry.
+In this work, we investigate an alternative explanation, that GT concepts are learned “for free” through everyday interaction with the environment. We do so using computer visions models, which are trained on large image datasets. We build on prior studies to investigate the overall performance and human alignment of three classes of models – convolutional neural networks (CNNs), transformer-based models, and vision-language models – on an odd-one-out task testing 43 GT concepts spanning seven classes. Transformer-based models achieve the highest overall accuracy, surpassing that of young children. They also show strong alignment with children’s performance, finding the same classes of concepts easy vs. difficult. By contrast, vision-language models underperform their vision-only counterparts and deviate further from human profiles, indicating that naïve multimodality might compromise abstract geometric sensitivity. These findings support the use of computer vision models to evaluate the sufficiency of the learning account for explaining human sensitivity to GT concepts, while also suggesting that integrating linguistic and visual representations might have unpredicted deleterious consequences.</p>
+<p class="ltx_p" id="id5.id2"><span class="ltx_text ltx_font_bold" id="id5.id2.1">Keywords:</span>
+geometric reasoning; mathematical cognition; cognitive alignment; computer vision models; vision-language models</p>
+</div>
+<section class="ltx_section" id="Sx1">
+<h2 class="ltx_title ltx_title_section">Introduction</h2>
+<div class="ltx_para" id="Sx1.p1">
+<p class="ltx_p" id="Sx1.p1.1">Humans learn geometric and topological (GT) concepts through mathematics instruction. Long before they begin formal school, however, they show sensitivity to concepts such as shape, angle, rotation, and translation, leading to the proposal that they are part of <em class="ltx_emph ltx_font_italic" id="Sx1.p1.1.1">core knowledge</em>, i.e., innate and supported by dedicated neural circuitry <span class="ltx_text" id="Sx1.p1.1.2">(</span>?, ?). This may be the consequence of evolutionary processes building in sensitivity to the mathematical and spatial structure of the world, for example to support navigation <span class="ltx_text" id="Sx1.p1.1.3">(</span>?, ?, ?). Supporting evidence comes from the finding of similar sensitivities in non-human animals <span class="ltx_text" id="Sx1.p1.1.4">(</span>?, ?, ?, ?). The core knowledge account “explains” the emergence of GT concepts in young children who have not yet entered school and received formal mathematics instruction.</p>
+</div>
+<div class="ltx_para" id="Sx1.p2">
+<p class="ltx_p" id="Sx1.p2.1">A contrasting account is that GT concepts are learned “for free”, through everyday experience in the world. This account has been less studied, perhaps because a strong empirical test would require “ablation” studies where organisms are deprived of a typically rich environment in which to learn, raising ethical questions even for animal subjects.</p>
+</div>
+<div class="ltx_para" id="Sx1.p3">
+<p class="ltx_p" id="Sx1.p3.1">The recent rapid rise of deep learning models provides a new way to test the sufficiency of the learning account.
+These models are increasingly demonstrating human-level performance in domains ranging from language acquisition <span class="ltx_text" id="Sx1.p3.1.1">(</span>?, ?, ?, ?) to theory of mind <span class="ltx_text" id="Sx1.p3.1.2">(</span>?, ?, ?, ?) to mathematical reasoning <span class="ltx_text" id="Sx1.p3.1.3">(</span>?, ?, ?) to concept understanding <span class="ltx_text" id="Sx1.p3.1.4">(</span>?, ?, ?). In addition to their fidelity at the behavioral level, there is also increasing evidence of their fidelity at the brain level. Researchers have mapped the layers of convolutional neural network (CNN) models to areas of the human visual system, specifically the ventral visual stream <span class="ltx_text" id="Sx1.p3.1.5">(</span>?, ?, ?, ?, ?, ?, ?).
+<span class="ltx_text" id="Sx1.p3.1.6"></span>? (?) argues that despite differences in the underling learning processes of humans and ML models, we can use these models to derive new hypotheses about human cognition, and conversely we can use cognitiv (neuro)science data to train more human-like models. We adopt a similar view.</p>
+</div>
+<div class="ltx_para" id="Sx1.p4">
+<p class="ltx_p" id="Sx1.p4.1">The current study evaluates the sufficiency of the account that GT concepts are learned through experience in the world. It builds on prior studies that have used CNN models and found promising initial results. It replicates their findings and extends their approach to two new and important classes of computer vision models. The first is vision transformer models, which are notable not just for their different architecture but also for their larger size and ability to be trained on more data. The second class is vision-language models, which learn about both the visual-spatial structure of the environment and also its linguistic structure, and the mapping between the two. These models are of potential cognitive interest given that <em class="ltx_emph ltx_font_italic" id="Sx1.p4.1.1">dual-coding theory</em> <span class="ltx_text" id="Sx1.p4.1.2">(</span>?, ?) suggests that processing information through both non-verbal and verbal channels should be advantageous. We compare these three classes of ML models to humans in three research questions:</p>
+</div>
+<div class="ltx_para" id="Sx1.p5">
+<ol class="ltx_enumerate" id="Sx1.I1">
+<li class="ltx_item" id="Sx1.I1.i1" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">1.</span>
+<div class="ltx_para" id="Sx1.I1.i1.p1">
+<p class="ltx_p" id="Sx1.I1.i1.p1.1">Do CNNs, transformers, and/or vision-language models approach (or even exceed) the sensitivity to GT concepts shown by children and adults?</p>
+</div>
+</li>
+<li class="ltx_item" id="Sx1.I1.i2" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">2.</span>
+<div class="ltx_para" id="Sx1.I1.i2.p1">
+<p class="ltx_p" id="Sx1.I1.i2.p1.1">Which models / architectures best align with human performance, i.e., find the same classes of concepts easy vs. difficult. Is their alignment close enough to consider them viable cognitive science models?</p>
+</div>
+</li>
+<li class="ltx_item" id="Sx1.I1.i3" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">3.</span>
+<div class="ltx_para" id="Sx1.I1.i3.p1">
+<p class="ltx_p" id="Sx1.I1.i3.p1.1">How does adding language (i.e., symbols) to vision (i.e., space) affect the overall sensitivity and class-by-class alignment of vision-language models?</p>
+</div>
+</li>
+</ol>
+</div>
+</section>
+<section class="ltx_section" id="Sx2">
+<h2 class="ltx_title ltx_title_section">Related Work</h2>
+<section class="ltx_subsection" id="Sx2.SSx1">
+<h3 class="ltx_title ltx_title_subsection">GT concept understanding in humans</h3>
+<div class="ltx_para" id="Sx2.SSx1.p1">
+<p class="ltx_p" id="Sx2.SSx1.p1.1"><span class="ltx_text" id="Sx2.SSx1.p1.1.1"></span>? (?) conducted a pioneering and comprehensive study of human sensitivity to GT concepts. They developed a purely visual task that was appropriate even for participants with no formal mathematics education. In this task, each stimulus consists of six images. Five images embody a particular GT concept but the sixth does not. The images otherwise vary in their visual features. The participant is simply asked to indicate the “odd one out”. They developed stimuli for 43 individual concepts spanning seven broader classes: Topology, Euclidean Geometry, Geometrical Figures, Symmetrical Figures, Chiral Figures, Metric Properties, and Geometrical Transformations.
+See <a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx2.F1" title="In GT concept understanding in humans ‣ Related Work ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_tag">Figure</span> <span class="ltx_text ltx_ref_tag">1</span></a> for example stimuli for 7 concepts.</p>
+</div>
+<div class="ltx_para" id="Sx2.SSx1.p2">
+<p class="ltx_p" id="Sx2.SSx1.p2.1"><span class="ltx_text" id="Sx2.SSx1.p2.1.1"></span>? (?) found that the Mundurucu, an indigenous Amazonian group whose members have no formal schooling, were nevertheless sensitive to 39 of the 43 concepts. Moreover, the Mundurucu adults and children performed comparably. <span class="ltx_text" id="Sx2.SSx1.p2.1.2"></span>? (?) replicated these findings using a modified 2 alternative forced-choice version of the odd-one-out task, and furthermore showed that cognitive ability in general (i.e., fluid intelligence) and visuospatial ability in particular (i.e., mental rotation) explained only a small portion of the variability in people’s performance. <span class="ltx_text" id="Sx2.SSx1.p2.1.3"></span>? (?) extended the <span class="ltx_text" id="Sx2.SSx1.p2.1.4"></span>? (?) study to people from the US. A distinctive contribution was testing both young children (ages 3–6 years) and adults. The young children also displayed sensitivity to GT concepts, displaying above-chance performance for 27 of the 43 concepts. The finding of sensitivity to GT concepts in samples that have had no formal schooling has been generally interpreted as evidence for the core knowledge account.</p>
+</div>
+<div class="ltx_para" id="Sx2.SSx1.p3">
+<p class="ltx_p" id="Sx2.SSx1.p3.1">Interestingly, the three studies found similar variation in the relative difficulty of different GT concepts. For example, participants from all groups – Mundurucu and Western, children and adults – were highly accurate for Euclidean Geometry concepts, but found Geometrical Transformations to be difficult. Capturing this variability is an important goal.</p>
+</div>
+<figure class="ltx_figure" id="Sx2.F1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="264" id="Sx2.F1.g1" src="x1.png" width="705"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>Example stimuli from the 7 categories from <span class="ltx_text" id="Sx2.F1.2.1"></span>? (?). The odd-one-out is indicated by the red box.</figcaption>
+</figure>
+</section>
+<section class="ltx_subsection" id="Sx2.SSx2">
+<h3 class="ltx_title ltx_title_subsection">GT concept understanding in ML models</h3>
+<div class="ltx_para" id="Sx2.SSx2.p1">
+<p class="ltx_p" id="Sx2.SSx2.p1.1">Computer vision researchers have documented the sensitivity of CNN models to various GT concepts. <span class="ltx_text" id="Sx2.SSx2.p1.1.1"></span>? (?) showed that CNNs with affine transformation are sensitive to parallel lines but insensitive to the affine transformation themselves because affine transformation preserves parallel lines. <span class="ltx_text" id="Sx2.SSx2.p1.1.2"></span>? (?) demonstrated that training on datasets augmented with rotated images can make CNNs invariant to rotation transformations, which potentially <em class="ltx_emph ltx_font_italic" id="Sx2.SSx2.p1.1.3">works against</em> sensitivity to the rotation concept within the Geometric Transformation class. <span class="ltx_text" id="Sx2.SSx2.p1.1.4"></span>? (?) provide a comprehensive review of approaches to extending the CNN architecture to handle non-trivial geometric transformations.</p>
+</div>
+<div class="ltx_para" id="Sx2.SSx2.p2">
+<p class="ltx_p" id="Sx2.SSx2.p2.1">The goal of this research – to develop models that are invariant to different geometric transformations, for the purpose of better generalization – makes sense for computer vision. For cognitive science, the question is whether these models learn human-like sensitivities. <span class="ltx_text" id="Sx2.SSx2.p2.1.1"></span>? (?) tested the sensitivity of CNNs to Euclidean geometry concepts, finding that humans outperform CNNs pre-trained on the ImageNet <span class="ltx_text" id="Sx2.SSx2.p2.1.2">(</span>?, ?).
+In the direct precursor to the current study, <span class="ltx_text" id="Sx2.SSx2.p2.1.3"></span>? (?) investigated the sensitivity of a broad range of CNN models to the 43 GT concepts of <span class="ltx_text" id="Sx2.SSx2.p2.1.4"></span>? (?). ResNet-18 <span class="ltx_text" id="Sx2.SSx2.p2.1.5">(</span>?, ?) showed the highest overall accuracy, though it was still below that of the young children of the <span class="ltx_text" id="Sx2.SSx2.p2.1.6"></span>? (?) study. They also found medium-size correlations (<math alttext="r\approx 0.55" class="ltx_Math" display="inline" id="Sx2.SSx2.p2.1.m1.1"><semantics id="Sx2.SSx2.p2.1.m1.1a"><mrow id="Sx2.SSx2.p2.1.m1.1.1" xref="Sx2.SSx2.p2.1.m1.1.1.cmml"><mi id="Sx2.SSx2.p2.1.m1.1.1.2" xref="Sx2.SSx2.p2.1.m1.1.1.2.cmml">r</mi><mo id="Sx2.SSx2.p2.1.m1.1.1.1" xref="Sx2.SSx2.p2.1.m1.1.1.1.cmml">≈</mo><mn id="Sx2.SSx2.p2.1.m1.1.1.3" xref="Sx2.SSx2.p2.1.m1.1.1.3.cmml">0.55</mn></mrow><annotation-xml encoding="MathML-Content" id="Sx2.SSx2.p2.1.m1.1b"><apply id="Sx2.SSx2.p2.1.m1.1.1.cmml" xref="Sx2.SSx2.p2.1.m1.1.1"><approx id="Sx2.SSx2.p2.1.m1.1.1.1.cmml" xref="Sx2.SSx2.p2.1.m1.1.1.1"></approx><ci id="Sx2.SSx2.p2.1.m1.1.1.2.cmml" xref="Sx2.SSx2.p2.1.m1.1.1.2">𝑟</ci><cn id="Sx2.SSx2.p2.1.m1.1.1.3.cmml" type="float" xref="Sx2.SSx2.p2.1.m1.1.1.3">0.55</cn></apply></annotation-xml><annotation encoding="application/x-tex" id="Sx2.SSx2.p2.1.m1.1c">r\approx 0.55</annotation><annotation encoding="application/x-llamapun" id="Sx2.SSx2.p2.1.m1.1d">italic_r ≈ 0.55</annotation></semantics></math>) between the CNN models and humans in their average accuracies across the seven classes of GT concepts. Thus, there is some evidence of alignment, but also much room for improvement.
+In another related study, <span class="ltx_text" id="Sx2.SSx2.p2.1.7"></span>? (?) explored the sensitivity of vision transformer models such as DINOv2 <span class="ltx_text" id="Sx2.SSx2.p2.1.8">(</span>?, ?) and CLIP <span class="ltx_text" id="Sx2.SSx2.p2.1.9">(</span>?, ?) to the Geometric Regularity stimuli of <span class="ltx_text" id="Sx2.SSx2.p2.1.10"></span>? (?) and the Geometric Parts and Relations stimuli of <span class="ltx_text" id="Sx2.SSx2.p2.1.11"></span>? (?). These newer models showed stronger alignment with human performance than the older CNN model ResNet-50 <span class="ltx_text" id="Sx2.SSx2.p2.1.12">(</span>?, ?).</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="Sx3">
+<h2 class="ltx_title ltx_title_section">Method</h2>
+<section class="ltx_subsection" id="Sx3.SSx1">
+<h3 class="ltx_title ltx_title_subsection">Models</h3>
+<div class="ltx_para" id="Sx3.SSx1.p1">
+<p class="ltx_p" id="Sx3.SSx1.p1.1">The current study explored the sensitivity to GT concepts and the human alignment of three classes of models – CNNs, Transformers, and Vision-Language Models (VLMs). We selected the following examples of each class:</p>
+</div>
+<div class="ltx_para" id="Sx3.SSx1.p2">
+<ul class="ltx_itemize" id="Sx3.I2">
+<li class="ltx_item" id="Sx3.I2.i1" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="Sx3.I2.i1.p1">
+<p class="ltx_p" id="Sx3.I2.i1.p1.1"><span class="ltx_text ltx_font_bold" id="Sx3.I2.i1.p1.1.1">CNNs</span>: ResNet-50, ResNet-18 <span class="ltx_text" id="Sx3.I2.i1.p1.1.2">(</span>?, ?), and EfficientNet <span class="ltx_text" id="Sx3.I2.i1.p1.1.3">(</span>?, ?)</p>
+</div>
+</li>
+<li class="ltx_item" id="Sx3.I2.i2" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="Sx3.I2.i2.p1">
+<p class="ltx_p" id="Sx3.I2.i2.p1.1"><span class="ltx_text ltx_font_bold" id="Sx3.I2.i2.p1.1.1">Transformers</span>: Vision Transformer (ViT) <span class="ltx_text" id="Sx3.I2.i2.p1.1.2">(</span>?, ?) and DINOv2 <span class="ltx_text" id="Sx3.I2.i2.p1.1.3">(</span>?, ?)</p>
+</div>
+</li>
+<li class="ltx_item" id="Sx3.I2.i3" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="Sx3.I2.i3.p1">
+<p class="ltx_p" id="Sx3.I2.i3.p1.1"><span class="ltx_text ltx_font_bold" id="Sx3.I2.i3.p1.1.1">VLMs</span>: CLIP <span class="ltx_text" id="Sx3.I2.i3.p1.1.2">(</span>?, ?) with either a CNN or ViT vision backbone, and ALIGN <span class="ltx_text" id="Sx3.I2.i3.p1.1.3">(</span>?, ?)</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx3.SSx1.p3">
+<p class="ltx_p" id="Sx3.SSx1.p3.1">Some models were selected based on prior research. In particular, <span class="ltx_text" id="Sx3.SSx1.p3.1.1"></span>? (?) found ResNet-18 to be the CNN model that showed the greatest sensitivity to the GT concepts of <span class="ltx_text" id="Sx3.SSx1.p3.1.2"></span>? (?), and <span class="ltx_text" id="Sx3.SSx1.p3.1.3"></span>? (?) explored the geometric sensitivity of CLIP, DINOv2, and ResNet-50.</p>
+</div>
+<div class="ltx_para" id="Sx3.SSx1.p4">
+<p class="ltx_p" id="Sx3.SSx1.p4.1">We use versions of these models that are publicly available on <span class="ltx_text ltx_font_italic" id="Sx3.SSx1.p4.1.1">Huggingface</span>. For a fair comparison to the CNN-based models, we used the “base” size variants of the Transformer and VLM models.
+All vision-only models (CNNs and Transformers) except for DINOv2 were trained on image classification tasks using supervised (image, class label) pairs.
+DINOv2 was trained in a self-supervised manner on the LVD-142M dataset <span class="ltx_text" id="Sx3.SSx1.p4.1.2">(</span>?, ?), a large-scale data set curated specifically for this model. It contains ImageNet-21k without requiring manual labels for its learning objective.
+Specifically, it uses a self-distillation loss on both image-level and patch-level representations, where a teacher model provides soft targets for a student model to learn robust representations.
+All CNN models were trained on ImageNet-1k, a subset of the much larger ImageNet-21k dataset used to train the Transformers.
+The VLM models were trained on the contrastive loss between (image, caption) pairs to maximize the similarity between the hidden representations of related images and captions.
+The training datasets for contrastive learning usually have to be much larger in size than those for learning image classification, and are not publicly available.
+Notably, the publicly available version of ALIGN was trained on a publicly available dataset, COYO <span class="ltx_text" id="Sx3.SSx1.p4.1.3">(</span>?, ?), and achieves comparable or superior performance to the original, non-public ALIGN model. <a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx3.T1" title="In Stimuli and Datasets ‣ Method ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_tag">Table</span> <span class="ltx_text ltx_ref_tag">1</span></a> summarizes the key properties of the models and their training.</p>
+</div>
+</section>
+<section class="ltx_subsection" id="Sx3.SSx2">
+<h3 class="ltx_title ltx_title_subsection">Stimuli and Datasets</h3>
+<div class="ltx_para" id="Sx3.SSx2.p1">
+<p class="ltx_p" id="Sx3.SSx2.p1.1">We use the stimulus set from <span class="ltx_text" id="Sx3.SSx2.p1.1.1"></span>? (?). The set consists of 43 stimuli (or ‘tasks’). Each stimulus corresponds to a GT concept (e.g., parallel lines). It is composed of 6 images, 5 of which embody that concept and 1 of which does not. The task is to select the odd-one-out image (see <a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx2.F1" title="In GT concept understanding in humans ‣ Related Work ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_tag">Figure</span> <span class="ltx_text ltx_ref_tag">1</span></a>). The 43 stimuli can be grouped into 7 categories (<em class="ltx_emph ltx_font_italic" id="Sx3.SSx2.p1.1.2">N</em>): Topology (4), Euclidean Geometry (8), Geometrical Figures (9), Symmetrical Figures (3), Chiral Figures (4), Metric Properties (7), and Geometrical Transformations (8).</p>
+</div>
+<div class="ltx_para" id="Sx3.SSx2.p2">
+<p class="ltx_p" id="Sx3.SSx2.p2.1">We obtained three human datasets from published studies. The first dataset comes from <span class="ltx_text" id="Sx3.SSx2.p2.1.1"></span>? (?), who measured the performance of Mundurucu adults and children. This is an indigenous Amazonian group whose members inhabit isolated communities and receive little or no formal education. (That study found comparable performance in the two age groups.) From <span class="ltx_text" id="Sx3.SSx2.p2.1.2"></span>? (?) we have the performance of Western children between the ages of 3 and 6, forming the second dataset, and from Western adults between the ages 18 and 25, forming the third dataset.</p>
+</div>
+<figure class="ltx_table" id="Sx3.T1">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="Sx3.T1.1">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="Sx3.T1.1.1.1">
+<th class="ltx_td ltx_align_justify ltx_align_top ltx_th ltx_th_row ltx_border_r ltx_border_tt" id="Sx3.T1.1.1.1.1">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.1.1.1.1">
+<span class="ltx_p" id="Sx3.T1.1.1.1.1.1.1" style="width:35.6pt;"><span class="ltx_text ltx_font_bold" id="Sx3.T1.1.1.1.1.1.1.1">Type</span></span>
+</span>
+</th>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_tt" id="Sx3.T1.1.1.1.2">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.1.1.2.1">
+<span class="ltx_p" id="Sx3.T1.1.1.1.2.1.1" style="width:37.0pt;"><span class="ltx_text ltx_font_bold" id="Sx3.T1.1.1.1.2.1.1.1">Model</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_tt" id="Sx3.T1.1.1.1.3">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.1.1.3.1">
+<span class="ltx_p" id="Sx3.T1.1.1.1.3.1.1" style="width:28.5pt;"><span class="ltx_text ltx_font_bold" id="Sx3.T1.1.1.1.3.1.1.1"># Params</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_tt" id="Sx3.T1.1.1.1.4">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.1.1.4.1">
+<span class="ltx_p" id="Sx3.T1.1.1.1.4.1.1" style="width:50.4pt;"><span class="ltx_text ltx_font_bold" id="Sx3.T1.1.1.1.4.1.1.1">Dataset</span></span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_tt" id="Sx3.T1.1.1.1.5">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.1.1.5.1">
+<span class="ltx_p" id="Sx3.T1.1.1.1.5.1.1" style="width:34.1pt;"><span class="ltx_text ltx_font_bold" id="Sx3.T1.1.1.1.5.1.1.1"># Training Data</span></span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr" id="Sx3.T1.1.2.2">
+<th class="ltx_td ltx_align_justify ltx_align_top ltx_th ltx_th_row ltx_border_r ltx_border_t" id="Sx3.T1.1.2.2.1" rowspan="2">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.2.2.1.1">
+<span class="ltx_p" id="Sx3.T1.1.2.2.1.1.1" style="width:35.6pt;"><span class="ltx_text" id="Sx3.T1.1.2.2.1.1.1.1">Transformers</span></span>
+</span>
+</th>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" id="Sx3.T1.1.2.2.2">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.2.2.2.1">
+<span class="ltx_p" id="Sx3.T1.1.2.2.2.1.1" style="width:37.0pt;">ViT</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" id="Sx3.T1.1.2.2.3">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.2.2.3.1">
+<span class="ltx_p" id="Sx3.T1.1.2.2.3.1.1" style="width:28.5pt;">86M</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" id="Sx3.T1.1.2.2.4">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.2.2.4.1">
+<span class="ltx_p" id="Sx3.T1.1.2.2.4.1.1" style="width:50.4pt;">ImageNet-21k</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" id="Sx3.T1.1.2.2.5">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.2.2.5.1">
+<span class="ltx_p" id="Sx3.T1.1.2.2.5.1.1" style="width:34.1pt;">14M</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr" id="Sx3.T1.1.3.3">
+<td class="ltx_td ltx_align_justify ltx_align_top" id="Sx3.T1.1.3.3.1">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.3.3.1.1">
+<span class="ltx_p" id="Sx3.T1.1.3.3.1.1.1" style="width:37.0pt;">DINOv2</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top" id="Sx3.T1.1.3.3.2">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.3.3.2.1">
+<span class="ltx_p" id="Sx3.T1.1.3.3.2.1.1" style="width:28.5pt;">86M</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top" id="Sx3.T1.1.3.3.3">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.3.3.3.1">
+<span class="ltx_p" id="Sx3.T1.1.3.3.3.1.1" style="width:50.4pt;">LVD-142M</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top" id="Sx3.T1.1.3.3.4">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.3.3.4.1">
+<span class="ltx_p" id="Sx3.T1.1.3.3.4.1.1" style="width:34.1pt;">142M</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr" id="Sx3.T1.1.4.4">
+<th class="ltx_td ltx_align_justify ltx_align_top ltx_th ltx_th_row ltx_border_r ltx_border_t" id="Sx3.T1.1.4.4.1" rowspan="3">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.4.4.1.1">
+<span class="ltx_p" id="Sx3.T1.1.4.4.1.1.1" style="width:35.6pt;"><span class="ltx_text" id="Sx3.T1.1.4.4.1.1.1.1">CNN</span></span>
+</span>
+</th>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" id="Sx3.T1.1.4.4.2">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.4.4.2.1">
+<span class="ltx_p" id="Sx3.T1.1.4.4.2.1.1" style="width:37.0pt;">ResNet-50</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" id="Sx3.T1.1.4.4.3">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.4.4.3.1">
+<span class="ltx_p" id="Sx3.T1.1.4.4.3.1.1" style="width:28.5pt;">26M</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" id="Sx3.T1.1.4.4.4">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.4.4.4.1">
+<span class="ltx_p" id="Sx3.T1.1.4.4.4.1.1" style="width:50.4pt;">ImageNet-1k</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" id="Sx3.T1.1.4.4.5">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.4.4.5.1">
+<span class="ltx_p" id="Sx3.T1.1.4.4.5.1.1" style="width:34.1pt;">1.3M</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr" id="Sx3.T1.1.5.5">
+<td class="ltx_td ltx_align_justify ltx_align_top" id="Sx3.T1.1.5.5.1">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.5.5.1.1">
+<span class="ltx_p" id="Sx3.T1.1.5.5.1.1.1" style="width:37.0pt;">ResNet-18</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top" id="Sx3.T1.1.5.5.2">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.5.5.2.1">
+<span class="ltx_p" id="Sx3.T1.1.5.5.2.1.1" style="width:28.5pt;">11M</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top" id="Sx3.T1.1.5.5.3">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.5.5.3.1">
+<span class="ltx_p" id="Sx3.T1.1.5.5.3.1.1" style="width:50.4pt;">ImageNet-1k</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top" id="Sx3.T1.1.5.5.4">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.5.5.4.1">
+<span class="ltx_p" id="Sx3.T1.1.5.5.4.1.1" style="width:34.1pt;">1.3M</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr" id="Sx3.T1.1.6.6">
+<td class="ltx_td ltx_align_justify ltx_align_top" id="Sx3.T1.1.6.6.1">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.6.6.1.1">
+<span class="ltx_p" id="Sx3.T1.1.6.6.1.1.1" style="width:37.0pt;">EfficientNet</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top" id="Sx3.T1.1.6.6.2">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.6.6.2.1">
+<span class="ltx_p" id="Sx3.T1.1.6.6.2.1.1" style="width:28.5pt;">66M</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top" id="Sx3.T1.1.6.6.3">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.6.6.3.1">
+<span class="ltx_p" id="Sx3.T1.1.6.6.3.1.1" style="width:50.4pt;">ImageNet-1k</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top" id="Sx3.T1.1.6.6.4">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.6.6.4.1">
+<span class="ltx_p" id="Sx3.T1.1.6.6.4.1.1" style="width:34.1pt;">1.3M</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr" id="Sx3.T1.1.7.7">
+<th class="ltx_td ltx_align_justify ltx_align_top ltx_th ltx_th_row ltx_border_r ltx_border_t" id="Sx3.T1.1.7.7.1" rowspan="2">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.7.7.1.1">
+<span class="ltx_p" id="Sx3.T1.1.7.7.1.1.1" style="width:35.6pt;"><span class="ltx_text" id="Sx3.T1.1.7.7.1.1.1.1">VLM</span></span>
+</span>
+</th>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" id="Sx3.T1.1.7.7.2">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.7.7.2.1">
+<span class="ltx_p" id="Sx3.T1.1.7.7.2.1.1" style="width:37.0pt;">CLIP-RN50</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" id="Sx3.T1.1.7.7.3">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.7.7.3.1">
+<span class="ltx_p" id="Sx3.T1.1.7.7.3.1.1" style="width:28.5pt;">90M</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" id="Sx3.T1.1.7.7.4">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.7.7.4.1">
+<span class="ltx_p" id="Sx3.T1.1.7.7.4.1.1" style="width:50.4pt;">WIT</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_t" id="Sx3.T1.1.7.7.5">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.7.7.5.1">
+<span class="ltx_p" id="Sx3.T1.1.7.7.5.1.1" style="width:34.1pt;">400M</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr" id="Sx3.T1.1.8.8">
+<td class="ltx_td ltx_align_justify ltx_align_top" id="Sx3.T1.1.8.8.1">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.8.8.1.1">
+<span class="ltx_p" id="Sx3.T1.1.8.8.1.1.1" style="width:37.0pt;">CLIP-ViT</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top" id="Sx3.T1.1.8.8.2">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.8.8.2.1">
+<span class="ltx_p" id="Sx3.T1.1.8.8.2.1.1" style="width:28.5pt;">150M</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top" id="Sx3.T1.1.8.8.3">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.8.8.3.1">
+<span class="ltx_p" id="Sx3.T1.1.8.8.3.1.1" style="width:50.4pt;">WIT</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top" id="Sx3.T1.1.8.8.4">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.8.8.4.1">
+<span class="ltx_p" id="Sx3.T1.1.8.8.4.1.1" style="width:34.1pt;">400M</span>
+</span>
+</td>
+</tr>
+<tr class="ltx_tr" id="Sx3.T1.1.9.9">
+<th class="ltx_td ltx_align_top ltx_th ltx_th_row ltx_border_bb ltx_border_r" id="Sx3.T1.1.9.9.1"></th>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_bb" id="Sx3.T1.1.9.9.2">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.9.9.2.1">
+<span class="ltx_p" id="Sx3.T1.1.9.9.2.1.1" style="width:37.0pt;">ALIGN</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_bb" id="Sx3.T1.1.9.9.3">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.9.9.3.1">
+<span class="ltx_p" id="Sx3.T1.1.9.9.3.1.1" style="width:28.5pt;">174M</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_bb" id="Sx3.T1.1.9.9.4">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.9.9.4.1">
+<span class="ltx_p" id="Sx3.T1.1.9.9.4.1.1" style="width:50.4pt;">COYO</span>
+</span>
+</td>
+<td class="ltx_td ltx_align_justify ltx_align_top ltx_border_bb" id="Sx3.T1.1.9.9.5">
+<span class="ltx_inline-block ltx_align_top" id="Sx3.T1.1.9.9.5.1">
+<span class="ltx_p" id="Sx3.T1.1.9.9.5.1.1" style="width:34.1pt;">700M</span>
+</span>
+</td>
+</tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 1: </span>The eight models, their parameters, datasets, and training data sizes.</figcaption>
+</figure>
+</section>
+<section class="ltx_subsection" id="Sx3.SSx3">
+<h3 class="ltx_title ltx_title_subsection">Evaluation on Neural Models</h3>
+<div class="ltx_para" id="Sx3.SSx3.p1">
+<p class="ltx_p" id="Sx3.SSx3.p1.1">We followed the evaluation method of the earlier CNN study by <span class="ltx_text" id="Sx3.SSx3.p1.1.1"></span>? (?); see also <span class="ltx_text" id="Sx3.SSx3.p1.1.2"></span>? (?), <span class="ltx_text" id="Sx3.SSx3.p1.1.3"></span>? (?), and <span class="ltx_text" id="Sx3.SSx3.p1.1.4"></span>? (?). We first re-scaled and cropped the 6 images in each stimulus to a size of <math alttext="224\times 224" class="ltx_Math" display="inline" id="Sx3.SSx3.p1.1.m1.1"><semantics id="Sx3.SSx3.p1.1.m1.1a"><mrow id="Sx3.SSx3.p1.1.m1.1.1" xref="Sx3.SSx3.p1.1.m1.1.1.cmml"><mn id="Sx3.SSx3.p1.1.m1.1.1.2" xref="Sx3.SSx3.p1.1.m1.1.1.2.cmml">224</mn><mo id="Sx3.SSx3.p1.1.m1.1.1.1" lspace="0.222em" rspace="0.222em" xref="Sx3.SSx3.p1.1.m1.1.1.1.cmml">×</mo><mn id="Sx3.SSx3.p1.1.m1.1.1.3" xref="Sx3.SSx3.p1.1.m1.1.1.3.cmml">224</mn></mrow><annotation-xml encoding="MathML-Content" id="Sx3.SSx3.p1.1.m1.1b"><apply id="Sx3.SSx3.p1.1.m1.1.1.cmml" xref="Sx3.SSx3.p1.1.m1.1.1"><times id="Sx3.SSx3.p1.1.m1.1.1.1.cmml" xref="Sx3.SSx3.p1.1.m1.1.1.1"></times><cn id="Sx3.SSx3.p1.1.m1.1.1.2.cmml" type="integer" xref="Sx3.SSx3.p1.1.m1.1.1.2">224</cn><cn id="Sx3.SSx3.p1.1.m1.1.1.3.cmml" type="integer" xref="Sx3.SSx3.p1.1.m1.1.1.3">224</cn></apply></annotation-xml><annotation encoding="application/x-tex" id="Sx3.SSx3.p1.1.m1.1c">224\times 224</annotation><annotation encoding="application/x-llamapun" id="Sx3.SSx3.p1.1.m1.1d">224 × 224</annotation></semantics></math>. We then passed the images into the pre-trained models and collected their representations from the final hidden layer <span class="ltx_note ltx_role_footnote" id="footnote1"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup><span class="ltx_tag ltx_tag_note">1</span>The layer before any projection or classification.</span></span></span>. In the VLMs, the images were processed entirely by the image encoders. After collecting the image representations, we compute pairwise cosine similarities between the 6 images, and then for each image we computed its average cosine similarity to the other 5 images. The image with the lowest average cosine similarity was selected as the odd-one-out. We repeated this process for all stimuli and for all models.</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="Sx4">
+<h2 class="ltx_title ltx_title_section">Results</h2>
+<section class="ltx_subsection" id="Sx4.SSx1">
+<h3 class="ltx_title ltx_title_subsection">Overall sensitivity</h3>
+<div class="ltx_para" id="Sx4.SSx1.p1">
+<p class="ltx_p" id="Sx4.SSx1.p1.6">For each model, we computed the overall accuracy averaged across the 43 concepts. <a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx4.F2" title="In Overall sensitivity ‣ Results ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_tag">Figure</span> <span class="ltx_text ltx_ref_tag">2</span></a> shows these measures along with the overall accuracy in each of the human datasets. All but one of the models achieve higher overall accuracies than would be predicted by chance (<math alttext="16.67\%" class="ltx_Math" display="inline" id="Sx4.SSx1.p1.1.m1.1"><semantics id="Sx4.SSx1.p1.1.m1.1a"><mrow id="Sx4.SSx1.p1.1.m1.1.1" xref="Sx4.SSx1.p1.1.m1.1.1.cmml"><mn id="Sx4.SSx1.p1.1.m1.1.1.2" xref="Sx4.SSx1.p1.1.m1.1.1.2.cmml">16.67</mn><mo id="Sx4.SSx1.p1.1.m1.1.1.1" xref="Sx4.SSx1.p1.1.m1.1.1.1.cmml">%</mo></mrow><annotation-xml encoding="MathML-Content" id="Sx4.SSx1.p1.1.m1.1b"><apply id="Sx4.SSx1.p1.1.m1.1.1.cmml" xref="Sx4.SSx1.p1.1.m1.1.1"><csymbol cd="latexml" id="Sx4.SSx1.p1.1.m1.1.1.1.cmml" xref="Sx4.SSx1.p1.1.m1.1.1.1">percent</csymbol><cn id="Sx4.SSx1.p1.1.m1.1.1.2.cmml" type="float" xref="Sx4.SSx1.p1.1.m1.1.1.2">16.67</cn></apply></annotation-xml><annotation encoding="application/x-tex" id="Sx4.SSx1.p1.1.m1.1c">16.67\%</annotation><annotation encoding="application/x-llamapun" id="Sx4.SSx1.p1.1.m1.1d">16.67 %</annotation></semantics></math>), <math alttext="z" class="ltx_Math" display="inline" id="Sx4.SSx1.p1.2.m2.1"><semantics id="Sx4.SSx1.p1.2.m2.1a"><mi id="Sx4.SSx1.p1.2.m2.1.1" xref="Sx4.SSx1.p1.2.m2.1.1.cmml">z</mi><annotation-xml encoding="MathML-Content" id="Sx4.SSx1.p1.2.m2.1b"><ci id="Sx4.SSx1.p1.2.m2.1.1.cmml" xref="Sx4.SSx1.p1.2.m2.1.1">𝑧</ci></annotation-xml><annotation encoding="application/x-tex" id="Sx4.SSx1.p1.2.m2.1c">z</annotation><annotation encoding="application/x-llamapun" id="Sx4.SSx1.p1.2.m2.1d">italic_z</annotation></semantics></math>s <math alttext="&gt;2.3" class="ltx_Math" display="inline" id="Sx4.SSx1.p1.3.m3.1"><semantics id="Sx4.SSx1.p1.3.m3.1a"><mrow id="Sx4.SSx1.p1.3.m3.1.1" xref="Sx4.SSx1.p1.3.m3.1.1.cmml"><mi id="Sx4.SSx1.p1.3.m3.1.1.2" xref="Sx4.SSx1.p1.3.m3.1.1.2.cmml"></mi><mo id="Sx4.SSx1.p1.3.m3.1.1.1" xref="Sx4.SSx1.p1.3.m3.1.1.1.cmml">&gt;</mo><mn id="Sx4.SSx1.p1.3.m3.1.1.3" xref="Sx4.SSx1.p1.3.m3.1.1.3.cmml">2.3</mn></mrow><annotation-xml encoding="MathML-Content" id="Sx4.SSx1.p1.3.m3.1b"><apply id="Sx4.SSx1.p1.3.m3.1.1.cmml" xref="Sx4.SSx1.p1.3.m3.1.1"><gt id="Sx4.SSx1.p1.3.m3.1.1.1.cmml" xref="Sx4.SSx1.p1.3.m3.1.1.1"></gt><csymbol cd="latexml" id="Sx4.SSx1.p1.3.m3.1.1.2.cmml" xref="Sx4.SSx1.p1.3.m3.1.1.2">absent</csymbol><cn id="Sx4.SSx1.p1.3.m3.1.1.3.cmml" type="float" xref="Sx4.SSx1.p1.3.m3.1.1.3">2.3</cn></apply></annotation-xml><annotation encoding="application/x-tex" id="Sx4.SSx1.p1.3.m3.1c">&gt;2.3</annotation><annotation encoding="application/x-llamapun" id="Sx4.SSx1.p1.3.m3.1d">&gt; 2.3</annotation></semantics></math>, <math alttext="p" class="ltx_Math" display="inline" id="Sx4.SSx1.p1.4.m4.1"><semantics id="Sx4.SSx1.p1.4.m4.1a"><mi id="Sx4.SSx1.p1.4.m4.1.1" xref="Sx4.SSx1.p1.4.m4.1.1.cmml">p</mi><annotation-xml encoding="MathML-Content" id="Sx4.SSx1.p1.4.m4.1b"><ci id="Sx4.SSx1.p1.4.m4.1.1.cmml" xref="Sx4.SSx1.p1.4.m4.1.1">𝑝</ci></annotation-xml><annotation encoding="application/x-tex" id="Sx4.SSx1.p1.4.m4.1c">p</annotation><annotation encoding="application/x-llamapun" id="Sx4.SSx1.p1.4.m4.1d">italic_p</annotation></semantics></math>s <math alttext="&lt;.02" class="ltx_Math" display="inline" id="Sx4.SSx1.p1.5.m5.1"><semantics id="Sx4.SSx1.p1.5.m5.1a"><mrow id="Sx4.SSx1.p1.5.m5.1.1" xref="Sx4.SSx1.p1.5.m5.1.1.cmml"><mi id="Sx4.SSx1.p1.5.m5.1.1.2" xref="Sx4.SSx1.p1.5.m5.1.1.2.cmml"></mi><mo id="Sx4.SSx1.p1.5.m5.1.1.1" xref="Sx4.SSx1.p1.5.m5.1.1.1.cmml">&lt;</mo><mn id="Sx4.SSx1.p1.5.m5.1.1.3" xref="Sx4.SSx1.p1.5.m5.1.1.3.cmml">.02</mn></mrow><annotation-xml encoding="MathML-Content" id="Sx4.SSx1.p1.5.m5.1b"><apply id="Sx4.SSx1.p1.5.m5.1.1.cmml" xref="Sx4.SSx1.p1.5.m5.1.1"><lt id="Sx4.SSx1.p1.5.m5.1.1.1.cmml" xref="Sx4.SSx1.p1.5.m5.1.1.1"></lt><csymbol cd="latexml" id="Sx4.SSx1.p1.5.m5.1.1.2.cmml" xref="Sx4.SSx1.p1.5.m5.1.1.2">absent</csymbol><cn id="Sx4.SSx1.p1.5.m5.1.1.3.cmml" type="float" xref="Sx4.SSx1.p1.5.m5.1.1.3">.02</cn></apply></annotation-xml><annotation encoding="application/x-tex" id="Sx4.SSx1.p1.5.m5.1c">&lt;.02</annotation><annotation encoding="application/x-llamapun" id="Sx4.SSx1.p1.5.m5.1d">&lt; .02</annotation></semantics></math>; the only exception is ALIGN (<math alttext="z=1.187,p=.118" class="ltx_Math" display="inline" id="Sx4.SSx1.p1.6.m6.2"><semantics id="Sx4.SSx1.p1.6.m6.2a"><mrow id="Sx4.SSx1.p1.6.m6.2.2.2" xref="Sx4.SSx1.p1.6.m6.2.2.3.cmml"><mrow id="Sx4.SSx1.p1.6.m6.1.1.1.1" xref="Sx4.SSx1.p1.6.m6.1.1.1.1.cmml"><mi id="Sx4.SSx1.p1.6.m6.1.1.1.1.2" xref="Sx4.SSx1.p1.6.m6.1.1.1.1.2.cmml">z</mi><mo id="Sx4.SSx1.p1.6.m6.1.1.1.1.1" xref="Sx4.SSx1.p1.6.m6.1.1.1.1.1.cmml">=</mo><mn id="Sx4.SSx1.p1.6.m6.1.1.1.1.3" xref="Sx4.SSx1.p1.6.m6.1.1.1.1.3.cmml">1.187</mn></mrow><mo id="Sx4.SSx1.p1.6.m6.2.2.2.3" xref="Sx4.SSx1.p1.6.m6.2.2.3a.cmml">,</mo><mrow id="Sx4.SSx1.p1.6.m6.2.2.2.2" xref="Sx4.SSx1.p1.6.m6.2.2.2.2.cmml"><mi id="Sx4.SSx1.p1.6.m6.2.2.2.2.2" xref="Sx4.SSx1.p1.6.m6.2.2.2.2.2.cmml">p</mi><mo id="Sx4.SSx1.p1.6.m6.2.2.2.2.1" xref="Sx4.SSx1.p1.6.m6.2.2.2.2.1.cmml">=</mo><mn id="Sx4.SSx1.p1.6.m6.2.2.2.2.3" xref="Sx4.SSx1.p1.6.m6.2.2.2.2.3.cmml">.118</mn></mrow></mrow><annotation-xml encoding="MathML-Content" id="Sx4.SSx1.p1.6.m6.2b"><apply id="Sx4.SSx1.p1.6.m6.2.2.3.cmml" xref="Sx4.SSx1.p1.6.m6.2.2.2"><csymbol cd="ambiguous" id="Sx4.SSx1.p1.6.m6.2.2.3a.cmml" xref="Sx4.SSx1.p1.6.m6.2.2.2.3">formulae-sequence</csymbol><apply id="Sx4.SSx1.p1.6.m6.1.1.1.1.cmml" xref="Sx4.SSx1.p1.6.m6.1.1.1.1"><eq id="Sx4.SSx1.p1.6.m6.1.1.1.1.1.cmml" xref="Sx4.SSx1.p1.6.m6.1.1.1.1.1"></eq><ci id="Sx4.SSx1.p1.6.m6.1.1.1.1.2.cmml" xref="Sx4.SSx1.p1.6.m6.1.1.1.1.2">𝑧</ci><cn id="Sx4.SSx1.p1.6.m6.1.1.1.1.3.cmml" type="float" xref="Sx4.SSx1.p1.6.m6.1.1.1.1.3">1.187</cn></apply><apply id="Sx4.SSx1.p1.6.m6.2.2.2.2.cmml" xref="Sx4.SSx1.p1.6.m6.2.2.2.2"><eq id="Sx4.SSx1.p1.6.m6.2.2.2.2.1.cmml" xref="Sx4.SSx1.p1.6.m6.2.2.2.2.1"></eq><ci id="Sx4.SSx1.p1.6.m6.2.2.2.2.2.cmml" xref="Sx4.SSx1.p1.6.m6.2.2.2.2.2">𝑝</ci><cn id="Sx4.SSx1.p1.6.m6.2.2.2.2.3.cmml" type="float" xref="Sx4.SSx1.p1.6.m6.2.2.2.2.3">.118</cn></apply></apply></annotation-xml><annotation encoding="application/x-tex" id="Sx4.SSx1.p1.6.m6.2c">z=1.187,p=.118</annotation><annotation encoding="application/x-llamapun" id="Sx4.SSx1.p1.6.m6.2d">italic_z = 1.187 , italic_p = .118</annotation></semantics></math>).</p>
+</div>
+<figure class="ltx_figure" id="Sx4.F2"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="415" id="Sx4.F2.g1" src="x2.png" width="706"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 2: </span>Average accuracy on the odd-one-out task for both the ML models and the human participants.</figcaption>
+</figure>
+<div class="ltx_para" id="Sx4.SSx1.p2">
+<p class="ltx_p" id="Sx4.SSx1.p2.1">The Transformers outperform both the CNNs and VLMs, achieving 46.67% (ViT) and 48.89% (DINOv2). By comparison, the best-performing CNN, ResNet-18, achieves an accuracy of 40%, and the best-performing VLM, CLIP (ViT), achieves an accuracy of 37.78%.</p>
+</div>
+<div class="ltx_para" id="Sx4.SSx1.p3">
+<p class="ltx_p" id="Sx4.SSx1.p3.1">Notably, only the Transformers show higher overall accuracies than the 3-6 year old children of  <span class="ltx_text" id="Sx4.SSx1.p3.1.1"></span>? (?) (37.72%). However, their performance is still far below the 65.34% accuracy of the Mundurucu adults and children  <span class="ltx_text" id="Sx4.SSx1.p3.1.2">(</span>?, ?) and the 85.10% accuracy of the Western adults <span class="ltx_text" id="Sx4.SSx1.p3.1.3">(</span>?, ?).</p>
+</div>
+<div class="ltx_para" id="Sx4.SSx1.p4">
+<p class="ltx_p" id="Sx4.SSx1.p4.1">The CNNs show comparable overall accuracies to the 3-6 year old children of  <span class="ltx_text" id="Sx4.SSx1.p4.1.1"></span>? (?). Interestingly, the two deeper models (EfficientNet and ResNet-50) show slightly lower sensitivity to GT concepts (both 37.78%) than the shallower model (ResNet-18, 40%), paralleling the findings of <span class="ltx_text" id="Sx4.SSx1.p4.1.2"></span>? (?).</p>
+</div>
+<div class="ltx_para" id="Sx4.SSx1.p5">
+<p class="ltx_p" id="Sx4.SSx1.p5.1">The VLMs show the least sensitivity to GT concepts. The best VLM, CLIP (ViT), achieves an overall accuracy of 37.78%, while the ResNet-50 variant of CLIP, CLIP (RN-50), achieves an overall accuracy of only 33.33%. ALIGN is the worst-performing model, achieving an overall accuracy of only 24.44% despite being trained on the largest dataset.</p>
+</div>
+<figure class="ltx_figure" id="Sx4.F3"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="367" id="Sx4.F3.g1" src="x3.png" width="747"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 3: </span>Accuracy profiles of the models and humans for each of the 7 classes of GT concepts.</figcaption>
+</figure>
+</section>
+<section class="ltx_subsection" id="Sx4.SSx2">
+<h3 class="ltx_title ltx_title_subsection">Sensitivity by class</h3>
+<div class="ltx_para" id="Sx4.SSx2.p1">
+<p class="ltx_p" id="Sx4.SSx2.p1.1">To further probe the sensitivities of the models, we evaluated their average accuracy for each of the 7 classes; see <a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx4.F3" title="In Overall sensitivity ‣ Results ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_tag">Figure</span> <span class="ltx_text ltx_ref_tag">3</span></a>. A number of notable patterns are visible at this finer-grain level of analysis.</p>
+</div>
+<div class="ltx_para" id="Sx4.SSx2.p2">
+<p class="ltx_p" id="Sx4.SSx2.p2.1">First, the high overall accuracy of the Transformers is not driven by superior performance on one or two classes. Rather, ViT and DINOv2 outperform all of the other models on 6 of the 7 classes, with a few exceptions: The Transformers perform poorly on Symmetrical Figures concepts, and the CNN model ResNet-50 achieves a higher accuracy for the Geometric Transformations class.</p>
+</div>
+<div class="ltx_para" id="Sx4.SSx2.p3">
+<p class="ltx_p" id="Sx4.SSx2.p3.1">Second, the Transformers do not just achieve higher overall accuracies than the 3-6 year old children of <span class="ltx_text" id="Sx4.SSx2.p3.1.1"></span>? (?) (see <a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx4.F2" title="In Overall sensitivity ‣ Results ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_tag">Figure</span> <span class="ltx_text ltx_ref_tag">2</span></a>). They are as accurate or more accurate than the children on all 7 of the classes. Conversely, they are less accurate than the two samples that include adult participants on all 7 of the classes.</p>
+</div>
+<div class="ltx_para" id="Sx4.SSx2.p4">
+<p class="ltx_p" id="Sx4.SSx2.p4.1">Third, the Euclidean Geometry concepts are the easiest, with both models and humans achieving their highest accuracies for this class. Conversely, the Geometrical Transformations and Symmetrical Figures concepts are the most difficult, with especially the models achieving their lowest accuracies for these classes. The biggest discrepancy between the models and humans is on Symmetrical Figures, for which no model achieves greater than 33% accuracy. Also notable is that even the Transformers, the best-performing of all models, struggle with Symmetrical Figures. However, it must be noted that this class contains the fewest concepts, which make the data patterns here somewhat tentative.</p>
+</div>
+</section>
+<section class="ltx_subsection" id="Sx4.SSx3">
+<h3 class="ltx_title ltx_title_subsection">Alignment to human profiles</h3>
+<div class="ltx_para" id="Sx4.SSx3.p1">
+<p class="ltx_p" id="Sx4.SSx3.p1.1">That a model is highly accurate across the concepts of a class is not useful if, in fact, humans find that class to be difficult, given that our goal is to find alignment between model and human performance. To most directly evaluate this alignment, we compute the Pearson correlation (<math alttext="r" class="ltx_Math" display="inline" id="Sx4.SSx3.p1.1.m1.1"><semantics id="Sx4.SSx3.p1.1.m1.1a"><mi id="Sx4.SSx3.p1.1.m1.1.1" xref="Sx4.SSx3.p1.1.m1.1.1.cmml">r</mi><annotation-xml encoding="MathML-Content" id="Sx4.SSx3.p1.1.m1.1b"><ci id="Sx4.SSx3.p1.1.m1.1.1.cmml" xref="Sx4.SSx3.p1.1.m1.1.1">𝑟</ci></annotation-xml><annotation encoding="application/x-tex" id="Sx4.SSx3.p1.1.m1.1c">r</annotation><annotation encoding="application/x-llamapun" id="Sx4.SSx3.p1.1.m1.1d">italic_r</annotation></semantics></math>) between the profile of accuracies across the 7 classes for each of the 8 models and the 3 human datasets; see <a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx4.F4" title="In Alignment to human profiles ‣ Results ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_tag">Figure</span> <span class="ltx_text ltx_ref_tag">4</span></a>. There are a number of patterns to notice.</p>
+</div>
+<div class="ltx_para" id="Sx4.SSx3.p2">
+<p class="ltx_p" id="Sx4.SSx3.p2.2">First, the class accuracy profiles of the Transformers achieve the closest alignment to those of the human datasets. This is particularly striking for the GT sensitivities of the 3-6 year old children in the <span class="ltx_text" id="Sx4.SSx3.p2.2.1"></span>? (?) study (<math alttext="r" class="ltx_Math" display="inline" id="Sx4.SSx3.p2.1.m1.1"><semantics id="Sx4.SSx3.p2.1.m1.1a"><mi id="Sx4.SSx3.p2.1.m1.1.1" xref="Sx4.SSx3.p2.1.m1.1.1.cmml">r</mi><annotation-xml encoding="MathML-Content" id="Sx4.SSx3.p2.1.m1.1b"><ci id="Sx4.SSx3.p2.1.m1.1.1.cmml" xref="Sx4.SSx3.p2.1.m1.1.1">𝑟</ci></annotation-xml><annotation encoding="application/x-tex" id="Sx4.SSx3.p2.1.m1.1c">r</annotation><annotation encoding="application/x-llamapun" id="Sx4.SSx3.p2.1.m1.1d">italic_r</annotation></semantics></math>s <math alttext="&gt;0.90" class="ltx_Math" display="inline" id="Sx4.SSx3.p2.2.m2.1"><semantics id="Sx4.SSx3.p2.2.m2.1a"><mrow id="Sx4.SSx3.p2.2.m2.1.1" xref="Sx4.SSx3.p2.2.m2.1.1.cmml"><mi id="Sx4.SSx3.p2.2.m2.1.1.2" xref="Sx4.SSx3.p2.2.m2.1.1.2.cmml"></mi><mo id="Sx4.SSx3.p2.2.m2.1.1.1" xref="Sx4.SSx3.p2.2.m2.1.1.1.cmml">&gt;</mo><mn id="Sx4.SSx3.p2.2.m2.1.1.3" xref="Sx4.SSx3.p2.2.m2.1.1.3.cmml">0.90</mn></mrow><annotation-xml encoding="MathML-Content" id="Sx4.SSx3.p2.2.m2.1b"><apply id="Sx4.SSx3.p2.2.m2.1.1.cmml" xref="Sx4.SSx3.p2.2.m2.1.1"><gt id="Sx4.SSx3.p2.2.m2.1.1.1.cmml" xref="Sx4.SSx3.p2.2.m2.1.1.1"></gt><csymbol cd="latexml" id="Sx4.SSx3.p2.2.m2.1.1.2.cmml" xref="Sx4.SSx3.p2.2.m2.1.1.2">absent</csymbol><cn id="Sx4.SSx3.p2.2.m2.1.1.3.cmml" type="float" xref="Sx4.SSx3.p2.2.m2.1.1.3">0.90</cn></apply></annotation-xml><annotation encoding="application/x-tex" id="Sx4.SSx3.p2.2.m2.1c">&gt;0.90</annotation><annotation encoding="application/x-llamapun" id="Sx4.SSx3.p2.2.m2.1d">&gt; 0.90</annotation></semantics></math>). Thus, the Transformers offer the best account of the human data at all three levels: overall accuracy, by-class accuracy, and by-class accuracy profile (i.e., human alignment).</p>
+</div>
+<div class="ltx_para" id="Sx4.SSx3.p3">
+<p class="ltx_p" id="Sx4.SSx3.p3.1">Second, among the other models, the CNN model EfficientNet also achieves close alignment with the human datasets, particularly the adults in the <span class="ltx_text" id="Sx4.SSx3.p3.1.1"></span>? (?) study (<math alttext="r=0.86" class="ltx_Math" display="inline" id="Sx4.SSx3.p3.1.m1.1"><semantics id="Sx4.SSx3.p3.1.m1.1a"><mrow id="Sx4.SSx3.p3.1.m1.1.1" xref="Sx4.SSx3.p3.1.m1.1.1.cmml"><mi id="Sx4.SSx3.p3.1.m1.1.1.2" xref="Sx4.SSx3.p3.1.m1.1.1.2.cmml">r</mi><mo id="Sx4.SSx3.p3.1.m1.1.1.1" xref="Sx4.SSx3.p3.1.m1.1.1.1.cmml">=</mo><mn id="Sx4.SSx3.p3.1.m1.1.1.3" xref="Sx4.SSx3.p3.1.m1.1.1.3.cmml">0.86</mn></mrow><annotation-xml encoding="MathML-Content" id="Sx4.SSx3.p3.1.m1.1b"><apply id="Sx4.SSx3.p3.1.m1.1.1.cmml" xref="Sx4.SSx3.p3.1.m1.1.1"><eq id="Sx4.SSx3.p3.1.m1.1.1.1.cmml" xref="Sx4.SSx3.p3.1.m1.1.1.1"></eq><ci id="Sx4.SSx3.p3.1.m1.1.1.2.cmml" xref="Sx4.SSx3.p3.1.m1.1.1.2">𝑟</ci><cn id="Sx4.SSx3.p3.1.m1.1.1.3.cmml" type="float" xref="Sx4.SSx3.p3.1.m1.1.1.3">0.86</cn></apply></annotation-xml><annotation encoding="application/x-tex" id="Sx4.SSx3.p3.1.m1.1c">r=0.86</annotation><annotation encoding="application/x-llamapun" id="Sx4.SSx3.p3.1.m1.1d">italic_r = 0.86</annotation></semantics></math>). This raises the question of whether there is continuity in the development of GT concepts, i.e., given a model architecture, more parameters results in better alignment with children’s performance, giving way to better alignment with adult performance. Or whether there is a qualitative shift across development, that is, a shift from a transformer-like architecture to a CNN-like architecture.</p>
+</div>
+<div class="ltx_para" id="Sx4.SSx3.p4">
+<p class="ltx_p" id="Sx4.SSx3.p4.1">Third, the CLIP (ViT) model shows the worst alignment to the class accuracy profiles of adults, and the CLIP (RN5-50) model shows the worst alignment to the 3-6 year old children in the <span class="ltx_text" id="Sx4.SSx3.p4.1.1"></span>? (?) study.</p>
+</div>
+<div class="ltx_para" id="Sx4.SSx3.p5">
+<p class="ltx_p" id="Sx4.SSx3.p5.1">Fourth, among the datasets, the ML models generally achieve closer alignment to the children’s data of <span class="ltx_text" id="Sx4.SSx3.p5.1.1"></span>? (?) than to the other two datasets, both of which contain adult data.</p>
+</div>
+<figure class="ltx_figure" id="Sx4.F4"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="231" id="Sx4.F4.g1" src="x4.png" width="706"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 4: </span>Heatmap of Pearson <math alttext="r" class="ltx_Math" display="inline" id="Sx4.F4.4.m1.1"><semantics id="Sx4.F4.4.m1.1b"><mi id="Sx4.F4.4.m1.1.1" xref="Sx4.F4.4.m1.1.1.cmml">r</mi><annotation-xml encoding="MathML-Content" id="Sx4.F4.4.m1.1c"><ci id="Sx4.F4.4.m1.1.1.cmml" xref="Sx4.F4.4.m1.1.1">𝑟</ci></annotation-xml><annotation encoding="application/x-tex" id="Sx4.F4.4.m1.1d">r</annotation><annotation encoding="application/x-llamapun" id="Sx4.F4.4.m1.1e">italic_r</annotation></semantics></math> coefficients between human participants’ sensitivity profiles and the models’ sensitivity profiles across the 7 classes of GT concepts. Note that * denotes <math alttext="p&lt;0.05" class="ltx_Math" display="inline" id="Sx4.F4.5.m2.1"><semantics id="Sx4.F4.5.m2.1b"><mrow id="Sx4.F4.5.m2.1.1" xref="Sx4.F4.5.m2.1.1.cmml"><mi id="Sx4.F4.5.m2.1.1.2" xref="Sx4.F4.5.m2.1.1.2.cmml">p</mi><mo id="Sx4.F4.5.m2.1.1.1" xref="Sx4.F4.5.m2.1.1.1.cmml">&lt;</mo><mn id="Sx4.F4.5.m2.1.1.3" xref="Sx4.F4.5.m2.1.1.3.cmml">0.05</mn></mrow><annotation-xml encoding="MathML-Content" id="Sx4.F4.5.m2.1c"><apply id="Sx4.F4.5.m2.1.1.cmml" xref="Sx4.F4.5.m2.1.1"><lt id="Sx4.F4.5.m2.1.1.1.cmml" xref="Sx4.F4.5.m2.1.1.1"></lt><ci id="Sx4.F4.5.m2.1.1.2.cmml" xref="Sx4.F4.5.m2.1.1.2">𝑝</ci><cn id="Sx4.F4.5.m2.1.1.3.cmml" type="float" xref="Sx4.F4.5.m2.1.1.3">0.05</cn></apply></annotation-xml><annotation encoding="application/x-tex" id="Sx4.F4.5.m2.1d">p&lt;0.05</annotation><annotation encoding="application/x-llamapun" id="Sx4.F4.5.m2.1e">italic_p &lt; 0.05</annotation></semantics></math> and ** denotes <math alttext="p&lt;0.01" class="ltx_Math" display="inline" id="Sx4.F4.6.m3.1"><semantics id="Sx4.F4.6.m3.1b"><mrow id="Sx4.F4.6.m3.1.1" xref="Sx4.F4.6.m3.1.1.cmml"><mi id="Sx4.F4.6.m3.1.1.2" xref="Sx4.F4.6.m3.1.1.2.cmml">p</mi><mo id="Sx4.F4.6.m3.1.1.1" xref="Sx4.F4.6.m3.1.1.1.cmml">&lt;</mo><mn id="Sx4.F4.6.m3.1.1.3" xref="Sx4.F4.6.m3.1.1.3.cmml">0.01</mn></mrow><annotation-xml encoding="MathML-Content" id="Sx4.F4.6.m3.1c"><apply id="Sx4.F4.6.m3.1.1.cmml" xref="Sx4.F4.6.m3.1.1"><lt id="Sx4.F4.6.m3.1.1.1.cmml" xref="Sx4.F4.6.m3.1.1.1"></lt><ci id="Sx4.F4.6.m3.1.1.2.cmml" xref="Sx4.F4.6.m3.1.1.2">𝑝</ci><cn id="Sx4.F4.6.m3.1.1.3.cmml" type="float" xref="Sx4.F4.6.m3.1.1.3">0.01</cn></apply></annotation-xml><annotation encoding="application/x-tex" id="Sx4.F4.6.m3.1d">p&lt;0.01</annotation><annotation encoding="application/x-llamapun" id="Sx4.F4.6.m3.1e">italic_p &lt; 0.01</annotation></semantics></math>. </figcaption>
+</figure>
+</section>
+</section>
+<section class="ltx_section" id="Sx5">
+<h2 class="ltx_title ltx_title_section">Discussion</h2>
+<div class="ltx_para" id="Sx5.p1">
+<p class="ltx_p" id="Sx5.p1.1">Our results find that the Transformers show more promise as a cognitive science models of geometric and topological concepts than either CNNs or VLMs. At a coarse-grain level, they show the highest overall accuracies – higher even than the 3-6 year old children from the <span class="ltx_text" id="Sx5.p1.1.1"></span>? (?) study; see <a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx4.F2" title="In Overall sensitivity ‣ Results ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_tag">Figure</span> <span class="ltx_text ltx_ref_tag">2</span></a>. At the finer-grain level of the 7 classes, their accuracy profiles most closely align with that of the 3-6 year old children from the <span class="ltx_text" id="Sx5.p1.1.2"></span>? (?) study; see <a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx4.F3" title="In Overall sensitivity ‣ Results ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_tag">Figure</span> <span class="ltx_text ltx_ref_tag">3</span></a> and <a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx4.F4" title="In Alignment to human profiles ‣ Results ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_tag">Figure</span> <span class="ltx_text ltx_ref_tag">4</span></a>.
+An unexpected finding is that the VLMs trained with contrastive loss give both the worst overall and class-level performance, and also show the worst alignment to human profiles. This is surprising conceptually given the findings that support dual-coding theory <span class="ltx_text" id="Sx5.p1.1.3">(</span>?, ?). This is also surprising technically: the sizes of the VLM models and the datasets on which they are trained are much larger than is the case for the Transformers and CNNs. This may suggest that current modality alignment techniques, such as maximizing the similarity between the hidden representation of both textual and visual information in a shared vector space, fail to fuse the two streams of information in a way which builds sensitivity to GT concepts, and that more human-like alignment methods are needed.</p>
+</div>
+<section class="ltx_subsection" id="Sx5.SSx1">
+<h3 class="ltx_title ltx_title_subsection">Transformer models show higher sensitivity to GT concepts</h3>
+<div class="ltx_para" id="Sx5.SSx1.p1">
+<p class="ltx_p" id="Sx5.SSx1.p1.1"><a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx4.F2" title="In Overall sensitivity ‣ Results ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_tag">Figures</span> <span class="ltx_text ltx_ref_tag">2</span></a> and <a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx4.F3" title="Figure 3 ‣ Overall sensitivity ‣ Results ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_tag">3</span></a> demonstrate that the Transformers, which have more parameters than CNNs and are trained on a larger dataset (e.g., ImageNet-21k with 14 million training samples compared to ImageNet-1k with 1.3 million training samples used for CNNs), exhibit higher sensitivity to GT concepts, and even surpass the overall accuracy of the 3-6 year old children from the <span class="ltx_text" id="Sx5.SSx1.p1.1.1"></span>? (?) study.
+These findings support the claim by <span class="ltx_text" id="Sx5.SSx1.p1.1.2"></span>? (?) that GT concepts can be learned “for free” as a consequence of training on more generic visual processing tasks such as image classification.
+This contrasts with the “core knowledge” view that humans possess innate knowledge of mathematical concepts which requires minimal external input to activate <span class="ltx_text" id="Sx5.SSx1.p1.1.3">(</span>?, ?).</p>
+</div>
+<div class="ltx_para" id="Sx5.SSx1.p2">
+<p class="ltx_p" id="Sx5.SSx1.p2.1">Transformers are generally larger than CNNs and trained on more data. Beyond this, we hypothesize that Transformers show higher sensitivity to GT concepts than CNNs for two reason. First, Transformers relax the constraint of transformation-invariants <span class="ltx_text" id="Sx5.SSx1.p2.1.1">(</span>?, ?). Second, their self-attention mechanism may learn both global and local object geometry whereas CNNs cannot <span class="ltx_text" id="Sx5.SSx1.p2.1.2">(</span>?, ?); the result is a more robust representation than CNNs.
+As a result, Transformers can acquire the sensitivity to object transformations and geometric/topological concepts.
+A direction for future research is to analyze the salience maps to each GT concept stimulus in Transformers and CNNs, to better understand the aspects that drive their sensitivities to GT concepts.
+For instance, one could collect the attention weights for each layer of a Transformer model and directly use them as the salience map. This is because the attention score tells the importance of current image patch with respect to other patches when making classification decisions.
+For CNNs, which do not possess attention mechanisms, we can compute the gradients of the target class score with respect to the feature maps of a convolutional layer, weighting these feature maps by the averaged gradients, and then summing them up <span class="ltx_text" id="Sx5.SSx1.p2.1.3">(</span>?, ?). A higher gradient score means that a small change in the feature map would cause a significant change in the output, indicating that the feature map is highly relevant to the model’s performance.</p>
+</div>
+</section>
+<section class="ltx_subsection" id="Sx5.SSx2">
+<h3 class="ltx_title ltx_title_subsection">Modality alignment with text reduces the sensitivity to GT concepts</h3>
+<div class="ltx_para" id="Sx5.SSx2.p1">
+<p class="ltx_p" id="Sx5.SSx2.p1.1">Humans process information through both verbal and non-verbal channels.  <span class="ltx_text" id="Sx5.SSx2.p1.1.1"></span>? (?) argues that these channels work independently and interactively to enhance understanding and memory, and enable more robust learning because the information encoded in both formats provides multiple pathways for retrieval.
+Recent research in multi-modal alignment indeed is consistent with this view. For example, CLIP <span class="ltx_text" id="Sx5.SSx2.p1.1.2">(</span>?, ?) significantly outperforms CNNs in image retrieval and classification tasks. It is therefore surprising, perhaps, that the CLIP models show lower sensitivity to GT concepts and worse alignment to human accuracy profiles compared to CNNs and Transformers.
+We argue that the effectiveness of current VLMs is limited by their core alignment strategy: optimizing similarity between image and caption representations. This approach struggles with inputs where the visual content is hard to describe naturally in text, such as the abstract synthetic images found in odd-one-out tasks. In these cases, VLMs fail to build robust representations that use both vision and text.
+Our findings (<a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx4.F3" title="In Overall sensitivity ‣ Results ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_tag">Figure</span> <span class="ltx_text ltx_ref_tag">3</span></a>) support this, showing reduced VLM sensitivity to abstract concepts like those of Topology and Geometrical Transformation compared to vision-only models – categories that are difficult to map textually onto specific pixels. In contrast, VLM performance on Metric Properties and Geometric Figures is less impacted, as descriptions involving distance, relative position, or basic shapes map more easily to pixel-level information.
+<span class="ltx_text" id="Sx5.SSx2.p1.1.3"></span>? (?) also argues that failures in image generation guided by CLIP embeddings reveal a lack of a true compositional understanding of textual relations. Their results suggest that these models often reproduce statistically common image-caption pairings from training data rather than accurately constructing the specific relationship requested in the prompt, suggesting that CLIP models fail to capture representations for out-of-distribution text and image.</p>
+</div>
+</section>
+<section class="ltx_subsection" id="Sx5.SSx3">
+<h3 class="ltx_title ltx_title_subsection">From cognitive alignment to developmental alignment</h3>
+<div class="ltx_para" id="Sx5.SSx3.p1">
+<p class="ltx_p" id="Sx5.SSx3.p1.1">Transformers exceed the overall accuracy of the 3-6 year old children of the <span class="ltx_text" id="Sx5.SSx3.p1.1.1"></span>? (?) study (see <a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx4.F2" title="In Overall sensitivity ‣ Results ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_tag">Figure</span> <span class="ltx_text ltx_ref_tag">2</span></a>), and their performance profiles across the 7 classes of GT concepts are strongly correlated with those of the children (see <a class="ltx_ref" href="https://arxiv.org/html/2505.13281v1#Sx4.F4" title="In Alignment to human profiles ‣ Results ‣ Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts"><span class="ltx_text ltx_ref_tag">Figure</span> <span class="ltx_text ltx_ref_tag">4</span></a>). In both respects, they exceed the cognitive alignment of the other evaluated models
+A key question is whether Transformer models show not just strong cognitive alignment but also strong developmental alignment. A key advantage of computational models over human participants is their inspect-ability and manipulate-ability. Future research can measure their sensitivity to GT concepts over training and evaluate whether this tracks the growing sensitivity shown by children over development. For example, we can track when during training a Transformer model becomes sensitive to shapes before transformations, and compare this ordering of unfolding sensitivities to that of the developing child. At a finer-grain level, we can analyze how representations of object parts, boundaries, or spatial relationships might evolve in the “developing” parameters of Transformers.
+</p>
+</div>
+<div class="ltx_para" id="Sx5.SSx3.p2">
+<p class="ltx_p" id="Sx5.SSx3.p2.1">We can also conduct experiments on Transformers to test the causality of the learning account. A controlled, long-term ablation study in human participants – systematically withholding certain types of stimuli or training at particular times during development – would be both unethical and practically infeasible. By contrast, it is straightforward to perform parallel computational studies of computer vision models or study their development over different training “curricula”. Such studies will potentially lead to novel hypotheses about <em class="ltx_emph ltx_font_italic" id="Sx5.SSx3.p2.1.1">when</em> and <em class="ltx_emph ltx_font_italic" id="Sx5.SSx3.p2.1.2">how</em> young children acquire specific cognitive competencies <span class="ltx_text" id="Sx5.SSx3.p2.1.3">(</span>?, ?, ?).
+The strong alignment especially between the Transformer models and and the young children in their sensitivity to GT concepts suggests their potential for cognitive and developmental science.
+</p>
+</div>
+</section>
+</section>
+<section class="ltx_bibliography" id="bib">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+<ul class="ltx_biblist">
+<li class="ltx_bibitem" id="bib.bibx1">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Ahn et al.<span class="ltx_text" id="bib.bibx1.1.1.1"></span>Ahn et al.<span class="ltx_text" id="bib.bibx1.2.2.2"></span></span>
+<span class="ltx_bibblock">
+Ahn, J., Verma, R., Lou, R., Liu, D., Zhang, R.,  Yin, W. 
+</span>
+<span class="ltx_bibblock">(2024).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx1.3.1">Large language models for mathematical reasoning: Progresses and challenges.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/2402.00157</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx2">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Byeon et al.<span class="ltx_text" id="bib.bibx2.1.1.1"></span>Byeon et al.<span class="ltx_text" id="bib.bibx2.2.2.2"></span></span>
+<span class="ltx_bibblock">
+Byeon, M., Park, B., Kim, H., Lee, S., Baek, W.,  Kim, S. 
+</span>
+<span class="ltx_bibblock">(2022).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx2.3.1">Coyo-700m: Image-text pair dataset.</em>
+</span>
+<span class="ltx_bibblock"><span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://github.com/kakaobrain/coyo-dataset</span>.
+
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx3">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Campbell, Kumar, Giallanza, Griffiths,  CohenCampbell et al.<span class="ltx_text" id="bib.bibx3.1.1.1"></span></span>
+<span class="ltx_bibblock">
+Campbell, D., Kumar, S., Giallanza, T., Griffiths, T. L.,  Cohen, J. D. 
+</span>
+<span class="ltx_bibblock">(2024).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx3.2.1">Human-like geometric abstraction in large pre-trained neural networks.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/2402.04203</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx4">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Chang  BergenChang  Bergen</span>
+<span class="ltx_bibblock">
+Chang, T. A.,  Bergen, B. K. 
+</span>
+<span class="ltx_bibblock">(2022).
+
+</span>
+<span class="ltx_bibblock">Word acquisition in neural language models.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx4.1.1">Transactions of the Association for Computational Linguistics</em>, <em class="ltx_emph ltx_font_italic" id="bib.bibx4.2.2">10</em>, 1–16.
+
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx5">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Chiandetti  VallortigaraChiandetti  Vallortigara</span>
+<span class="ltx_bibblock">
+Chiandetti, C.,  Vallortigara, G. 
+</span>
+<span class="ltx_bibblock">(2007, July).
+
+</span>
+<span class="ltx_bibblock">Is there an innate geometric module? effects of experience with angular geometric cues on spatial re-orientation based on the shape of the environment.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx5.1.1">Animal Cognition</em>, <em class="ltx_emph ltx_font_italic" id="bib.bibx5.2.2">11</em>(1), 139–146.
+
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">http://dx.doi.org/10.1007/s10071-007-0099-y</span>
+</span>
+<span class="ltx_bibblock">doi: <span class="ltx_ref ltx_nolink ltx_Url ltx_ref_self">10.1007/s10071-007-0099-y</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx6">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Conwell  UllmanConwell  Ullman</span>
+<span class="ltx_bibblock">
+Conwell, C.,  Ullman, T. 
+</span>
+<span class="ltx_bibblock">(2022).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx6.1.1">Testing relational understanding in text-guided image generation.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/2208.00005</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx7">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Cordonnier, Loukas,  JaggiCordonnier et al.<span class="ltx_text" id="bib.bibx7.1.1.1"></span></span>
+<span class="ltx_bibblock">
+Cordonnier, J.-B., Loukas, A.,  Jaggi, M. 
+</span>
+<span class="ltx_bibblock">(2020).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx7.2.1">On the relationship between self-attention and convolutional layers.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/1911.03584</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx8">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">De Cesarei, Cavicchi, Cristadoro,  LippiDe Cesarei et al.<span class="ltx_text" id="bib.bibx8.1.1.1"></span></span>
+<span class="ltx_bibblock">
+De Cesarei, A., Cavicchi, S., Cristadoro, G.,  Lippi, M. 
+</span>
+<span class="ltx_bibblock">(2021, June).
+
+</span>
+<span class="ltx_bibblock">Do humans and deep convolutional neural networks use visual information similarly for the categorization of natural scenes?
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx8.2.1">Cogn. Sci.</em>, <em class="ltx_emph ltx_font_italic" id="bib.bibx8.3.2">45</em>(6), e13009.
+
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx9">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Dehaene, Izard, Pica,  SpelkeDehaene et al.<span class="ltx_text" id="bib.bibx9.1.1.1"></span></span>
+<span class="ltx_bibblock">
+Dehaene, S., Izard, V., Pica, P.,  Spelke, E. 
+</span>
+<span class="ltx_bibblock">(2006, January).
+
+</span>
+<span class="ltx_bibblock">Core knowledge of geometry in an amazonian indigene group.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx9.2.1">Science</em>, <em class="ltx_emph ltx_font_italic" id="bib.bibx9.3.2">311</em>(5759), 381–384.
+
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">http://dx.doi.org/10.1126/science.1121739</span>
+</span>
+<span class="ltx_bibblock">doi: <span class="ltx_ref ltx_nolink ltx_Url ltx_ref_self">10.1126/science.1121739</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx10">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Deng et al.<span class="ltx_text" id="bib.bibx10.1.1.1"></span>Deng et al.<span class="ltx_text" id="bib.bibx10.2.2.2"></span></span>
+<span class="ltx_bibblock">
+Deng, J., Dong, W., Socher, R., Li, L.-J., Li, K.,  Fei-Fei, L. 
+</span>
+<span class="ltx_bibblock">(2009).
+
+</span>
+<span class="ltx_bibblock">Imagenet: A large-scale hierarchical image database.
+
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic" id="bib.bibx10.3.1">2009 ieee conference on computer vision and pattern recognition</em> (p.<span class="ltx_text" id="bib.bibx10.4.2"></span> 248-255).
+
+</span>
+<span class="ltx_bibblock">doi: <span class="ltx_ref ltx_nolink ltx_Url ltx_ref_self">10.1109/CVPR.2009.5206848</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx11">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Dosovitskiy et al.<span class="ltx_text" id="bib.bibx11.1.1.1"></span>Dosovitskiy et al.<span class="ltx_text" id="bib.bibx11.2.2.2"></span></span>
+<span class="ltx_bibblock">
+Dosovitskiy, A., Beyer, L., Kolesnikov, A., Weissenborn, D., Zhai, X., Unterthiner, T., … Houlsby, N. 
+</span>
+<span class="ltx_bibblock">(2021).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx11.3.1">An image is worth 16x16 words: Transformers for image recognition at scale.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/2010.11929</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx12">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Evanson, Lakretz,  KingEvanson et al.<span class="ltx_text" id="bib.bibx12.1.1.1"></span></span>
+<span class="ltx_bibblock">
+Evanson, L., Lakretz, Y.,  King, J.-R. 
+</span>
+<span class="ltx_bibblock">(2023).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx12.2.1">Language acquisition: do children and language models follow similar learning stages?</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/2306.03586</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx13">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">GibsonGibson</span>
+<span class="ltx_bibblock">
+Gibson, J. J. 
+</span>
+<span class="ltx_bibblock">(1979).
+
+</span>
+<span class="ltx_bibblock">The ecological approach to visual perception..
+
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://api.semanticscholar.org/CorpusID:33656271</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx14">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">K. He, Zhang, Ren,  SunK. He et al.<span class="ltx_text" id="bib.bibx14.1.1.1"></span></span>
+<span class="ltx_bibblock">
+He, K., Zhang, X., Ren, S.,  Sun, J. 
+</span>
+<span class="ltx_bibblock">(2015).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx14.2.1">Deep residual learning for image recognition.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/1512.03385</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx15">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Y. He et al.<span class="ltx_text" id="bib.bibx15.1.1.1"></span>Y. He et al.<span class="ltx_text" id="bib.bibx15.2.2.2"></span></span>
+<span class="ltx_bibblock">
+He, Y., Wu, Y., Jia, Y., Mihalcea, R., Chen, Y.,  Deng, N. 
+</span>
+<span class="ltx_bibblock">(2023).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx15.3.1">Hi-tom: A benchmark for evaluating higher-order theory of mind reasoning in large language models.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/2310.16755</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx16">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Hsu, Wu,  GoodmanHsu et al.<span class="ltx_text" id="bib.bibx16.1.1.1"></span></span>
+<span class="ltx_bibblock">
+Hsu, J., Wu, J.,  Goodman, N. D. 
+</span>
+<span class="ltx_bibblock">(2022).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx16.2.1">Geoclidean: Few-shot generalization in euclidean geometry.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/2211.16663</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx17">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Izard  SpelkeIzard  Spelke</span>
+<span class="ltx_bibblock">
+Izard, V.,  Spelke, E. S. 
+</span>
+<span class="ltx_bibblock">(2009, January).
+
+</span>
+<span class="ltx_bibblock">Development of sensitivity to geometry in visual forms.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx17.1.1">Hum. Evol.</em>, <em class="ltx_emph ltx_font_italic" id="bib.bibx17.2.2">23</em>(3), 213–248.
+
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx18">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Jacob, Pramod, Katti,  ArunJacob et al.<span class="ltx_text" id="bib.bibx18.1.1.1"></span></span>
+<span class="ltx_bibblock">
+Jacob, G., Pramod, R. T., Katti, H.,  Arun, S. P. 
+</span>
+<span class="ltx_bibblock">(2021, March).
+
+</span>
+<span class="ltx_bibblock">Qualitative similarities and differences in visual object representations between brains and deep networks.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx18.2.1">Nat. Commun.</em>, <em class="ltx_emph ltx_font_italic" id="bib.bibx18.3.2">12</em>(1), 1872.
+
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx19">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Jaderberg, Simonyan, Zisserman,  KavukcuogluJaderberg et al.<span class="ltx_text" id="bib.bibx19.1.1.1"></span></span>
+<span class="ltx_bibblock">
+Jaderberg, M., Simonyan, K., Zisserman, A.,  Kavukcuoglu, K. 
+</span>
+<span class="ltx_bibblock">(2016).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx19.2.1">Spatial transformer networks.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/1506.02025</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx20">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Jia et al.<span class="ltx_text" id="bib.bibx20.1.1.1"></span>Jia et al.<span class="ltx_text" id="bib.bibx20.2.2.2"></span></span>
+<span class="ltx_bibblock">
+Jia, C., Yang, Y., Xia, Y., Chen, Y.-T., Parekh, Z., Pham, H., … Duerig, T. 
+</span>
+<span class="ltx_bibblock">(2021).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx20.3.1">Scaling up visual and vision-language representation learning with noisy text supervision.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/2102.05918</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx21">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Jin et al.<span class="ltx_text" id="bib.bibx21.1.1.1"></span>Jin et al.<span class="ltx_text" id="bib.bibx21.2.2.2"></span></span>
+<span class="ltx_bibblock">
+Jin, M., Yu, Q., Huang, J., Zeng, Q., Wang, Z., Hua, W., … Zhang, Y. 
+</span>
+<span class="ltx_bibblock">(2024).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx21.3.1">Exploring concept depth: How large language models acquire knowledge at different layers?</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/2404.07066</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx22">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Jung et al.<span class="ltx_text" id="bib.bibx22.1.1.1"></span>Jung et al.<span class="ltx_text" id="bib.bibx22.2.2.2"></span></span>
+<span class="ltx_bibblock">
+Jung, C., Kim, D., Jin, J., Kim, J., Seonwoo, Y., Choi, Y., … Kim, H. 
+</span>
+<span class="ltx_bibblock">(2024).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx22.3.1">Perceptions to beliefs: Exploring precursory inferences for theory of mind in large language models.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/2407.06004</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx23">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Krizhevsky, Sutskever,  HintonKrizhevsky et al.<span class="ltx_text" id="bib.bibx23.1.1.1"></span></span>
+<span class="ltx_bibblock">
+Krizhevsky, A., Sutskever, I.,  Hinton, G. E. 
+</span>
+<span class="ltx_bibblock">(2012).
+
+</span>
+<span class="ltx_bibblock">Imagenet classification with deep convolutional neural networks.
+
+</span>
+<span class="ltx_bibblock">In F. Pereira, C. Burges, L. Bottou,  K. Weinberger (Eds.<span class="ltx_text" id="bib.bibx23.2.1"></span>), <em class="ltx_emph ltx_font_italic" id="bib.bibx23.3.2">Advances in neural information processing systems</em> (Vol.<span class="ltx_text" id="bib.bibx23.4.3"></span> 25).
+
+</span>
+<span class="ltx_bibblock">Curran Associates, Inc.
+
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx24">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Laptev, Savinov, Buhmann,  PollefeysLaptev et al.<span class="ltx_text" id="bib.bibx24.1.1.1"></span></span>
+<span class="ltx_bibblock">
+Laptev, D., Savinov, N., Buhmann, J. M.,  Pollefeys, M. 
+</span>
+<span class="ltx_bibblock">(2016).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx24.2.1">Ti-pooling: transformation-invariant pooling for feature learning in convolutional neural networks.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/1604.06318</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx25">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">LindsayLindsay</span>
+<span class="ltx_bibblock">
+Lindsay, G. W. 
+</span>
+<span class="ltx_bibblock">(2021, September).
+
+</span>
+<span class="ltx_bibblock">Convolutional neural networks as a model of the visual system: Past, present, and future.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx25.1.1">Journal of Cognitive Neuroscience</em>, <em class="ltx_emph ltx_font_italic" id="bib.bibx25.2.2">33</em>(10), 2017–2031.
+
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">http://dx.doi.org/10.1162/jocn_a_01544</span>
+</span>
+<span class="ltx_bibblock">doi: <span class="ltx_ref ltx_nolink ltx_Url ltx_ref_self">10.1162/jocn˙a˙01544</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx26">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Ma, Pan,  ChaiMa et al.<span class="ltx_text" id="bib.bibx26.1.1.1"></span></span>
+<span class="ltx_bibblock">
+Ma, Z., Pan, J.,  Chai, J. 
+</span>
+<span class="ltx_bibblock">(2023).
+
+</span>
+<span class="ltx_bibblock">World-to-words: Grounded open vocabulary acquisition through fast mapping in vision-language models.
+
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic" id="bib.bibx26.2.1">Proceedings of the 61st annual meeting of the association for computational linguistics (volume 1: Long papers)</em> (pp.<span class="ltx_text" id="bib.bibx26.3.2"></span> 524–544).
+
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx27">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Ma, Sansom, Peng,  ChaiMa, Sansom, et al.<span class="ltx_text" id="bib.bibx27.1.1.1"></span></span>
+<span class="ltx_bibblock">
+Ma, Z., Sansom, J., Peng, R.,  Chai, J. 
+</span>
+<span class="ltx_bibblock">(2024).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx27.2.1">Towards a holistic landscape of situated theory of mind in large language models.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/2310.19619</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx28">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Ma, Wang,  ChaiMa, Wang,  Chai</span>
+<span class="ltx_bibblock">
+Ma, Z., Wang, Z.,  Chai, J. 
+</span>
+<span class="ltx_bibblock">(2024).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx28.1.1">Babysit a language model from scratch: Interactive language learning by trials and demonstrations.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/2405.13828</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx29">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Marupudi  VarmaMarupudi  Varma</span>
+<span class="ltx_bibblock">
+Marupudi, V.,  Varma, S. 
+</span>
+<span class="ltx_bibblock">(2023, March).
+
+</span>
+<span class="ltx_bibblock">Graded human sensitivity to geometric and topological concepts.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx29.1.1">Cognition</em>, <em class="ltx_emph ltx_font_italic" id="bib.bibx29.2.2">232</em>, 105331.
+
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">http://dx.doi.org/10.1016/j.cognition.2022.105331</span>
+</span>
+<span class="ltx_bibblock">doi: <span class="ltx_ref ltx_nolink ltx_Url ltx_ref_self">10.1016/j.cognition.2022.105331</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx30">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Mumuni  MumuniMumuni  Mumuni</span>
+<span class="ltx_bibblock">
+Mumuni, A.,  Mumuni, F. 
+</span>
+<span class="ltx_bibblock">(2021, June).
+
+</span>
+<span class="ltx_bibblock">Cnn architectures for geometric transformation-invariant feature representation in computer vision: A review.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx30.1.1">SN Computer Science</em>, <em class="ltx_emph ltx_font_italic" id="bib.bibx30.2.2">2</em>(5).
+
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">http://dx.doi.org/10.1007/s42979-021-00735-0</span>
+</span>
+<span class="ltx_bibblock">doi: <span class="ltx_ref ltx_nolink ltx_Url ltx_ref_self">10.1007/s42979-021-00735-0</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx31">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Muttenthaler, Dippel, Linhardt, Vandermeulen,  KornblithMuttenthaler, Dippel, et al.<span class="ltx_text" id="bib.bibx31.1.1.1"></span></span>
+<span class="ltx_bibblock">
+Muttenthaler, L., Dippel, J., Linhardt, L., Vandermeulen, R. A.,  Kornblith, S. 
+</span>
+<span class="ltx_bibblock">(2023, May).
+
+</span>
+<span class="ltx_bibblock">Human alignment of neural network representations.
+
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic" id="bib.bibx31.2.1">11th international conference on learning representations, iclr 2023.</em>
+</span>
+<span class="ltx_bibblock">Kigali, Rwanda: OpenReview.net.
+
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx32">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Muttenthaler, Linhardt, et al.<span class="ltx_text" id="bib.bibx32.1.1.1"></span>Muttenthaler, Linhardt, et al.<span class="ltx_text" id="bib.bibx32.2.2.2"></span></span>
+<span class="ltx_bibblock">
+Muttenthaler, L., Linhardt, L., Dippel, J., Vandermeulen, R. A., Hermann, K., Lampinen, A.,  Kornblith, S. 
+</span>
+<span class="ltx_bibblock">(2023).
+
+</span>
+<span class="ltx_bibblock">Improving neural network representations using human similarity judgments.
+
+</span>
+<span class="ltx_bibblock">In A. Oh, T. Naumann, A. Globerson, K. Saenko, M. Hardt,  S. Levine (Eds.<span class="ltx_text" id="bib.bibx32.3.1"></span>), <em class="ltx_emph ltx_font_italic" id="bib.bibx32.4.2">Advances in neural information processing systems</em> (Vol.<span class="ltx_text" id="bib.bibx32.5.3"></span> 36, pp.<span class="ltx_text" id="bib.bibx32.6.4"></span> 50978–51007).
+
+</span>
+<span class="ltx_bibblock">Curran Associates, Inc.
+
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx33">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Oquab et al.<span class="ltx_text" id="bib.bibx33.1.1.1"></span>Oquab et al.<span class="ltx_text" id="bib.bibx33.2.2.2"></span></span>
+<span class="ltx_bibblock">
+Oquab, M., Darcet, T., Moutakanni, T., Vo, H., Szafraniec, M., Khalidov, V., … Bojanowski, P. 
+</span>
+<span class="ltx_bibblock">(2024).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx33.3.1">Dinov2: Learning robust visual features without supervision.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/2304.07193</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx34">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">PaivioPaivio</span>
+<span class="ltx_bibblock">
+Paivio, A. 
+</span>
+<span class="ltx_bibblock">(1991, September).
+
+</span>
+<span class="ltx_bibblock">Dual coding theory: Retrospect and current status.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx34.1.1">Canadian Journal of Psychology / Revue canadienne de psychologie</em>, <em class="ltx_emph ltx_font_italic" id="bib.bibx34.2.2">45</em>(3), 255–287.
+
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">http://dx.doi.org/10.1037/h0084295</span>
+</span>
+<span class="ltx_bibblock">doi: <span class="ltx_ref ltx_nolink ltx_Url ltx_ref_self">10.1037/h0084295</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx35">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Pasupathy  ConnorPasupathy  Connor</span>
+<span class="ltx_bibblock">
+Pasupathy, A.,  Connor, C. E. 
+</span>
+<span class="ltx_bibblock">(1999, November).
+
+</span>
+<span class="ltx_bibblock">Responses to contour features in macaque area v4.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx35.1.1">Journal of Neurophysiology</em>, <em class="ltx_emph ltx_font_italic" id="bib.bibx35.2.2">82</em>(5), 2490–2502.
+
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">http://dx.doi.org/10.1152/jn.1999.82.5.2490</span>
+</span>
+<span class="ltx_bibblock">doi: <span class="ltx_ref ltx_nolink ltx_Url ltx_ref_self">10.1152/jn.1999.82.5.2490</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx36">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">PortelancePortelance</span>
+<span class="ltx_bibblock">
+Portelance, E. 
+</span>
+<span class="ltx_bibblock">(2022).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx36.1.1">Neural network approaches to the study of word learning</em>.
+
+</span>
+<span class="ltx_bibblock">Unpublished doctoral dissertation, Stanford University.
+
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx37">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Radford et al.<span class="ltx_text" id="bib.bibx37.1.1.1"></span>Radford et al.<span class="ltx_text" id="bib.bibx37.2.2.2"></span></span>
+<span class="ltx_bibblock">
+Radford, A., Kim, J. W., Hallacy, C., Ramesh, A., Goh, G., Agarwal, S., … Sutskever, I. 
+</span>
+<span class="ltx_bibblock">(2021).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx37.3.1">Learning transferable visual models from natural language supervision.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/2103.00020</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx38">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Raghu, Unterthiner, Kornblith, Zhang,  DosovitskiyRaghu et al.<span class="ltx_text" id="bib.bibx38.1.1.1"></span></span>
+<span class="ltx_bibblock">
+Raghu, M., Unterthiner, T., Kornblith, S., Zhang, C.,  Dosovitskiy, A. 
+</span>
+<span class="ltx_bibblock">(2022).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx38.2.1">Do vision transformers see like convolutional neural networks?</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/2108.08810</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx39">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Sable-Meyer, Ellis, Tenenbaum,  DehaeneSable-Meyer et al.<span class="ltx_text" id="bib.bibx39.1.1.1"></span></span>
+<span class="ltx_bibblock">
+Sable-Meyer, M., Ellis, K., Tenenbaum, J.,  Dehaene, S. 
+</span>
+<span class="ltx_bibblock">(2022).
+
+</span>
+<span class="ltx_bibblock">A language of thought for the mental representation of geometric shapes.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx39.2.1">Cognitive Psychology</em>, <em class="ltx_emph ltx_font_italic" id="bib.bibx39.3.2">139</em>, 101527.
+
+</span>
+<span class="ltx_bibblock">doi: <span class="ltx_ref ltx_nolink ltx_Url ltx_ref_self">10.1016/j.cogpsych.2022.101527</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx40">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Selvaraju et al.<span class="ltx_text" id="bib.bibx40.1.1.1"></span>Selvaraju et al.<span class="ltx_text" id="bib.bibx40.2.2.2"></span></span>
+<span class="ltx_bibblock">
+Selvaraju, R. R., Cogswell, M., Das, A., Vedantam, R., Parikh, D.,  Batra, D. 
+</span>
+<span class="ltx_bibblock">(2019, October).
+
+</span>
+<span class="ltx_bibblock">Grad-cam: Visual explanations from deep networks via gradient-based localization.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx40.3.1">International Journal of Computer Vision</em>, <em class="ltx_emph ltx_font_italic" id="bib.bibx40.4.2">128</em>(2), 336–359.
+
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">http://dx.doi.org/10.1007/s11263-019-01228-7</span>
+</span>
+<span class="ltx_bibblock">doi: <span class="ltx_ref ltx_nolink ltx_Url ltx_ref_self">10.1007/s11263-019-01228-7</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx41">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Shah, Marupudi, Koenen, Bhardwaj,  VarmaShah et al.<span class="ltx_text" id="bib.bibx41.1.1.1"></span></span>
+<span class="ltx_bibblock">
+Shah, R. S., Marupudi, V., Koenen, R., Bhardwaj, K.,  Varma, S. 
+</span>
+<span class="ltx_bibblock">(2023).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx41.2.1">Human behavioral benchmarking: Numeric magnitude comparison effects in large language models.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/2305.10782</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx42">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">ShepardShepard</span>
+<span class="ltx_bibblock">
+Shepard, R. N. 
+</span>
+<span class="ltx_bibblock">(1994, March).
+
+</span>
+<span class="ltx_bibblock">Perceptual-cognitive universals as reflections of the world.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx42.1.1">Psychonomic Bulletin &amp;; Review</em>, <em class="ltx_emph ltx_font_italic" id="bib.bibx42.2.2">1</em>(1), 2–28.
+
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">http://dx.doi.org/10.3758/BF03200759</span>
+</span>
+<span class="ltx_bibblock">doi: <span class="ltx_ref ltx_nolink ltx_Url ltx_ref_self">10.3758/bf03200759</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx43">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Simonyan  ZissermanSimonyan  Zisserman</span>
+<span class="ltx_bibblock">
+Simonyan, K.,  Zisserman, A. 
+</span>
+<span class="ltx_bibblock">(2015).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx43.1.1">Very deep convolutional networks for large-scale image recognition.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/1409.1556</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx44">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Spelke  KinzlerSpelke  Kinzler</span>
+<span class="ltx_bibblock">
+Spelke, E. S.,  Kinzler, K. D. 
+</span>
+<span class="ltx_bibblock">(2007, January).
+
+</span>
+<span class="ltx_bibblock">Core knowledge.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx44.1.1">Developmental Science</em>, <em class="ltx_emph ltx_font_italic" id="bib.bibx44.2.2">10</em>(1), 89–96.
+
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">http://dx.doi.org/10.1111/j.1467-7687.2007.00569.x</span>
+</span>
+<span class="ltx_bibblock">doi: <span class="ltx_ref ltx_nolink ltx_Url ltx_ref_self">10.1111/j.1467-7687.2007.00569.x</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx45">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Tan  LeTan  Le</span>
+<span class="ltx_bibblock">
+Tan, M.,  Le, Q. V. 
+</span>
+<span class="ltx_bibblock">(2020).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx45.1.1">Efficientnet: Rethinking model scaling for convolutional neural networks.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/1905.11946</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx46">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Upadhyay, Marupudi, Varma,  VarmaUpadhyay et al.<span class="ltx_text" id="bib.bibx46.1.1.1"></span></span>
+<span class="ltx_bibblock">
+Upadhyay, N., Marupudi, V., Varma, K.,  Varma, S. 
+</span>
+<span class="ltx_bibblock">(2025, February).
+
+</span>
+<span class="ltx_bibblock">Alignment of cnn and human judgments of geometric and topological concepts.
+
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic" id="bib.bibx46.2.1">Proceedings of the 39th annual aaai conference on artificial intelligence (aaai’25)</em> (pp.<span class="ltx_text" id="bib.bibx46.3.2"></span> XXX–XXX).
+
+</span>
+<span class="ltx_bibblock">Philadelphia, PA.
+
+
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx47">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">VallortigaraVallortigara</span>
+<span class="ltx_bibblock">
+Vallortigara, G. 
+</span>
+<span class="ltx_bibblock">(2018, January).
+
+</span>
+<span class="ltx_bibblock">Comparative cognition of number and space: the case of geometry and of the mental number line.
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx47.1.1">Philosophical Transactions of the Royal Society B: Biological Sciences</em>, <em class="ltx_emph ltx_font_italic" id="bib.bibx47.2.2">373</em>(1740), 20170120.
+
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">http://dx.doi.org/10.1098/rstb.2017.0120</span>
+</span>
+<span class="ltx_bibblock">doi: <span class="ltx_ref ltx_nolink ltx_Url ltx_ref_self">10.1098/rstb.2017.0120</span>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx48">
+<span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">Vemuri, Shah,  VarmaVemuri et al.<span class="ltx_text" id="bib.bibx48.1.1.1"></span></span>
+<span class="ltx_bibblock">
+Vemuri, S. K., Shah, R. S.,  Varma, S. 
+</span>
+<span class="ltx_bibblock">(2024).
+
+</span>
+<span class="ltx_bibblock"><em class="ltx_emph ltx_font_italic" id="bib.bibx48.2.1">How well do deep learning models capture human concepts? the case of the typicality effect.</em>
+</span>
+<span class="ltx_bibblock">Retrieved from <span class="ltx_ref ltx_nolink ltx_url ltx_font_typewriter ltx_ref_self">https://arxiv.org/abs/2405.16128</span>
+</span>
+</li>
+</ul>
+</section>
+<div class="ltx_pagination ltx_role_newpage"></div>
+</article>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_page_logo">Generated  on Mon May 19 16:00:52 2025 by <a class="ltx_LaTeXML_logo" href="http://dlmf.nist.gov/LaTeXML/"><span style="letter-spacing:-0.2em; margin-right:0.1em;">L<span class="ltx_font_smallcaps" style="position:relative; bottom:2.2pt;">a</span>T<span class="ltx_font_smallcaps" style="font-size:120%;position:relative; bottom:-0.2ex;">e</span></span><span style="font-size:90%; position:relative; bottom:-0.2ex;">XML</span><img alt="Mascot Sammy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg=="/></a>
+</div></footer>
+</div>
+</body>
+</html>

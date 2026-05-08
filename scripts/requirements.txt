@@ -1,0 +1,5 @@
+# Pipeline runs locally only — never in CI.
+# Requires Python 3.11+ (for the built-in `tomllib` module).
+arxiv==2.1.3
+requests==2.32.3
+beautifulsoup4==4.12.3

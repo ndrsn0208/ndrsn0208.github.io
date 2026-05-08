@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Zekun Wang — Liquid Metal</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #0B0910;
+    --bg-2: #14101C;
+    --ink: #F4EDE4;
+    --dim: #B5ABA0;
+  }
+  html, body { background: var(--bg); color: var(--ink); }
+  body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .display { font-family: 'Geist', 'Inter', sans-serif; letter-spacing: -0.03em; }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+  /* --- ambient warm haze on dark base ---------------------------------- */
+  .haze { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .haze::before, .haze::after { content: ''; position: absolute; border-radius: 50%; filter: blur(140px); }
+  .haze::before { width: 720px; height: 720px; top: -200px; left: -180px;
+    background: radial-gradient(circle, rgba(255,107,107,.30) 0%, transparent 65%); }
+  .haze::after { width: 640px; height: 640px; top: 30%; right: -240px;
+    background: radial-gradient(circle, rgba(255,169,77,.22) 0%, transparent 65%); }
+  .haze-c { position: absolute; width: 520px; height: 520px; bottom: -200px; left: 28%;
+    border-radius: 50%; filter: blur(160px);
+    background: radial-gradient(circle, rgba(196,181,253,.18) 0%, transparent 65%); }
+
+  /* --- scan grid -------------------------------------------------------- */
+  .grid-bg {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .35;
+    background-image:
+      linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 80% 65% at 50% 35%, #000 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 65% at 50% 35%, #000 30%, transparent 75%);
+  }
+  .grain {
+    position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: .22; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .35 0'/></filter><rect width='220' height='220' filter='url(%23n)'/></svg>");
+  }
+
+  /* --- chrome surfaces -------------------------------------------------- */
+  .chrome {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.04) 0%, rgba(255,255,255,0) 100%),
+      linear-gradient(135deg, #1B1626 0%, #221A2E 30%, #2C1F36 60%, #1B1422 100%);
+    border: 1px solid rgba(255,255,255,.08);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 24px 60px -22px rgba(0,0,0,.65);
+  }
+  .chrome-r {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.06) 0%, rgba(255,255,255,0) 100%),
+      linear-gradient(135deg, #221A2E 0%, #2C1F36 50%, #181221 100%);
+    border: 1px solid rgba(255,255,255,.10);
+  }
+
+  /* --- Holographic foil — semantic-weight-driven variants ---------------
+     Each foil's color mix is derived from the paper's tags.
+     Tag → base color contributors:
+       continual learning  → #F43F5E rose,    #FB7185 pink
+       compositionality    → #C026D3 magenta, #DB2777 fuchsia
+       language models     → #FFA94D orange,  #F97316 amber-orange
+       reinforcement learn → #F59E0B amber,   #FCA5A5 coral
+       concept learning    → #FF6B6B coral,   #FFE3D8 cream
+       diffusion models    → #A78BFA lavender,#FFD7B5 peach
+     ---------------------------------------------------------------------- */
+
+  .foil { position: relative; overflow: hidden; }
+
+  /* --- Foil A: continual learning + language models (rose × orange) ---- */
+  .foil-a {
+    background:
+      conic-gradient(from 110deg at 32% 28%,
+        #F43F5E 0deg, #FB7185 50deg, #FFA94D 110deg,
+        #F97316 180deg, #FF6B6B 250deg, #FB7185 320deg, #F43F5E 360deg);
+  }
+  .foil-a .hi {
+    background: radial-gradient(140% 80% at 25% 15%, rgba(255,255,255,.55) 0%, transparent 45%),
+                radial-gradient(120% 60% at 80% 90%, rgba(255,255,255,.18) 0%, transparent 50%);
+  }
+
+  /* --- Foil B: compositionality + concept learning (magenta × coral) -- */
+  .foil-b {
+    background:
+      conic-gradient(from 220deg at 68% 72%,
+        #C026D3 0deg, #DB2777 55deg, #FB7185 115deg,
+        #FCA5A5 175deg, #FFE3D8 235deg, #C026D3 360deg);
+  }
+  .foil-b .hi {
+    background: radial-gradient(160% 80% at 75% 85%, rgba(255,255,255,.55) 0%, transparent 45%),
+                radial-gradient(120% 60% at 15% 20%, rgba(255,255,255,.18) 0%, transparent 50%);
+  }
+
+  /* --- Foil C: reinforcement learning + diffusion (amber × lavender) --- */
+  .foil-c {
+    background:
+      conic-gradient(from 60deg at 50% 22%,
+        #F59E0B 0deg, #F97316 55deg, #FCA5A5 115deg,
+        #A78BFA 175deg, #FFD7B5 240deg, #F59E0B 360deg);
+  }
+  .foil-c .hi {
+    background: radial-gradient(140% 80% at 50% 10%, rgba(255,255,255,.55) 0%, transparent 45%),
+                radial-gradient(120% 60% at 20% 90%, rgba(255,255,255,.16) 0%, transparent 50%);
+  }
+
+  /* --- Foil D: continual learning + LM, alternate (orange × pink) ----- */
+  .foil-d {
+    background:
+      conic-gradient(from 320deg at 28% 62%,
+        #F97316 0deg, #FFA94D 70deg, #FB7185 140deg,
+        #F43F5E 210deg, #FCA5A5 280deg, #F97316 360deg);
+  }
+  .foil-d .hi {
+    background: radial-gradient(140% 80% at 80% 18%, rgba(255,255,255,.55) 0%, transparent 45%),
+                radial-gradient(120% 60% at 30% 95%, rgba(255,255,255,.18) 0%, transparent 50%);
+  }
+
+  /* --- Foil E: diffusion + concept (lavender × cream) ----------------- */
+  .foil-e {
+    background:
+      conic-gradient(from 150deg at 60% 35%,
+        #A78BFA 0deg, #C4B5FD 60deg, #FFE3D8 120deg,
+        #FCA5A5 190deg, #FFD7B5 260deg, #A78BFA 360deg);
+  }
+  .foil-e .hi {
+    background: radial-gradient(140% 80% at 35% 25%, rgba(255,255,255,.55) 0%, transparent 45%);
+  }
+
+  /* shared overlays for every foil --------------------------------------- */
+  .foil .vignette {
+    position: absolute; inset: 0; mix-blend-mode: multiply; pointer-events: none;
+    background: linear-gradient(135deg, rgba(0,0,0,.55) 0%, transparent 35%, transparent 60%, rgba(0,0,0,.55) 100%);
+  }
+  .foil .hi { position: absolute; inset: 0; mix-blend-mode: screen; pointer-events: none; }
+  .foil .noise { position: absolute; inset: 0; mix-blend-mode: overlay; pointer-events: none; }
+  /* per-card noise variants */
+  .noise-a { opacity: .55; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>"); }
+  .noise-b { opacity: .65; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>"); }
+  .noise-c { opacity: .45; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>"); }
+  .noise-d { opacity: .50; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.10' numOctaves='3'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>"); }
+  .noise-e { opacity: .40; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/></filter><rect width='220' height='220' filter='url(%23n)'/></svg>"); }
+
+  .foil-text {
+    color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,.4), 0 1px 0 rgba(255,255,255,.18);
+    mix-blend-mode: hard-light;
+  }
+
+  /* --- iridescent text -------------------------------------------------- */
+  .iri-text {
+    background-image: linear-gradient(105deg, #F4EDE4 0%, #FF9D5C 22%, #C4B5FD 44%, #F4EDE4 66%, #FFA94D 88%, #F4EDE4 100%);
+    background-size: 220% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: iri 12s linear infinite;
+  }
+  @keyframes iri { 0% { background-position: 0% 50%; } 100% { background-position: -220% 50%; } }
+
+  .metal-text {
+    background-image: linear-gradient(180deg, #F4EDE4 0%, #ABA0A0 55%, #F4EDE4 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+
+  /* --- chrome buttons & chips ------------------------------------------ */
+  .btn-chrome {
+    background: linear-gradient(180deg, #221A2E 0%, #14101C 100%);
+    border: 1px solid rgba(255,255,255,.10);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+    transition: all 200ms ease;
+  }
+  .btn-chrome:hover {
+    background: linear-gradient(180deg, #2D2238 0%, #1A1424 100%);
+    border-color: rgba(255,169,77,.45);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 0 0 1px rgba(255,169,77,.18);
+  }
+  .chip { transition: all 200ms ease; border: 1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.025); color: var(--dim); white-space: nowrap; }
+  .chip:hover { color: var(--ink); border-color: rgba(255,255,255,.18); }
+  .chip-on {
+    background: linear-gradient(135deg, rgba(255,107,107,.18) 0%, rgba(196,181,253,.10) 100%);
+    border-color: rgba(255,169,77,.55);
+    color: #FFD7B5;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.04), 0 0 18px -6px rgba(255,107,107,.4);
+  }
+
+  .nav-link { position: relative; color: var(--dim); transition: color 180ms; }
+  .nav-link:hover { color: var(--ink); }
+  .nav-link::after {
+    content: ''; position: absolute; left: 0; bottom: -8px; width: 0; height: 1px;
+    background: linear-gradient(90deg, #FF6B6B, #C4B5FD);
+    transition: width 220ms ease;
+  }
+  .nav-link:hover::after { width: 100%; }
+
+  .card { transition: transform 380ms cubic-bezier(.2,.8,.2,1), box-shadow 380ms; transform-style: preserve-3d; }
+  .card:hover {
+    transform: translateY(-3px) rotateX(2deg) rotateY(-2deg);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 36px 80px -28px rgba(255,107,107,.25), 0 0 0 1px rgba(255,169,77,.18);
+  }
+  @media (max-width: 767px) {
+    .card:hover { transform: none; } /* avoid jitter on touch */
+  }
+
+  .toggle { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08); }
+  .toggle-on { background: linear-gradient(135deg, #FF6B6B 0%, #C4B5FD 100%); border-color: transparent; }
+  .toggle-knob { transition: transform 220ms cubic-bezier(.34,1.56,.64,1); }
+  .toggle-on .toggle-knob { transform: translateX(16px); }
+
+  hr.line { border: 0; border-top: 1px solid rgba(255,255,255,.06); }
+
+  /* --- mobile-only tweaks ---------------------------------------------- */
+  /* hide scrollbar on the filter row (mobile horizontal scroll) */
+  .scroll-x { overflow-x: auto; scrollbar-width: none; }
+  .scroll-x::-webkit-scrollbar { display: none; }
+
+  /* --- venue/year emphasis on foil panels ------------------------------ */
+  .foil-meta {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px; line-height: 1; letter-spacing: 0.16em;
+    text-transform: uppercase; font-weight: 500;
+  }
+  @media (max-width: 480px) {
+    .foil-meta { font-size: 12px; letter-spacing: 0.14em; }
+  }
+</style>
+</head>
+<body class="relative min-h-screen">
+  <div class="haze"><div class="haze-c"></div></div>
+  <div class="grid-bg"></div>
+  <div class="grain"></div>
+
+  <div class="relative z-10">
+    <!-- nav -->
+    <nav class="sticky top-0 z-40 backdrop-blur-md" style="background: linear-gradient(180deg, rgba(11,9,16,.85) 0%, rgba(11,9,16,.45) 100%); border-bottom: 1px solid rgba(255,255,255,.05);">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+        <a href="#" class="flex items-center gap-2.5">
+          <span class="inline-block h-6 w-6 rounded-sm" style="background: conic-gradient(from 110deg, #FF6B6B, #FFA94D, #C4B5FD, #FF6B6B); box-shadow: inset 0 0 0 1px rgba(255,255,255,.2);"></span>
+          <span class="mono text-[12px] uppercase tracking-[0.28em] font-medium">zekun.wang</span>
+        </a>
+        <div class="hidden md:flex items-center gap-8 text-[13px] font-medium mono">
+          <a class="nav-link" href="#">about</a>
+          <a class="nav-link" href="#">publications</a>
+          <a class="nav-link" href="#">blog</a>
+          <a class="nav-link" href="#">photography</a>
+        </div>
+        <div class="flex items-center gap-2 sm:gap-3">
+          <span class="mono text-[10px] uppercase tracking-[0.2em] text-zinc-500 hidden lg:block">v.1.0 · 2026</span>
+          <button class="btn-chrome rounded-md px-2.5 py-1.5 mono text-[11px] flex items-center gap-1.5">
+            <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            <span class="hidden sm:inline">⌘K</span>
+          </button>
+          <!-- mobile menu icon -->
+          <button class="md:hidden btn-chrome rounded-md p-1.5" aria-label="menu">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- hero -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-14 sm:pt-20 md:pt-24 pb-12 md:pb-20 grid grid-cols-12 gap-6 md:gap-10 items-end">
+      <div class="col-span-12 md:col-span-7">
+        <div class="mono text-[10px] sm:text-[11px] uppercase tracking-[0.32em] text-zinc-400 mb-6 md:mb-8 flex items-center gap-3 flex-wrap">
+          <span class="h-px w-8" style="background: linear-gradient(90deg, transparent, #FFA94D);"></span>
+          <span>[ 01 / about ]</span>
+          <span class="h-1 w-1 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-emerald-400">online</span>
+        </div>
+        <h1 class="display font-bold leading-[0.95] tracking-tight text-[52px] sm:text-[68px] md:text-[80px] lg:text-[92px]">
+          <span class="metal-text">Zekun</span><br/>
+          <span class="iri-text">Wang.</span>
+        </h1>
+        <div class="mt-5 sm:mt-6 mono text-[12px] sm:text-[13px] uppercase tracking-[0.18em] text-zinc-300">
+          PhD &nbsp;·&nbsp; Georgia Tech &nbsp;·&nbsp; advised by C. MacLellan
+        </div>
+        <p class="mt-6 sm:mt-7 text-[15px] sm:text-[17px] text-zinc-300 max-w-xl leading-relaxed">
+          I build agents that don't catastrophically forget. My research sits at the intersection of
+          <span class="text-orange-200">continual learning</span>,
+          <span class="text-rose-300">compositional structure</span>, and
+          <span class="text-violet-200">large language models</span> — asking how a system can keep learning
+          new skills for a lifetime without overwriting what it already knows.
+        </p>
+        <div class="mt-7 md:mt-9 flex items-center gap-2 flex-wrap">
+          <a href="#" class="btn-chrome rounded-md px-3 sm:px-4 py-2 mono text-[11px] sm:text-[12px] uppercase tracking-[0.16em] flex items-center gap-2">
+            <span class="h-1.5 w-1.5 rounded-full bg-rose-400"></span> email
+          </a>
+          <a href="#" class="btn-chrome rounded-md px-3 sm:px-4 py-2 mono text-[11px] sm:text-[12px] uppercase tracking-[0.16em]">scholar</a>
+          <a href="#" class="btn-chrome rounded-md px-3 sm:px-4 py-2 mono text-[11px] sm:text-[12px] uppercase tracking-[0.16em]">github</a>
+          <a href="#" class="btn-chrome rounded-md px-3 sm:px-4 py-2 mono text-[11px] sm:text-[12px] uppercase tracking-[0.16em]">twitter</a>
+          <a href="#" class="btn-chrome rounded-md px-3 sm:px-4 py-2 mono text-[11px] sm:text-[12px] uppercase tracking-[0.16em] hidden sm:inline-flex">semantic</a>
+        </div>
+      </div>
+
+      <div class="col-span-12 md:col-span-5">
+        <div class="relative aspect-[4/5] rounded-md overflow-hidden chrome p-3">
+          <div class="relative h-full rounded-sm overflow-hidden foil foil-a">
+            <div class="vignette"></div>
+            <div class="hi"></div>
+            <div class="noise noise-a"></div>
+            <div class="absolute inset-0 p-5 sm:p-6 flex flex-col justify-between">
+              <div class="flex items-center justify-between foil-meta foil-text">
+                <span>ICML · 2026</span>
+                <span>#01</span>
+              </div>
+              <div class="display foil-text font-semibold text-[22px] sm:text-[24px] leading-[1.05] tracking-tight">
+                Trust Region<br/>Continual Learning
+              </div>
+            </div>
+          </div>
+          <div class="absolute left-3 right-3 bottom-3 px-3 sm:px-4 py-2 sm:py-2.5 mono text-[10px] uppercase tracking-[0.22em] text-zinc-300 flex items-center justify-between" style="background: rgba(11,9,16,.7); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.08);">
+            latest paper
+            <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="line max-w-6xl mx-auto" />
+
+    <!-- search + filter -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 mt-10 md:mt-12">
+      <div class="chrome-r rounded-md p-3 sm:p-5">
+        <div class="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-3 rounded-sm" style="background: rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.06);">
+          <svg class="h-4 w-4 text-zinc-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input class="flex-1 min-w-0 bg-transparent outline-none text-[13px] sm:text-[14px] mono placeholder:text-zinc-600" placeholder="$ query — 'continual learning', 'KL bounds'…" />
+          <span class="mono text-[10px] text-zinc-500 px-1.5 py-0.5 rounded border border-zinc-700 hidden sm:inline">⌘ K</span>
+          <div class="hidden md:flex items-center gap-2 ml-2 pl-3 border-l border-zinc-700/70">
+            <span class="mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">semantic</span>
+            <button class="toggle toggle-on relative h-5 w-9 rounded-full" aria-label="toggle">
+              <span class="toggle-knob absolute top-0.5 left-0.5 h-4 w-4 rounded-full bg-white"></span>
+            </button>
+          </div>
+        </div>
+        <div class="mt-3 md:mt-4 scroll-x">
+          <div class="flex items-center gap-2 min-w-max">
+            <span class="mono text-[10px] uppercase tracking-[0.24em] text-zinc-500 mr-1">// filter</span>
+            <button class="chip chip-on rounded-sm px-2.5 py-1 mono text-[11px] uppercase tracking-wide">continual learning</button>
+            <button class="chip rounded-sm px-2.5 py-1 mono text-[11px] uppercase tracking-wide">compositionality</button>
+            <button class="chip chip-on rounded-sm px-2.5 py-1 mono text-[11px] uppercase tracking-wide">language models</button>
+            <button class="chip rounded-sm px-2.5 py-1 mono text-[11px] uppercase tracking-wide">reinforcement learning</button>
+            <button class="chip rounded-sm px-2.5 py-1 mono text-[11px] uppercase tracking-wide">concept learning</button>
+            <button class="chip rounded-sm px-2.5 py-1 mono text-[11px] uppercase tracking-wide">diffusion models</button>
+            <span class="ml-3 mono text-[10px] uppercase tracking-[0.18em] text-zinc-500 flex items-center gap-1.5">
+              sort = <span class="text-zinc-200">newest</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- publication card -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 mt-10 md:mt-12 pb-24 md:pb-32">
+      <div class="flex items-baseline justify-between mb-5 md:mb-6">
+        <h2 class="display text-2xl md:text-3xl font-semibold tracking-tight">
+          <span class="metal-text">Featured</span>
+        </h2>
+        <span class="mono text-[10px] uppercase tracking-[0.24em] text-zinc-500">[ 04 / 17 ]</span>
+      </div>
+
+      <div class="grid grid-cols-12 gap-4 sm:gap-5">
+        <!-- Card 1: continual learning + language models -->
+        <article class="card col-span-12 sm:col-span-6 lg:col-span-3 chrome rounded-md overflow-hidden">
+          <div class="aspect-[4/5] foil foil-a relative">
+            <div class="vignette"></div>
+            <div class="hi"></div>
+            <div class="noise noise-a"></div>
+            <div class="absolute inset-0 p-4 sm:p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-between foil-meta foil-text">
+                <span>ICML · 2026</span>
+                <span>#01</span>
+              </div>
+              <h3 class="display foil-text text-[22px] sm:text-[24px] lg:text-[26px] font-semibold leading-[1.05] tracking-tight">
+                Trust Region Continual Learning for LLMs
+              </h3>
+            </div>
+          </div>
+          <div class="p-4 sm:p-5">
+            <div class="text-[13px] mono text-zinc-300 truncate">Z. Wang, C. MacLellan, J. Doe</div>
+            <p class="mt-2 text-[13px] text-zinc-400 leading-relaxed line-clamp-3">
+              Bounds the KL divergence between successive task adaptations to retain prior skills without
+              rehearsal — improving on EWC by 14% on Continual GLUE.
+            </p>
+            <div class="mt-3 flex gap-1.5 flex-wrap">
+              <span class="mono text-[10px] uppercase tracking-wider text-zinc-400 px-2 py-0.5 rounded-sm border border-zinc-700/80">continual learning</span>
+              <span class="mono text-[10px] uppercase tracking-wider text-zinc-400 px-2 py-0.5 rounded-sm border border-zinc-700/80">language models</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2: compositionality + concept learning -->
+        <article class="card col-span-12 sm:col-span-6 lg:col-span-3 chrome rounded-md overflow-hidden">
+          <div class="aspect-[4/5] foil foil-b relative">
+            <div class="vignette"></div>
+            <div class="hi"></div>
+            <div class="noise noise-b"></div>
+            <div class="absolute inset-0 p-4 sm:p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-between foil-meta foil-text">
+                <span>NeurIPS · 2025</span>
+                <span>#02</span>
+              </div>
+              <h3 class="display foil-text text-[22px] sm:text-[24px] lg:text-[26px] font-semibold leading-[1.05] tracking-tight">
+                Compositional Concepts from Sparse Demonstrations
+              </h3>
+            </div>
+          </div>
+          <div class="p-4 sm:p-5">
+            <div class="text-[13px] mono text-zinc-300 truncate">Z. Wang, C. MacLellan</div>
+            <p class="mt-2 text-[13px] text-zinc-400 leading-relaxed line-clamp-3">
+              Learns reusable concept primitives from a handful of demonstrations and recombines them
+              zero-shot, matching multi-task baselines with 1/30th the data.
+            </p>
+            <div class="mt-3 flex gap-1.5 flex-wrap">
+              <span class="mono text-[10px] uppercase tracking-wider text-zinc-400 px-2 py-0.5 rounded-sm border border-zinc-700/80">compositionality</span>
+              <span class="mono text-[10px] uppercase tracking-wider text-zinc-400 px-2 py-0.5 rounded-sm border border-zinc-700/80">concept learning</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3: reinforcement learning + diffusion -->
+        <article class="card col-span-12 sm:col-span-6 lg:col-span-3 chrome rounded-md overflow-hidden">
+          <div class="aspect-[4/5] foil foil-c relative">
+            <div class="vignette"></div>
+            <div class="hi"></div>
+            <div class="noise noise-c"></div>
+            <div class="absolute inset-0 p-4 sm:p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-between foil-meta foil-text">
+                <span>ICLR · 2025</span>
+                <span>#03</span>
+              </div>
+              <h3 class="display foil-text text-[22px] sm:text-[24px] lg:text-[26px] font-semibold leading-[1.05] tracking-tight">
+                Diffusion-Guided Exploration for Sparse-Reward RL
+              </h3>
+            </div>
+          </div>
+          <div class="p-4 sm:p-5">
+            <div class="text-[13px] mono text-zinc-300 truncate">A. Patel, Z. Wang, J. Doe</div>
+            <p class="mt-2 text-[13px] text-zinc-400 leading-relaxed line-clamp-3">
+              Uses a small diffusion model as an intrinsic-reward generator over visited states, doubling
+              sample efficiency on Procgen-hard.
+            </p>
+            <div class="mt-3 flex gap-1.5 flex-wrap">
+              <span class="mono text-[10px] uppercase tracking-wider text-zinc-400 px-2 py-0.5 rounded-sm border border-zinc-700/80">reinforcement learning</span>
+              <span class="mono text-[10px] uppercase tracking-wider text-zinc-400 px-2 py-0.5 rounded-sm border border-zinc-700/80">diffusion models</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4: continual + LM (alternate angle, demonstrating same-tag variety) -->
+        <article class="card col-span-12 sm:col-span-6 lg:col-span-3 chrome rounded-md overflow-hidden">
+          <div class="aspect-[4/5] foil foil-d relative">
+            <div class="vignette"></div>
+            <div class="hi"></div>
+            <div class="noise noise-d"></div>
+            <div class="absolute inset-0 p-4 sm:p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-between foil-meta foil-text">
+                <span>EMNLP · 2024</span>
+                <span>#04</span>
+              </div>
+              <h3 class="display foil-text text-[22px] sm:text-[24px] lg:text-[26px] font-semibold leading-[1.05] tracking-tight">
+                Replay-Free Domain Adaptation
+              </h3>
+            </div>
+          </div>
+          <div class="p-4 sm:p-5">
+            <div class="text-[13px] mono text-zinc-300 truncate">Z. Wang, J. Doe</div>
+            <p class="mt-2 text-[13px] text-zinc-400 leading-relaxed line-clamp-3">
+              A gradient-projection adapter that lets a 7B model pick up new domains while preserving
+              held-out perplexity to within 0.4 nats.
+            </p>
+            <div class="mt-3 flex gap-1.5 flex-wrap">
+              <span class="mono text-[10px] uppercase tracking-wider text-zinc-400 px-2 py-0.5 rounded-sm border border-zinc-700/80">continual learning</span>
+              <span class="mono text-[10px] uppercase tracking-wider text-zinc-400 px-2 py-0.5 rounded-sm border border-zinc-700/80">language models</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- second row to demonstrate further pattern variety -->
+      <div class="grid grid-cols-12 gap-4 sm:gap-5 mt-4 sm:mt-5">
+        <article class="card col-span-12 sm:col-span-6 lg:col-span-4 chrome rounded-md overflow-hidden">
+          <div class="aspect-[16/10] foil foil-e relative">
+            <div class="vignette"></div>
+            <div class="hi"></div>
+            <div class="noise noise-e"></div>
+            <div class="absolute inset-0 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-between foil-meta foil-text">
+                <span>ICLR · 2024</span>
+                <span>#05</span>
+              </div>
+              <h3 class="display foil-text text-[22px] sm:text-[24px] font-semibold leading-[1.05] tracking-tight">
+                Concept Diffusion for Few-Shot Generation
+              </h3>
+            </div>
+          </div>
+          <div class="p-4 sm:p-5">
+            <div class="text-[13px] mono text-zinc-300 truncate">Z. Wang, C. MacLellan, R. Singh</div>
+            <p class="mt-2 text-[13px] text-zinc-400 leading-relaxed line-clamp-2">
+              Diffusion conditioned on learned concept embeddings — generates novel category instances
+              from 5 examples.
+            </p>
+            <div class="mt-3 flex gap-1.5 flex-wrap">
+              <span class="mono text-[10px] uppercase tracking-wider text-zinc-400 px-2 py-0.5 rounded-sm border border-zinc-700/80">diffusion models</span>
+              <span class="mono text-[10px] uppercase tracking-wider text-zinc-400 px-2 py-0.5 rounded-sm border border-zinc-700/80">concept learning</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card col-span-12 sm:col-span-6 lg:col-span-4 chrome rounded-md overflow-hidden">
+          <div class="aspect-[16/10] foil foil-b relative" style="background: conic-gradient(from 30deg at 30% 60%, #C026D3, #DB2777, #FB7185, #F43F5E, #FFA94D, #C026D3);">
+            <div class="vignette"></div>
+            <div class="hi"></div>
+            <div class="noise noise-b"></div>
+            <div class="absolute inset-0 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-between foil-meta foil-text">
+                <span>ACL · 2024</span>
+                <span>#06</span>
+              </div>
+              <h3 class="display foil-text text-[22px] sm:text-[24px] font-semibold leading-[1.05] tracking-tight">
+                Skill Composition via Latent Operators
+              </h3>
+            </div>
+          </div>
+          <div class="p-4 sm:p-5">
+            <div class="text-[13px] mono text-zinc-300 truncate">Z. Wang, J. Doe</div>
+            <p class="mt-2 text-[13px] text-zinc-400 leading-relaxed line-clamp-2">
+              Learns composable latent operators that can be applied in sequence to combine pretrained
+              skills without fine-tuning.
+            </p>
+            <div class="mt-3 flex gap-1.5 flex-wrap">
+              <span class="mono text-[10px] uppercase tracking-wider text-zinc-400 px-2 py-0.5 rounded-sm border border-zinc-700/80">compositionality</span>
+              <span class="mono text-[10px] uppercase tracking-wider text-zinc-400 px-2 py-0.5 rounded-sm border border-zinc-700/80">language models</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card col-span-12 sm:col-span-6 lg:col-span-4 chrome rounded-md overflow-hidden">
+          <div class="aspect-[16/10] foil relative" style="background: conic-gradient(from 250deg at 70% 35%, #F59E0B, #FFA94D, #FCA5A5, #FB7185, #F59E0B);">
+            <div class="vignette"></div>
+            <div class="hi"></div>
+            <div class="noise noise-c"></div>
+            <div class="absolute inset-0 p-5 flex flex-col justify-between">
+              <div class="flex items-center justify-between foil-meta foil-text">
+                <span>NeurIPS · 2023</span>
+                <span>#07</span>
+              </div>
+              <h3 class="display foil-text text-[22px] sm:text-[24px] font-semibold leading-[1.05] tracking-tight">
+                On-Policy Skill Reuse in Continual RL
+              </h3>
+            </div>
+          </div>
+          <div class="p-4 sm:p-5">
+            <div class="text-[13px] mono text-zinc-300 truncate">A. Patel, Z. Wang</div>
+            <p class="mt-2 text-[13px] text-zinc-400 leading-relaxed line-clamp-2">
+              Reuses skills learned in prior tasks via a frozen-policy library and a lightweight gating
+              head — no replay buffer.
+            </p>
+            <div class="mt-3 flex gap-1.5 flex-wrap">
+              <span class="mono text-[10px] uppercase tracking-wider text-zinc-400 px-2 py-0.5 rounded-sm border border-zinc-700/80">reinforcement learning</span>
+              <span class="mono text-[10px] uppercase tracking-wider text-zinc-400 px-2 py-0.5 rounded-sm border border-zinc-700/80">continual learning</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="mt-16 md:mt-20 mono text-[10px] uppercase tracking-[0.28em] text-zinc-500 flex items-center gap-3">
+        <span class="h-px w-8 bg-zinc-700"></span>
+        Liquid Metal · Direction 02
+        <span class="h-px flex-1 bg-zinc-800"></span>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

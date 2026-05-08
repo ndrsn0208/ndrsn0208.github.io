@@ -1,0 +1,23 @@
+<!doctype html>
+<!--
+  GitHub Pages SPA fallback — when a hard refresh hits a deep link
+  like /publications/foo, GH Pages serves this file. We rewrite the
+  URL back to '/' with the original path stashed in the hash, then
+  the SPA on '/' reads the hash and pushes the real route.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zekun Wang</title>
+    <script>
+      (function () {
+        var loc = window.location
+        var path = loc.pathname + loc.search + loc.hash
+        // Replace immediately so the back button doesn't bounce here.
+        loc.replace(loc.origin + '/?_redirect=' + encodeURIComponent(path))
+      })()
+    </script>
+  </head>
+  <body></body>
+</html>

@@ -1,0 +1,1116 @@
+<!DOCTYPE html><html lang="en-US">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>A Rational Account of Categorization Based on Information Theory</title>
+<!--Generated on Tue May  5 18:49:46 2026 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.-->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="/static/browse/0.3.4/css/arxiv-html-papers-20260131.css" type="text/css">
+<script src="/static/browse/0.3.4/js/arxiv-html-papers-20260131.js"></script>
+<script>
+  // Restore the saved color scheme preference, or
+  // enact the browser preference if "automatic", 
+  // without expecting DOM load to have completed.
+  //
+  // Also restore any saved readingmode and ToC display preferences.
+  function initializeReadingPreferences() {
+    let saved_theme = localStorage.getItem("ar5iv_theme") || "automatic";
+    if (saved_theme === "automatic") {
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        saved_theme = "dark";
+      }
+    }
+    if (saved_theme == "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+    }
+
+    const tocDisplay = localStorage.getItem('arxiv_html_paper_toc_display');
+    if (tocDisplay) {
+      document.documentElement.setAttribute("data-toc-display", tocDisplay);
+    }
+    const readingMode = localStorage.getItem('arxiv_html_paper_reading_mode');
+    if (readingMode) {
+      document.documentElement.setAttribute("data-reading-mode", readingMode);
+    }
+  }
+  // Run as soon as JS starts, to minimize repainting
+  initializeReadingPreferences();
+</script>
+<link rel="apple-touch-icon" sizes="180x180"
+  href="/static/browse/0.3.4/images/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32"
+  href="/static/browse/0.3.4/images/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16"
+  href="/static/browse/0.3.4/images/icons/favicon-16x16.png">
+<link rel="manifest" href="/static/browse/0.3.4/images/icons/site.webmanifest">
+<link rel="mask-icon" href="/static/browse/0.3.4/images/icons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="stylesheet" type="text/css" media="screen" href="https://use.typekit.net/utz6mli.css">
+</head>
+<body>
+<dialog id="modal-form" aria-labelledby="modal-title" closedby="any">
+  <form id="modal-form-content" method="dialog" enctype="multipart/form-data">
+    <header class="modal-header">
+      <h5 id="modal-title" class="modal-title">Report GitHub Issue</h5>
+      <button type="submit" formnovalidate class="modal-close" aria-label="Close">×</button>
+    </header>
+
+    <div class="modal-body">
+      <label for="form_title">Title:</label>
+      <input class="form-control" id="form_title" name="form_title" required placeholder="Enter title">
+
+      <p id="selectedTextModalDescription" hidden>Content selection saved. Describe the issue below:</p>
+
+      <label for="description">Description:</label>
+      <textarea class="form-control" id="description" name="description" required maxlength="500"
+        placeholder="500 characters maximum"></textarea>
+    </div>
+
+    <footer class="modal-footer">
+      <button type="submit" value="internal-report" class="sr-only modal-submit">Submit without GitHub</button>
+      <button type="submit" value="github-report" class="modal-submit">Submit in GitHub</button>
+    </footer>
+  </form>
+</dialog>
+
+<header class="arxiv-html-header">
+  <div class="html-header-logo">
+    <a href="/">
+      <img alt="arXiv logo" class="logo desktop-only" width="100"
+        src="/static/browse/0.3.4/images/arxiv-logo-one-color-white.svg">
+      <span class="sr-only">Back to arXiv</span>
+    </a>
+  </div>
+  <!--TOC, dark mode, links-->
+  <nav class="html-header-nav">
+    <a class="header-button hover-effect desktop-only" href="https://info.arxiv.org/about/accessible_HTML.html"
+      target="_blank">Why HTML?</a>
+    <a class="header-button" title="Report an Issue" href="#" title="Report an issue"
+      onclick="event.preventDefault(); showModalForm();">
+      <svg role="presentation" class="mobile-only toggle-icon" aria-hidden="true" height="1.25rem"
+        viewBox="0 0 640 640">
+        <path
+          d="M224 160C224 107 267 64 320 64C373 64 416 107 416 160L416 163.6C416 179.3 403.3 192 387.6 192L252.5 192C236.8 192 224.1 179.3 224.1 163.6L224.1 160zM569.6 172.8C580.2 186.9 577.3 207 563.2 217.6L465.4 290.9C470.7 299.8 474.7 309.6 477.2 320L576 320C593.7 320 608 334.3 608 352C608 369.7 593.7 384 576 384L480 384L480 416C480 418.6 479.9 421.3 479.8 423.9L563.2 486.4C577.3 497 580.2 517.1 569.6 531.2C559 545.3 538.9 548.2 524.8 537.6L461.7 490.3C438.5 534.5 395.2 566.5 344 574.2L344 344C344 330.7 333.3 320 320 320C306.7 320 296 330.7 296 344L296 574.2C244.8 566.5 201.5 534.5 178.3 490.3L115.2 537.6C101.1 548.2 81 545.3 70.4 531.2C59.8 517.1 62.7 497 76.8 486.4L160.2 423.9C160.1 421.3 160 418.7 160 416L160 384L64 384C46.3 384 32 369.7 32 352C32 334.3 46.3 320 64 320L162.8 320C165.3 309.6 169.3 299.8 174.6 290.9L76.8 217.6C62.7 207 59.8 186.9 70.4 172.8C81 158.7 101.1 155.8 115.2 166.4L224 248C236.3 242.9 249.8 240 264 240L376 240C390.2 240 403.7 242.8 416 248L524.8 166.4C538.9 155.8 559 158.7 569.6 172.8z" />
+      </svg>
+      <span class="desktop-only">Report Issue</span></a>
+    <!--back to abstract-->
+    <a class="header-button" title="Back to abstract page" aria-label="Back to abstract page"
+      href="/abs/2603.29895v3">
+      <svg class="mobile-only toggle-icon" role="presentation" height="1.25rem" viewBox="0 0 512 512" fill="#ffffff"
+        aria-hidden="true">
+        <path
+          d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z">
+        </path>
+      </svg>
+      <span class="desktop-only">Back to Abstract</span>
+    </a>
+    <!-- PDF download link -->
+    <a class="header-button" title="Download PDF" href="/pdf/2603.29895v3"
+      target="_blank">
+      <svg class="mobile-only toggle-icon" role="presentation" height="1.25rem" viewBox="0 0 576 542">
+        <path
+          d="M208 48L96 48c-8.8 0-16 7.2-16 16l0 384c0 8.8 7.2 16 16 16l80 0 0 48-80 0c-35.3 0-64-28.7-64-64L32 64C32 28.7 60.7 0 96 0L229.5 0c17 0 33.3 6.7 45.3 18.7L397.3 141.3c12 12 18.7 28.3 18.7 45.3l0 149.5-48 0 0-128-88 0c-39.8 0-72-32.2-72-72l0-88zM348.1 160L256 67.9 256 136c0 13.3 10.7 24 24 24l68.1 0zM240 380l32 0c33.1 0 60 26.9 60 60s-26.9 60-60 60l-12 0 0 28c0 11-9 20-20 20s-20-9-20-20l0-128c0-11 9-20 20-20zm32 80c11 0 20-9 20-20s-9-20-20-20l-12 0 0 40 12 0zm96-80l32 0c28.7 0 52 23.3 52 52l0 64c0 28.7-23.3 52-52 52l-32 0c-11 0-20-9-20-20l0-128c0-11 9-20 20-20zm32 128c6.6 0 12-5.4 12-12l0-64c0-6.6-5.4-12-12-12l-12 0 0 88 12 0zm76-108c0-11 9-20 20-20l48 0c11 0 20 9 20 20s-9 20-20 20l-28 0 0 24 28 0c11 0 20 9 20 20s-9 20-20 20l-28 0 0 44c0 11-9 20-20 20s-20-9-20-20l0-128z" />
+      </svg>
+      <span class="desktop-only">Download PDF</span></a>
+    <!-- navigational table of contents toggle -->
+    <a class="header-button toggle-icon" href="javascript:toggleNavTOC();" title="Toggle navigation"
+      aria-label="Toggle navigation">
+      <svg height="1.25rem" role="presentation" viewBox="0 0 512 512">
+        <path
+          d="M40 48C26.7 48 16 58.7 16 72v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V72c0-13.3-10.7-24-24-24H40zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zM16 232v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V232c0-13.3-10.7-24-24-24H40c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V392c0-13.3-10.7-24-24-24H40z">
+        </path>
+      </svg>
+    </a>
+    <!--- collapsable header / reading mode toggle -->
+    <a class="header-button toggle-icon" href="javascript:toggleReadingMode();"
+      title="Disable reading mode, show header and footer">
+      <svg role="presentation" height="1.25rem"
+        viewBox="0 0 448 512"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+        <path
+          d="M32 32C14.3 32 0 46.3 0 64l0 96c0 17.7 14.3 32 32 32s32-14.3 32-32l0-64 64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L32 32zM64 352c0-17.7-14.3-32-32-32S0 334.3 0 352l0 96c0 17.7 14.3 32 32 32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0 0-64zM320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0 0 64c0 17.7 14.3 32 32 32s32-14.3 32-32l0-96c0-17.7-14.3-32-32-32l-96 0zM448 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l96 0c17.7 0 32-14.3 32-32l0-96z" />
+      </svg>
+    </a>
+    <!--- colored theme toggle -->
+    <button type="button" class="header-button color-tog" onclick="toggleColorScheme();" title="Toggle dark/light mode" aria-label="Toggle color scheme">
+      <span class="toggle-icon automatic-tog" aria-hidden="true">
+        <svg role="presentation" height="1.25rem" viewBox="0 0 24 24">
+          <path
+            d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9h-1.9M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69m-9.15 3.96h2.3L12 9l-1.15 3.65Z">
+          </path>
+        </svg>
+      </span>
+      <span class="toggle-icon light-tog" aria-hidden="true">
+        <svg role="presentation" height="1.25rem" viewBox="0 0 24 24">
+          <path
+            d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z">
+          </path>
+        </svg>
+      </span>
+      <span class="toggle-icon dark-tog" aria-hidden="true">
+        <svg role="presentation" height="1.25rem" viewBox="0 0 24 24">
+          <path
+            d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z">
+          </path>
+        </svg>
+      </span>
+    </button>
+  </nav>
+</header><nav class="ltx_page_navbar">
+<nav class="ltx_TOC">
+<ol class="ltx_toclist">
+<li class="ltx_tocentry ltx_tocentry_abstract"><a href="#abstract1" title="In A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Abstract</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section"><a href="#Sx1" title="In A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Introduction</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section"><a href="#Sx2" title="In A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Instantiating the Proposed Theory</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a href="#Sx3" title="In A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Preliminary Tests of the Theory</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection">
+<a href="#Sx3.SSx1" title="In Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Central Tendencies of Categories</span></a>
+<ol class="ltx_toclist ltx_toclist_subsection">
+<li class="ltx_tocentry ltx_tocentry_subsubsection"><a href="#Sx3.SSx1.SSSx1" title="In Central Tendencies of Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Human Study Design</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsubsection"><a href="#Sx3.SSx1.SSSx2" title="In Central Tendencies of Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Simulation Methodology</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsubsection"><a href="#Sx3.SSx1.SSSx3" title="In Central Tendencies of Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Results and Discussion</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_subsection">
+<a href="#Sx3.SSx2" title="In Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Non-Linearly and Linearly Separable Categories</span></a>
+<ol class="ltx_toclist ltx_toclist_subsection">
+<li class="ltx_tocentry ltx_tocentry_subsubsection"><a href="#Sx3.SSx2.SSSx1" title="In Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Human Study Design</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsubsection"><a href="#Sx3.SSx2.SSSx2" title="In Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Simulation Methodology</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsubsection"><a href="#Sx3.SSx2.SSSx3" title="In Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Results and Discussion</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_subsection">
+<a href="#Sx3.SSx3" title="In Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Prototype-Exemplar Transition</span></a>
+<ol class="ltx_toclist ltx_toclist_subsection">
+<li class="ltx_tocentry ltx_tocentry_subsubsection"><a href="#Sx3.SSx3.SSSx1" title="In Prototype-Exemplar Transition ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Human Study Design</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsubsection"><a href="#Sx3.SSx3.SSSx2" title="In Prototype-Exemplar Transition ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Simulation Methodology</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsubsection"><a href="#Sx3.SSx3.SSSx3" title="In Prototype-Exemplar Transition ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Results and Discussion</span></a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section"><a href="#Sx4" title="In A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Conclusion and Future Work</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section"><a href="#Sx5" title="In A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Acknowledgments</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_bibliography"><a href="#bib" title="In A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">References</span></a></li>
+</ol></nav>
+</nav>
+<div class="ltx_page_main">
+<div id="infobox" class="infobox">
+  <a id="license-tr" href="https://info.arxiv.org/help/license/index.html#licenses-available">
+    License: CC BY 4.0
+  </a>
+  <div id="watermark-tr">
+arXiv:2603.29895v3 [cs.AI] 05 May 2026</div>
+</div><div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line" lang="en-US">
+<h1 class="ltx_title ltx_title_document">A Rational Account of Categorization Based on Information Theory</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+<span id="id5.5.5" class="ltx_text ltx_font_bold">Christopher J. MacLellan (cmaclell@gatech.edu)<sup id="id5.5.5.1" class="ltx_sup"><span id="id5.5.5.1.1" class="ltx_text ltx_font_medium">1</span></sup>, Karthik Singaravadivelan<sup id="id5.5.5.2" class="ltx_sup"><span id="id5.5.5.2.1" class="ltx_text ltx_font_medium">1</span></sup>,
+<br class="ltx_break">Xin Lian<sup id="id5.5.5.3" class="ltx_sup"><span id="id5.5.5.3.1" class="ltx_text ltx_font_medium">2</span></sup>, Zekun Wang<sup id="id5.5.5.4" class="ltx_sup"><span id="id5.5.5.4.1" class="ltx_text ltx_font_medium">1</span></sup>, and Pat Langley<sup id="id5.5.5.5" class="ltx_sup"><span id="id5.5.5.5.1" class="ltx_text ltx_font_medium ltx_font_italic">3,4</span></sup></span> 
+<br class="ltx_break"><sup id="id10.10.id1" class="ltx_sup">1</sup>School of Interactive Computing, Georgia Institute of Technology 
+<br class="ltx_break"><sup id="id11.11.id2" class="ltx_sup">2</sup>Department of Computer Science, Northwestern University 
+<br class="ltx_break"><sup id="id12.12.id3" class="ltx_sup">3</sup>Georgia Tech Research Institute, Georgia Institute of Technology 
+<br class="ltx_break"><sup id="id13.13.id4" class="ltx_sup">4</sup>Institute for the Study of Learning and Expertise
+</span><span class="ltx_author_notes">
+<span class="ltx_contact ltx_role_affiliation">
+</span></span></span>
+</div>
+
+<div id="abstract1" class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p"><span class="ltx_text">We present a new theory of categorization based on an information-theoretic rational analysis.
+To evaluate this theory, we investigate how well it can account for key findings from classic categorization experiments conducted by <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib22" title="Concept learning and the recognition and classification of exemplars" class="ltx_ref">10</a>, <a href="#bib.bib23" title="Context theory of classification learning" class="ltx_ref">13</a>, <a href="#bib.bib1" title="Prototypes in the mist: the early epochs of category learning." class="ltx_ref">16</a>]</cite>.
+We find that it explains the human categorization behavior as well as (or better) than the independent cue and context models <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib23" title="Context theory of classification learning" class="ltx_ref">13</a>]</cite>, the rational model of categorization <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="The adaptive nature of human categorization" class="ltx_ref">1</a>]</cite>, and a hierarchical Dirichlet process model <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib27" title="Unifying rational models of categorization via the hierarchical dirichlet process" class="ltx_ref">9</a>]</cite>.</span></p>
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Keywords:<span class="ltx_text ltx_font_medium">
+Rational analysis; Concepts and categories; Learning; Computational Modeling</span></span></p>
+</div>
+<section id="Sx1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">Introduction</h2>
+
+<div id="Sx1.p1" class="ltx_para ltx_noindent">
+<p id="Sx1.p1.1" class="ltx_p">The underlying premise of a rational analysis is that humans have evolved cognitive mechanisms that maximize utility given the structure of their environment and their operating constraints <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="The adaptive nature of human categorization" class="ltx_ref">1</a>, <a href="#bib.bib5" title="Rational adaptation under task and processing constraints: implications for testing theories of cognition and action." class="ltx_ref">11</a>]</cite>.
+Thus, if we can devise artificial mechanisms that maximize a given human objective under the relevant environment and operating constraints, then it should have a close correspondence to the adapted human cognitive mechanisms—both should converge to isomorphic mechanisms.</p>
+</div>
+<div id="Sx1.p2" class="ltx_para">
+<p id="Sx1.p2.1" class="ltx_p">To apply this approach to human categorization requires making assumptions about (1) the objective people maximize during learning and performance, (2) the key structural aspects of the environment, and (3) the relevant operating constraints.
+<cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="The adaptive nature of human categorization" class="ltx_ref">1</a>]</cite> proposes answers to all three.
+Specifically, he assumes that people learn categories that minimize the mean-squared feature predictive error within a Bayesian inference scheme, and that the environment is structured such that objects can be partitioned into disjoint categories that have independent, probabilistic features within category.
+Lastly, he assumes people are constrained to maintaining a single hypothesis about category structure (they do not maintain all possible category structure hypotheses) and that this hypothesis is incrementally updated after each new experience.</p>
+</div>
+<div id="Sx1.p3" class="ltx_para">
+<p id="Sx1.p3.1" class="ltx_p">The current work builds on <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="The adaptive nature of human categorization" class="ltx_ref">1</a>]</cite>’s assumptions, but explores two changes.
+First, we propose a new objective based on information theory; mainly, that people learn categories that have maximal mutual information with the features of their experiences.
+This new objective is based on <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib8" title="Explaining basic categories: feature predictability and information." class="ltx_ref">4</a>]</cite>’s <span id="Sx1.p3.1.1" class="ltx_ERROR undefined">\citeyearpar</span>corter1992explaining <span id="Sx1.p3.1.2" class="ltx_text ltx_font_italic">category utility hypothesis</span>, which states that a category has utility to the extent that it improves one’s ability to predict the features of an instance given knowledge of its category label.
+Second, we assume that the structure of categories in the environment is taxonomic, being organized hierarchically rather than in a flat partitioning.
+This assumption was suggested by <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib32" title="The structure and formation of natural categories" class="ltx_ref">6</a>]</cite> and later explored by <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="The adaptive nature of human categorization" class="ltx_ref">1</a>]</cite>.</p>
+</div>
+</section>
+<section id="Sx2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">Instantiating the Proposed Theory</h2>
+
+<div id="Sx2.p1" class="ltx_para">
+<p id="Sx2.p1.1" class="ltx_p">The next step in our rational analysis is to devise artificial mechanisms that maximize this objective within the proposed environment and processing constraints.
+We instantiate our theory within <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib9" title="Knowledge acquisition via incremental conceptual clustering" class="ltx_ref">7</a>]</cite>’s <span id="Sx2.p1.1.1" class="ltx_ERROR undefined">\citeyearpar</span>fisher1987knowledge Cobweb system.</p>
+</div>
+<div id="Sx2.p2" class="ltx_para">
+<p id="Sx2.p2.1" class="ltx_p">Cobweb employs two distinct representations.
+First, instances are described using attribute-value lists (e.g., {“color”: “green”, “shape”: “circle”, “size”: 2.4}).
+Second, concepts, which are organized in a hierarchical taxonomy, store probability distributions over the attribute values of training instances associated with them. Concepts maintain categorical distributions for discrete features and normal distributions for continuous features. The system has a single free parameter <math id="Sx2.p2.1.m1" class="ltx_Math" alttext="\alpha" display="inline" intent=":literal"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>, which is a smoothing parameter representing uniform pseudocounts for every categorical attribute value.</p>
+</div>
+<div id="Sx2.p3" class="ltx_para">
+<p id="Sx2.p3.5" class="ltx_p">To predict missing features of an example, Cobweb sorts it into its hierarchy and uses the concepts it activates to generate predictions.
+Unlike <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib9" title="Knowledge acquisition via incremental conceptual clustering" class="ltx_ref">7</a>]</cite>’s original performance mechanism, our variant uses best-first search to expand the nodes with the highest pointwise mutual information with the example.
+The pointwise mutual information <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib6" title="Word association norms, mutual information, and lexicography" class="ltx_ref">3</a>, <a href="#bib.bib7" title="Transmission of information: a statistical theory of communications" class="ltx_ref">5</a>]</cite> between a concept <math id="Sx2.p3.1.m1" class="ltx_Math" alttext="c" display="inline" intent=":literal"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> and an example <math id="Sx2.p3.2.m2" class="ltx_Math" alttext="x" display="inline" intent=":literal"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> is computed as <math id="Sx2.p3.3.m3" class="ltx_Math" alttext="PMI(c,x)=\log\frac{p(x,c)}{p(x)p(c)}=\log\frac{p(x|c)}{p(x)}=\log p(x|c)-\log p(x)" display="inline" intent=":literal"><semantics><mrow><mrow><mi>P</mi><mo lspace="0em" rspace="0em">​</mo><mi>M</mi><mo lspace="0em" rspace="0em">​</mo><mi>I</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>c</mi><mo>,</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mi>log</mi><mo lspace="0.167em">⁡</mo><mfrac><mrow><mi>p</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>,</mo><mi>c</mi><mo stretchy="false">)</mo></mrow></mrow><mrow><mi>p</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mo lspace="0em" rspace="0em">​</mo><mi>p</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo></mrow></mrow></mfrac></mrow><mo>=</mo><mrow><mi>log</mi><mo lspace="0.167em">⁡</mo><mfrac><mrow><mi>p</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><mi>x</mi><mo fence="false">|</mo><mi>c</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><mrow><mi>p</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mrow></mfrac></mrow><mo>=</mo><mrow><mrow><mrow><mi>log</mi><mo lspace="0.167em">⁡</mo><mi>p</mi></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><mi>x</mi><mo fence="false">|</mo><mi>c</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>−</mo><mrow><mrow><mi>log</mi><mo lspace="0.167em">⁡</mo><mi>p</mi></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">PMI(c,x)=\log\frac{p(x,c)}{p(x)p(c)}=\log\frac{p(x|c)}{p(x)}=\log p(x|c)-\log p(x)</annotation></semantics></math>.
+When deciding which node to expand, the <math id="Sx2.p3.4.m4" class="ltx_Math" alttext="p(x)" display="inline" intent=":literal"><semantics><mrow><mi>p</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">p(x)</annotation></semantics></math> term can be dropped as it is a constant that appears across all PMI scores; thus, this approach reduces to expanding the nodes with the highest <math id="Sx2.p3.5.m5" class="ltx_Math" alttext="\log p(x|c)" display="inline" intent=":literal"><semantics><mrow><mrow><mi>log</mi><mo lspace="0.167em">⁡</mo><mi>p</mi></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><mi>x</mi><mo fence="false">|</mo><mi>c</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\log p(x|c)</annotation></semantics></math>.
+This measure, which quantifies the amount of information the concept label gives about the example’s features, directly operationalizes <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib8" title="Explaining basic categories: feature predictability and information." class="ltx_ref">4</a>]</cite>’s category utility hypothesis.
+Our system keeps expanding concept nodes up to a user-specified <span id="Sx2.p3.5.1" class="ltx_text ltx_font_italic">max_nodes</span> value (we set this parameter to 100 for all our following simulations) or until there are no more concepts to expand.
+Finally, the system predicts the target missing features as a combination of the predictions from all activated nodes weighted by each node’s pointwise mutual information score.
+Note, we normalized the pointwise mutual information scores, so that the weights across expanded concepts sum to 1.
+This inference approach is analogous to an unsupervised version of the predictive equation used by <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="The adaptive nature of human categorization" class="ltx_ref">1</a>]</cite> that assumes a uniform prior over each activated concept.</p>
+</div>
+<div id="Sx2.p4" class="ltx_para">
+<p id="Sx2.p4.1" class="ltx_p">To update its taxonomy, Cobweb sorts the examples into its hierarchy in a greedy fashion.
+At each branch it considers four possible update operations: (1) <span id="Sx2.p4.1.1" class="ltx_text ltx_font_italic">inserting</span> the example into one of the children, (2) creating a <span id="Sx2.p4.1.2" class="ltx_text ltx_font_italic">new</span> node to represent the example, (3) <span id="Sx2.p4.1.3" class="ltx_text ltx_font_italic">merging</span> the two concepts most similar to the example and inserting into the new merged concept (the original concepts become the children of the new concept), and <span id="Sx2.p4.1.4" class="ltx_text ltx_font_italic">splitting</span> the most similar concept and promoting its children.
+Our variant of Cobweb chooses the operation that maximizes the future expected pointwise mutual information across the children and all possible examples, which is equivalent to maximizing their mutual information: <math id="Sx2.p4.1.m1" class="ltx_Math" alttext="\mathbb{E}_{x,c}[PMI(x,c)]=\sum_{c}\sum_{x}p(x,c)\log\frac{p(x,c)}{p(x)p(c)}=I(X,C)" display="inline" intent=":literal"><semantics><mrow><mrow><msub><mi>𝔼</mi><mrow><mi>x</mi><mo>,</mo><mi>c</mi></mrow></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">[</mo><mrow><mi>P</mi><mo lspace="0em" rspace="0em">​</mo><mi>M</mi><mo lspace="0em" rspace="0em">​</mo><mi>I</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>,</mo><mi>c</mi><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">]</mo></mrow></mrow><mo rspace="0.111em">=</mo><mrow><msub><mo rspace="0em">∑</mo><mi>c</mi></msub><mrow><msub><mo>∑</mo><mi>x</mi></msub><mrow><mi>p</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>,</mo><mi>c</mi><mo stretchy="false">)</mo></mrow><mo lspace="0.167em" rspace="0em">​</mo><mrow><mi>log</mi><mo lspace="0.167em">⁡</mo><mfrac><mrow><mi>p</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>,</mo><mi>c</mi><mo stretchy="false">)</mo></mrow></mrow><mrow><mi>p</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mo lspace="0em" rspace="0em">​</mo><mi>p</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo></mrow></mrow></mfrac></mrow></mrow></mrow></mrow><mo>=</mo><mrow><mi>I</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>X</mi><mo>,</mo><mi>C</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbb{E}_{x,c}[PMI(x,c)]=\sum_{c}\sum_{x}p(x,c)\log\frac{p(x,c)}{p(x)p(c)}=I(X,C)</annotation></semantics></math>.
+Similar to <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="The adaptive nature of human categorization" class="ltx_ref">1</a>]</cite>, we assume that features are statistically independent within each category, which makes it possible to compute this value in a closed form for both categorical and normal feature distributions.
+When an example is incorporated into a concept, we incrementally update its feature probability distributions to reflect the new example.</p>
+</div>
+<div id="Sx2.p5" class="ltx_para">
+<p id="Sx2.p5.1" class="ltx_p">Unlike Anderson’s approach, which assigns examples to the categories most likely to have generated them even if this lowers the likelihood scores for previously assigned examples, our approach maximizes the likelihood over all examples, both current and prior.
+The two approaches converge to similar assignments as the amount of data grows, but differ during early learning and when concepts are based on little data.
+Given the space limitations, we refer the reader to more detailed descriptions Cobweb variants similar to ours by <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib31" title="Cobweb: an incremental and hierarchical model of human-like category learning" class="ltx_ref">12</a>, <a href="#bib.bib12" title="Robust incremental learning of visual concepts without catastrophic forgetting" class="ltx_ref">2</a>]</cite>.
+Our systems main difference is its use of pointwise mutual information rather than collocation.</p>
+</div>
+</section>
+<section id="Sx3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">Preliminary Tests of the Theory</h2>
+
+<section id="Sx3.SSx1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">Central Tendencies of Categories</h3>
+
+<div id="Sx3.SSx1.p1" class="ltx_para">
+<p id="Sx3.SSx1.p1.1" class="ltx_p">As a first test, we applied our Cobweb variant to simulate the data reported by <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib22" title="Concept learning and the recognition and classification of exemplars" class="ltx_ref">10</a>]</cite>.
+Their experiment, which investigated human recognition and classification of <span id="Sx3.SSx1.p1.1.1" class="ltx_text ltx_font_italic">old</span> and <span id="Sx3.SSx1.p1.1.2" class="ltx_text ltx_font_italic">new</span> examples, showcases the central tendencies of human categorization—that classification accuracy increases the closer an example is to a category’s prototype.</p>
+</div>
+<section id="Sx3.SSx1.SSSx1" class="ltx_subsubsection">
+<h4 class="ltx_title ltx_title_subsubsection">Human Study Design</h4>
+
+<div id="Sx3.SSx1.SSSx1.p1" class="ltx_para">
+<p id="Sx3.SSx1.SSSx1.p1.1" class="ltx_p">In this study, 108 participants reviewed flashcards showing records of fictional individuals that were described by five features (last name, age, education, marital status, and hobby) and were asked to classify them into one of three classes: <span id="Sx3.SSx1.SSSx1.p1.1.1" class="ltx_text ltx_font_bold">Club 1</span>, <span id="Sx3.SSx1.SSSx1.p1.1.2" class="ltx_text ltx_font_bold">Club 2</span>, or <span id="Sx3.SSx1.SSSx1.p1.1.3" class="ltx_text ltx_font_bold">Neither</span>.
+The last name and hobby were distractor features; every card featured a different last name and one of three randomly assigned hobbies.
+The remaining features, which determined the class of the example, could take on one of four values.<span id="footnote1" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup><span class="ltx_tag ltx_tag_note">1</span>See Table 1 of <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib22" title="Concept learning and the recognition and classification of exemplars" class="ltx_ref">10</a>]</cite> for the stimuli.</span></span></span></p>
+</div>
+<div id="Sx3.SSx1.SSSx1.p2" class="ltx_para ltx_noindent">
+<p id="Sx3.SSx1.SSSx1.p2.1" class="ltx_p">During training, half the participants were randomly assigned to receive flashcards describing the classes and their prototypes, while the other half did not receive any such information.
+Participants then classified 132 examples and received feedback.
+For the Club 1 and Club 2 classes, there were training items with specific structure and frequency:</p>
+<ul id="Sx3.I1" class="ltx_itemize">
+<li id="Sx3.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Sx3.I1.i1.p1" class="ltx_para">
+<p id="Sx3.I1.i1.p1.1" class="ltx_p"><span id="Sx3.I1.i1.p1.1.1" class="ltx_text ltx_font_bold">1 Transform, Frequency 1:</span> Three items differed from their class prototype by one feature and appeared once;</p>
+</div>
+</li>
+<li id="Sx3.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Sx3.I1.i2.p1" class="ltx_para">
+<p id="Sx3.I1.i2.p1.1" class="ltx_p"><span id="Sx3.I1.i2.p1.1.1" class="ltx_text ltx_font_bold">2 Transforms, Frequency 1:</span> Three items differed from their class prototype by two features and appeared once;</p>
+</div>
+</li>
+<li id="Sx3.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="Sx3.I1.i3.p1" class="ltx_para">
+<p id="Sx3.I1.i3.p1.1" class="ltx_p"><span id="Sx3.I1.i3.p1.1.1" class="ltx_text ltx_font_bold">1 Transform, Frequency 10:</span> Three items differed from their prototype by one feature and appeared ten times with different distractors;</p>
+</div>
+</li>
+</ul>
+<p id="Sx3.SSx1.SSSx1.p2.2" class="ltx_p">Additionally, there were three “Either” examples that were equally close to the Club 1 and 2 prototypes (1 feature in common with both prototypes) that were seen ten times with different distractors. During training of these instances, participants received positive feedback if they labeled it as either Club 1 or 2 (but not Neither).
+Finally, there were thirty examples in the Neither class; if an item had any feature in common with the Neither prototype, then its label was Neither regardless of whether it shared features with the Club prototypes.</p>
+</div>
+<div id="Sx3.SSx1.SSSx1.p3" class="ltx_para">
+<p id="Sx3.SSx1.SSSx1.p3.1" class="ltx_p">During testing, participants were asked to re-classify the Club 1, Club 2, and Either items (they were not tested on the Neither items).
+They were also asked to classify seven novel items not seen during training that included the prototypes of the Club 1, Club 2, Either, and Neither items, as well as three additional Either items.
+In total, participants classified 28 test stimuli.
+For each test item, participants rated whether the item was old or new (recognition) and their confidence in classifying the item as Club 1 or Club 2 (categorization).
+They did not receive feedback on their responses.</p>
+</div>
+<div id="Sx3.SSx1.SSSx1.p4" class="ltx_para">
+<p id="Sx3.SSx1.SSSx1.p4.1" class="ltx_p"><cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib22" title="Concept learning and the recognition and classification of exemplars" class="ltx_ref">10</a>]</cite> found that reviewing the class prototypes prior to training improved classification performance; however they claimed that the relative ranking of classification accuracy each of the item types was consistent across conditions.
+The data also exhibit central tendencies; the prototypes had the highest classification accuracy (even those not seen during training), and the further an item was from its prototypes (the more transforms) the lower its classification accuracy.
+Another key finding was that participants were more likely to recognize 1 transformation items that were seen ten times during training than those that were only seen once, but their classification ratings of 1 transformation items was the same regardless of the training frequency.
+Next, we aim to show that our theory produces these observed effects.</p>
+</div>
+<figure id="Sx3.F1" class="ltx_figure"><img src="2603.29895v3/x1.png" id="Sx3.F1.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="830" height="622" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>Probabilities of the Club 1 category for the test items in the <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib22" title="Concept learning and the recognition and classification of exemplars" class="ltx_ref">10</a>]</cite> experiment, aggregated by item type. Problem types are ordered by avg. human confidence ratings. The legend reports the Spearman rank correlation. Human classification rate data are not available. The error bars represent the 95% confidence intervals. </figcaption>
+</figure>
+</section>
+<section id="Sx3.SSx1.SSSx2" class="ltx_subsubsection">
+<h4 class="ltx_title ltx_title_subsubsection">Simulation Methodology</h4>
+
+<div id="Sx3.SSx1.SSSx2.p1" class="ltx_para">
+<p id="Sx3.SSx1.SSSx2.p1.1" class="ltx_p">For our evaluation, we simulated the 54 participants in the condition that did not receive information about the class prototypes prior to training.
+We focused on this condition because we wanted to demonstrate that our theory exhibits the surprising central tendency result that novel prototypes are more accurately classified than less prototypical items that were previously studied <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib10" title="Pattern recognition and categorization" class="ltx_ref">15</a>, <a href="#bib.bib3" title="On the genesis of abstract ideas." class="ltx_ref">14</a>]</cite>.</p>
+</div>
+<div id="Sx3.SSx1.SSSx2.p2" class="ltx_para">
+<p id="Sx3.SSx1.SSSx2.p2.4" class="ltx_p">Our simulation procedure was identical to the one employed for the human experiment.
+We trained our Cobweb system by sequentially presenting it with each of the 132 training stimuli along with their associated class labels (Club 1, Club 2, or Neither) in a random ordering.
+For Either items, we randomly assigned them to have either a Club 1 or Club 2 label.
+Next, we presented the system with the 28 test stimuli (without labels) and generated a predicted probability of the Club 1 class for each item.
+We also computed the loglikelihood of each test item given our model, which represents a proxy for the recognition score that participants gave.
+To generate these loglikelihood scores, we employed an approach similar to prediction; we expanded nodes with the highest <math id="Sx3.SSx1.SSSx2.p2.1.m1" class="ltx_Math" alttext="PMI" display="inline" intent=":literal"><semantics><mrow><mi>P</mi><mo lspace="0em" rspace="0em">​</mo><mi>M</mi><mo lspace="0em" rspace="0em">​</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">PMI</annotation></semantics></math> in a best-first fashion up to the max_nodes limit. We then took the weighted sum the <math id="Sx3.SSx1.SSSx2.p2.2.m2" class="ltx_Math" alttext="\log p(x|c)" display="inline" intent=":literal"><semantics><mrow><mrow><mi>log</mi><mo lspace="0.167em">⁡</mo><mi>p</mi></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><mi>x</mi><mo fence="false">|</mo><mi>c</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\log p(x|c)</annotation></semantics></math> values for expanded concepts.
+We set <math id="Sx3.SSx1.SSSx2.p2.3.m3" class="ltx_Math" alttext="\alpha=1" display="inline" intent=":literal"><semantics><mrow><mi>α</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\alpha=1</annotation></semantics></math> and max_nodes <math id="Sx3.SSx1.SSSx2.p2.4.m4" class="ltx_Math" alttext="=100" display="inline" intent=":literal"><semantics><mrow><mi></mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">=100</annotation></semantics></math>.</p>
+</div>
+</section>
+<section id="Sx3.SSx1.SSSx3" class="ltx_subsubsection">
+<h4 class="ltx_title ltx_title_subsubsection">Results and Discussion</h4>
+
+<div id="Sx3.SSx1.SSSx3.p1" class="ltx_para">
+<p id="Sx3.SSx1.SSSx3.p1.1" class="ltx_p">Figures <a href="#Sx3.F1" title="Figure 1 ‣ Human Study Design ‣ Central Tendencies of Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a> and <a href="#Sx3.F2" title="Figure 2 ‣ Results and Discussion ‣ Central Tendencies of Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> show the results of our simulations.
+It is clear that our theory can account for the central tendencies humans exhibit on this task.
+Specifically, Figure <a href="#Sx3.F1" title="Figure 1 ‣ Human Study Design ‣ Central Tendencies of Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a> shows our system correctly predicts that prototypes will have the highest classification accuracy even though they were not studied during training.
+The system also correctly ranks the 1 transform and 2 transform items, with 1 transform items being predicted to have greater accuracy than 2 transform items.
+Lastly, the system predicts the same accuracy for 1 transform items that have been seen once and ten times. This is similar to the human data, which shows a preference for more frequently seen 1 transform items for Club 2 but less frequently seen 1 transform items for Club 1.</p>
+</div>
+<figure id="Sx3.F2" class="ltx_figure"><img src="2603.29895v3/x2.png" id="Sx3.F2.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="830" height="622" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 2: </span>The loglikelihood of test items from the <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib22" title="Concept learning and the recognition and classification of exemplars" class="ltx_ref">10</a>]</cite> experiment, aggregated by item type. Problem types are ordered by to avg. human recognition scores. The legend reports the Spearman rank correlation. The error bars represent the 95% confidence intervals.</figcaption>
+</figure>
+<div id="Sx3.SSx1.SSSx3.p2" class="ltx_para">
+<p id="Sx3.SSx1.SSSx3.p2.1" class="ltx_p">Figure <a href="#Sx3.F2" title="Figure 2 ‣ Results and Discussion ‣ Central Tendencies of Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a> shows that our theory can also largely account for the recognition results reported by <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib22" title="Concept learning and the recognition and classification of exemplars" class="ltx_ref">10</a>]</cite>. Mainly, items that have been practiced more frequently have a higher loglikelihood.
+Our system ranks the items in a way that closely matches the human recognition scores.
+The one exception is the Club 2 prototype, which our system scores as being less recognizable than the humans rated it.
+One possible explanation for this difference is that the recognition scores included data from both experimental conditions,<span id="footnote2" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup><span class="ltx_tag ltx_tag_note">2</span><cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib22" title="Concept learning and the recognition and classification of exemplars" class="ltx_ref">10</a>]</cite> only reported the aggregate classification and recognition ratings, so we cannot look at just those for the condition that did not see the prototypes before training.</span></span></span> including the condition where participants actually saw the prototypes prior to training.
+Overall, however, our system’s behavior aligns closely with the human results.</p>
+</div>
+</section>
+</section>
+<section id="Sx3.SSx2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">Non-Linearly and Linearly Separable Categories</h3>
+
+<div id="Sx3.SSx2.p1" class="ltx_para">
+<p id="Sx3.SSx2.p1.1" class="ltx_p">Having shown that our theory can produce a reasonable account of human central tendencies, we next explored how it compares to other previously established theories of categorization.
+Our application of rational analysis was inspired by <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="The adaptive nature of human categorization" class="ltx_ref">1</a>]</cite>, and the first result he reports is the ability of his theory to account for human data from <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib23" title="Context theory of classification learning" class="ltx_ref">13</a>]</cite>’s <span id="Sx3.SSx2.p1.1.1" class="ltx_ERROR undefined">\citeyearpar</span>medin1978context first experiment.
+Following <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="The adaptive nature of human categorization" class="ltx_ref">1</a>]</cite>, we aim to show our theory can also provide an account of these data.</p>
+</div>
+<div id="Sx3.SSx2.p2" class="ltx_para">
+<p id="Sx3.SSx2.p2.1" class="ltx_p">While <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="The adaptive nature of human categorization" class="ltx_ref">1</a>]</cite> does not report predictions for <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib23" title="Context theory of classification learning" class="ltx_ref">13</a>]</cite>’s other experiments, <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib23" title="Context theory of classification learning" class="ltx_ref">13</a>]</cite> report predictions from their context model for their second, third, and fourth experiments.
+Their context model is an instantiation of the exemplar theory of categorization—it assumes classification decisions are made by comparing a stimulus to stored exemplars, with selective attention weighting on features, and assigning category membership based on overall similarity to category exemplars, rather than abstract concept descriptions (prototypes).
+To provide a second basis of comparison, we also simulated their second experiment, which was specifically designed to highlight the shortcomings of independent cue models, which assume that category judgments are based on an additive combination of independently weighted abstract feature cues <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib11" title="Abstraction of visual patterns." class="ltx_ref">8</a>, <a href="#bib.bib22" title="Concept learning and the recognition and classification of exemplars" class="ltx_ref">10</a>, <a href="#bib.bib10" title="Pattern recognition and categorization" class="ltx_ref">15</a>]</cite>.
+We aim to show that our theory is competitive with these prior theories.</p>
+</div>
+<div id="Sx3.SSx2.p3" class="ltx_para">
+<p id="Sx3.SSx2.p3.2" class="ltx_p">One point worth noting is that our Cobweb instantiation is quite constrained in comparison to these prior approaches. The only adjustable parameters in our system are the max_nodes, which controls the amount of computation applied at inference time, and the <math id="Sx3.SSx2.p3.1.m1" class="ltx_Math" alttext="\alpha" display="inline" intent=":literal"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> parameter, corresponding to the strength of the uniform prior across all the discrete features. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="The adaptive nature of human categorization" class="ltx_ref">1</a>]</cite>’s model has separate <math id="Sx3.SSx2.p3.2.m2" class="ltx_Math" alttext="\alpha" display="inline" intent=":literal"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> parameters for each attribute (although usually he sets these to the same value for all attributes),<span id="footnote3" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup><span class="ltx_tag ltx_tag_note">3</span>Similar to <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="The adaptive nature of human categorization" class="ltx_ref">1</a>]</cite>, we could have separate <math id="footnote3.m1" class="ltx_Math" alttext="\alpha" display="inline" intent=":literal"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> values for each feature, but we prefer as few parameters as possible.</span></span></span> as well as an additional coupling parameter, which controls how likely the system is to form new concepts.
+The context and independent cue models, have many more free parameters, such as attentional feature weights.</p>
+</div>
+<figure id="Sx3.T1" class="ltx_table">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 1: </span>Training and test stimuli for exp 1. Items have four features: Form (F), Size (S), Color (C), and Position (P).</figcaption>
+<table id="Sx3.T1.1" class="ltx_tabular ltx_centering ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr id="Sx3.T1.1.1.1" class="ltx_tr">
+<td id="Sx3.T1.1.1.1.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;" colspan="10"><span id="Sx3.T1.1.1.1.1.1" class="ltx_text ltx_font_bold">Training Stimuli</span></td>
+</tr>
+<tr id="Sx3.T1.1.2.2" class="ltx_tr">
+<td id="Sx3.T1.1.2.2.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;" colspan="5"><span id="Sx3.T1.1.2.2.1.1" class="ltx_text ltx_font_bold">Category A</span></td>
+<td id="Sx3.T1.1.2.2.2" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;" colspan="5"><span id="Sx3.T1.1.2.2.2.1" class="ltx_text ltx_font_bold">Category B</span></td>
+</tr>
+<tr id="Sx3.T1.1.3.3" class="ltx_tr">
+<td id="Sx3.T1.1.3.3.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">Item #</td>
+<td id="Sx3.T1.1.3.3.2" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">F</td>
+<td id="Sx3.T1.1.3.3.3" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">S</td>
+<td id="Sx3.T1.1.3.3.4" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">C</td>
+<td id="Sx3.T1.1.3.3.5" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">P</td>
+<td id="Sx3.T1.1.3.3.6" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">Item #</td>
+<td id="Sx3.T1.1.3.3.7" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">F</td>
+<td id="Sx3.T1.1.3.3.8" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">S</td>
+<td id="Sx3.T1.1.3.3.9" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">C</td>
+<td id="Sx3.T1.1.3.3.10" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">P</td>
+</tr>
+<tr id="Sx3.T1.1.4.4" class="ltx_tr">
+<td id="Sx3.T1.1.4.4.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">6</td>
+<td id="Sx3.T1.1.4.4.2" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.4.4.3" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.4.4.4" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.4.4.5" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.4.4.6" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">10</td>
+<td id="Sx3.T1.1.4.4.7" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.4.4.8" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.4.4.9" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.4.4.10" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+</tr>
+<tr id="Sx3.T1.1.5.5" class="ltx_tr">
+<td id="Sx3.T1.1.5.5.1" class="ltx_td ltx_align_center ltx_border_l" style="padding-top:1pt;padding-bottom:1pt;">7</td>
+<td id="Sx3.T1.1.5.5.2" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.5.5.3" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.5.5.4" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.5.5.5" class="ltx_td ltx_align_center ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.5.5.6" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">15</td>
+<td id="Sx3.T1.1.5.5.7" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.5.5.8" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.5.5.9" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.5.5.10" class="ltx_td ltx_align_center ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+</tr>
+<tr id="Sx3.T1.1.6.6" class="ltx_tr">
+<td id="Sx3.T1.1.6.6.1" class="ltx_td ltx_align_center ltx_border_l" style="padding-top:1pt;padding-bottom:1pt;">9</td>
+<td id="Sx3.T1.1.6.6.2" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.6.6.3" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.6.6.4" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.6.6.5" class="ltx_td ltx_align_center ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.6.6.6" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">16</td>
+<td id="Sx3.T1.1.6.6.7" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.6.6.8" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.6.6.9" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.6.6.10" class="ltx_td ltx_align_center ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+</tr>
+<tr id="Sx3.T1.1.7.7" class="ltx_tr">
+<td id="Sx3.T1.1.7.7.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_tt" style="padding-top:1pt;padding-bottom:1pt;" colspan="10"><span id="Sx3.T1.1.7.7.1.1" class="ltx_text ltx_font_bold">Novel Test Stimuli</span></td>
+</tr>
+<tr id="Sx3.T1.1.8.8" class="ltx_tr">
+<td id="Sx3.T1.1.8.8.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;" colspan="5"><span id="Sx3.T1.1.8.8.1.1" class="ltx_text ltx_font_bold">Category A</span></td>
+<td id="Sx3.T1.1.8.8.2" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;" colspan="5"><span id="Sx3.T1.1.8.8.2.1" class="ltx_text ltx_font_bold">Category B</span></td>
+</tr>
+<tr id="Sx3.T1.1.9.9" class="ltx_tr">
+<td id="Sx3.T1.1.9.9.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">Item #</td>
+<td id="Sx3.T1.1.9.9.2" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">F</td>
+<td id="Sx3.T1.1.9.9.3" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">S</td>
+<td id="Sx3.T1.1.9.9.4" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">C</td>
+<td id="Sx3.T1.1.9.9.5" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">P</td>
+<td id="Sx3.T1.1.9.9.6" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">Item #</td>
+<td id="Sx3.T1.1.9.9.7" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">F</td>
+<td id="Sx3.T1.1.9.9.8" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">S</td>
+<td id="Sx3.T1.1.9.9.9" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">C</td>
+<td id="Sx3.T1.1.9.9.10" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">P</td>
+</tr>
+<tr id="Sx3.T1.1.10.10" class="ltx_tr">
+<td id="Sx3.T1.1.10.10.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">5</td>
+<td id="Sx3.T1.1.10.10.2" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.10.10.3" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.10.10.4" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.10.10.5" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.10.10.6" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">3</td>
+<td id="Sx3.T1.1.10.10.7" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.10.10.8" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.10.10.9" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.10.10.10" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+</tr>
+<tr id="Sx3.T1.1.11.11" class="ltx_tr">
+<td id="Sx3.T1.1.11.11.1" class="ltx_td ltx_align_center ltx_border_l" style="padding-top:1pt;padding-bottom:1pt;">13</td>
+<td id="Sx3.T1.1.11.11.2" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.11.11.3" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.11.11.4" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.11.11.5" class="ltx_td ltx_align_center ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.11.11.6" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">8</td>
+<td id="Sx3.T1.1.11.11.7" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.11.11.8" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.11.11.9" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.11.11.10" class="ltx_td ltx_align_center ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+</tr>
+<tr id="Sx3.T1.1.12.12" class="ltx_tr">
+<td id="Sx3.T1.1.12.12.1" class="ltx_td ltx_align_center ltx_border_b ltx_border_l" style="padding-top:1pt;padding-bottom:1pt;">4</td>
+<td id="Sx3.T1.1.12.12.2" class="ltx_td ltx_align_center ltx_border_b" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.12.12.3" class="ltx_td ltx_align_center ltx_border_b" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.12.12.4" class="ltx_td ltx_align_center ltx_border_b" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T1.1.12.12.5" class="ltx_td ltx_align_center ltx_border_b ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.12.12.6" class="ltx_td ltx_align_center ltx_border_b" style="padding-top:1pt;padding-bottom:1pt;">14</td>
+<td id="Sx3.T1.1.12.12.7" class="ltx_td ltx_align_center ltx_border_b" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.12.12.8" class="ltx_td ltx_align_center ltx_border_b" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.12.12.9" class="ltx_td ltx_align_center ltx_border_b" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T1.1.12.12.10" class="ltx_td ltx_align_center ltx_border_b ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<section id="Sx3.SSx2.SSSx1" class="ltx_subsubsection">
+<h4 class="ltx_title ltx_title_subsubsection">Human Study Design</h4>
+
+<div id="Sx3.SSx2.SSSx1.p1" class="ltx_para">
+<p id="Sx3.SSx2.SSSx1.p1.1" class="ltx_p">In the first experimental task, thirty-two participants classified stimuli into one of two categories: A or B.
+Each example was presented as a geometric forms that varied along four binary dimensions: form, size, color, and position.
+During training, participants completed training runs through the 6 training stimuli in Table <a href="#Sx3.T1" title="Table 1 ‣ Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>.
+For each run, participants were sequentially presented with the six items in a random order, and they classified each example and received feedback.
+Participants stopped training when they made no errors on two consecutive runs or when they had completed 20 runs.
+After a 5-10 minute distractor task, participants classified all the training stimuli and the novel test stimuli from Table <a href="#Sx3.T1" title="Table 1 ‣ Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>.
+They classified each example and rated their confidence.
+No feedback was given during testing.</p>
+</div>
+<div id="Sx3.SSx2.SSSx1.p2" class="ltx_para">
+<p id="Sx3.SSx2.SSSx1.p2.1" class="ltx_p">The main human effects to predict are: (1) 6 and 10 (the prototypes) should be the most accurate, (2) 10 should have higher accuracy than 6, (3) 15 should be the least accurate among trained (old) items (it is an exception item that shares more features in common with A than B), (4) all the novel A test stimuli in the left column should be more accurate than all novel B test items in the matching row (3, 8, and 14 are highly similar to both an A and B training item, but 5, 13, and 4 are highly similar to two A training items).
+The context model correctly predicts all of these effects, but the independent cue model only predicts (1) and (3).</p>
+</div>
+<figure id="Sx3.T2" class="ltx_table">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">Table 2: </span>Training and test stimuli for exp 2. Items have four features: Form (F), Size (S), Color (C), and Position (P).</figcaption>
+<table id="Sx3.T2.1" class="ltx_tabular ltx_centering ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr id="Sx3.T2.1.1.1" class="ltx_tr">
+<td id="Sx3.T2.1.1.1.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;" colspan="10"><span id="Sx3.T2.1.1.1.1.1" class="ltx_text ltx_font_bold">Training Stimuli</span></td>
+</tr>
+<tr id="Sx3.T2.1.2.2" class="ltx_tr">
+<td id="Sx3.T2.1.2.2.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;" colspan="5"><span id="Sx3.T2.1.2.2.1.1" class="ltx_text ltx_font_bold">Category A</span></td>
+<td id="Sx3.T2.1.2.2.2" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;" colspan="5"><span id="Sx3.T2.1.2.2.2.1" class="ltx_text ltx_font_bold">Category B</span></td>
+</tr>
+<tr id="Sx3.T2.1.3.3" class="ltx_tr">
+<td id="Sx3.T2.1.3.3.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">Item #</td>
+<td id="Sx3.T2.1.3.3.2" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">F</td>
+<td id="Sx3.T2.1.3.3.3" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">S</td>
+<td id="Sx3.T2.1.3.3.4" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">C</td>
+<td id="Sx3.T2.1.3.3.5" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">P</td>
+<td id="Sx3.T2.1.3.3.6" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">Item #</td>
+<td id="Sx3.T2.1.3.3.7" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">F</td>
+<td id="Sx3.T2.1.3.3.8" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">S</td>
+<td id="Sx3.T2.1.3.3.9" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">C</td>
+<td id="Sx3.T2.1.3.3.10" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">P</td>
+</tr>
+<tr id="Sx3.T2.1.4.4" class="ltx_tr">
+<td id="Sx3.T2.1.4.4.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">4</td>
+<td id="Sx3.T2.1.4.4.2" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.4.4.3" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.4.4.4" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.4.4.5" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.4.4.6" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">12</td>
+<td id="Sx3.T2.1.4.4.7" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.4.4.8" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.4.4.9" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.4.4.10" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+</tr>
+<tr id="Sx3.T2.1.5.5" class="ltx_tr">
+<td id="Sx3.T2.1.5.5.1" class="ltx_td ltx_align_center ltx_border_l" style="padding-top:1pt;padding-bottom:1pt;">7</td>
+<td id="Sx3.T2.1.5.5.2" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.5.5.3" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.5.5.4" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.5.5.5" class="ltx_td ltx_align_center ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.5.5.6" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">2</td>
+<td id="Sx3.T2.1.5.5.7" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.5.5.8" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.5.5.9" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.5.5.10" class="ltx_td ltx_align_center ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+</tr>
+<tr id="Sx3.T2.1.6.6" class="ltx_tr">
+<td id="Sx3.T2.1.6.6.1" class="ltx_td ltx_align_center ltx_border_l" style="padding-top:1pt;padding-bottom:1pt;">15</td>
+<td id="Sx3.T2.1.6.6.2" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.6.6.3" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.6.6.4" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.6.6.5" class="ltx_td ltx_align_center ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.6.6.6" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">14</td>
+<td id="Sx3.T2.1.6.6.7" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.6.6.8" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.6.6.9" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.6.6.10" class="ltx_td ltx_align_center ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+</tr>
+<tr id="Sx3.T2.1.7.7" class="ltx_tr">
+<td id="Sx3.T2.1.7.7.1" class="ltx_td ltx_align_center ltx_border_l" style="padding-top:1pt;padding-bottom:1pt;">13</td>
+<td id="Sx3.T2.1.7.7.2" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.7.7.3" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.7.7.4" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.7.7.5" class="ltx_td ltx_align_center ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.7.7.6" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">10</td>
+<td id="Sx3.T2.1.7.7.7" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.7.7.8" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.7.7.9" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.7.7.10" class="ltx_td ltx_align_center ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+</tr>
+<tr id="Sx3.T2.1.8.8" class="ltx_tr">
+<td id="Sx3.T2.1.8.8.1" class="ltx_td ltx_align_center ltx_border_l" style="padding-top:1pt;padding-bottom:1pt;">5</td>
+<td id="Sx3.T2.1.8.8.2" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.8.8.3" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.8.8.4" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.8.8.5" class="ltx_td ltx_align_center ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.8.8.6" class="ltx_td" style="padding-top:1pt;padding-bottom:1pt;"></td>
+<td id="Sx3.T2.1.8.8.7" class="ltx_td" style="padding-top:1pt;padding-bottom:1pt;"></td>
+<td id="Sx3.T2.1.8.8.8" class="ltx_td" style="padding-top:1pt;padding-bottom:1pt;"></td>
+<td id="Sx3.T2.1.8.8.9" class="ltx_td" style="padding-top:1pt;padding-bottom:1pt;"></td>
+<td id="Sx3.T2.1.8.8.10" class="ltx_td ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;"></td>
+</tr>
+<tr id="Sx3.T2.1.9.9" class="ltx_tr">
+<td id="Sx3.T2.1.9.9.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_tt" style="padding-top:1pt;padding-bottom:1pt;" colspan="10"><span id="Sx3.T2.1.9.9.1.1" class="ltx_text ltx_font_bold">Novel Test Stimuli</span></td>
+</tr>
+<tr id="Sx3.T2.1.10.10" class="ltx_tr">
+<td id="Sx3.T2.1.10.10.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;" colspan="5"><span id="Sx3.T2.1.10.10.1.1" class="ltx_text ltx_font_bold">Category A</span></td>
+<td id="Sx3.T2.1.10.10.2" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;" colspan="5"><span id="Sx3.T2.1.10.10.2.1" class="ltx_text ltx_font_bold">Category B</span></td>
+</tr>
+<tr id="Sx3.T2.1.11.11" class="ltx_tr">
+<td id="Sx3.T2.1.11.11.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">Item #</td>
+<td id="Sx3.T2.1.11.11.2" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">F</td>
+<td id="Sx3.T2.1.11.11.3" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">S</td>
+<td id="Sx3.T2.1.11.11.4" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">C</td>
+<td id="Sx3.T2.1.11.11.5" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">P</td>
+<td id="Sx3.T2.1.11.11.6" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">Item #</td>
+<td id="Sx3.T2.1.11.11.7" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">F</td>
+<td id="Sx3.T2.1.11.11.8" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">S</td>
+<td id="Sx3.T2.1.11.11.9" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">C</td>
+<td id="Sx3.T2.1.11.11.10" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">P</td>
+</tr>
+<tr id="Sx3.T2.1.12.12" class="ltx_tr">
+<td id="Sx3.T2.1.12.12.1" class="ltx_td ltx_align_center ltx_border_l ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.12.12.2" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.12.12.3" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.12.12.4" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.12.12.5" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.12.12.6" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">3</td>
+<td id="Sx3.T2.1.12.12.7" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.12.12.8" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.12.12.9" class="ltx_td ltx_align_center ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.12.12.10" class="ltx_td ltx_align_center ltx_border_r ltx_border_t" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+</tr>
+<tr id="Sx3.T2.1.13.13" class="ltx_tr">
+<td id="Sx3.T2.1.13.13.1" class="ltx_td ltx_align_center ltx_border_l" style="padding-top:1pt;padding-bottom:1pt;">6</td>
+<td id="Sx3.T2.1.13.13.2" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.13.13.3" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.13.13.4" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.13.13.5" class="ltx_td ltx_align_center ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.13.13.6" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">8</td>
+<td id="Sx3.T2.1.13.13.7" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.13.13.8" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.13.13.9" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.13.13.10" class="ltx_td ltx_align_center ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+</tr>
+<tr id="Sx3.T2.1.14.14" class="ltx_tr">
+<td id="Sx3.T2.1.14.14.1" class="ltx_td ltx_align_center ltx_border_l" style="padding-top:1pt;padding-bottom:1pt;">9</td>
+<td id="Sx3.T2.1.14.14.2" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.14.14.3" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.14.14.4" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.14.14.5" class="ltx_td ltx_align_center ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.14.14.6" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">16</td>
+<td id="Sx3.T2.1.14.14.7" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.14.14.8" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.14.14.9" class="ltx_td ltx_align_center" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.14.14.10" class="ltx_td ltx_align_center ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+</tr>
+<tr id="Sx3.T2.1.15.15" class="ltx_tr">
+<td id="Sx3.T2.1.15.15.1" class="ltx_td ltx_align_center ltx_border_b ltx_border_l" style="padding-top:1pt;padding-bottom:1pt;">11</td>
+<td id="Sx3.T2.1.15.15.2" class="ltx_td ltx_align_center ltx_border_b" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.15.15.3" class="ltx_td ltx_align_center ltx_border_b" style="padding-top:1pt;padding-bottom:1pt;">0</td>
+<td id="Sx3.T2.1.15.15.4" class="ltx_td ltx_align_center ltx_border_b" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.15.15.5" class="ltx_td ltx_align_center ltx_border_b ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;">1</td>
+<td id="Sx3.T2.1.15.15.6" class="ltx_td ltx_border_b" style="padding-top:1pt;padding-bottom:1pt;"></td>
+<td id="Sx3.T2.1.15.15.7" class="ltx_td ltx_border_b" style="padding-top:1pt;padding-bottom:1pt;"></td>
+<td id="Sx3.T2.1.15.15.8" class="ltx_td ltx_border_b" style="padding-top:1pt;padding-bottom:1pt;"></td>
+<td id="Sx3.T2.1.15.15.9" class="ltx_td ltx_border_b" style="padding-top:1pt;padding-bottom:1pt;"></td>
+<td id="Sx3.T2.1.15.15.10" class="ltx_td ltx_border_b ltx_border_r" style="padding-top:1pt;padding-bottom:1pt;"></td>
+</tr>
+</tbody>
+</table>
+</figure>
+<div id="Sx3.SSx2.SSSx1.p3" class="ltx_para">
+<p id="Sx3.SSx2.SSSx1.p3.1" class="ltx_p">The second experiment followed a similar design to the first.
+However, while the first experiment used non-linearly separable items, this experiment used the linearly separable items shown in Figure <a href="#Sx3.T2" title="Table 2 ‣ Human Study Design ‣ Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>.
+The only important procedural difference was that participants stopped training after a single error free run or when they had completed 16 runs.</p>
+</div>
+<div id="Sx3.SSx2.SSSx1.p4" class="ltx_para">
+<p id="Sx3.SSx2.SSSx1.p4.1" class="ltx_p">The experiment was designed such that the context and cue models make opposing predictions for items 7 and 4.
+The context model predicts that 7 should have higher accuracy than 4 because 7 is highly similar to two A patterns and no B patterns, whereas 4 is highly similar to one A pattern and two B patterns.
+In contrast, the cue model predicts that 4 should have higher accuracy because it is at least as close as 7 to the prototype no matter how the features are weighted.
+The data show that humans are more accurate at predicting 7, which favors the context over the cue model.</p>
+</div>
+</section>
+<section id="Sx3.SSx2.SSSx2" class="ltx_subsubsection">
+<h4 class="ltx_title ltx_title_subsubsection">Simulation Methodology</h4>
+
+<div id="Sx3.SSx2.SSSx2.p1" class="ltx_para">
+<p id="Sx3.SSx2.SSSx2.p1.6" class="ltx_p">Our simulations closely mirrored the procedure used in both human experiments.
+We ran 32 simulations for each experiment (to match the number of human participants).
+During each training run, we generated predicted class labels for each training item and the correctness of these predictions was used to determine whether the stopping conditions had been met.
+On average our Cobweb system completed 3 training runs during the first experiment and 2 training runs during the second experiment.
+For both experiments, we set max_nodes <math id="Sx3.SSx2.SSSx2.p1.1.m1" class="ltx_Math" alttext="=100" display="inline" intent=":literal"><semantics><mrow><mi></mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">=100</annotation></semantics></math> and <math id="Sx3.SSx2.SSSx2.p1.2.m2" class="ltx_Math" alttext="\alpha=0.1" display="inline" intent=":literal"><semantics><mrow><mi>α</mi><mo>=</mo><mn>0.1</mn></mrow><annotation encoding="application/x-tex">\alpha=0.1</annotation></semantics></math>.
+We tested a few possible values for <math id="Sx3.SSx2.SSSx2.p1.3.m3" class="ltx_Math" alttext="\alpha" display="inline" intent=":literal"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> and chose the one that seemed to fit the data best.
+We found that a value of <math id="Sx3.SSx2.SSSx2.p1.4.m4" class="ltx_Math" alttext="0.1" display="inline" intent=":literal"><semantics><mn>0.1</mn><annotation encoding="application/x-tex">0.1</annotation></semantics></math> seemed to more closely fit the data than both <math id="Sx3.SSx2.SSSx2.p1.5.m5" class="ltx_Math" alttext="1.0" display="inline" intent=":literal"><semantics><mn>1.0</mn><annotation encoding="application/x-tex">1.0</annotation></semantics></math> and <math id="Sx3.SSx2.SSSx2.p1.6.m6" class="ltx_Math" alttext="0.01" display="inline" intent=":literal"><semantics><mn>0.01</mn><annotation encoding="application/x-tex">0.01</annotation></semantics></math>.</p>
+</div>
+<figure id="Sx3.F3" class="ltx_figure"><img src="2603.29895v3/x3.png" id="Sx3.F3.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="830" height="622" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 3: </span>Predicted probability of category A from our system and the RMC for exp 1. The circles denote training items and triangles denote novel test items. The fill denotes item type (A=white, B=black). The lines connect items of the same category and type. Human classification rate data are not available. The error bars denote 95% confidence intervals.</figcaption>
+</figure>
+<div id="Sx3.SSx2.SSSx2.p2" class="ltx_para">
+<p id="Sx3.SSx2.SSSx2.p2.1" class="ltx_p">We used two approaches to evaluate how well our theory accounts for the data.
+First, we looked at whether Cobweb correctly predicts the main effects the experiments were originally designed to test—the ones that differentiate the context and cue models.
+Second, we plotted the system’s probability of the A category for each test item against the corresponding human confidence ratings.
+For comparison purposes, we plotted the predictions from <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="The adaptive nature of human categorization" class="ltx_ref">1</a>]</cite>’s rational model of categorization (abbreviated as RMC) for experiment 1 and <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib23" title="Context theory of classification learning" class="ltx_ref">13</a>]</cite>’s context model for experiment 2.
+To evaluate the fit of each, we computed Spearman’s rank correlation between the average prediction from each approach and the average human confidence rating for each item.<span id="footnote4" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">4</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">4</sup><span class="ltx_tag ltx_tag_note">4</span>We acknowledge that averaging can hide key effects, but we only had access to aggregated scores for humans and comparable systems.</span></span></span></p>
+</div>
+<figure id="Sx3.F4" class="ltx_figure"><img src="2603.29895v3/x4.png" id="Sx3.F4.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="830" height="622" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 4: </span>Predicted probability of category A from our system and the context model for exp 2. The circles denote training items, the triangles denote novel test items. The fill denotes the item type (A=white, B=black). The lines connect items of the same category and type. The error bars denote 95% confidence intervals.</figcaption>
+</figure>
+</section>
+<section id="Sx3.SSx2.SSSx3" class="ltx_subsubsection">
+<h4 class="ltx_title ltx_title_subsubsection">Results and Discussion</h4>
+
+<figure id="Sx3.F5" class="ltx_figure"><img src="2603.29895v3/x5.png" id="Sx3.F5.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="622" height="245" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 5: </span>Predictions and human data for <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib1" title="Prototypes in the mist: the early epochs of category learning." class="ltx_ref">16</a>]</cite>’s second experiment. Each line is a stimuli with Category A denoted by white, Category B denoted by black, and exception items denoted by triangles. Figures (a) and (b) are reproduced from <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib27" title="Unifying rational models of categorization via the hierarchical dirichlet process" class="ltx_ref">9</a>]</cite>, showing the human and HDP model data respectively. Our system’s predictions are shown in (c).
+</figcaption>
+</figure>
+<div id="Sx3.SSx2.SSSx3.p1" class="ltx_para">
+<p id="Sx3.SSx2.SSSx3.p1.1" class="ltx_p">Figure <a href="#Sx3.F3" title="Figure 3 ‣ Simulation Methodology ‣ Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> and <a href="#Sx3.F4" title="Figure 4 ‣ Simulation Methodology ‣ Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a> show our results.
+Increasing predicted probabilities from left to right in both figures is indicative of high agreement with the human data.
+In experiment 1, our Cobweb system better matches the data better than the RMC (spearman correlation of 0.95 vs. 0.91).<span id="footnote5" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">5</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">5</sup><span class="ltx_tag ltx_tag_note">5</span>The RMC predictions look different but are ordered similarly and thus achieve a similar rank correlation.</span></span></span>
+<cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="The adaptive nature of human categorization" class="ltx_ref">1</a>]</cite> reports that his model produces fits “as good as those obtained by <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib23" title="Context theory of classification learning" class="ltx_ref">13</a>]</cite>”.
+Our system also fits the experiment 2 data well, producing nearly identical predictions to the context model.
+Furthermore, it successfully predicts all of the main effects that the two experiments were designed to test (effects 1-4 for experiment 1 and that item 7 will have higher accuracy than item 4 for experiment 2).
+Our theory can account for these human categorization data as well as (or better) than the RMC, context, and cue models.</p>
+</div>
+</section>
+</section>
+<section id="Sx3.SSx3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">Prototype-Exemplar Transition</h3>
+
+<div id="Sx3.SSx3.p1" class="ltx_para">
+<p id="Sx3.SSx3.p1.1" class="ltx_p">A longstanding debate concerns whether categorization is better explained by prototype or exemplar theories.
+Rather than aligning strictly with either theory, <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib1" title="Prototypes in the mist: the early epochs of category learning." class="ltx_ref">16</a>]</cite> argue that people exhibit behavior more consistent with prototype theory in some situations and exemplar theory in others.
+Our theory has the potential to exhibit both types of behavior because the leaves of Cobweb’s categorization tree correspond to exemplars, whereas the intermediate nodes correspond to abstract prototypes.<span id="footnote6" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">6</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">6</sup><span class="ltx_tag ltx_tag_note">6</span>Although Cobweb’s concepts can be viewed as abstract prototypes, they need not align with provided category labels.</span></span></span>
+To explore this potential, we simulated the non-linearly separable condition of <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib1" title="Prototypes in the mist: the early epochs of category learning." class="ltx_ref">16</a>]</cite>’s <span id="Sx3.SSx3.p1.1.1" class="ltx_ERROR undefined">\citeyearpar</span>smith1998prototypes second experiment.
+This also gave us an opportunity to compare to the Hierarchical Dirichlet Process (HDP) approach proposed by <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib27" title="Unifying rational models of categorization via the hierarchical dirichlet process" class="ltx_ref">9</a>]</cite>, which they present as an extension of <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="The adaptive nature of human categorization" class="ltx_ref">1</a>]</cite>’s RMC.</p>
+</div>
+<section id="Sx3.SSx3.SSSx1" class="ltx_subsubsection">
+<h4 class="ltx_title ltx_title_subsubsection">Human Study Design</h4>
+
+<div id="Sx3.SSx3.SSSx1.p1" class="ltx_para">
+<p id="Sx3.SSx3.SSSx1.p1.1" class="ltx_p">For this task, 16 participants were trained to categorize 14 six-letter nonsense words belonging to one of two categories.
+The items were designed such that each letter slot could take on only one of two values (six boolean features).
+Within each category, there were two “prototype” items that shared no features in common (000000 and 111111), five “standard” items that shared five features with their respective prototype (e.g., 100000, 010000, 001000, 000100, and 000010 for the 000000 prototype), and one “exception” item that only had one feature in common with the prototype (e.g., 111101 for the 000000 prototype).
+A key characteristic of the categories is that they are not linearly separable.
+Participants were presented with randomly shuffled blocks of the 14 stimuli and asked to categorize each stimuli, receiving feedback after each decision.
+They completed 40 blocks (560 categorization trials) and the responses were grouped into 10 segments that each contained four blocks.</p>
+</div>
+<div id="Sx3.SSx3.SSSx1.p2" class="ltx_para">
+<p id="Sx3.SSx3.SSSx1.p2.1" class="ltx_p"><cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib27" title="Unifying rational models of categorization via the hierarchical dirichlet process" class="ltx_ref">9</a>]</cite> reports participants’ average predictions on each item across the segments (see Figure <a href="#Sx3.F5" title="Figure 5 ‣ Results and Discussion ‣ Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>a)
+Their analysis shows that on average participants correctly classify the prototypes and standard items initially and that their accuracy improves with practice.
+In contrast, participants miscategorize the exception items initially.
+They show no change in accuracy over the first 3 segments, but their accuracy starts improving around segment 4 and keeps improving over the remaining segments.
+About half way, participants begin correctly categorizing the exception items on average.
+Both <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib1" title="Prototypes in the mist: the early epochs of category learning." class="ltx_ref">16</a>]</cite> and <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib27" title="Unifying rational models of categorization via the hierarchical dirichlet process" class="ltx_ref">9</a>]</cite> claim that the data is more consistent with prototype theory in early segments, but more consistent with exemplar theory in later segments.
+We aim to show that our theory predicts this effect.</p>
+</div>
+</section>
+<section id="Sx3.SSx3.SSSx2" class="ltx_subsubsection">
+<h4 class="ltx_title ltx_title_subsubsection">Simulation Methodology</h4>
+
+<div id="Sx3.SSx3.SSSx2.p1" class="ltx_para">
+<p id="Sx3.SSx3.SSSx2.p1.2" class="ltx_p">We trained our system following the experimental procedure.
+In alignment with <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib27" title="Unifying rational models of categorization via the hierarchical dirichlet process" class="ltx_ref">9</a>]</cite>, we generated predictions for all 14 stimuli after each training segment.
+We conducted 16 simulations, corresponding to the 16 participants.
+We set <math id="Sx3.SSx3.SSSx2.p1.1.m1" class="ltx_Math" alttext="\alpha=2.0" display="inline" intent=":literal"><semantics><mrow><mi>α</mi><mo>=</mo><mn>2.0</mn></mrow><annotation encoding="application/x-tex">\alpha=2.0</annotation></semantics></math> and max_nodes <math id="Sx3.SSx3.SSSx2.p1.2.m2" class="ltx_Math" alttext="=100" display="inline" intent=":literal"><semantics><mrow><mi></mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">=100</annotation></semantics></math>.
+To check for the transition effect, we plotted the average predicted probability of category A for each item after each segment.
+We reproduced plots from <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib27" title="Unifying rational models of categorization via the hierarchical dirichlet process" class="ltx_ref">9</a>]</cite> showing the human data and HDP predictions.<span id="footnote7" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">7</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">7</sup><span class="ltx_tag ltx_tag_note">7</span>Unlike <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib27" title="Unifying rational models of categorization via the hierarchical dirichlet process" class="ltx_ref">9</a>]</cite> and <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib1" title="Prototypes in the mist: the early epochs of category learning." class="ltx_ref">16</a>]</cite>, we did not incorporate guessing parameters (to capture the possibility of random participant responses) into our system.</span></span></span></p>
+</div>
+</section>
+<section id="Sx3.SSx3.SSSx3" class="ltx_subsubsection">
+<h4 class="ltx_title ltx_title_subsubsection">Results and Discussion</h4>
+
+<div id="Sx3.SSx3.SSSx3.p1" class="ltx_para">
+<p id="Sx3.SSx3.SSSx3.p1.1" class="ltx_p">Figure <a href="#Sx3.F5" title="Figure 5 ‣ Results and Discussion ‣ Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a> shows the average probability of category A for each stimuli over the 10 training segments.
+Our system very clearly exhibits the prototype-exemplar transition, where the exception items are misclassified early in learning, show little change in accuracy over the first few segments, but are correctly classified later in training.</p>
+</div>
+<div id="Sx3.SSx3.SSSx3.p2" class="ltx_para">
+<p id="Sx3.SSx3.SSSx3.p2.6" class="ltx_p">The aim here was simply to demonstrate that our theory could <span id="Sx3.SSx3.SSSx3.p2.6.1" class="ltx_text ltx_font_italic">qualitatively</span> account for the prototype-exemplar transition.
+Therefore, we arbitrarily set the values of <math id="Sx3.SSx3.SSSx3.p2.1.m1" class="ltx_Math" alttext="\alpha" display="inline" intent=":literal"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> and max_nodes to reasonable values that seemed to exhibit the effect.
+We tested several possible values for <math id="Sx3.SSx3.SSSx3.p2.2.m2" class="ltx_Math" alttext="\alpha" display="inline" intent=":literal"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> and found that it seemed to shift where the exception items transitioned from incorrect to correct and that it was possible to choose values where the transition happened during the first segment or after the final segment. For example, when <math id="Sx3.SSx3.SSSx3.p2.3.m3" class="ltx_Math" alttext="\alpha&lt;0.6" display="inline" intent=":literal"><semantics><mrow><mi>α</mi><mo>&lt;</mo><mn>0.6</mn></mrow><annotation encoding="application/x-tex">\alpha&lt;0.6</annotation></semantics></math>, the system correctly classifies all items (including the exception items) starting at the first segment.
+When <math id="Sx3.SSx3.SSSx3.p2.4.m4" class="ltx_Math" alttext="\alpha=1" display="inline" intent=":literal"><semantics><mrow><mi>α</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\alpha=1</annotation></semantics></math> our results look similar to the HDP predictions.
+However, we discovered that when we set <math id="Sx3.SSx3.SSSx3.p2.5.m5" class="ltx_Math" alttext="\alpha=2" display="inline" intent=":literal"><semantics><mrow><mi>α</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\alpha=2</annotation></semantics></math>, we our system exhibits the phase change behavior observed in Figure <a href="#Sx3.F5" title="Figure 5 ‣ Results and Discussion ‣ Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>c, where no improvement in the exception items is observed in the first few segments.
+We believe that the greater value for <math id="Sx3.SSx3.SSSx3.p2.6.m6" class="ltx_Math" alttext="\alpha" display="inline" intent=":literal"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> leads the system to favor the formation and use of prototypes as it needs to form larger categories to overpower the stronger uniform feature prior.
+The phase change occurs when the system gains enough exposures to the exception that it forms distinct concepts (i.e., prototypes) to represent them.</p>
+</div>
+</section>
+</section>
+</section>
+<section id="Sx4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">Conclusion and Future Work</h2>
+
+<div id="Sx4.p1" class="ltx_para">
+<p id="Sx4.p1.1" class="ltx_p">We conduct a rational analysis of human categorization grounded in information theory.
+Unlike the prior rational analysis by <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib16" title="The adaptive nature of human categorization" class="ltx_ref">1</a>]</cite>, we assume people learn taxonomically organized categories that have maximal mutual information with the features of their experiences.
+These assumptions yield a new theory that we instantiated within a new version of Cobweb.
+Using our variant, we simulated several classic categorization experiments, and found that our system can predict the human behavior as well as (or better) than the independent cue and context models, the rational model of categorization, and the hierarchical Dirichlet process model.
+These results provide promising initial evidence to support our theory.
+In the future, we plan to run ablations to test the importance of the taxonomic and mutual information assumptions individually and to run experiments to distinguish where our theory’s predictions differ from those of alternatives.
+Lastly, we hope to investigate if it can account for a wider range of effects, with the goal of producing a new unified theory.</p>
+</div>
+</section>
+<section id="Sx5" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">Acknowledgments</h2>
+
+<div id="Sx5.p1" class="ltx_para">
+<p id="Sx5.p1.1" class="ltx_p">This project is partially supported by AFOSR Grant No. FA9550-23-1-058.
+Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the funding agency.</p>
+</div>
+</section>
+<section id="bib" class="ltx_bibliography">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+
+<ul id="bib.L1" class="ltx_biblist">
+<li id="bib.bib16" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. R. Anderson</span><span class="ltx_text ltx_bib_year"> (1991)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">The adaptive nature of human categorization</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Psychological Review</span> <span class="ltx_text ltx_bib_volume">98</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages"> pp. 409–429</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#Sx1.p1.1" title="Introduction ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Introduction</span></a>,
+<a href="#Sx1.p2.1" title="Introduction ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Introduction</span></a>,
+<a href="#Sx1.p3.1" title="Introduction ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Introduction</span></a>,
+<a href="#Sx2.p3.5" title="Instantiating the Proposed Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Instantiating the Proposed Theory</span></a>,
+<a href="#Sx2.p4.1" title="Instantiating the Proposed Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Instantiating the Proposed Theory</span></a>,
+<a href="#Sx3.SSx2.SSSx2.p2.1" title="Simulation Methodology ‣ Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Simulation Methodology</span></a>,
+<a href="#Sx3.SSx2.SSSx3.p1.1" title="Results and Discussion ‣ Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Results and Discussion</span></a>,
+<a href="#Sx3.SSx2.p1.1" title="Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Non-Linearly and Linearly Separable Categories</span></a>,
+<a href="#Sx3.SSx2.p2.1" title="Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Non-Linearly and Linearly Separable Categories</span></a>,
+<a href="#Sx3.SSx2.p3.2" title="Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Non-Linearly and Linearly Separable Categories</span></a>,
+<a href="#Sx3.SSx3.p1.1" title="Prototype-Exemplar Transition ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Prototype-Exemplar Transition</span></a>,
+<a href="#Sx4.p1.1" title="Conclusion and Future Work ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Conclusion and Future Work</span></a>,
+<a href="#footnote3" title="In Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">footnote 3</span></a>.
+</span>
+</li>
+<li id="bib.bib12" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. Barari, X. Lian, and C. J. MacLellan</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Robust incremental learning of visual concepts without catastrophic forgetting</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Cognitive Systems Research</span> <span class="ltx_text ltx_bib_volume">96</span>, <span class="ltx_text ltx_bib_pages"> pp. 101447</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1389-0417</span>,
+<a href="https://dx.doi.org/https%3A//doi.org/10.1016/j.cogsys.2026.101447" title="" class="ltx_ref doi ltx_bib_external">Document</a>,
+<a href="https://www.sciencedirect.com/science/article/pii/S1389041726000148" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#Sx2.p5.1" title="Instantiating the Proposed Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Instantiating the Proposed Theory</span></a>.
+</span>
+</li>
+<li id="bib.bib6" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Church and P. Hanks</span><span class="ltx_text ltx_bib_year"> (1990)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Word association norms, mutual information, and lexicography</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Computational linguistics</span> <span class="ltx_text ltx_bib_volume">16</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages"> pp. 22–29</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#Sx2.p3.5" title="Instantiating the Proposed Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Instantiating the Proposed Theory</span></a>.
+</span>
+</li>
+<li id="bib.bib8" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. E. Corter and M. A. Gluck</span><span class="ltx_text ltx_bib_year"> (1992)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Explaining basic categories: feature predictability and information.</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Psychological bulletin</span> <span class="ltx_text ltx_bib_volume">111</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages"> pp. 291</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#Sx1.p3.1" title="Introduction ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Introduction</span></a>,
+<a href="#Sx2.p3.5" title="Instantiating the Proposed Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Instantiating the Proposed Theory</span></a>.
+</span>
+</li>
+<li id="bib.bib7" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. M. Fano and D. Hawkins</span><span class="ltx_text ltx_bib_year"> (1961)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Transmission of information: a statistical theory of communications</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">American Journal of Physics</span> <span class="ltx_text ltx_bib_volume">29</span> (<span class="ltx_text ltx_bib_number">11</span>), <span class="ltx_text ltx_bib_pages"> pp. 793–794</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#Sx2.p3.5" title="Instantiating the Proposed Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Instantiating the Proposed Theory</span></a>.
+</span>
+</li>
+<li id="bib.bib32" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Fisher and P. Langley</span><span class="ltx_text ltx_bib_year"> (1990)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">The structure and formation of natural categories</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Psychology of Learning and Motivation</span> <span class="ltx_text ltx_bib_volume">26</span>, <span class="ltx_text ltx_bib_pages"> pp. 241–284</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#Sx1.p3.1" title="Introduction ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Introduction</span></a>.
+</span>
+</li>
+<li id="bib.bib9" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Fisher</span><span class="ltx_text ltx_bib_year"> (1987)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Knowledge acquisition via incremental conceptual clustering</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Machine learning</span> <span class="ltx_text ltx_bib_volume">2</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages"> pp. 139–172</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#Sx2.p1.1" title="Instantiating the Proposed Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Instantiating the Proposed Theory</span></a>,
+<a href="#Sx2.p3.5" title="Instantiating the Proposed Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Instantiating the Proposed Theory</span></a>.
+</span>
+</li>
+<li id="bib.bib11" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. J. Franks and J. D. Bransford</span><span class="ltx_text ltx_bib_year"> (1971)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Abstraction of visual patterns.</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of experimental psychology</span> <span class="ltx_text ltx_bib_volume">90</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages"> pp. 65</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#Sx3.SSx2.p2.1" title="Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Non-Linearly and Linearly Separable Categories</span></a>.
+</span>
+</li>
+<li id="bib.bib27" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. L. Griffiths, K. R. Canini, A. N. Sanborn, and D. J. Navarro</span><span class="ltx_text ltx_bib_year"> (2007)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Unifying rational models of categorization via the hierarchical dirichlet process</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Annual Meeting of the Cognitive Science Society</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">29</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#Sx3.F5" title="In Results and Discussion ‣ Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">Figure 5</span></a>,
+<a href="#Sx3.SSx3.SSSx1.p2.1" title="Human Study Design ‣ Prototype-Exemplar Transition ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Human Study Design</span></a>,
+<a href="#Sx3.SSx3.SSSx2.p1.2" title="Simulation Methodology ‣ Prototype-Exemplar Transition ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Simulation Methodology</span></a>,
+<a href="#Sx3.SSx3.p1.1" title="Prototype-Exemplar Transition ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Prototype-Exemplar Transition</span></a>,
+<a href="#footnote7" title="In Simulation Methodology ‣ Prototype-Exemplar Transition ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">footnote 7</span></a>.
+</span>
+</li>
+<li id="bib.bib22" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">B. Hayes-Roth and F. Hayes-Roth</span><span class="ltx_text ltx_bib_year"> (1977)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Concept learning and the recognition and classification of exemplars</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Verbal Learning and Verbal Behavior</span> <span class="ltx_text ltx_bib_volume">16</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages"> pp. 321–338</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0022-5371</span>,
+<a href="https://dx.doi.org/https%3A//doi.org/10.1016/S0022-5371%2877%2980054-6" title="" class="ltx_ref doi ltx_bib_external">Document</a>,
+<a href="https://www.sciencedirect.com/science/article/pii/S0022537177800546" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#Sx3.F1" title="In Human Study Design ‣ Central Tendencies of Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">Figure 1</span></a>,
+<a href="#Sx3.F2" title="In Results and Discussion ‣ Central Tendencies of Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">Figure 2</span></a>,
+<a href="#Sx3.SSx1.SSSx1.p4.1" title="Human Study Design ‣ Central Tendencies of Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Human Study Design</span></a>,
+<a href="#Sx3.SSx1.SSSx3.p2.1" title="Results and Discussion ‣ Central Tendencies of Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Results and Discussion</span></a>,
+<a href="#Sx3.SSx1.p1.1" title="Central Tendencies of Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Central Tendencies of Categories</span></a>,
+<a href="#Sx3.SSx2.p2.1" title="Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Non-Linearly and Linearly Separable Categories</span></a>,
+<a href="#footnote1" title="In Human Study Design ‣ Central Tendencies of Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">footnote 1</span></a>,
+<a href="#footnote2" title="In Results and Discussion ‣ Central Tendencies of Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">footnote 2</span></a>.
+</span>
+</li>
+<li id="bib.bib5" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Howes, R. L. Lewis, and A. Vera</span><span class="ltx_text ltx_bib_year"> (2009)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Rational adaptation under task and processing constraints: implications for testing theories of cognition and action.</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Psychological review</span> <span class="ltx_text ltx_bib_volume">116</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages"> pp. 717</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#Sx1.p1.1" title="Introduction ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Introduction</span></a>.
+</span>
+</li>
+<li id="bib.bib31" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">X. Lian, S. Varma, and C. MacLellan</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Cobweb: an incremental and hierarchical model of human-like category learning</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the Annual Meeting of the Cognitive Science Society</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">46</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#Sx2.p5.1" title="Instantiating the Proposed Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Instantiating the Proposed Theory</span></a>.
+</span>
+</li>
+<li id="bib.bib23" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. L. Medin and M. M. Schaffer</span><span class="ltx_text ltx_bib_year"> (1978)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Context theory of classification learning</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Psychological Review</span> <span class="ltx_text ltx_bib_volume">85</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages"> pp. 207–238</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#Sx3.SSx2.SSSx2.p2.1" title="Simulation Methodology ‣ Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Simulation Methodology</span></a>,
+<a href="#Sx3.SSx2.SSSx3.p1.1" title="Results and Discussion ‣ Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Results and Discussion</span></a>,
+<a href="#Sx3.SSx2.p1.1" title="Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Non-Linearly and Linearly Separable Categories</span></a>,
+<a href="#Sx3.SSx2.p2.1" title="Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Non-Linearly and Linearly Separable Categories</span></a>.
+</span>
+</li>
+<li id="bib.bib3" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. I. Posner and S. W. Keele</span><span class="ltx_text ltx_bib_year"> (1968)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">On the genesis of abstract ideas.</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of experimental psychology</span> <span class="ltx_text ltx_bib_volume">77</span> (<span class="ltx_text ltx_bib_number">3p1</span>), <span class="ltx_text ltx_bib_pages"> pp. 353</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#Sx3.SSx1.SSSx2.p1.1" title="Simulation Methodology ‣ Central Tendencies of Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Simulation Methodology</span></a>.
+</span>
+</li>
+<li id="bib.bib10" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. K. Reed</span><span class="ltx_text ltx_bib_year"> (1972)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Pattern recognition and categorization</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Cognitive psychology</span> <span class="ltx_text ltx_bib_volume">3</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages"> pp. 382–407</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#Sx3.SSx1.SSSx2.p1.1" title="Simulation Methodology ‣ Central Tendencies of Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Simulation Methodology</span></a>,
+<a href="#Sx3.SSx2.p2.1" title="Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Non-Linearly and Linearly Separable Categories</span></a>.
+</span>
+</li>
+<li id="bib.bib1" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. D. Smith and J. P. Minda</span><span class="ltx_text ltx_bib_year"> (1998)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Prototypes in the mist: the early epochs of category learning.</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Experimental Psychology: Learning, memory, and cognition</span> <span class="ltx_text ltx_bib_volume">24</span> (<span class="ltx_text ltx_bib_number">6</span>), <span class="ltx_text ltx_bib_pages"> pp. 1411</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#Sx3.F5" title="In Results and Discussion ‣ Non-Linearly and Linearly Separable Categories ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">Figure 5</span></a>,
+<a href="#Sx3.SSx3.SSSx1.p2.1" title="Human Study Design ‣ Prototype-Exemplar Transition ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Human Study Design</span></a>,
+<a href="#Sx3.SSx3.p1.1" title="Prototype-Exemplar Transition ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_title">Prototype-Exemplar Transition</span></a>,
+<a href="#footnote7" title="In Simulation Methodology ‣ Prototype-Exemplar Transition ‣ Preliminary Tests of the Theory ‣ A Rational Account of Categorization Based on Information Theory" class="ltx_ref"><span class="ltx_text ltx_ref_tag">footnote 7</span></a>.
+</span>
+</li>
+</ul>
+</section>
+</article>
+</div>
+</div>
+<footer class="arxiv-html-footer">
+  <div class="ltx_page_logo">
+    Experimental support, please
+    <a href="./2603.29895v3/__stdout.txt" class="ltx_ref"
+    target="_blank" rel="nofollow">view the build logs</a>
+    for errors. Generated by
+    <a href="https://math.nist.gov/~BMiller/LaTeXML/" target="_blank" class="ltx_ref ltx_LaTeXML_logo">
+      <span style="letter-spacing: -0.2em; margin-right: 0.1em;">
+        L
+        <span style="font-size: 70%; position: relative; bottom: 2.2pt;">A</span>
+        T
+        <span style="position: relative; bottom: -0.4ex;">E</span>
+      </span>
+      <span class="ltx_font_smallcaps">xml</span>
+      <img alt="[LOGO]"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==">
+    </a>.
+  </div>
+  <div class="keyboard-glossary">
+    <h2>Instructions for reporting errors</h2>
+    <p>We are continuing to improve HTML versions of papers, and your feedback helps enhance accessibility and mobile
+      support. To report errors in the HTML that will help us improve conversion and rendering, choose any of the
+      methods listed below:</p>
+    <ul>
+      <li>Click the "Report Issue" <span class="mobile-only">(<svg role="presentation"
+            style="display: inline-block; vertical-align: middle; fill: var(--text-color);" aria-hidden="true"
+            height="1em" viewBox="0 0 640 640">
+            <path
+              d="M224 160C224 107 267 64 320 64C373 64 416 107 416 160L416 163.6C416 179.3 403.3 192 387.6 192L252.5 192C236.8 192 224.1 179.3 224.1 163.6L224.1 160zM569.6 172.8C580.2 186.9 577.3 207 563.2 217.6L465.4 290.9C470.7 299.8 474.7 309.6 477.2 320L576 320C593.7 320 608 334.3 608 352C608 369.7 593.7 384 576 384L480 384L480 416C480 418.6 479.9 421.3 479.8 423.9L563.2 486.4C577.3 497 580.2 517.1 569.6 531.2C559 545.3 538.9 548.2 524.8 537.6L461.7 490.3C438.5 534.5 395.2 566.5 344 574.2L344 344C344 330.7 333.3 320 320 320C306.7 320 296 330.7 296 344L296 574.2C244.8 566.5 201.5 534.5 178.3 490.3L115.2 537.6C101.1 548.2 81 545.3 70.4 531.2C59.8 517.1 62.7 497 76.8 486.4L160.2 423.9C160.1 421.3 160 418.7 160 416L160 384L64 384C46.3 384 32 369.7 32 352C32 334.3 46.3 320 64 320L162.8 320C165.3 309.6 169.3 299.8 174.6 290.9L76.8 217.6C62.7 207 59.8 186.9 70.4 172.8C81 158.7 101.1 155.8 115.2 166.4L224 248C236.3 242.9 249.8 240 264 240L376 240C390.2 240 403.7 242.8 416 248L524.8 166.4C538.9 155.8 559 158.7 569.6 172.8z" />
+          </svg>)</span> button, located in the page header.</li>
+    </ul>
+    <p><strong>Tip:</strong> You can select the relevant text first, to include it in your report.</p>
+    <p>Our team has already identified <a class="ltx_ref" href="https://github.com/arXiv/html_feedback/issues"
+        target="_blank">the following issues</a>. We appreciate your time reviewing and reporting rendering errors we
+      may not have found yet. Your efforts will help us improve the HTML versions for all readers, because disability
+      should not be a barrier to accessing research. Thank you for your continued support in championing open access for
+      all.</p>
+    <p>Have a free development cycle? Help support accessibility at arXiv! Our collaborators at LaTeXML maintain a <a
+        class="ltx_ref" href="https://github.com/brucemiller/LaTeXML/wiki/Porting-LaTeX-packages-for-LaTeXML"
+        target="_blank">list of packages that need conversion</a>, and welcome <a class="ltx_ref"
+        href="https://github.com/brucemiller/LaTeXML/issues" target="_blank">developer contributions</a>.</p>
+  </div>
+</footer>
+<div id="fixed-buttons-container">
+  <div id="beta-badge" aria-hidden="true">BETA</div>
+  <a id="disable-reading-mode-btn" class="header-button" href="javascript:toggleReadingMode();"
+    title="Disable reading mode, show header and footer">
+    <svg role="presentation" height="1.25rem"
+      viewBox="0 0 448 512"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+      <path
+        d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
+    </svg>
+  </a>
+</div></body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "Zekun Wang",
+  "title": "PhD Student in Computer Science",
+  "affiliation": "Georgia Institute of Technology",
+  "advisor": "Christopher MacLellan",
+  "bio": "I'm a CS PhD student at **Georgia Tech**, advised by **Christopher MacLellan**. My research sits at the intersection of continual learning, compositional structure, and large language models — asking how an agent can keep learning new skills for a lifetime without overwriting what it already knows.\n\nMost of my recent papers attack this from three angles: bounding the geometry of weight updates, learning compositional concept primitives, and using generative models as exploration scaffolds for reinforcement learning.",
+  "researchInterests": [
+    "continual learning",
+    "compositionality",
+    "language models",
+    "reinforcement learning",
+    "concept learning",
+    "diffusion models"
+  ],
+  "contacts": {
+    "email": "zekun@gatech.edu",
+    "googleScholar": "https://scholar.google.com/citations?user=VIGsFiYAAAAJ",
+    "twitter": "https://twitter.com/zekunw"
+  },
+  "googleScholarId": "VIGsFiYAAAAJ",
+  "featuredPaperIds": ["2602.02417",
+"2509.23593",
+"2509.23602",
+"2405.13828"
+]
+}
