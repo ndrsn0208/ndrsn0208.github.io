@@ -1,6 +1,120 @@
 {
-  "lastUpdated": "2026-05-08T18:11:09+00:00",
+  "lastUpdated": "2026-05-11T02:44:07+00:00",
   "publications": [
+    {
+      "id": "test-time-compositional-generalization-diffusion-2026",
+      "title": "Test-Time Compositional Generalization in Diffusion Models via Concept Discovery",
+      "authors": [
+        "Zekun Wang",
+        "Anant Gupta",
+        "Tianyi Zhu",
+        "Christopher J. MacLellan"
+      ],
+      "venue": "arXiv 2026",
+      "year": 2026,
+      "arxivId": "2605.07078",
+      "arxivUrl": "https://arxiv.org/abs/2605.07078",
+      "arxivHtmlUrl": "https://arxiv.org/html/2605.07078",
+      "arxivHtmlAvailable": true,
+      "pdfUrl": "https://arxiv.org/pdf/2605.07078",
+      "summary": "Prior compositional diffusion methods assume the relevant concepts or conditioning signals are already supplied by labels or a predefined library. The authors perform gradient ascent on the score at multiple noise levels to find density modes, map them to clean-space Gaussians, greedily select prototypes via a submodular objective, and combine them into a product-of-experts teacher with an analytic score. On ColorMNIST and CelebA composition benchmarks, the PoE sampler and a low-rank distilled variant beat query-only and nearest-class baselines.",
+      "tldr": "Recovers query-specific concepts from a pretrained diffusion model's time-indexed scores via gradient ascent, then composes them as a product-of-experts teacher for test-time generalization.",
+      "tags": [
+        "compositionality",
+        "diffusion models",
+        "concept learning"
+      ],
+      "gradient": {
+        "stops": [
+          {
+            "color": "#C026D3",
+            "pos": 19.46678303182125
+          },
+          {
+            "color": "#FFE3D8",
+            "pos": 103.74670426477678
+          },
+          {
+            "color": "#FF6B6B",
+            "pos": 190.22496924502775
+          },
+          {
+            "color": "#DB2777",
+            "pos": 250.24224751861766
+          }
+        ],
+        "fromAngle": 78,
+        "cx": 30,
+        "cy": 53,
+        "hx": 5,
+        "hy": 95,
+        "hIntensity": 0.457398,
+        "noiseFreq": 0.957636,
+        "noiseOpacity": 0.52448
+      },
+      "addedAt": "2026-05-11T02:44:07+00:00"
+    },
+    {
+      "id": "self-consolidating-language-models-continual-kno-2026",
+      "title": "Self-Consolidating Language Models: Continual Knowledge Incorporation from Context",
+      "authors": [
+        "Zekun Wang",
+        "Anant Gupta",
+        "Zihan Dong",
+        "Christopher J. MacLellan"
+      ],
+      "venue": "arXiv 2026",
+      "year": 2026,
+      "arxivId": "2605.07076",
+      "arxivUrl": "https://arxiv.org/abs/2605.07076",
+      "arxivHtmlUrl": "https://arxiv.org/html/2605.07076",
+      "arxivHtmlAvailable": true,
+      "pdfUrl": "https://arxiv.org/pdf/2605.07076",
+      "summary": "Long context windows expose evidence but don't ensure information is preserved and reused across streams. SCoL trains an LLM with meta-reinforcement learning to generate textual update directives picking which of its own layers to LoRA-adapt, instantiated with QA rewards on SQuAD and likelihood rewards on LongBench v2. It beats prompting, summarization, batch test-time training, and sequential finetuning, and learned selections concentrate on high-Fisher-information layers.",
+      "tldr": "SCoL post-trains an LLM via meta-RL to emit textual instructions selecting which Transformer layers to LoRA-update from streaming context, balancing acquisition against forgetting.",
+      "tags": [
+        "continual learning",
+        "language models",
+        "reinforcement learning"
+      ],
+      "gradient": {
+        "stops": [
+          {
+            "color": "#FFE3D8",
+            "pos": 10.592856660950929
+          },
+          {
+            "color": "#FFA94D",
+            "pos": 54.436389338225126
+          },
+          {
+            "color": "#FCA5A5",
+            "pos": 123.47494879039004
+          },
+          {
+            "color": "#F97316",
+            "pos": 166.2297995807603
+          },
+          {
+            "color": "#FBCFE8",
+            "pos": 225.27693849988282
+          },
+          {
+            "color": "#FB7185",
+            "pos": 312.5823319237679
+          }
+        ],
+        "fromAngle": 56,
+        "cx": 46,
+        "cy": 39,
+        "hx": 8,
+        "hy": 90,
+        "hIntensity": 0.595334,
+        "noiseFreq": 0.774312,
+        "noiseOpacity": 0.415044
+      },
+      "addedAt": "2026-05-11T02:43:58+00:00"
+    },
     {
       "id": "computer-vision-models-show-human-like-sensitivi-2026",
       "title": "Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts",
