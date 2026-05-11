@@ -83,6 +83,31 @@ export default function Hero() {
             components={{
               p: ({ children }) => <p className="mb-3 last:mb-0">{children}</p>,
               strong: ({ children }) => <span className="font-medium text-ink">{children}</span>,
+              // Internal /publications/... links use React Router Link so
+              // navigation stays SPA-fast; external links open in a new tab.
+              a: ({ href, children }) => {
+                const h = href ?? '#'
+                if (h.startsWith('/')) {
+                  return (
+                    <Link
+                      to={h}
+                      className="text-orange-300/95 hover:text-orange-200 underline underline-offset-4 decoration-1 decoration-orange-300/40 hover:decoration-orange-300 transition"
+                    >
+                      {children}
+                    </Link>
+                  )
+                }
+                return (
+                  <a
+                    href={h}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-orange-300/95 hover:text-orange-200 underline underline-offset-4 decoration-1 decoration-orange-300/40 hover:decoration-orange-300 transition"
+                  >
+                    {children}
+                  </a>
+                )
+              },
             }}
           >
             {firstParagraph(config.bio)}

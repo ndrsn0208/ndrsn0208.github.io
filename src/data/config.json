@@ -3,7 +3,7 @@
   "title": "PhD Student in Computer Science",
   "affiliation": "Georgia Institute of Technology",
   "advisor": "Christopher MacLellan",
-  "bio": "I'm a CS PhD student at **Georgia Tech**, advised by **Christopher MacLellan**. My research sits at the intersection of continual learning, compositional structure, and large language models — asking how an agent can keep learning new skills for a lifetime without overwriting what it already knows.\n\nMost of my recent papers attack this from three angles: bounding the geometry of weight updates, learning compositional concept primitives, and using generative models as exploration scaffolds for reinforcement learning.",
+  "bio": "I'm a CS PhD student at **Georgia Tech**, advised by **Christopher MacLellan**. My research sits at the intersection of **continual learning**, **compositional structure**, and **concept learning** — asking how an AI agent (a [robotic policy](/publications/trust-region-continual-learning-as-implicit-meta-2026), a [large language model](/publications/self-consolidating-language-models-continual-kno-2026), or a [diffusion model](/publications/avoid-catastrophic-forgetting-rank-1-fisher-from-2026)) can keep accumulating new skills over a lifetime without overwriting what it already knows.",
   "researchInterests": [
     "continual learning",
     "compositionality",
