@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { AnimatePresence, motion } from 'motion/react'
 import SearchBar from '@/components/SearchBar'
 import TagFilter from '@/components/TagFilter'
-import PublicationCard from '@/components/PublicationCard'
+import PublicationItem from '@/components/PublicationItem'
 import { config, publications } from '@/lib/publications'
 import {
   buildFuse,
@@ -57,8 +56,8 @@ export default function Publications() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 md:pt-12 pb-24 md:pb-32">
       <div className="flex items-baseline justify-between mb-5 md:mb-6">
-        <h1 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
-          <span className="metal-text">Publications</span>
+        <h1 className="font-mono text-2xl md:text-3xl font-extrabold tracking-tightest text-ink">
+          publications
         </h1>
         <div className="flex items-center gap-3">
           <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-dim">
@@ -67,7 +66,7 @@ export default function Publications() {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as SortKey)}
-            className="btn-chrome rounded-xl px-2 py-1.5 font-mono text-[11px] uppercase tracking-wide text-ink"
+            className="btn-chrome px-2 py-1.5 font-mono text-[11px] uppercase tracking-wide text-ink"
           >
             <option value="newest">newest</option>
             <option value="oldest">oldest</option>
@@ -76,7 +75,7 @@ export default function Publications() {
         </div>
       </div>
 
-      <div className="chrome-solid rounded-2xl p-3 sm:p-5">
+      <div className="chrome-solid p-3 sm:p-5">
         <SearchBar
           query={query}
           onQueryChange={setQuery}
@@ -115,30 +114,18 @@ export default function Publications() {
                 setQuery('')
                 setTags([])
               }}
-              className="btn-chrome mt-6 rounded-xl px-4 py-2 font-mono text-[11px] uppercase tracking-wide text-ink"
+              className="btn-chrome mt-6 px-4 py-2 font-mono text-[11px] uppercase tracking-wide text-ink"
             >
               clear filters
             </button>
           )}
         </div>
       ) : (
-        <motion.div layout className="grid grid-cols-12 gap-4 sm:gap-5 mt-6">
-          <AnimatePresence mode="popLayout">
-            {results.map((pub, i) => (
-              <motion.div
-                key={pub.id}
-                layout
-                className="col-span-12 sm:col-span-6 lg:col-span-3"
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
-              >
-                <PublicationCard pub={pub} index={i} />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        <div className="border-t mt-6" style={{ borderColor: 'var(--border-soft)' }}>
+          {results.map((pub, i) => (
+            <PublicationItem key={pub.id} pub={pub} index={i} />
+          ))}
+        </div>
       )}
     </div>
   )

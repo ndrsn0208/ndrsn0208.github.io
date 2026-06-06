@@ -1,9 +1,7 @@
 import { lazy, Suspense, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { motion } from 'motion/react'
 import ReactMarkdown from 'react-markdown'
 import { getPublication } from '@/lib/publications'
-import PublicationGradient from '@/components/PublicationGradient'
 
 // Lazy: ArxivRenderer pulls in KaTeX (~400 KB) which is only needed when
 // a paper's arxiv HTML is actually viewed.
@@ -47,37 +45,29 @@ export default function PublicationDetail() {
       </Link>
 
       <div className="mt-6 grid grid-cols-12 gap-6 md:gap-8 items-start">
-        <motion.div
-          layoutId={`gradient-${pub.id}`}
-          className="col-span-12 md:col-span-5 chrome rounded-2xl overflow-hidden p-3"
-        >
-          <PublicationGradient
-            id={pub.id}
-            tags={pub.tags}
-            gradient={pub.gradient}
-            className="aspect-[4/5] rounded-xl"
-          >
-            <div className="absolute inset-0 p-5 sm:p-6 flex flex-col justify-between">
-              <div className="flex items-center justify-between foil-meta foil-text">
-                <span className="flex items-center gap-2 flex-wrap">
-                  <span>{pub.venue.split(' ').slice(0, -1).join(' ') || pub.venue} · {pub.year}</span>
-                  {pub.award && (
-                    <span className="px-1.5 py-0.5 rounded-sm text-[10px] tracking-[0.14em] bg-white/15">
-                      {pub.award}
-                    </span>
-                  )}
-                </span>
-                <span>{pub.arxivId ? `arxiv:${pub.arxivId}` : ''}</span>
-              </div>
-              <h3 className="font-display foil-text font-semibold text-[28px] sm:text-[34px] leading-[1.05] tracking-tightest">
+        <div className="col-span-12 md:col-span-5">
+          <div className="chrome overflow-hidden">
+            <div className="flex items-center justify-between gap-2 px-4 py-3 border-b font-mono text-[11px] uppercase tracking-[0.14em] text-ink-dim" style={{ borderColor: 'var(--border-soft)' }}>
+              <span className="flex items-center gap-2 flex-wrap">
+                <span className="text-ink">{pub.venue.split(' ').slice(0, -1).join(' ') || pub.venue} · {pub.year}</span>
+                {pub.award && (
+                  <span className="px-1.5 py-0.5 rounded-[3px] bg-white text-black tracking-[0.1em] text-[10px]">
+                    {pub.award}
+                  </span>
+                )}
+              </span>
+              <span>{pub.arxivId ? `arxiv:${pub.arxivId}` : ''}</span>
+            </div>
+            <div className="p-5 sm:p-6">
+              <h3 className="font-mono font-bold text-[26px] sm:text-[30px] leading-[1.12] tracking-tightest text-ink">
                 {pub.title}
               </h3>
             </div>
-          </PublicationGradient>
-        </motion.div>
+          </div>
+        </div>
 
         <div className="col-span-12 md:col-span-7">
-          <h1 className="font-display text-3xl md:text-4xl font-bold leading-tight tracking-tight">
+          <h1 className="font-mono text-2xl md:text-3xl font-extrabold leading-tight tracking-tightest text-ink">
             {pub.title}
           </h1>
           <div className="mt-4 text-[14px] font-mono text-ink-dim">
@@ -86,14 +76,7 @@ export default function PublicationDetail() {
           <div className="mt-1 font-mono text-[12px] uppercase tracking-[0.22em] text-ink-dim flex items-center gap-2 flex-wrap">
             <span>{pub.venue}</span>
             {pub.award && (
-              <span
-                className="px-2 py-0.5 rounded-sm text-[10px] tracking-[0.16em]"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(255,169,77,.18), rgba(196,181,253,.10))',
-                  border: '1px solid rgba(255,169,77,.45)',
-                  color: '#FFD7B5',
-                }}
-              >
+              <span className="px-2 py-0.5 rounded-[3px] text-[10px] tracking-[0.16em] bg-white text-black uppercase">
                 {pub.award}
               </span>
             )}

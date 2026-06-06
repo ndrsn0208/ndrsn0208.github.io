@@ -4,27 +4,15 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0B0910" />
+    <meta name="theme-color" content="#000000" />
     <meta name="description" content="Zekun Wang — CS PhD student at Georgia Tech. Continual learning, compositionality, and language models." />
     <meta property="og:title" content="Zekun Wang" />
     <meta property="og:description" content="CS PhD student at Georgia Tech. Continual learning, compositionality, and language models." />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/og-image.png" />
     <script>
-      // Theme bootstrap — runs synchronously before paint to avoid a flash.
-      // Reads the saved choice from localStorage; falls back to the system
-      // preference; defaults to dark.
-      (function () {
-        try {
-          var stored = localStorage.getItem('theme')
-          var theme = stored === 'light' || stored === 'dark'
-            ? stored
-            : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
-          document.documentElement.setAttribute('data-theme', theme)
-        } catch (_) {
-          document.documentElement.setAttribute('data-theme', 'dark')
-        }
-      })()
+      // Monochrome terminal theme is dark-only — pin it before paint.
+      document.documentElement.setAttribute('data-theme', 'dark')
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

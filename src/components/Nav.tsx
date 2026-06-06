@@ -1,6 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import ThemeToggle from './ThemeToggle'
 
 const links = [
   { to: '/', label: 'about' },
@@ -20,7 +19,6 @@ export default function Nav() {
       if (meta && e.key.toLowerCase() === 'k') {
         e.preventDefault()
         navigate('/publications')
-        // small delay so the route mounts before we try to focus
         setTimeout(() => {
           const el = document.getElementById('search-input') as HTMLInputElement | null
           el?.focus()
@@ -42,17 +40,14 @@ export default function Nav() {
       }}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-        <NavLink to="/" className="flex items-center gap-2.5">
-          <span
-            className="inline-block h-6 w-6 rounded-sm"
-            style={{
-              background:
-                'conic-gradient(from 110deg, #FF6B6B, #FFA94D, #C4B5FD, #FF6B6B)',
-              boxShadow: 'inset 0 0 0 1px rgba(255,255,255,.2)',
-            }}
-          />
-          <span className="font-mono text-[12px] uppercase tracking-wider-4 font-medium text-ink">
-            zekun.wang
+        {/* terminal brand */}
+        <NavLink to="/" className="flex items-center gap-2.5 group">
+          <span className="font-mono text-[13px] tracking-wide font-bold text-ink">
+            zekun<span className="text-ink-dim">_</span>wang
+          </span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-dim hidden sm:flex items-center gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-white blink" />
+            online
           </span>
         </NavLink>
 
@@ -69,10 +64,6 @@ export default function Nav() {
         </div>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-dim hidden lg:block">
-            v.1.0 · 2026
-          </span>
-          <ThemeToggle />
           <button
             onClick={() => {
               navigate('/publications')
@@ -81,7 +72,7 @@ export default function Nav() {
                 el?.focus()
               }, 50)
             }}
-            className="btn-chrome rounded-xl px-2.5 py-1.5 font-mono text-[11px] flex items-center gap-1.5 text-ink"
+            className="btn-chrome px-2.5 py-1.5 font-mono text-[11px] flex items-center gap-1.5 text-ink"
             aria-label="Open search"
           >
             <svg
@@ -98,7 +89,7 @@ export default function Nav() {
           </button>
           <button
             onClick={() => setOpen((o) => !o)}
-            className="md:hidden btn-chrome rounded-xl p-1.5 text-ink"
+            className="md:hidden btn-chrome p-1.5 text-ink"
             aria-label="Menu"
             aria-expanded={open}
           >
@@ -124,7 +115,7 @@ export default function Nav() {
           className="md:hidden border-t"
           style={{
             borderColor: 'var(--border-soft)',
-            background: 'rgb(var(--bg-rgb) / 0.95)',
+            background: 'rgb(var(--bg-rgb) / 0.96)',
           }}
         >
           <div className="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-1">

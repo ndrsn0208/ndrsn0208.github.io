@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import DotField from './components/DotField'
 import Nav from './components/Nav'
 import Home from './routes/Home'
 import Publications from './routes/Publications'
@@ -13,13 +14,8 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
-      {/* ambient background */}
-      <div className="haze pointer-events-none">
-        <div className="haze-c" />
-        <div className="haze-d" />
-      </div>
-      <div className="grid-bg pointer-events-none" />
-      <div className="grain pointer-events-none" />
+      {/* breathing dot-matrix background (monochrome, cursor-follow glow) */}
+      <DotField />
 
       <div className="relative z-10">
         <Nav />

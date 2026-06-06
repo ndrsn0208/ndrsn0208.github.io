@@ -74,17 +74,17 @@
    Real frosted glass: translucent fill + backdrop blur + saturate
    boost (so the haze behind shines through richer), top-edge
    inner highlight, soft outer shadow. */
+/* Monochrome terminal panel — flat translucent fill, hairline border,
+   small corner radius (overrides Tailwind's rounded-* on .chrome elements
+   since glass.css is unlayered and wins the cascade), no colored glow. */
 .chrome {
   position: relative;
-  background: linear-gradient(180deg, var(--surface-1) 0%, var(--surface-2) 100%);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-radius: 6px;
+  background: var(--surface-1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border);
-  box-shadow:
-    inset 0 1px 0 var(--highlight-rim),
-    inset 0 -1px 0 var(--highlight-rim-soft),
-    0 14px 44px -18px var(--shadow-card),
-    0 0 56px -24px var(--shadow-glow);
+  box-shadow: inset 0 1px 0 var(--highlight-rim);
 }
 /* Recessed glass — for nested panels (the search input that lives
    inside a glass card). Slightly darker fill so it reads "below". */
@@ -102,9 +102,10 @@
    content scrolling underneath. */
 .chrome-solid {
   position: relative;
+  border-radius: 6px;
   background: linear-gradient(180deg, var(--surface-solid-1) 0%, var(--surface-solid-2) 100%);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border);
   box-shadow:
     inset 0 1px 0 var(--highlight-rim),
@@ -113,26 +114,25 @@
 
 /* --- glass buttons -------------------------------------------- */
 .btn-chrome {
+  border-radius: 6px;
   background: linear-gradient(180deg, var(--surface-btn-1) 0%, var(--surface-btn-2) 100%);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--border);
   box-shadow:
     inset 0 1px 0 var(--highlight-rim);
   transition:
-    background 220ms ease,
-    border-color 220ms ease,
-    box-shadow 220ms ease,
-    transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    background 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    color 180ms ease;
 }
 .btn-chrome:hover {
   background: linear-gradient(180deg, var(--surface-btn-1-hover) 0%, var(--surface-btn-2-hover) 100%);
-  border-color: rgba(255, 169, 77, 0.40);
+  border-color: var(--border-strong);
   box-shadow:
     inset 0 1px 0 var(--highlight-rim),
-    0 0 0 1px rgba(255, 169, 77, 0.18),
-    0 8px 28px -10px rgba(255, 169, 77, 0.36);
-  transform: translateY(-1px);
+    0 0 0 1px rgba(255, 255, 255, 0.10);
 }
 
 /* --- glass chips ---------------------------------------------- */
@@ -150,16 +150,12 @@
   background: var(--surface-1);
   border-color: var(--border);
 }
+/* selected tag — inverted: solid white chip, black text. */
 .chip-on {
-  background: linear-gradient(135deg, rgba(255, 107, 107, 0.22) 0%, rgba(196, 181, 253, 0.12) 100%);
-  border-color: rgba(255, 169, 77, 0.50);
-  color: #FFD7B5;
-  box-shadow:
-    inset 0 1px 0 var(--highlight-rim),
-    0 0 22px -6px rgba(255, 107, 107, 0.45);
-}
-[data-theme='light'] .chip-on {
-  color: #B91C1C;
+  background: #fff;
+  border-color: #fff;
+  color: #000;
+  box-shadow: none;
 }
 
 /* --- toggle -------------------------------------------------- */
@@ -204,7 +200,7 @@
   bottom: -8px;
   width: 0;
   height: 1px;
-  background: linear-gradient(90deg, #FF6B6B, #C4B5FD);
+  background: #fff;
   transition: width 220ms ease;
 }
 .nav-link:hover::after,
@@ -220,11 +216,10 @@
     box-shadow 380ms;
 }
 .card-tilt:hover {
-  transform: translateY(-3px) rotateX(2deg) rotateY(-2deg);
+  transform: translateY(-2px);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 36px 80px -28px rgba(255, 107, 107, 0.25),
-    0 0 0 1px rgba(255, 169, 77, 0.18);
+    0 0 0 1px var(--border-strong);
 }
 @media (max-width: 767px) {
   .card-tilt:hover { transform: none; }
@@ -316,13 +311,11 @@
 }
 .arxiv-prose p { margin: 0.75rem 0; }
 .arxiv-prose a {
-  color: #FFA94D;
+  color: #fff;
   text-decoration: none;
-  border-bottom: 1px dotted rgba(255, 169, 77, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
 }
-[data-theme='light'] .arxiv-prose a { color: #B45309; border-bottom-color: rgba(180, 83, 9, 0.45); }
-.arxiv-prose a:hover { border-bottom-color: rgba(255, 169, 77, 0.8); }
-[data-theme='light'] .arxiv-prose a:hover { border-bottom-color: rgba(180, 83, 9, 0.85); }
+.arxiv-prose a:hover { border-bottom-color: #fff; }
 
 /* Figure container — caps width so wide images don't blow out the
    column, gives images a sane max height so very tall figures don't
@@ -411,8 +404,7 @@
   font-size: 1.05em;
   color: rgb(var(--ink-rgb));
 }
-.arxiv-prose .ltx_cite { color: #C4B5FD; }
-[data-theme='light'] .arxiv-prose .ltx_cite { color: #6D28D9; }
+.arxiv-prose .ltx_cite { color: rgb(var(--ink-rgb)); }
 .arxiv-prose .ltx_bibliography .ltx_bibitem {
   font-size: 13px;
   color: rgb(var(--ink-dim-rgb));
