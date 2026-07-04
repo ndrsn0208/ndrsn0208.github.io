@@ -58,6 +58,7 @@ export interface SiteConfig {
     googleScholar?: string
     twitter?: string
     github?: string
+    linkedin?: string
     semanticScholar?: string
   }
   googleScholarId?: string

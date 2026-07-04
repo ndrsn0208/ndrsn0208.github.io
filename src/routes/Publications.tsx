@@ -1,132 +1,165 @@
-import { useEffect, useMemo, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
-import SearchBar from '@/components/SearchBar'
-import TagFilter from '@/components/TagFilter'
-import PublicationItem from '@/components/PublicationItem'
-import { config, publications } from '@/lib/publications'
-import {
-  buildFuse,
-  searchPublications,
-  sortPublications,
-  type SortKey,
-} from '@/lib/search'
+import { useState } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import { featuredPublications, publications } from '@/lib/publications'
+import type { Publication } from '@/types'
 
-export default function Publications() {
-  const [params, setParams] = useSearchParams()
+const pad = (n: number) => (n < 10 ? '0' : '') + n
+const venueShort = (venue: string) => venue.replace(/\s*\d{4}\s*$/, '').trim()
 
-  // local state mirrors URL; URL is the source of truth so deep links work.
-  const [query, setQuery] = useState(params.get('q') ?? '')
-  const [debounced, setDebounced] = useState(query)
-  const initialTags = params.getAll('tag').filter((t) => t.length > 0)
-  const [tags, setTags] = useState<string[]>(initialTags)
-  const [sortBy, setSortBy] = useState<SortKey>((params.get('sort') as SortKey) ?? 'newest')
-  const [semantic, setSemantic] = useState(false)
+function PubRow({ p, index }: { p: Publication; index: number }) {
+  const [open, setOpen] = useState(false)
+  const reduce = useReducedMotion()
 
-  // 80ms debounce on text input → URL + search.
-  useEffect(() => {
-    const t = setTimeout(() => setDebounced(query), 80)
-    return () => clearTimeout(t)
-  }, [query])
+  const links: { label: string; href: string }[] = []
+  if (p.arxivUrl) links.push({ label: 'arXiv ↗', href: p.arxivUrl })
+  if (p.arxivHtmlAvailable && p.arxivHtmlUrl) links.push({ label: 'HTML ↗', href: p.arxivHtmlUrl })
+  if (p.pdfUrl) links.push({ label: 'PDF ↗', href: p.pdfUrl })
+  if (p.scholarUrl) links.push({ label: 'Scholar ↗', href: p.scholarUrl })
 
-  // Sync state → URL (replace, not push).
-  useEffect(() => {
-    const next = new URLSearchParams()
-    if (debounced.trim()) next.set('q', debounced.trim())
-    for (const t of tags) next.append('tag', t)
-    if (sortBy !== 'newest') next.set('sort', sortBy)
-    setParams(next, { replace: true })
-  }, [debounced, tags, sortBy, setParams])
-
-  const fuse = useMemo(() => buildFuse(publications), [])
-
-  const results = useMemo(() => {
-    const filtered = searchPublications(publications, fuse, {
-      query: debounced,
-      tags,
-      semantic,
-    })
-    return sortPublications(filtered, sortBy)
-  }, [debounced, tags, sortBy, semantic, fuse])
-
-  const toggleTag = (t: string) =>
-    setTags((cur) => (cur.includes(t) ? cur.filter((x) => x !== t) : [...cur, t]))
-
-  const sortLabel = sortBy === 'newest' ? 'newest' : sortBy === 'oldest' ? 'oldest' : 'title'
+  const authors = p.authors.join(', ')
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 md:pt-12 pb-24 md:pb-32">
-      <div className="flex items-baseline justify-between mb-5 md:mb-6">
-        <h1 className="font-mono text-2xl md:text-3xl font-extrabold tracking-tightest text-ink">
-          publications
-        </h1>
-        <div className="flex items-center gap-3">
-          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-ink-dim">
-            [ {results.length} / {publications.length} ]
+    <>
+      <div
+        className="workrow"
+        role="button"
+        tabIndex={0}
+        aria-expanded={open}
+        aria-label={`${p.title}, ${p.venue}. ${open ? 'Collapse' : 'Expand'} details.`}
+        onClick={() => setOpen((o) => !o)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            setOpen((o) => !o)
+          }
+        }}
+      >
+        <div className="w-idx">
+          <span className="n">{pad(index + 1)}</span>
+        </div>
+        <div className="w-title">
+          <h3>{p.title}</h3>
+          {authors && <span className="authors">{authors}</span>}
+        </div>
+        <div className="w-venue">
+          <div className="v">{venueShort(p.venue)}</div>
+          <div className="y">{p.year}</div>
+          {p.award && <span className="award">{p.award}</span>}
+        </div>
+        <div className="w-arrow">
+          <span className="k">
+            {open ? 'Close' : 'Details'} <span className="glyph" aria-hidden>+</span>
           </span>
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as SortKey)}
-            className="btn-chrome px-2 py-1.5 font-mono text-[11px] uppercase tracking-wide text-ink"
+        </div>
+      </div>
+
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            className="workdetail"
+            initial={reduce ? false : { height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={reduce ? undefined : { height: 0, opacity: 0 }}
+            transition={{ duration: reduce ? 0 : 0.32, ease: [0.22, 1, 0.36, 1] }}
+            style={{ overflow: 'hidden' }}
           >
-            <option value="newest">newest</option>
-            <option value="oldest">oldest</option>
-            <option value="title">title</option>
-          </select>
-        </div>
-      </div>
+            <div className="workdetail-inner">
+              <div className="workdetail-abs">
+                <p>{p.summary || p.tldr}</p>
+              </div>
+              <div className="workdetail-side">
+                {p.tags.length > 0 && (
+                  <div className="workdetail-tags">
+                    {p.tags.map((t) => (
+                      <span key={t}>{t}</span>
+                    ))}
+                  </div>
+                )}
+                {links.length > 0 && (
+                  <div className="workdetail-links">
+                    {links.map((l) => (
+                      <a
+                        key={l.label}
+                        href={l.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {l.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  )
+}
 
-      <div className="chrome-solid p-3 sm:p-5">
-        <SearchBar
-          query={query}
-          onQueryChange={setQuery}
-          semantic={semantic}
-          onSemanticChange={setSemantic}
-          semanticAvailable={false}
-        />
-        <div className="mt-3 md:mt-4">
-          <TagFilter
-            tags={config.researchInterests}
-            selected={tags}
-            onToggle={toggleTag}
-            sortLabel={sortLabel}
-          />
-        </div>
-      </div>
+export default function Publications() {
+  const [params] = useSearchParams()
+  const tag = params.get('tag')
 
-      {results.length === 0 ? (
-        <div className="mt-16 text-center">
-          <div className="font-display text-2xl text-ink-dim mb-3">
-            <span className="metal-text">No matches.</span>
-          </div>
-          <p className="text-sm text-ink-dim max-w-md mx-auto">
-            Nothing matched <span className="font-mono text-ink">"{debounced}"</span>
-            {tags.length > 0 && (
-              <>
-                {' '}with tags{' '}
-                <span className="font-mono text-ink">{tags.join(', ')}</span>
-              </>
-            )}
-            . Try clearing a filter.
-          </p>
-          {(debounced || tags.length > 0) && (
-            <button
-              onClick={() => {
-                setQuery('')
-                setTags([])
-              }}
-              className="btn-chrome mt-6 px-4 py-2 font-mono text-[11px] uppercase tracking-wide text-ink"
-            >
-              clear filters
-            </button>
+  // Featured first, then the rest newest-first.
+  const featured = featuredPublications()
+  const featuredIds = new Set(featured.map((p) => p.id))
+  const rest = publications
+    .filter((p) => !featuredIds.has(p.id))
+    .sort((a, b) => b.year - a.year || b.addedAt.localeCompare(a.addedAt))
+  let ordered = [...featured, ...rest]
+  if (tag) ordered = ordered.filter((p) => p.tags.includes(tag))
+
+  return (
+    <section id="work" aria-labelledby="work-h">
+      <div className="page-band reveal" data-d="1">
+        <div className="cell band-idx">
+          <div className="idx">02</div>
+        </div>
+        <div className="cell band-title">
+          <h2 id="work-h">Publications</h2>
+        </div>
+        <div className="cell band-sub">
+          {tag ? (
+            <p>
+              Tagged <span style={{ color: 'var(--red)' }}>{tag}</span> · {ordered.length} paper
+              {ordered.length === 1 ? '' : 's'} ·{' '}
+              <Link to="/publications" style={{ borderBottom: '2px solid var(--red)' }}>
+                clear ✕
+              </Link>
+            </p>
+          ) : (
+            <p>{ordered.length} papers · click a row for the abstract and links</p>
           )}
         </div>
-      ) : (
-        <div className="border-t mt-6" style={{ borderColor: 'var(--border-soft)' }}>
-          {results.map((pub, i) => (
-            <PublicationItem key={pub.id} pub={pub} index={i} />
+      </div>
+
+      {ordered.length > 0 ? (
+        <div className="works reveal" data-d="2">
+          {ordered.map((p, i) => (
+            <PubRow key={p.id} p={p} index={i} />
           ))}
         </div>
+      ) : (
+        <div
+          className="reveal"
+          data-d="2"
+          style={{
+            padding: '40px 14px 48px',
+            borderBottom: '2px solid var(--ink)',
+            fontSize: 15,
+            lineHeight: 1.6,
+          }}
+        >
+          No publications tagged <strong style={{ color: 'var(--red)' }}>{tag}</strong> yet.{' '}
+          <Link to="/publications" style={{ borderBottom: '2px solid var(--red)' }}>
+            See all publications →
+          </Link>
+        </div>
       )}
-    </div>
+    </section>
   )
 }

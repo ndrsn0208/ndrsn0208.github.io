@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import './styles/globals.css'
-import './styles/glass.css'
 
 // Handle the GH Pages SPA fallback hand-off: 404.html stashes the
 // original deep-link path in `?_redirect=...` and bounces here.

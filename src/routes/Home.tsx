@@ -1,92 +1,113 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import Hero from '@/components/Hero'
-import PublicationItem from '@/components/PublicationItem'
-import { config, featuredPublications, publications } from '@/lib/publications'
+import { Link } from 'react-router-dom'
+import { config } from '@/lib/publications'
+
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 
 export default function Home() {
-  const featured = featuredPublications()
-  return (
-    <>
-      <Hero />
+  const c = config.contacts
 
-      {/* Selected publications — title + blocks, no cards. */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-6 md:mt-10 pb-24 md:pb-32">
-        <div className="flex items-baseline justify-between mb-5 gap-4 flex-wrap">
-          <h2 className="font-mono text-[12px] uppercase tracking-[0.28em] text-ink-dim flex items-center gap-3">
-            <span className="text-ink">02</span> — selected
-          </h2>
-          <div className="flex items-center gap-3 flex-wrap">
-            <InlineSearch />
-            <Link
-              to="/publications"
-              className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-dim hover:text-ink transition flex items-center gap-1.5 whitespace-nowrap"
-            >
-              all {publications.length} →
-            </Link>
+  return (
+    <section id="about" aria-labelledby="about-h">
+      <div className="hero">
+        <div className="hero-big reveal" data-d="1">
+          <div className="idx" style={{ marginBottom: 14 }}>01 — ABOUT</div>
+          <h1 id="about-h">
+            ZEKUN
+            <br />
+            <span className="a">WANG</span>
+          </h1>
+        </div>
+
+        <div className="hero-oneliner reveal" data-d="2">
+          <p>
+            PhD student in Computer Science at Georgia Tech, advised by{' '}
+            <em>{config.advisor}</em>. I work on continual learning that keeps a
+            model adapting <em>at test time</em> without forgetting.
+          </p>
+        </div>
+
+        <div className="hero-side reveal" data-d="2">
+          <div className="kv">
+            <span className="k">Position</span>
+            <span className="v">
+              PhD student, Computer Science
+              <br />
+              {config.affiliation}
+            </span>
+          </div>
+          {c.email && (
+            <div className="kv">
+              <span className="k">Email</span>
+              <span className="v">
+                <a className="mail" href={`mailto:${c.email}`}>
+                  {c.email}
+                </a>
+              </span>
+            </div>
+          )}
+          <div className="kv">
+            <span className="k">Elsewhere</span>
+            <span className="links">
+              {c.googleScholar && (
+                <a href={c.googleScholar} target="_blank" rel="noopener noreferrer">
+                  Scholar ↗
+                </a>
+              )}
+              {c.linkedin && (
+                <a href={c.linkedin} target="_blank" rel="noopener noreferrer">
+                  LinkedIn ↗
+                </a>
+              )}
+            </span>
           </div>
         </div>
 
-        <div className="border-t" style={{ borderColor: 'var(--border-soft)' }}>
-          {featured.map((pub, i) => (
-            <PublicationItem key={pub.id} pub={pub} index={i} />
+        {/* BIG research areas — A1..A6 from the canonical interest list.
+            Each links to the publications filtered to that tag. */}
+        <div className="research reveal" data-d="3" aria-label="Research areas">
+          {config.researchInterests.map((area, i) => (
+            <Link
+              className="t"
+              key={area}
+              to={`/publications?tag=${encodeURIComponent(area)}`}
+              aria-label={`See publications tagged ${area}`}
+            >
+              <span className="n">A{i + 1}</span>
+              <span className="label">{cap(area)}</span>
+            </Link>
           ))}
         </div>
+      </div>
 
-        <footer className="mt-16 md:mt-20 font-mono text-[10px] uppercase tracking-[0.28em] text-ink-dim flex items-center gap-3">
-          <span className="h-px w-8 bg-white/10" />
-          <span>{config.name} · {new Date().getFullYear()}</span>
-          <span className="h-px flex-1 bg-white/5" />
-          <a
-            href={config.contacts.email ? `mailto:${config.contacts.email}` : '#'}
-            className="hover:text-ink transition"
-          >
-            {config.contacts.email}
+      {/* contact row */}
+      <div className="contact-links reveal" data-d="4">
+        {c.email && (
+          <a href={`mailto:${c.email}`}>
+            <span className="n">C1</span>
+            <span className="lab">Email</span>
+            <span className="ext">{c.email}</span>
           </a>
-        </footer>
-      </section>
-    </>
-  )
-}
-
-/* Compact search input shown next to the heading. Submitting navigates to
-   /publications?q=… so the full search page handles matching. */
-function InlineSearch() {
-  const navigate = useNavigate()
-  const [q, setQ] = useState('')
-  return (
-    <form
-      role="search"
-      onSubmit={(e) => {
-        e.preventDefault()
-        const v = q.trim()
-        navigate(v ? `/publications?q=${encodeURIComponent(v)}` : '/publications')
-      }}
-      className="flex items-center gap-2 px-3 py-2 rounded-[6px]"
-      style={{ background: 'rgba(255,255,255,.03)', border: '1px solid var(--border-soft)' }}
-    >
-      <svg
-        className="h-4 w-4 text-ink-dim shrink-0"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.2"
-        viewBox="0 0 24 24"
-      >
-        <circle cx="11" cy="11" r="7" />
-        <path d="M21 21l-4.3-4.3" />
-      </svg>
-      <input
-        value={q}
-        onChange={(e) => setQ(e.target.value)}
-        placeholder="search papers…"
-        type="search"
-        autoComplete="off"
-        spellCheck={false}
-        className="bg-transparent outline-none text-[13px] font-mono placeholder:text-ink-dim/70 text-ink w-[180px] sm:w-[220px]"
-      />
-      <kbd className="hidden sm:inline font-mono text-[10px] text-ink-dim px-1.5 py-0.5 rounded border border-white/10">
-        ↵
-      </kbd>
-    </form>
+        )}
+        {c.googleScholar && (
+          <a href={c.googleScholar} target="_blank" rel="noopener noreferrer">
+            <span className="n">C2</span>
+            <span className="lab">Scholar</span>
+            <span className="ext">Google Scholar ↗</span>
+          </a>
+        )}
+        {c.linkedin && (
+          <a href={c.linkedin} target="_blank" rel="noopener noreferrer">
+            <span className="n">C3</span>
+            <span className="lab">LinkedIn</span>
+            <span className="ext">linkedin ↗</span>
+          </a>
+        )}
+        <Link to="/cv">
+          <span className="n">C4</span>
+          <span className="lab">CV</span>
+          <span className="ext">download / view</span>
+        </Link>
+      </div>
+    </section>
   )
 }
