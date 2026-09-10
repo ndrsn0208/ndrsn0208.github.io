@@ -10,7 +10,11 @@
     "typecheck": "tsc -b --noEmit",
     "test:designs": "playwright test",
     "design:screenshots": "node scripts/capture_designs.mjs",
-    "still:screenshots": "node scripts/capture_still.mjs"
+    "still:screenshots": "node scripts/capture_still.mjs",
+    "type:screenshots": "node scripts/capture_typography.mjs",
+    "mobile:screenshots": "node scripts/capture_mobile.mjs",
+    "cv:build": "python3 scripts/build_cv.py",
+    "cv:publish": "python3 scripts/build_cv.py --publish"
   },
   "dependencies": {
     "fuse.js": "7.0.0",

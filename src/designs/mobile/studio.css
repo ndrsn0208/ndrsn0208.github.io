@@ -1,0 +1,118 @@
+.mobile-studio {
+  min-height: 100svh;
+  color: var(--type-ink);
+  background: var(--type-paper);
+  font: 400 14px/1.7 "Source Sans 3", "PingFang SC", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.mobile-studio :where(h1, h2, p) { margin: 0; }
+.mobile-studio :where(a, button) {
+  color: inherit;
+  font: inherit;
+  text-decoration: none;
+}
+.mobile-studio button { border: 0; background: transparent; cursor: pointer; }
+.mobile-studio :where(a, button):focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.mobile-studio :where(a, button) { -webkit-tap-highlight-color: transparent; }
+.mobile-studio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  width: min(1320px, calc(100% - 80px));
+  min-height: 94px;
+  margin-inline: auto;
+  border-bottom: 1px solid var(--type-rule);
+}
+.mobile-studio-brand { display: inline-flex; align-items: center; gap: 18px; min-height: 44px; }
+.mobile-studio-brand > span:first-child { font: 500 24px/1.3 "EB Garamond", Georgia, serif; }
+.mobile-studio-brand > span:last-child { font-size: 12px; }
+.mobile-studio-separator { color: var(--type-rule); }
+.mobile-studio-header nav { display: flex; gap: 26px; font-size: 12px; }
+.mobile-studio-header nav a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
+.mobile-overview { width: min(1320px, calc(100% - 80px)); margin: auto; }
+.mobile-studio-intro { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; padding-block: 54px 38px; }
+.mobile-kicker { color: var(--type-muted); font-size: 11px; letter-spacing: .055em; }
+.mobile-studio-intro h1 { margin-top: 17px; font: 400 clamp(28px, 3vw, 40px)/1.4 "Newsreader", "Songti SC", serif; letter-spacing: -.025em; }
+.mobile-studio-intro > p { color: var(--type-muted); font-size: 13px; line-height: 1.9; }
+.mobile-studio-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 34px;
+  margin-bottom: 28px;
+  padding-block: 8px;
+  border-block: 1px solid var(--type-rule);
+}
+.mobile-editions, .mobile-reading-options { display: flex; gap: 24px; align-items: center; }
+.mobile-editions button, .mobile-reading-options button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-width: 44px; min-height: 44px; padding: 0; font-size: 13px; color: var(--type-muted); }
+.mobile-editions button[aria-pressed="true"], .mobile-reading-options button[aria-pressed="true"] { color: var(--type-ink); text-decoration: underline; text-underline-offset: 7px; text-decoration-thickness: 1px; }
+.mobile-edition-dot { width: 10px; height: 10px; border: 1px solid; border-radius: 50%; }
+.mobile-studio-controls > p { margin-left: auto; color: var(--type-muted); font-size: 12px; }
+.mobile-reading-options { padding-left: 30px; border-left: 1px solid var(--type-rule); }
+.mobile-study-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.mobile-study-card { min-width: 0; }
+.mobile-card-heading { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 14px; }
+.mobile-card-heading h2 { display: inline-flex; align-items: baseline; flex-wrap: wrap; gap: 10px; font: 500 30px/1.4 "EB Garamond", Georgia, serif; }
+.mobile-card-number { color: var(--type-muted); font: 400 11px/1.5 "Source Sans 3", system-ui, sans-serif; font-variant-numeric: tabular-nums; }
+.mobile-card-chinese { color: var(--type-muted); font: 400 12px/1.5 "Source Sans 3", "PingFang SC", system-ui, sans-serif; }
+.mobile-card-heading > a { display: inline-flex; align-items: center; justify-content: flex-end; gap: 6px; min-width: 44px; min-height: 44px; font-size: 12px; white-space: nowrap; }
+.mobile-frame {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--type-rule);
+  border-radius: 5px;
+  background: var(--type-paper);
+}
+.mobile-frame-canvas { position: relative; flex: 0 0 auto; overflow: hidden; }
+.mobile-frame iframe { display: block; border: 0; transform-origin: top left; color-scheme: normal; }
+.mobile-card-description { max-width: 31em; margin-top: 19px !important; font-size: 13px; line-height: 1.8; }
+.mobile-card-caption { margin-top: 8px !important; color: var(--type-muted); font-size: 11px; letter-spacing: .01em; }
+.mobile-studio-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px 24px; margin-top: 52px; padding-block: 24px 38px; border-top: 1px solid var(--type-rule); color: var(--type-muted); font-size: 11px; }
+.mobile-thumbnail { display: block; max-height: 490px; overflow: hidden; border: 1px solid var(--type-rule); border-radius: 4px; }
+.mobile-thumbnail img { display: block; width: 100%; height: auto; }
+.mobile-single { display: grid; grid-template-columns: minmax(0, 1fr) 392px; align-items: start; gap: clamp(50px, 10vw, 150px); width: min(980px, calc(100% - 80px)); margin: 45px auto 70px; }
+.mobile-single-note { padding-top: 30px; }
+.mobile-back { display: inline-flex; align-items: center; min-height: 44px; margin-bottom: 40px; color: var(--type-muted) !important; font-size: 12px !important; }
+.mobile-single-note h1 { margin-block: 8px 20px; font: 400 62px/1.15 "EB Garamond", Georgia, serif; letter-spacing: -.03em; }
+.mobile-single-note > p:not(.mobile-kicker, .mobile-card-caption) { max-width: 27em; font-size: 15px; line-height: 1.9; }
+.mobile-single-note > .mobile-editions { margin-top: 28px; }
+.mobile-single-note > .mobile-reading-options { border-left: 0; padding-left: 0; }
+.mobile-other-studies { display: flex; flex-direction: column; margin-top: 35px; padding-top: 15px; border-top: 1px solid var(--type-rule); }
+.mobile-other-studies a { display: flex; justify-content: space-between; align-items: center; min-height: 44px; font-size: 13px; color: var(--type-muted); }
+.mobile-other-studies a[aria-current="page"] { color: var(--type-ink); }
+
+@media (max-width: 1100px) {
+  .mobile-study-grid { gap: 20px; }
+  .mobile-studio-controls > p { width: 100%; margin-left: 0; }
+  .mobile-card-heading h2 { column-gap: 7px; font-size: 26px; }
+}
+@media (max-width: 899px) {
+  .mobile-study-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 40px; }
+  .mobile-studio-intro { align-items: flex-start; flex-direction: column; gap: 20px; padding-top: 35px; }
+  .mobile-studio-intro > p br { display: none; }
+}
+@media (max-width: 600px) {
+  .mobile-studio-header, .mobile-overview { width: calc(100% - 40px); }
+  .mobile-studio-header { padding-block: 12px; gap: 2px 24px; }
+  .mobile-studio-brand { gap: 12px; }
+  .mobile-studio-header nav { gap: 25px; width: 100%; }
+  .mobile-studio-intro { padding-block: 32px 25px; }
+  .mobile-studio-intro h1 { font-size: 29px; }
+  .mobile-studio-controls { column-gap: 20px; row-gap: 1px; }
+  .mobile-editions, .mobile-reading-options { gap: 16px; }
+  .mobile-reading-options { padding-left: 19px; }
+  .mobile-editions button, .mobile-reading-options button { font-size: 12px; }
+  .mobile-studio-controls > p { padding-bottom: 10px; font-size: 11px; }
+  .mobile-study-grid { grid-template-columns: minmax(0, 1fr); gap: 33px; }
+  .mobile-card-heading h2 { column-gap: 11px; font-size: 31px; }
+  .mobile-card-description { margin-top: 14px !important; }
+  .mobile-studio-footer { margin-top: 37px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mobile-studio *, .mobile-studio *::before, .mobile-studio *::after { transition: none; }
+}

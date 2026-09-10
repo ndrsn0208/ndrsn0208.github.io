@@ -1,0 +1,26 @@
+% Editable CV, reconstructed from the May 2026 PDF and subsequently updated.
+% Build from any working directory:
+%   python3 /path/to/ndrsn0208.github.io/scripts/build_cv.py
+% Edit metadata.tex and the individual section files; see README.md.
+\documentclass[11pt,letterpaper]{article}
+
+\input{style}
+\input{metadata}
+
+\begin{document}
+\CVHeader
+\input{sections/01-research}
+\input{sections/02-education}
+\input{sections/industry-experience}
+\input{sections/03-selected-publications}
+\input{sections/04-all-publications}
+\input{sections/05-research-experiences}
+
+% Keep teaching and professional activities together on a fresh page.
+% This is a semantic break: earlier content remains free to reflow when edited.
+\clearpage
+\input{sections/06-teaching}
+\input{sections/07-talks}
+\input{sections/08-service-and-advising}
+\input{sections/09-skills}
+\end{document}

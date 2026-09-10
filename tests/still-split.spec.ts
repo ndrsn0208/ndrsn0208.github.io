@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test'
 
-test.skip(({ isMobile }) => isMobile, 'The desktop composition is checked here; mobile retains the continuous-page tests.')
+test.skip(({ isMobile }) => isMobile, 'The desktop composition is checked here; Chapters has separate phone coverage.')
 
 function navigation(page: Page) {
   return page.getByRole('navigation', { name: 'Main navigation', exact: true })
@@ -13,8 +13,9 @@ function destination(page: Page, name: string) {
 for (const edition of ['black', 'paper']) {
   test(`${edition}: the centered introduction opens four inline panels and returns home`, async ({ page }) => {
     await page.goto(`/?edition=${edition}`)
-    await page.evaluate(() => document.fonts.ready)
     const home = page.locator('.quiet-home')
+    await expect(home).toBeVisible()
+    await page.evaluate(() => document.fonts.ready)
     const centered = (await home.boundingBox())!
     expect(centered.x + centered.width / 2).toBeCloseTo(page.viewportSize()!.width / 2, 0)
     await expect(page.locator('.quiet-pane[data-active]')).toHaveCount(0)
@@ -117,6 +118,7 @@ test('the introduction moves continuously without changing its text measure, inc
   await expect(page.locator('.quiet-home')).toBeVisible()
   await page.evaluate(() => document.fonts.ready)
   const before = (await page.locator('.quiet-home').boundingBox())!
+  const leftEdge = (await page.locator('.quiet-main').boundingBox())!.x
   const samples = await page.evaluateHandle(() => {
     const frames: { x: number; width: number; opacity: number }[] = []
     // Start with the action, after the lazily loaded introduction exists.
@@ -132,10 +134,10 @@ test('the introduction moves continuously without changing its text measure, inc
     return frames
   })
   await destination(page, 'publications').click()
-  await expect.poll(async () => (await page.locator('.quiet-home').boundingBox())!.x).toBeLessThan(65)
+  await expect.poll(async () => (await page.locator('.quiet-home').boundingBox())!.x).toBeCloseTo(leftEdge, 0)
   await expect(page.locator('#quiet-pane-publications')).toHaveCSS('opacity', '1')
   const frames = await samples.jsonValue()
-  expect(frames.filter((frame) => frame.x < before.x - 2 && frame.x > 65).length).toBeGreaterThan(3)
+  expect(frames.filter((frame) => frame.x < before.x - 2 && frame.x > leftEdge + 2).length).toBeGreaterThan(3)
   expect(frames.every((frame) => Math.abs(frame.width - before.width) < 1)).toBe(true)
   expect(frames.some((frame) => frame.opacity > 0 && frame.opacity < 1)).toBe(true)
 
@@ -154,20 +156,22 @@ test('the introduction moves continuously without changing its text measure, inc
   await expect(destination(page, 'about')).toBeFocused()
 })
 
-test('resizing keeps reading state and transfers a mobile dialog into the desktop panel', async ({ page }) => {
+test('resizing between Book desktop and Chapters keeps the same readers and active destination', async ({ page }) => {
   await page.goto('/?edition=paper#publications')
   await page.getByRole('searchbox').fill('rank-1 fisher')
   await page.locator('.quiet-paper-details summary').click()
   const paper = await page.locator('.quiet-paper-details').elementHandle()
   await page.setViewportSize({ width: 390, height: 844 })
-  await expect(page.locator('.quiet')).not.toHaveAttribute('data-layout')
-  await expect(page.locator('#publications')).toBeFocused()
-  await expect(page.locator('.quiet-dock')).toBeVisible()
+  await expect(page.locator('.quiet')).toHaveAttribute('data-layout', 'chapters')
+  await expect(page.locator('#quiet-pane-publications')).toBeVisible()
+  await expect(page.locator('.quiet-chapter-navigation')).toBeVisible()
   await expect(page.getByRole('searchbox')).toHaveValue('rank-1 fisher')
   expect(await paper!.evaluate((element) => element.isConnected && element.hasAttribute('open'))).toBe(true)
   await destination(page, 'contact').click()
-  await expect(page.getByRole('dialog')).toBeVisible()
+  await expect(page.locator('#quiet-contact-title')).toBeFocused()
+  await expect(page.getByRole('dialog')).toHaveCount(0)
   await page.setViewportSize({ width: 1440, height: 1000 })
+  await expect(page.locator('.quiet')).toHaveAttribute('data-layout', 'split')
   await expect(page.locator('.quiet')).toHaveAttribute('data-panel', 'contact')
   await expect(page.getByRole('dialog')).toHaveCount(0)
   await expect(page.locator('#quiet-contact-title')).toBeFocused()
@@ -177,8 +181,11 @@ test('resizing keeps reading state and transfers a mobile dialog into the deskto
   await expect(page.getByRole('searchbox')).toHaveValue('rank-1 fisher')
   expect(await paper!.evaluate((element) => element.isConnected && element.hasAttribute('open'))).toBe(true)
   await page.setViewportSize({ width: 390, height: 844 })
-  expect(await page.locator('body').evaluate((element) => element.style.overflow)).not.toBe('hidden')
-  await expect(page.locator('.quiet-dock')).toBeVisible()
+  await expect(page.locator('.quiet')).toHaveAttribute('data-layout', 'chapters')
+  await expect(page.locator('.quiet-chapter-navigation')).toBeVisible()
+  await expect(page.locator('html')).toHaveCSS('overflow', 'hidden')
+  await expect(page.getByRole('searchbox')).toHaveValue('rank-1 fisher')
+  expect(await paper!.evaluate((element) => element.isConnected && element.hasAttribute('open'))).toBe(true)
 })
 
 test('both columns and their controls fit a small laptop and a large display', async ({ page }) => {

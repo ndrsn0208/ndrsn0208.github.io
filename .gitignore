@@ -41,3 +41,10 @@ artifacts/
 test-results/
 playwright-report/
 *.tsbuildinfo
+
+# LaTeX output; editable CV sources are versioned.
+cv/build/
+cv/*.aux
+cv/*.out
+cv/*.toc
+cv/*.synctex.gz

@@ -1,0 +1,293 @@
+/* Book — the measured rhythm of a scholarly title page and its reading pages. */
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] {
+  --quiet-display: "EB Garamond", Georgia, serif;
+  --type-ui: "Source Sans 3", system-ui, sans-serif;
+  --lens-measure: 572px;
+  font-family: var(--type-ui);
+  font-optical-sizing: auto;
+  font-variation-settings: normal;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] :is(
+  .quiet-eyebrow, .quiet-background, .quiet-primary-nav, .quiet-reading-nav,
+  .quiet-search, .quiet-paper-meta, .quiet-paper-details > summary,
+  .quiet-paper-content h3, .quiet-paper-content h4, .quiet-paper-topics,
+  .quiet-paper-links, .quiet-citation, .quiet-info-dialog, .quiet-footer,
+  .quiet-panel-toolbar button, .quiet-dialog-top button,
+  .quiet-dialog-links a, .quiet-dialog-links button, .quiet-cv-actions a,
+  .quiet-copy-email, .quiet-back
+) {
+  font-family: var(--type-ui);
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-emblem {
+  width: 58px;
+  margin-bottom: 28px;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-introduction .quiet-eyebrow {
+  font-size: 12px;
+  font-weight: 450;
+  letter-spacing: .055em;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-introduction h1 {
+  margin-top: 10px;
+  font: 500 clamp(52px, 4.4vw, 60px)/1.08 var(--quiet-display);
+  font-variation-settings: normal;
+  letter-spacing: -.025em;
+  text-wrap: balance;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-intro {
+  max-width: 34ch;
+  margin-top: 22px;
+  font: 400 26px/1.46 var(--quiet-display);
+  font-variation-settings: normal;
+  letter-spacing: -.006em;
+  text-wrap: balance;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-background {
+  margin-top: 32px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-background dt {
+  margin-bottom: 9px;
+  font-size: 12px;
+  font-weight: 450;
+  line-height: 1.5;
+  letter-spacing: .025em;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-education { padding-right: 22px; }
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-industry { padding-left: 22px; }
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-experience-role {
+  font: 500 20px/1.3 var(--quiet-display);
+  letter-spacing: -.012em;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-experience-meta {
+  margin-top: 7px;
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-experience-dates {
+  margin-top: 4px;
+  font-size: 12.5px;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-background .quiet-advisor {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-navigation {
+  gap: 20px;
+  margin-top: 29px;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] :is(.quiet-primary-nav, .quiet-reading-nav) {
+  font-size: 15px;
+  line-height: 1.4;
+  letter-spacing: .005em;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-navigation-anchor .quiet-primary-nav { gap: 23px; }
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-dock-nav :where(button, a) { font-size: 14px; }
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] :is(
+  .quiet-publications-heading h2, .quiet-panel-copy > h2, .quiet-info-dialog h2, .quiet-empty h2
+) {
+  font: 500 38px/1.16 var(--quiet-display);
+  font-variation-settings: normal;
+  letter-spacing: -.022em;
+  text-wrap: balance;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-panel-copy > h2 { margin-block: 13px 25px; }
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-cv-content > h2 { margin-bottom: 12px; }
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-reader-heading { padding-bottom: 28px; }
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-publications-heading > span {
+  font: 400 13px/1.5 var(--type-ui);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-search label {
+  font-size: 12px;
+  letter-spacing: .01em;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-search :is(input, select) {
+  font-family: var(--type-ui);
+  font-size: 16px;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] :is(.quiet-result-count, .quiet-reset) { font-size: 12px; }
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-reading-layout { row-gap: 28px; }
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-paper { padding-block: 30px 28px; }
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-paper:first-child { padding-top: 30px; }
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-paper-meta {
+  margin-bottom: 11px;
+  font-size: 16px;
+  font-weight: 550;
+  line-height: 1.5;
+  letter-spacing: .005em;
+  font-variant-numeric: lining-nums;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-paper-title {
+  font: 500 29px/1.22 var(--quiet-display);
+  font-variation-settings: normal;
+  letter-spacing: -.012em;
+  text-wrap: pretty;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-paper-title-link { gap: 16px; }
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-paper-summary {
+  max-width: 56ch;
+  margin-top: 14px;
+  font: 400 21px/1.55 var(--quiet-display);
+  letter-spacing: -.002em;
+  text-wrap: pretty;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-paper-details { margin-top: 10px; }
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-paper-details > summary { font-size: 13px; }
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-paper-content { padding-left: 20px; }
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-paper-content :is(h3, h4) {
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: none;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-authors {
+  margin-block: 7px 22px;
+  font: 400 18px/1.55 var(--quiet-display);
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-authors strong { font-weight: 600; }
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-research-summary {
+  font: 400 20px/1.65 var(--quiet-display);
+  letter-spacing: 0;
+  text-wrap: pretty;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] :is(.quiet-paper-topics, .quiet-citation) { font-size: 13px; }
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-paper-links :where(a, button) { font-size: 13px; }
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-dialog-copy {
+  font: 400 22px/1.6 var(--quiet-display);
+  letter-spacing: -.002em;
+  text-wrap: pretty;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-dialog-copy > p + p { margin-top: 22px; }
+
+/* A quieter second serif distinguishes the personal note from the reading copy. */
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-photographer {
+  display: inline-block;
+  max-width: 100%;
+  font: 450 .98em/1.45 "Newsreader", Georgia, serif;
+  font-variation-settings: normal;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-contact-email {
+  font: 400 clamp(24px, 2.5vw, 32px)/1.3 var(--quiet-display);
+  letter-spacing: -.012em;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] :is(
+  .quiet-dialog-links a, .quiet-dialog-links button, .quiet-cv-actions a,
+  .quiet-copy-email, .quiet-panel-toolbar button, .quiet-dialog-top button, .quiet-back
+) {
+  font-size: 13px;
+  letter-spacing: .005em;
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-reader-end > p {
+  font: 400 21px/1.5 var(--quiet-display);
+}
+
+.type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-footer { font-size: 12px; }
+
+/* Both positions use the same width; Motion remains the sole owner of movement. */
+@media (min-width: 1024px) {
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition][data-layout="split"] {
+    --split-gap: clamp(48px, 5vw, 72px);
+  }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition][data-layout="split"] .quiet-main {
+    max-width: 1240px;
+    grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
+  }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition][data-layout="split"] .quiet-home {
+    width: min(488px, calc((100% - var(--split-gap)) * .44));
+  }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition][data-layout="split"] .quiet-reader { max-width: 584px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition][data-layout="split"] .quiet-panel-copy { max-width: 520px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition][data-layout="split"] .quiet-cv-content { max-width: none; }
+}
+
+@media (min-width: 1024px) and (max-height: 720px) {
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-emblem { width: 46px; margin-bottom: 18px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-introduction h1 { font-size: 52px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-intro { margin-top: 17px; font-size: 24px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-background { margin-top: 24px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-navigation { margin-top: 20px; }
+}
+
+@media (max-width: 720px) {
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] { --lens-measure: 520px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-home { padding-bottom: 34px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-emblem { width: 52px; margin-bottom: 22px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-introduction .quiet-eyebrow { font-size: 11.5px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-introduction h1 { font-size: clamp(44px, 12.3vw, 56px); }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-intro { margin-top: 19px; font-size: 24px; line-height: 1.42; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-background { margin-top: 27px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-background dt { font-size: 11.5px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-education { padding-right: 16px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-industry { padding-left: 16px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-experience-role { font-size: 18px; line-height: 1.35; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-experience-meta { font-size: 14px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-experience-dates { font-size: 12px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-background .quiet-advisor { font-size: 12.5px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-navigation { gap: 12px; margin-top: 24px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-navigation-anchor .quiet-primary-nav { gap: 12px; font-size: 14.5px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] :is(.quiet-publications-heading h2, .quiet-panel-copy > h2, .quiet-info-dialog h2) { font-size: 34px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-paper { padding-block: 27px 24px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-paper-title { font-size: 26px; line-height: 1.24; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-paper-summary { font-size: 20px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-paper-content { padding-left: 16px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-dialog-copy { font-size: 21px; line-height: 1.55; }
+}
+
+@media (max-width: 359px) {
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-home { padding-bottom: 30px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-emblem { width: 46px; margin-bottom: 18px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-introduction h1 { font-size: 43px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-intro { font-size: 23px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-education { padding-right: 12px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-industry { padding-left: 12px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-background dt { font-size: 11px; letter-spacing: 0; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-experience-role { font-size: 17px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-experience-meta { font-size: 13px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-background .quiet-advisor { font-size: 12px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-navigation { gap: 8px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-navigation-anchor .quiet-primary-nav { gap: 6px; font-size: 14px; }
+  .type-preview[data-typography="book"] .quiet[data-study="lens"][data-edition] .quiet-paper-title { font-size: 25px; }
+}

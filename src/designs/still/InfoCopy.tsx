@@ -10,8 +10,8 @@ export default function InfoCopy({ panel, emailStatus, onCopyEmail, onCV }: {
     <div className="quiet-dialog-copy">
       {profile.researchVision.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
       <p>
-        {profile.personalNote.split(/(semi-professional photographer)/).map((part, index) => (
-          part === 'semi-professional photographer'
+        {profile.personalNote.split(/(semi-professional photographer\.?)/).map((part, index) => (
+          part.startsWith('semi-professional photographer')
             ? <span className="quiet-photographer" key={index}>{part}</span>
             : part
         ))}

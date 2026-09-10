@@ -1,0 +1,19 @@
+{
+  "tectonic_version": "0.17.0",
+  "bundle_url": "https://relay.fullyjustified.net/default_bundle_v33.tar",
+  "validated_bundle_id": "6ffe055852f8faf66c0acbe1a7fb27f87b869a90bad1204f3bf4d9683f597c7c",
+  "downloads": {
+    "macos-arm64": {
+      "url": "https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.17.0/tectonic-0.17.0-aarch64-apple-darwin.tar.gz",
+      "sha256": "a3f1cac7c5678f01661a92212f58480ae3b0634115d880dbc59e2953ded45667"
+    },
+    "macos-x86_64": {
+      "url": "https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.17.0/tectonic-0.17.0-x86_64-apple-darwin.tar.gz",
+      "sha256": "7c90ef5b6ddb1eb1937e4337add5237b79338e4b9676459fa91187d24d6cdf80"
+    },
+    "linux-x86_64": {
+      "url": "https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.17.0/tectonic-0.17.0-x86_64-unknown-linux-musl.tar.gz",
+      "sha256": "8533d07f9ccbd7a65824b9e0459041bca34af1eb33daba48f59215593753a3b7"
+    }
+  }
+}

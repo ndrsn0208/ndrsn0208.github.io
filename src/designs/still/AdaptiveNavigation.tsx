@@ -45,10 +45,11 @@ function Dock({ active, ...props }: NavigationProps & { active: boolean }) {
 
 /** The original navigation keeps its space; only its active surface changes. */
 export default function AdaptiveNavigation({
-  edition, onEditionChange, ...navigation
+  edition, onEditionChange, dockOffset = 0, ...navigation
 }: NavigationProps & {
   edition: StillEditionId
   onEditionChange: (edition: StillEditionId) => void
+  dockOffset?: number
 }) {
   const anchorRef = useRef<HTMLDivElement>(null)
   const [aboveViewport, setAboveViewport] = useState(false)
@@ -61,7 +62,8 @@ export default function AdaptiveNavigation({
   useLayoutEffect(() => {
     const anchor = anchorRef.current
     if (!anchor) return
-    const update = (bottom: number) => {
+    const update = (anchorBottom: number) => {
+      const bottom = anchorBottom - dockOffset
       if (bottom >= 18) {
         // Capture before the departing dock becomes inert and the browser blurs it.
         const active = document.activeElement as HTMLElement | null
@@ -73,14 +75,14 @@ export default function AdaptiveNavigation({
     update(anchor.getBoundingClientRect().bottom)
     const observer = new IntersectionObserver(() => {
       update(anchor.getBoundingClientRect().bottom)
-    }, { threshold: [0, 0.4, 1] })
+    }, { threshold: [0, 0.4, 1], rootMargin: `-${dockOffset}px 0px 0px 0px` })
     observer.observe(anchor)
     // A fast fling can skip the anchor entirely on a short screen. The home
     // starts in view, so observing it also catches that otherwise silent jump.
     const introduction = anchor.closest('.quiet-home')
     if (introduction) observer.observe(introduction)
     return () => observer.disconnect()
-  }, [])
+  }, [dockOffset])
 
   useEffect(() => {
     const viewport = window.visualViewport

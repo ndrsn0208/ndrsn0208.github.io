@@ -175,7 +175,7 @@ test('a composition change animates without remounting the open paper', async ({
 
 test('rapidly reversing the dock animation keeps the open paper and keyboard focus', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
-  await page.goto('/')
+  await page.goto('/still?study=lens&edition=black')
   await expect(page.locator('.quiet-paper')).toHaveCount(15)
   await page.evaluate(() => document.fonts.ready)
   await publicationsControl(page).click()
@@ -214,7 +214,7 @@ test('rapidly reversing the dock animation keeps the open paper and keyboard foc
 
 test('returning to the introduction transfers a focused dock destination to the inline navigation', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
-  await page.goto('/')
+  await page.goto('/still?study=lens&edition=black')
   await expect(page.locator('.quiet-paper')).toHaveCount(15)
   await page.evaluate(() => document.fonts.ready)
   await publicationsControl(page).click()

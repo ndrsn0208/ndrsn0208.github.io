@@ -1,0 +1,234 @@
+/* Humanist: an open, sans-led introduction; Newsreader for reflective reading. */
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] {
+  --quiet-display: "Source Sans 3", system-ui, sans-serif;
+  --lens-measure: 612px;
+  font: 400 16px/1.65 "Source Sans 3", system-ui, sans-serif;
+  font-optical-sizing: auto;
+}
+
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-emblem {
+  width: 60px;
+  margin-bottom: 28px;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-eyebrow {
+  font: 450 13px/1.6 "Source Sans 3", system-ui, sans-serif;
+  letter-spacing: .025em;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-introduction h1 {
+  margin-top: 12px;
+  font: 450 clamp(54px, 4.7vw, 66px)/1.12 var(--quiet-display);
+  font-variation-settings: normal;
+  letter-spacing: -.035em;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-intro {
+  max-width: 37ch;
+  margin-top: 24px;
+  font: 400 25px/1.52 var(--quiet-display);
+  font-variation-settings: normal;
+  letter-spacing: -.012em;
+}
+
+/* One horizontal rule gathers the two records without boxing either in. */
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-background {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  margin-top: 32px;
+  padding-top: 21px;
+  border-top: 1px solid var(--quiet-rule);
+  font-family: "Source Sans 3", system-ui, sans-serif;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-background dt {
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: .005em;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-education { padding-right: 24px; }
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-industry {
+  padding-left: 24px;
+  border-left: 0;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-experience-role {
+  font-size: 17px;
+  font-weight: 550;
+  line-height: 1.45;
+  letter-spacing: -.012em;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-experience-meta {
+  margin-top: 5px;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-experience-dates {
+  margin-top: 5px;
+  font-size: 13px;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-background .quiet-advisor {
+  margin-top: 7px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-navigation {
+  gap: 22px;
+  margin-top: 28px;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] :is(.quiet-primary-nav, .quiet-reading-nav) {
+  gap: 24px;
+  font: 450 16px/1.4 "Source Sans 3", system-ui, sans-serif;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-nav :where(a, button) {
+  font-family: "Source Sans 3", system-ui, sans-serif;
+  font-weight: 450;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-dock-nav {
+  gap: 0;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-dock-nav :where(a, button) {
+  font-size: 14px;
+}
+
+/* The publication list is direct and legible, with generous, visible venues. */
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-reader-heading { padding-bottom: 24px; }
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-publications-heading h2 {
+  font: 500 36px/1.2 var(--quiet-display);
+  letter-spacing: -.025em;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-publications-heading > span {
+  font: 400 14px/1.5 "Source Sans 3", system-ui, sans-serif;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-reading-layout { gap: 22px; }
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-search {
+  font-family: "Source Sans 3", system-ui, sans-serif;
+  column-gap: 24px;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-search label {
+  font-size: 13px;
+  letter-spacing: 0;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-search :is(input, select) {
+  font-family: inherit;
+  font-size: 16px;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] :is(.quiet-result-count, .quiet-reset) { font-size: 13px; }
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-paper { padding-block: 29px 30px; }
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-paper-meta {
+  margin-bottom: 10px;
+  font: 550 17px/1.5 "Source Sans 3", system-ui, sans-serif;
+  letter-spacing: .01em;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-paper-title {
+  font: 500 26px/1.32 var(--quiet-display);
+  font-variation-settings: normal;
+  letter-spacing: -.012em;
+  text-wrap: pretty;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-paper-summary {
+  max-width: 58ch;
+  margin-top: 12px;
+  font: 400 18px/1.62 "Source Sans 3", system-ui, sans-serif;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-paper-details > summary {
+  font: 450 14px/1.5 "Source Sans 3", system-ui, sans-serif;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-paper-content {
+  padding: 18px 0 3px 22px;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-paper-content :is(h3, h4) {
+  font: 550 13px/1.6 "Source Sans 3", system-ui, sans-serif;
+  letter-spacing: .015em;
+  text-transform: none;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-authors {
+  font: 400 15px/1.7 "Source Sans 3", system-ui, sans-serif;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-authors strong { font-weight: 600; }
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-research-summary {
+  font: 400 20px/1.7 "Newsreader", Georgia, serif;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] :is(.quiet-paper-topics, .quiet-citation) {
+  font: 400 13px/1.75 "Source Sans 3", system-ui, sans-serif;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] :is(.quiet-paper-links, .quiet-dialog-links, .quiet-cv-actions) :is(a, button),
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] :is(.quiet-back, .quiet-copy-email, .quiet-panel-toolbar button, .quiet-dialog-top button) {
+  font: 450 14px/1.5 "Source Sans 3", system-ui, sans-serif;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-copy-status {
+  font: 400 13px/1.6 "Source Sans 3", system-ui, sans-serif;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-reader-end > p {
+  font: italic 400 19px/1.6 "Source Sans 3", system-ui, sans-serif;
+}
+
+/* The personal pages soften into a reading face; Caveat remains untouched. */
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] :is(.quiet-panel-copy > h2, .quiet-info-dialog h2) {
+  font: 500 38px/1.18 var(--quiet-display);
+  font-variation-settings: normal;
+  letter-spacing: -.025em;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-dialog-copy {
+  font: 400 22px/1.7 "Newsreader", Georgia, serif;
+  letter-spacing: -.005em;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-dialog-copy > p + p { margin-top: 24px; }
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-contact-email {
+  font: 450 30px/1.4 "Source Sans 3", system-ui, sans-serif;
+  letter-spacing: -.015em;
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-footer {
+  font: 400 12px/1.6 "Source Sans 3", system-ui, sans-serif;
+}
+
+/* The measure depends on viewport only, never on the active pane. */
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition][data-layout="split"] .quiet-home {
+  width: min(540px, calc((100% - var(--split-gap)) * .46));
+}
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition][data-layout="split"] .quiet-reader { max-width: 590px; }
+.type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition][data-layout="split"] .quiet-panel-copy:not(.quiet-cv-content) { max-width: 520px; }
+
+@media (max-width: 720px) {
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-emblem { width: 54px; margin-bottom: 24px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-introduction h1 { font-size: clamp(44px, 12.6vw, 62px); }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-intro { margin-top: 20px; font-size: 23px; line-height: 1.5; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-background { margin-top: 26px; padding-top: 18px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-background dt { font-size: 12px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-education { padding-right: 16px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-industry { padding-left: 16px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-experience-role { font-size: 15.5px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-experience-meta { font-size: 15px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-background .quiet-advisor { font-size: 12.5px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-navigation { gap: 12px; margin-top: 24px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] :is(.quiet-primary-nav, .quiet-reading-nav):not(.quiet-dock-nav) { gap: 12px; font-size: 14.5px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-publications-heading h2 { font-size: 32px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-search { column-gap: 14px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-paper-title { font-size: 24px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-paper-summary { font-size: 17.5px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-paper-content { padding-left: 17px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-info-dialog h2 { font-size: 33px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-dialog-copy { font-size: 20px; line-height: 1.7; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-contact-email { font-size: 25px; }
+}
+
+@media (max-width: 359px) {
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-introduction h1 { font-size: 42px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-intro { font-size: 21px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-education { padding-right: 10px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-industry { padding-left: 10px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-experience-role { font-size: 14.5px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-navigation { gap: 8px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] :is(.quiet-primary-nav, .quiet-reading-nav):not(.quiet-dock-nav) { gap: 7px; font-size: 13.5px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-dock-nav :where(a, button) { font-size: 13px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-paper-title { font-size: 23px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-contact-email { font-size: 22px; }
+}
+
+@media (min-width: 1024px) and (max-height: 720px) {
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition][data-layout="split"] .quiet-home { padding-block: 22px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-emblem { width: 46px; margin-bottom: 16px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-introduction h1 { font-size: 54px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-intro { margin-top: 17px; font-size: 23px; line-height: 1.45; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-background { margin-top: 23px; padding-top: 16px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-navigation { margin-top: 20px; }
+  .type-preview[data-typography="humanist"] .quiet[data-study="lens"][data-edition] .quiet-dialog-copy { font-size: 20px; }
+}

@@ -1,0 +1,80 @@
+\section{Selected Publications and Projects}
+
+\CVPaperHeading
+  {Self-Consolidating Language Models: Continual Knowledge Incorporation from Context}
+  {In Submission}
+  {https://arxiv.org/abs/2605.07076}
+  {\CVNameInAuthors\CVEqual, Anant Gupta, Zihan Dong, Christopher J. MacLellan}
+\begin{CVHighlights}
+  \item Built \textbf{SCoL}, a meta-reinforcement-learning post-training pipeline
+    that teaches an LLM to emit \textit{textual update directives} selecting which
+    Transformer layers to LoRA-adapt from streaming context, balancing acquisition
+    against forgetting.
+  \item Beat prompting, summarization, batch test-time training, and sequential
+    fine-tuning on SQuAD QA and LongBench v2; the learned layer selections concentrate
+    on high-Fisher-information layers, recovering the rank-1 forgetting geometry
+    from our prior diffusion work.
+\end{CVHighlights}
+\CVProjectGap
+
+\CVPaperHeading
+  {Test-Time Compositional Generalization in Diffusion Models via Concept Discovery}
+  {In Submission}
+  {https://arxiv.org/abs/2605.07078}
+  {\CVNameInAuthors, Anant Gupta, Tianyi Zhu, Christopher J. MacLellan}
+\begin{CVHighlights}
+  \item Recover \textit{query-specific concepts} from a pretrained diffusion model's
+    time-indexed scores via multi-noise-level gradient ascent, map modes to
+    clean-space Gaussians, and compose them into a product-of-experts teacher
+    with an analytic score.
+  \item PoE sampler and a low-rank distilled variant beat query-only and
+    nearest-class baselines on ColorMNIST and CelebA composition --- enabling
+    out-of-distribution composition \textit{without retraining} the base diffusion model.
+\end{CVHighlights}
+\CVProjectGap
+
+\CVPaperHeading
+  {Trust Region Continual Learning as an Implicit Meta-Learner}
+  {In Submission}
+  {https://arxiv.org/abs/2602.02417}
+  {\CVNameInAuthors\CVEqual, Anant Gupta, Christopher J. MacLellan}
+\begin{CVHighlights}
+  \item Combined generative replay with an EWC Fisher-metric trust region and
+    \textit{proved} that, under local approximations, the update collapses into a
+    one-step MAML form where replay acts as the query gradient and the Fisher
+    as offline curvature.
+  \item On ImageNet-500 diffusion generation and Continual-World-10 diffusion
+    policies, beats EWC, replay, FTML, and VR-MCL on both retention and
+    re-convergence speed --- bringing meta-learning theory to bear on continual
+    robotic control.
+\end{CVHighlights}
+\CVProjectGap
+
+\CVPaperHeading
+  {Avoid Catastrophic Forgetting with Rank-1 Fisher from Diffusion Models}
+  {ICLR 2026}
+  {https://arxiv.org/abs/2509.23593}
+  {\CVNameInAuthors\CVEqual, Anant Gupta\CVEqual, Zihan Dong, Christopher J. MacLellan}
+\begin{CVHighlights}
+  \item Showed both mathematically and empirically that diffusion gradients become
+    \textbf{rank-1} and aligned with the mean gradient at low SNR; built a rank-1
+    EWC penalty paired with generative replay.
+  \item Forgetting is \textbf{halved or nearly eliminated} on class-incremental MNIST,
+    FashionMNIST, CIFAR-10, and ImageNet-1k versus EWC and replay baselines.
+\end{CVHighlights}
+\CVProjectGap
+
+\CVPaperHeading
+  {Deep Taxonomic Networks for Unsupervised Hierarchical Prototype Discovery}
+  {NeurIPS 2025}
+  {https://arxiv.org/abs/2509.23602}
+  {\CVNameInAuthors, Ethan Haarer, Tianyi Zhu, Zhiyi Dai, Christopher J. MacLellan}
+\begin{CVHighlights}
+  \item Proposed deep taxonomic networks: a VAE whose prior is a complete binary
+    tree of Gaussian mixtures, optionally combined with contrastive learning ---
+    no prior knowledge of class count required.
+  \item Achieves \textbf{SOTA on hierarchical prototype discovery} under an
+    evaluation that scores prototypes at every tree level; proved that the ELBO
+    also optimizes mutual information between latent and tree.
+\end{CVHighlights}
+\CVProjectGap

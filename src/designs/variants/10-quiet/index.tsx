@@ -18,6 +18,8 @@ import AppearanceSwitch from '../../still/AppearanceSwitch'
 import AdaptiveNavigation from '../../still/AdaptiveNavigation'
 import SplitPane, { useSplitLayout } from '../../still/SplitPane'
 import InfoCopy from '../../still/InfoCopy'
+import ResearchTopics from '../../still/ResearchTopics'
+import type { MobileStudyId } from '../../mobile/registry'
 import { getStillStudy, type StillStudyId } from '../../still/studies'
 import LensArtwork from '../../still/studies/lens/Artwork'
 import DriftArtwork from '../../still/studies/drift/Artwork'
@@ -34,6 +36,7 @@ import '../../still/studies/drift/style.css'
 import '../../still/studies/frame/style.css'
 import '../../still/adaptive-navigation.css'
 import '../../still/split-layout.css'
+import '../../still/research-topics.css'
 
 const artworks: Record<StillStudyId, ComponentType> = { lens: LensArtwork, drift: DriftArtwork, frame: FrameArtwork }
 
@@ -215,10 +218,11 @@ function QuietPaper({ paper, inline = false }: { paper: Publication; inline?: bo
   )
 }
 
-export default function Quiet({ edition: preferredEdition, study: preferredStudy, onEditionChange }: {
+export default function Quiet({ edition: preferredEdition, study: preferredStudy, onEditionChange, mobileStudy }: {
   edition?: StillEditionId
   study?: StillStudyId
   onEditionChange?: (edition: StillEditionId) => void
+  mobileStudy?: MobileStudyId
 } = {}) {
   const [params] = useSearchParams()
   const location = useLocation()
@@ -229,9 +233,11 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
   const study = preferredStudy ?? getStillStudy(params.get('study'))?.id
   const inlinePublications = study === 'lens'
   const desktop = inlinePublications && wide
+  const chapterLayout = inlinePublications && !wide && mobileStudy === 'chapters'
+  const paneLayout = desktop || chapterLayout
   const panel = panelForHash(location.hash)
   const previousPanel = useRef(panel)
-  const previousDesktop = useRef(desktop)
+  const previousPaneLayout = useRef(paneLayout)
   const Artwork = study ? artworks[study] : undefined
   const [mode, setMode] = useState<'home' | 'work'>('home')
   const [query, setQuery] = useState('')
@@ -252,12 +258,20 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
 
   useLayoutEffect(() => {
     if (!inlinePublications) return
-    document.documentElement.dataset.stillLayout = desktop ? 'split' : 'inline'
+    document.documentElement.dataset.stillLayout = desktop ? 'split' : chapterLayout ? 'chapters' : 'inline'
     return () => { delete document.documentElement.dataset.stillLayout }
-  }, [inlinePublications, desktop])
+  }, [inlinePublications, desktop, chapterLayout])
+
+  useLayoutEffect(() => {
+    if (!paneLayout) return
+    // Mounted readers own their scroll positions, including on browser Back.
+    const previous = window.history.scrollRestoration
+    window.history.scrollRestoration = 'manual'
+    return () => { window.history.scrollRestoration = previous }
+  }, [paneLayout])
 
   useEffect(() => {
-    if (!inlinePublications || desktop || window.location.hash !== '#publications') return
+    if (!inlinePublications || paneLayout || window.location.hash !== '#publications') return
     let active = true
     void document.fonts.ready.then(() => {
       if (!active) return
@@ -265,7 +279,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
       readerTitleRef.current?.focus({ preventScroll: true })
     })
     return () => { active = false }
-  }, [inlinePublications, desktop])
+  }, [inlinePublications, paneLayout])
 
   function focusPanel(destination: StillDestination) {
     const pane = rootRef.current?.querySelector<HTMLElement>(`#quiet-pane-${destination}`)
@@ -287,20 +301,23 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
   }
 
   useLayoutEffect(() => {
-    if (desktop) {
+    const home = rootRef.current?.querySelector<HTMLElement>('.quiet-home')
+    if (home) home.inert = chapterLayout && Boolean(panel)
+    if (paneLayout) {
       if (panel) focusPanel(panel)
       else if (previousPanel.current) {
-        rootRef.current?.querySelector<HTMLElement>(`.quiet-home [data-nav-destination="${previousPanel.current}"]`)?.focus({ preventScroll: true })
+        const navigation = chapterLayout ? '.quiet-chapter-navigation' : '.quiet-home'
+        rootRef.current?.querySelector<HTMLElement>(`${navigation} [data-nav-destination="${previousPanel.current}"]`)?.focus({ preventScroll: true })
       }
     }
     previousPanel.current = panel
-  }, [desktop, panel])
+  }, [paneLayout, chapterLayout, panel])
 
   useLayoutEffect(() => {
-    if (previousDesktop.current === desktop) return
-    previousDesktop.current = desktop
+    if (previousPaneLayout.current === paneLayout) return
+    previousPaneLayout.current = paneLayout
     if (!inlinePublications) return
-    if (desktop) {
+    if (paneLayout) {
       window.scrollTo({ top: 0, behavior: 'instant' })
       if (info) {
         openPanel(info)
@@ -311,7 +328,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
       setDialogContent(panel)
       setInfo(panel)
     }
-  }, [desktop, inlinePublications, info, panel])
+  }, [paneLayout, inlinePublications, info, panel])
 
   const words = query.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean)
   const filteredPapers = papers.filter((paper) => {
@@ -325,7 +342,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
   const hasFilters = query.trim() !== '' || topic !== 'all'
 
   function openPublications(paperId?: string) {
-    if (desktop) { openPanel('publications'); return }
+    if (paneLayout) { openPanel('publications'); return }
     if (mode === 'home') workTriggerRef.current = document.activeElement as HTMLElement
     if (inlinePublications && !paperId) {
       setMode('work')
@@ -344,7 +361,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
   }
 
   function returnHome() {
-    if (desktop) { closePanel(); return }
+    if (paneLayout) { closePanel(); return }
     if (inlinePublications) {
       setMode('home')
       return
@@ -383,7 +400,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
   }, [mode, readerRequest])
 
   function openInfo(panel: 'about' | 'contact') {
-    if (desktop) { openPanel(panel); return }
+    if (paneLayout) { openPanel(panel); return }
     dialogTriggerRef.current = document.activeElement as HTMLElement
     setEmailStatus('')
     setDialogContent(panel)
@@ -393,7 +410,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
   useEffect(() => {
     const dialog = dialogRef.current
     if (!dialog) return
-    if (desktop) {
+    if (paneLayout) {
       dialogAnimationRef.current?.cancel()
       if (dialog.open) dialog.close()
       unlockScrollRef.current?.()
@@ -442,7 +459,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
         animation.cancel()
       }).catch(() => {})
     }
-  }, [info, desktop])
+  }, [info, paneLayout])
 
   useEffect(() => {
     if (reducedMotion()) return
@@ -491,6 +508,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
         <AdaptiveNavigation
           edition={edition}
           onEditionChange={changeAppearance}
+          dockOffset={mobileStudy === 'index' && !desktop ? 78 : 0}
           mode={mode}
           info={info}
           onPublications={() => openPublications()}
@@ -510,20 +528,30 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
   return (
     <div
       ref={rootRef} className="design-surface quiet" data-mode={mode} data-edition={edition} data-study={study}
-      data-layout={desktop ? 'split' : undefined} data-panel={desktop ? panel ?? 'home' : undefined} lang="en"
+      data-layout={desktop ? 'split' : chapterLayout ? 'chapters' : undefined} data-panel={paneLayout ? panel ?? 'home' : undefined} lang="en"
       onKeyDown={(event) => {
-        if (desktop && panel && event.key === 'Escape' && !event.defaultPrevented && !(event.target as HTMLElement).matches('input, textarea, select')) {
+        if (paneLayout && panel && event.key === 'Escape' && !event.defaultPrevented && !(event.target as HTMLElement).matches('input, textarea, select')) {
           event.preventDefault()
           closePanel()
         }
       }}
     >
       <a className="quiet-skip" href="#quiet-main" onClick={(event) => {
-        if (!desktop) return
+        if (!paneLayout) return
         event.preventDefault()
         if (panel) focusPanel(panel)
         else rootRef.current?.querySelector<HTMLElement>('#quiet-main')?.focus({ preventScroll: true })
       }}>Skip to content</a>
+
+      {chapterLayout && (
+        <header className="quiet-chapter-header">
+          <button className="quiet-chapter-home" type="button" onClick={returnHome} aria-label="Zekun Wang, return to introduction">
+            <span className="quiet-chapter-back" aria-hidden="true">{panel ? '←' : '·'}</span>
+            <span>{profile.name}</span>
+          </button>
+          <AppearanceSwitch edition={edition} onChange={changeAppearance} glass={false} />
+        </header>
+      )}
 
       <header className="quiet-header quiet-shell" hidden={inlinePublications || mode !== 'work'}>
         <button className="quiet-signature" type="button" onClick={returnHome} aria-label="Zekun Wang, return to introduction">
@@ -537,7 +565,14 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
         <motion.section
           id="introduction" className="quiet-home quiet-shell"
           layout={desktop && !reduce ? 'position' : false}
-          transition={{ layout: { duration: 0.76, ease: [0.22, 1, 0.36, 1] } }}
+          initial={false}
+          animate={chapterLayout ? { opacity: panel ? 0 : 1, y: panel && !reduce ? -8 : 0 } : { opacity: 1, y: 0 }}
+          transition={{
+            layout: { duration: 0.76, ease: [0.22, 1, 0.36, 1] },
+            opacity: { duration: reduce ? 0 : 0.24 },
+            y: { duration: reduce ? 0 : 0.42, ease: [0.22, 1, 0.36, 1] },
+          }}
+          aria-hidden={chapterLayout && Boolean(panel) || undefined}
           hidden={!inlinePublications && mode !== 'home'} aria-labelledby="quiet-name" tabIndex={inlinePublications ? -1 : undefined}
         >
           <div className="quiet-emblem" aria-hidden="true">{Artwork ? <Artwork /> : <QuietMark />}</div>
@@ -574,7 +609,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
                 ))}
               </div>
             </dl>
-            {navigation(true)}
+            {!chapterLayout && navigation(true)}
           </div>
           {!inlinePublications && <aside className="quiet-recent" aria-labelledby="quiet-recent-label">
             <div className="quiet-recent-caption">
@@ -588,12 +623,12 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
           </aside>}
         </motion.section>
 
-        <div className="quiet-panels" data-open={desktop && Boolean(panel) || undefined}>
+        <div className="quiet-panels" data-open={paneLayout && Boolean(panel) || undefined}>
           <div className="quiet-panel-toolbar" aria-hidden={!desktop || !panel || undefined}>
             <button type="button" onClick={closePanel} aria-label="Close panel" tabIndex={desktop && panel ? 0 : -1}>Close <span aria-hidden="true">×</span></button>
           </div>
           <SplitPane
-            name="publications" enabled={desktop} active={!desktop || panel === 'publications'}
+            name="publications" enabled={paneLayout} active={!paneLayout || panel === 'publications'}
             titleId="publications" enterDelay={previousPanel.current ? 0.04 : 0.16}
           >
             <section
@@ -618,6 +653,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
                     <p className="quiet-reader-intro">{profile.researchStatement}</p>
                   </>
                 )}
+                {inlinePublications && <ResearchTopics selected={topic} onChange={setTopic} />}
               </div>
 
               <div className="quiet-reading-layout">
@@ -631,11 +667,13 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
                       </svg>
                       <input ref={searchRef} id="quiet-search-input" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder={inlinePublications ? 'Search papers…' : 'Title, author, idea…'} autoComplete="off" />
                     </div>
-                    <label htmlFor="quiet-topic">Research topic</label>
-                    <select id="quiet-topic" value={topic} onChange={(event) => setTopic(event.target.value)}>
-                      <option value="all">All topics</option>
-                      {topics.map((item) => <option key={item} value={item}>{item}</option>)}
-                    </select>
+                    {!inlinePublications && <>
+                      <label htmlFor="quiet-topic">Research topic</label>
+                      <select id="quiet-topic" value={topic} onChange={(event) => setTopic(event.target.value)}>
+                        <option value="all">All topics</option>
+                        {topics.map((item) => <option key={item} value={item}>{item}</option>)}
+                      </select>
+                    </>}
                     <p className="quiet-result-count" role="status">
                       {hasFilters ? `${filteredPapers.length} of ${papers.length} papers` : `${papers.length} papers · newest first`}
                     </p>
@@ -665,7 +703,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
                     <div className="quiet-reader-end">
                       <p>{hasFilters ? 'That’s everything for this search.' : 'Thank you for reading.'}</p>
                       {inlinePublications ? (
-                        <a className="quiet-back" href="#introduction" onClick={(event) => { if (desktop) event.preventDefault(); returnHome() }}>Back to introduction <span aria-hidden="true">↑</span></a>
+                        <a className="quiet-back" href="#introduction" onClick={(event) => { if (paneLayout) event.preventDefault(); returnHome() }}>Back to introduction <span aria-hidden="true">↑</span></a>
                       ) : (
                         <button type="button" className="quiet-back" onClick={returnHome}>Back to introduction <span aria-hidden="true">↗</span></button>
                       )}
@@ -677,26 +715,36 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
           </SplitPane>
           {(['about', 'contact'] as const).map((name) => (
             <SplitPane
-              key={name} name={name} enabled={desktop} active={desktop && panel === name}
+              key={name} name={name} enabled={paneLayout} active={paneLayout && panel === name}
               titleId={`quiet-${name}-title`} enterDelay={previousPanel.current ? 0.04 : 0.16}
             >
               <section className="quiet-panel-copy" aria-labelledby={`quiet-${name}-title`}>
                 <p className="quiet-eyebrow">{name === 'about' ? 'About' : 'Contact'}</p>
                 <h2 id={`quiet-${name}-title`} tabIndex={-1}>{name === 'about' ? 'A little about me.' : 'Let’s talk.'}</h2>
-                {desktop && <InfoCopy panel={name} emailStatus={emailStatus} onCopyEmail={copyEmail} onCV={() => openPanel('cv')} />}
+                {paneLayout && <InfoCopy panel={name} emailStatus={emailStatus} onCopyEmail={copyEmail} onCV={() => openPanel('cv')} />}
               </section>
             </SplitPane>
           ))}
           <SplitPane
-            name="cv" enabled={desktop} active={desktop && panel === 'cv'}
+            name="cv" enabled={paneLayout} active={paneLayout && panel === 'cv'}
             titleId="quiet-cv-title" enterDelay={previousPanel.current ? 0.04 : 0.16}
           >
-            <CurriculumVitae active={desktop && panel === 'cv'} />
+            <CurriculumVitae active={paneLayout && panel === 'cv'} />
           </SplitPane>
         </div>
       </main>
 
-      <footer className="quiet-footer quiet-shell" hidden={desktop}>
+      {chapterLayout && (
+        <div className="quiet-chapter-navigation">
+          <StillNavigation
+            primary inline mode={mode} info={info}
+            onPublications={() => openPublications()} onInfo={openInfo}
+            panels={{ active: panel, onChange: openPanel }}
+          />
+        </div>
+      )}
+
+      <footer className="quiet-footer quiet-shell" hidden={paneLayout}>
         <a href={`mailto:${profile.email}`}>{profile.email} <Arrow className="quiet-arrow" /></a>
         <span className="quiet-footer-note">Continual learning. Adaptation. Generalization.</span>
         <a href={profile.scholar} target="_blank" rel="noreferrer">Scholar <Arrow className="quiet-arrow" /></a>
@@ -710,7 +758,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
         onClose={() => {
           if (dialogRef.current?.open) return
           setInfo(null)
-          if (desktop) return
+          if (paneLayout) return
           const trigger = dialogTriggerRef.current
           const destination = trigger?.dataset.navDestination
           const available = (element: HTMLElement) => element.getClientRects().length > 0

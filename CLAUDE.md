@@ -24,9 +24,10 @@ obvious from the code alone.
 
 ## Approved homepage
 
-The approved homepage at `/` is **Lens** from the Still studies. Keep its
+The approved homepage at `/` is **Book + Chapters**, built on Lens. Keep its
 centered introduction and left-aligned text, parallel education/industry records,
-and Fraunces/Geist typography. Black is exactly
+and upright EB Garamond/Source Sans 3 typography. The photographer phrase uses
+upright Newsreader with a subtle difference in weight. Black is exactly
 `#000000`; Paper is `#f5f1e8`. The current direction is minimal and humanist:
 flat surfaces, serif reading copy, an ink drawing, and text navigation with a
 moving underline. Lens has no glass blur, highlights, gradients, or raised controls.
@@ -40,16 +41,42 @@ to the centered introduction and restores focus. Destination hashes support
 browser history; appearance changes must preserve the hash.
 `SplitPane.tsx` and `split-layout.css` define the desktop composition.
 
-Phones retain the continuous Publications list and native dialogs.
-`src/designs/still/AdaptiveNavigation.tsx` switches the mobile introductory navigation
-into a floating four-option dock only when that navigation is above the viewport.
-It uses the installed Motion package, native viewport observation, reversible
-spring motion, and focus hand-off. Preserve reduced-motion and keyboard behavior.
+Phones use **Chapters**: a centered cover and four full-height reading panes,
+with a persistent four-option navigation at the bottom. Publications, About,
+Contact, and CV switch within the page using Motion; each retains its own reading
+position. The name in the running header returns to the introduction. Preserve
+safe areas, reduced-motion, focus, keyboard, and browser-history behavior.
+`src/Homepage.tsx` loads only Book and Chapters styles for the public homepage.
 The public homepage has no design-selection bar. `/still?review=1` exposes the
 archived design controls; `/designs` retains the earlier explorations.
 See `STILL_MINIMAL_BRIEF.md` for the current design and interaction contract.
 
-The styling notes below describe the legacy detail routes, not the approved Lens homepage.
+`/typography` contains four additional typography studies: Book, Editorial,
+Humanist, and Poem. They reuse Lens inside a scoped `.type-preview` wrapper;
+Book is also the approved homepage typography. Preview fonts load before an animated
+typography change so the existing reader and search state can remain mounted.
+See `TYPOGRAPHY_STUDIES.md` for preview, comparison, and verification commands.
+
+The Publications heading now includes all six canonical research topics as
+visible filter buttons, with real paper counts and combined text search.
+`ResearchTopics.tsx` uses the existing data; never hand-edit generated tags.
+
+`/mobile` compares three Book phone studies: Folio (continuous reading), Index
+(compact reading with a top dock), and Chapters (full-height panes with fixed
+bottom navigation). Variant CSS applies only to its wrapper below 1024px.
+Chapters reuses `SplitPane`, hash history, inert state, and retained readers;
+the desktop introduction animation remains controlled by the desktop breakpoint.
+See `MOBILE_STUDIES.md` for the layout and review contract.
+
+The editable CV is under `cv/`. `npm run cv:build` compiles a review PDF, while
+`npm run cv:publish` explicitly copies a successful build to `public/cv.pdf`.
+The separate Build CV workflow produces a downloadable GitHub Actions artifact.
+The LaTeX source reconstructs the May 2026 PDF and includes the user's September
+2026 research-interest and Amazon internship updates. Industry Experience follows
+Education; Amazon dates are not yet supplied. Update factual content only from
+the user's confirmed changes. See `cv/README.md`.
+
+The styling notes below describe the legacy detail routes, not the approved Book homepage.
 
 ## Legacy site appearance
 

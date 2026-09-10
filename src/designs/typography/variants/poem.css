@@ -1,0 +1,242 @@
+/* Poem: a literary title, an intimate statement, and an unhurried reading rhythm. */
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] {
+  --quiet-display: "Cormorant Garamond", Georgia, serif;
+  --lens-measure: 556px;
+  font: 400 16px/1.7 "Source Sans 3", system-ui, sans-serif;
+  font-optical-sizing: auto;
+}
+
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-emblem {
+  width: 60px;
+  margin-bottom: 35px;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-eyebrow {
+  font: 400 12px/1.65 "Source Sans 3", system-ui, sans-serif;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-introduction h1 {
+  margin-top: 14px;
+  font: 500 clamp(64px, 6.2vw, 86px)/1.04 var(--quiet-display);
+  font-variation-settings: normal;
+  letter-spacing: -.03em;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-intro {
+  max-width: 29ch;
+  margin-top: 26px;
+  font: 400 25px/1.65 "Newsreader", Georgia, serif;
+  font-variation-settings: normal;
+  letter-spacing: -.008em;
+}
+/* One italic phrase gives the research sentence a quiet point of emphasis. */
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-intro .quiet-keep { font-style: italic; }
+
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-background {
+  grid-template-columns: minmax(0, 1.22fr) minmax(0, 1fr);
+  margin-top: 38px;
+  font-family: "Source Sans 3", system-ui, sans-serif;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-background dt {
+  margin-bottom: 12px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: .025em;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-education { padding-right: 25px; }
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-industry { padding-left: 25px; }
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-experience-role {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -.005em;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-experience-meta {
+  margin-top: 7px;
+  font-size: 15px;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-experience-dates {
+  margin-top: 6px;
+  font-size: 13px;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-background .quiet-advisor {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-navigation {
+  gap: 22px;
+  margin-top: 34px;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] :is(.quiet-primary-nav, .quiet-reading-nav) {
+  gap: 28px;
+  font: 400 15px/1.5 "Source Sans 3", system-ui, sans-serif;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-nav :where(a, button) {
+  font-family: "Source Sans 3", system-ui, sans-serif;
+  font-weight: 400;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-dock-nav { gap: 0; }
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-dock-nav :where(a, button) { font-size: 14px; }
+
+/* More space between papers, tighter relationships within each paper. */
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-publications { padding-top: 38px; }
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-reader-heading { padding-bottom: 30px; }
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-publications-heading h2 {
+  font: 500 49px/1.1 var(--quiet-display);
+  letter-spacing: -.02em;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-publications-heading > span {
+  font: 400 13px/1.6 "Source Sans 3", system-ui, sans-serif;
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: .025em;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-reading-layout { gap: 28px; }
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-search { font-family: "Source Sans 3", system-ui, sans-serif; }
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-search label {
+  margin-bottom: 9px;
+  font-size: 12.5px;
+  letter-spacing: .015em;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-search :is(input, select) { font-family: inherit; font-size: 16px; }
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] :is(.quiet-result-count, .quiet-reset) { font-size: 13px; }
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-paper,
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-paper:first-child { padding-block: 36px 37px; }
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-paper-meta {
+  margin-bottom: 13px;
+  font: 500 16.5px/1.55 "Source Sans 3", system-ui, sans-serif;
+  letter-spacing: .04em;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-paper-title {
+  font: 600 32px/1.2 var(--quiet-display);
+  font-variation-settings: normal;
+  letter-spacing: -.01em;
+  text-wrap: pretty;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-paper-title-link { gap: 16px; }
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-paper-summary {
+  max-width: 48ch;
+  margin-top: 17px;
+  font: 400 20px/1.7 "Newsreader", Georgia, serif;
+  letter-spacing: .002em;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-paper-details { margin-top: 16px; }
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-paper-details > summary {
+  font: 400 13.5px/1.6 "Source Sans 3", system-ui, sans-serif;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-paper-content {
+  margin-top: 16px;
+  padding: 18px 0 3px 26px;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-paper-content :is(h3, h4) {
+  font: 500 12px/1.6 "Source Sans 3", system-ui, sans-serif;
+  letter-spacing: .055em;
+  text-transform: none;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-authors {
+  margin-bottom: 25px;
+  font: 400 14.5px/1.8 "Source Sans 3", system-ui, sans-serif;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-authors strong { font-weight: 600; }
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-research-summary {
+  font: 400 20px/1.8 "Newsreader", Georgia, serif;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] :is(.quiet-paper-topics, .quiet-citation) {
+  font: 400 13px/1.8 "Source Sans 3", system-ui, sans-serif;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] :is(.quiet-paper-links, .quiet-dialog-links, .quiet-cv-actions) :is(a, button),
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] :is(.quiet-back, .quiet-copy-email, .quiet-panel-toolbar button, .quiet-dialog-top button) {
+  font: 400 14px/1.6 "Source Sans 3", system-ui, sans-serif;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-copy-status {
+  font: 400 13px/1.6 "Source Sans 3", system-ui, sans-serif;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-reader-end { padding-top: 32px; }
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-reader-end > p {
+  font: italic 500 26px/1.4 var(--quiet-display);
+}
+
+/* The title is expressive; the longer paragraphs stay upright and easy to read. */
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] :is(.quiet-panel-copy > h2, .quiet-info-dialog h2) {
+  margin-bottom: 30px;
+  font: italic 500 51px/1.12 var(--quiet-display);
+  font-variation-settings: normal;
+  letter-spacing: -.018em;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-cv-content > h2 {
+  margin-bottom: 16px;
+  font-style: normal;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-dialog-copy {
+  font: 400 22px/1.8 "Newsreader", Georgia, serif;
+  letter-spacing: .002em;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-dialog-copy > p + p { margin-top: 28px; }
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-contact-email {
+  font: 400 29px/1.5 "Newsreader", Georgia, serif;
+  letter-spacing: -.015em;
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-footer {
+  font: 400 12px/1.7 "Source Sans 3", system-ui, sans-serif;
+}
+
+/* Width is the same in the centered introduction and every expanded state. */
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition][data-layout="split"] .quiet-home {
+  width: min(500px, calc((100% - var(--split-gap)) * .46));
+}
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition][data-layout="split"] .quiet-reader { max-width: 520px; }
+.type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition][data-layout="split"] .quiet-panel-copy:not(.quiet-cv-content) { max-width: 475px; }
+
+@media (max-width: 720px) {
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-emblem { width: 52px; margin-bottom: 25px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-introduction h1 { margin-top: 13px; font-size: clamp(49px, 14.8vw, 72px); }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-intro { max-width: 28ch; margin-top: 23px; font-size: 23px; line-height: 1.65; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-background { margin-top: 31px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-background dt { margin-bottom: 9px; font-size: 12px; letter-spacing: 0; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-education { padding-right: 16px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-industry { padding-left: 16px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-experience-role { font-size: 15px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-experience-meta { font-size: 14px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-background .quiet-advisor { font-size: 12.5px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-navigation { gap: 12px; margin-top: 28px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] :is(.quiet-primary-nav, .quiet-reading-nav):not(.quiet-dock-nav) { gap: 14px; font-size: 14px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-publications { padding-top: 31px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-publications-heading h2 { font-size: 42px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-paper,
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-paper:first-child { padding-block: 31px 33px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-paper-title { font-size: 29px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-paper-summary { font-size: 19px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-paper-content { padding-left: 18px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-info-dialog h2 { font-size: 42px; margin-bottom: 24px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-dialog-copy { font-size: 20px; line-height: 1.75; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-dialog-copy > p + p { margin-top: 24px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-contact-email { font-size: 24px; }
+}
+
+@media (max-width: 359px) {
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-introduction h1 { font-size: 49px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-intro { font-size: 21px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-education { padding-right: 11px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-industry { padding-left: 11px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-experience-role { font-size: 14px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-navigation { gap: 8px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] :is(.quiet-primary-nav, .quiet-reading-nav):not(.quiet-dock-nav) { gap: 7px; font-size: 13px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-dock-nav :where(a, button) { font-size: 13px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-publications-heading h2 { font-size: 37px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-paper-title { font-size: 27px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-info-dialog h2 { font-size: 37px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-contact-email { font-size: 21px; }
+}
+
+@media (min-width: 1024px) and (max-height: 720px) {
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition][data-layout="split"] .quiet-home { padding-block: 20px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-emblem { width: 44px; margin-bottom: 17px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-introduction h1 { margin-top: 10px; font-size: 66px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-intro { max-width: 31ch; margin-top: 18px; font-size: 22px; line-height: 1.5; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-background { margin-top: 24px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-background dt { margin-bottom: 8px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-navigation { margin-top: 22px; }
+  .type-preview[data-typography="poem"] .quiet[data-study="lens"][data-edition] .quiet-dialog-copy { font-size: 20px; line-height: 1.75; }
+}

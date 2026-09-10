@@ -2,17 +2,19 @@
 
 Personal academic website — Vite + React + TypeScript + Tailwind, deployed to GitHub Pages at the apex of `https://ndrsn0208.github.io`. Publication metadata is hand-curated in [`papers.toml`](papers.toml); a local script fetches arxiv metadata, summarizes each paper via your **local Claude Code CLI**, and writes [`src/data/publications.json`](src/data/publications.json). The deployed site runs zero AI calls in production.
 
-The homepage at `/` is **Lens**, with a minimal, humanist design and pure **Black**
-and warm **Paper** appearances. Education and industry sit side by side.
+The homepage at `/` uses **Book** typography and the **Chapters** mobile layout,
+with a minimal, humanist design and pure **Black** and warm **Paper** appearances.
+Upright EB Garamond and Source Sans 3 give the text a book-like rhythm.
+Education and industry sit side by side.
 On desktop, the introduction starts centered; opening Publications, About,
 Contact, or CV moves it smoothly left and reveals the right pane. Only that
 pane scrolls, and switching destinations preserves the reading position.
 Close or Escape returns to the centered introduction.
 
-Phones retain the continuous Publications list and native About/Contact dialogs.
-When the introductory navigation scrolls offscreen, its four destinations appear
-in an opaque text dock. The dock yields to the mobile search keyboard.
-The appearance button beside the introduction switches Black and Paper.
+Phones open each destination as a full-height chapter, with persistent navigation
+at the bottom and independent reading positions. The name in the header returns
+to the introduction. The appearance button switches Black and Paper without
+losing the active chapter.
 
 The ten earlier redesign studies remain at `/designs`. The Still explorations
 are at `/still`: **Lens, Drift, and Frame**. Public pages have no design-selection
@@ -22,6 +24,24 @@ See [STILL_MINIMAL_BRIEF.md](STILL_MINIMAL_BRIEF.md) for the current visual dire
 The earlier Still base is retained at `/designs/quiet`.
 See [DESIGN_STUDIES.md](DESIGN_STUDIES.md) for the directions, comparison view,
 and verification commands.
+
+Four typography studies remain available at `/typography`: **Book,
+Editorial, Humanist, and Poem**. Each includes Black/Paper and the existing
+desktop/mobile preview interactions. Compare them against the original Lens at
+`/typography/compare`. See [TYPOGRAPHY_STUDIES.md](TYPOGRAPHY_STUDIES.md).
+
+Three Book mobile studies are available at `/mobile`: **Folio, Index, and
+Chapters**, with interactive phone comparisons and Black/Paper appearances.
+Chapters is selected for the public homepage.
+Research topics are visible above Publications and filter alongside search.
+See [MOBILE_STUDIES.md](MOBILE_STUDIES.md).
+
+The editable LaTeX reproduction of the CV lives in [`cv/`](cv/README.md).
+`npm run cv:build` creates a PDF for review; `npm run cv:publish` explicitly builds
+and copies that PDF to the website's `public/cv.pdf`. See the CV README for the
+required TeX engine and editing instructions. The [Build CV workflow](.github/workflows/build-cv.yml)
+compiles changes to the LaTeX source and saves a downloadable PDF in GitHub
+Actions; publishing the website PDF remains an explicit `cv:publish` step.
 
 ---
 

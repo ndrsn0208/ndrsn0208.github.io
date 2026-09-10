@@ -1,0 +1,56 @@
+name: Build CV
+
+on:
+  push:
+    paths:
+      - 'cv/**'
+      - 'scripts/build_cv.py'
+      - '.github/workflows/build-cv.yml'
+  pull_request:
+    paths:
+      - 'cv/**'
+      - 'scripts/build_cv.py'
+      - '.github/workflows/build-cv.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pdf:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Tectonic 0.17.0
+        env:
+          TECTONIC_ARCHIVE_SHA256: 8533d07f9ccbd7a65824b9e0459041bca34af1eb33daba48f59215593753a3b7
+        run: |
+          mkdir -p "$RUNNER_TEMP/cv-tectonic"
+          curl --fail --location --retry 3 \
+            'https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.17.0/tectonic-0.17.0-x86_64-unknown-linux-musl.tar.gz' \
+            --output "$RUNNER_TEMP/cv-tectonic.tar.gz"
+          printf '%s  %s\n' "$TECTONIC_ARCHIVE_SHA256" "$RUNNER_TEMP/cv-tectonic.tar.gz" | sha256sum --check
+          tar -xzf "$RUNNER_TEMP/cv-tectonic.tar.gz" -C "$RUNNER_TEMP/cv-tectonic"
+          echo "$RUNNER_TEMP/cv-tectonic" >> "$GITHUB_PATH"
+      - name: Cache TeX packages
+        uses: actions/cache@v4
+        with:
+          path: cv/build/tectonic-cache
+          key: tectonic-0.17.0-${{ runner.os }}-${{ hashFiles('cv/toolchain.json', 'cv/**/*.tex', 'cv/*.cls', 'cv/*.sty', 'scripts/build_cv.py') }}
+          restore-keys: |
+            tectonic-0.17.0-${{ runner.os }}-
+      - name: Compile CV
+        run: python3 scripts/build_cv.py
+      - name: Save PDF for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: Zekun-Wang-CV
+          path: cv/build/Zekun-Wang-CV.pdf
+          if-no-files-found: error
+          retention-days: 30

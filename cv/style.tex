@@ -1,0 +1,147 @@
+% Layout and typography only. Edit content in metadata.tex and sections/.
+% Type 1 Libertine uses TeX-distributed fonts, never local system fonts.
+\usepackage[T1]{fontenc}
+\usepackage[type1]{libertine}
+\usepackage[libertine]{newtxmath}
+\usepackage{microtype}
+\usepackage[
+  letterpaper,
+  left=0.9in,
+  right=0.9in,
+  top=0.7in,
+  bottom=0.85in,
+  footskip=26.387pt
+]{geometry}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{needspace}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{hyperref}
+
+\definecolor{CVLink}{HTML}{1E4E8C}
+\definecolor{CVMuted}{HTML}{707070}
+\definecolor{CVRule}{HTML}{C8C8C8}
+\hypersetup{
+  colorlinks=true,
+  urlcolor=CVLink,
+  linkcolor=CVLink,
+  bookmarksopen=true
+}
+\urlstyle{same}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{1em}
+\setcounter{secnumdepth}{0}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[C]{\small\itshape\color{CVMuted}%
+  \CVName\ --- Page \thepage\ of \pageref*{LastPage}}
+\raggedbottom
+% Keep a paragraph's final line from being stranded on the next page.
+\widowpenalty=10000
+
+\titleformat{\section}
+  {\large\bfseries}
+  {}{0pt}{}
+  [\vspace{-3.6pt}{\color{CVRule}\titlerule[0.5pt]}]
+\titlespacing*{\section}{0pt}{12pt}{4pt}
+
+\newcommand{\CVHeader}{%
+  {\small\itshape\color{CVMuted}\hfill Last updated in \CVUpdated\par}
+  \vspace{-6.95pt}
+  {\centering\fontsize{30pt}{30pt}\selectfont\bfseries\CVName\par}
+  \vspace{4.925pt}
+  {\centering\small
+    \href{mailto:\CVEmail}{\CVEmail}\hspace{2.885pt}\textperiodcentered\hspace{2.885pt}%
+    \CVPhone\hspace{2.885pt}\textperiodcentered\hspace{2.885pt}%
+    \href{\CVWebsiteURL}{\CVWebsite}\hspace{2.885pt}\textperiodcentered\hspace{2.885pt}%
+    \href{\CVScholarURL}{Google Scholar}\par}
+  \vspace{3.725pt}
+}
+
+% A shared title/date row. The title may wrap; dates stay aligned at the right.
+\newsavebox{\CVTitleBox}
+\newif\ifCVHeadingWrapped
+\newcommand{\CVHeading}[2]{%
+  \sbox{\CVTitleBox}{\begin{minipage}[t]{0.74\linewidth}
+    \raggedright\strut #1\strut\par
+  \end{minipage}}%
+  \ifdim\dp\CVTitleBox>\baselineskip
+    \CVHeadingWrappedtrue
+  \else
+    \CVHeadingWrappedfalse
+  \fi
+  \par\noindent\usebox{\CVTitleBox}\hfill
+  \begin{minipage}[t]{0.24\linewidth}
+    \raggedleft\itshape\strut #2\strut\par
+  \end{minipage}\par\nobreak\nointerlineskip
+}
+\newcommand{\CVGap}{\par\vspace{5.5pt}}
+\newcommand{\CVProjectGap}{\par\vspace{7.475pt}}
+\newcommand{\CVNameInAuthors}{\textbf{Zekun Wang}}
+\newcommand{\CVEqual}{\textsuperscript{*}}
+
+% Institution or teaching role, date range, and degree/lab/institution.
+\newcommand{\CVEntry}[3]{%
+  \Needspace{3\baselineskip}%
+  \CVHeading{\textbf{#1}}{#2}
+  \ifCVHeadingWrapped\vspace{-4.175pt}\else\vspace{-3.3pt}\fi
+  {\itshape\strut #3\par}
+}
+\newcommand{\CVDetail}[1]{%
+  \noindent\hspace*{0.235in}#1\par
+}
+
+% Paper title, date or venue label, URL (empty if absent in source), authors.
+\newcommand{\CVPaperHeading}[4]{%
+  \Needspace{3\baselineskip}%
+  \CVHeading{%
+    \if\relax\detokenize{#3}\relax
+      \textbf{#1}%
+    \else
+      \href{#3}{\textbf{#1}}%
+    \fi
+  }{#2}
+  \ifCVHeadingWrapped\vspace{-4pt}\else\vspace{-3.3pt}\fi
+  \strut #4\par
+}
+
+% Full-list entry: title, date, URL, authors, publication venue.
+\newcommand{\CVPublication}[5]{%
+  \begin{samepage}
+  \CVPaperHeading{#1}{#2}{#3}{#4}
+  \vspace{-1.1pt}
+  {\itshape #5\par}
+  \end{samepage}
+  \CVGap
+}
+
+\newlist{CVHighlights}{itemize}{1}
+\setlist[CVHighlights]{
+  label=$\circ$,
+  leftmargin=0.197in,
+  labelsep=0.082in,
+  topsep=-0.19pt,
+  partopsep=0pt,
+  parsep=0pt,
+  itemsep=1pt
+}
+
+% Talk name, talk type, date, optional subtitle.
+\newcommand{\CVTalk}[4]{%
+  \Needspace{3\baselineskip}%
+  \CVHeading{\textbf{#1} --- #2}{#3}
+  \if\relax\detokenize{#4}\relax
+  \else
+    \vspace{-1.1pt}
+    {\itshape\strut #4\par}
+  \fi
+  \par
+  \ifCVHeadingWrapped\vspace{0.9pt}\else\vspace{4.4pt}\fi
+}

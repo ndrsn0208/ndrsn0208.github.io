@@ -12,6 +12,7 @@ import {
 import { getStillStudy, initialStillStudy, stillStudies, stillStudyStorageKey, type StillStudy } from './studies'
 import './studio.css'
 import { transitionStill } from './transitions'
+import type { MobileStudyId } from '../mobile/registry'
 
 function EditionControls({ edition, study, onChange, onStudyChange }: {
   edition: StillEdition
@@ -85,7 +86,7 @@ function EditionControls({ edition, study, onChange, onStudyChange }: {
   )
 }
 
-export default function StillStudio({ finalized = false }: { finalized?: boolean }) {
+export default function StillStudio({ finalized = false, mobileStudy }: { finalized?: boolean; mobileStudy?: MobileStudyId }) {
   const [params] = useSearchParams()
   const location = useLocation()
   const navigate = useNavigate()
@@ -150,7 +151,7 @@ export default function StillStudio({ finalized = false }: { finalized?: boolean
 
   return (
     <div className="still-studio" data-preview={reviewing ? 'review' : 'clean'}>
-      <Quiet edition={edition.id} study={study.id} onEditionChange={changeEdition} />
+      <Quiet edition={edition.id} study={study.id} onEditionChange={changeEdition} mobileStudy={mobileStudy} />
       {reviewing && <EditionControls edition={edition} study={study} onChange={changeEdition} onStudyChange={changeStudy} />}
     </div>
   )
