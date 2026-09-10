@@ -3,20 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Zekun Wang — CS PhD student at Georgia Tech. Continual learning, compositionality, and language models." />
+    <meta name="description" content="Zekun Wang — PhD student at Georgia Tech, currently interning at Amazon. Continual learning for deployment-time adaptation and generalization." />
     <meta property="og:title" content="Zekun Wang" />
-    <meta property="og:description" content="CS PhD student at Georgia Tech. Continual learning, compositionality, and language models." />
+    <meta property="og:description" content="PhD student at Georgia Tech, currently interning at Amazon. Continual learning for deployment-time adaptation and generalization." />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/og-image.png" />
     <script>
-      // Monochrome terminal theme is dark-only — pin it before paint.
+      // Match the selected appearance before the homepage and fonts load.
       document.documentElement.setAttribute('data-theme', 'dark')
+      ;(() => {
+        const redirect = new URLSearchParams(location.search).get('_redirect')
+        const destination = new URL(redirect || location.href, location.origin)
+        if (destination.pathname !== '/' && !/^\/still\/?$/.test(destination.pathname)) return
+        const colors = { black: '#000000', paper: '#f5f1e8' }
+        const current = (value) => value === 'stone' || value === 'line' ? 'paper' : value
+        const valid = (value) => Object.prototype.hasOwnProperty.call(colors, value)
+        let edition = current(destination.searchParams.get('edition'))
+        if (!valid(edition)) {
+          try { edition = current(localStorage.getItem('zekun-still-edition-v1')) } catch {}
+        }
+        if (!valid(edition)) edition = 'black'
+        const root = document.documentElement
+        root.style.setProperty('--paper', colors[edition])
+        root.style.setProperty('--still-screen', colors[edition])
+        root.style.backgroundColor = colors[edition]
+        root.style.colorScheme = edition === 'black' ? 'dark' : 'light'
+        document.querySelector('meta[name="theme-color"]').content = colors[edition]
+      })()
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Geist:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/fonts/fonts.css" />
     <title>Zekun Wang</title>
   </head>
   <body>

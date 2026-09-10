@@ -1,0 +1,102 @@
+.still-studio[data-preview="clean"] .quiet { padding-bottom: 28px; }
+
+.still-controls {
+  position: fixed;
+  z-index: 50;
+  bottom: max(14px, env(safe-area-inset-bottom));
+  left: 50%;
+  display: flex;
+  align-items: center;
+  width: max-content;
+  max-width: calc(100% - 24px);
+  padding: 4px 7px;
+  transform: translateX(-50%);
+  border: 1px solid color-mix(in srgb, var(--still-ink) 18%, transparent);
+  border-radius: 30px;
+  background: color-mix(in srgb, var(--still-background) 84%, transparent);
+  -webkit-backdrop-filter: blur(22px) saturate(1.15);
+  backdrop-filter: blur(22px) saturate(1.15);
+  box-shadow: 0 8px 30px #00000012, inset 0 1px 0 color-mix(in srgb, var(--still-ink) 8%, transparent);
+  color: var(--still-ink);
+  font: 400 12px/1.4 "Geist", system-ui, sans-serif;
+  view-transition-name: still-controls;
+}
+.still-controls :where(button, a) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  gap: 7px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 24px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 180ms ease, color 180ms ease, scale 180ms ease;
+}
+.still-controls :where(button, a):active { scale: .95; }
+.still-controls :where(button, a):focus-visible { outline: 2px solid currentColor; outline-offset: -3px; }
+.still-controls-home { font-weight: 500 !important; padding-right: 16px !important; }
+.still-controls-home span { opacity: .5; }
+.still-edition-options,
+.still-study-options { display: flex; align-items: center; gap: 2px; }
+.still-edition-options { margin-left: 10px; padding-left: 10px; border-left: 1px solid color-mix(in srgb, var(--still-ink) 15%, transparent); }
+.still-controls button[aria-pressed="true"] { background: color-mix(in srgb, var(--still-ink) 9%, transparent); }
+.still-controls button[aria-pressed="false"]:hover { background: color-mix(in srgb, var(--still-ink) 4%, transparent); }
+.still-study-number { color: color-mix(in srgb, var(--still-ink) 80%, var(--still-background)); font-size: 9px; }
+.still-study-select { display: none; }
+.still-swatch { width: 9px; height: 9px; border: 1px solid; border-radius: 50%; }
+.still-controls .still-controls-compare { margin-left: 8px; }
+.still-controls .still-controls-collapse { font-size: 20px; font-weight: 300; }
+.still-controls-collapsed { left: auto; right: 18px; transform: none; }
+.still-controls-collapsed button { gap: 11px; font-size: 11px; }
+@media (prefers-reduced-motion: reduce) {
+  .still-controls, .still-controls *, .still-controls *::after { transition: none !important; }
+}
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .still-controls { background: var(--still-background); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .still-controls { background: var(--still-background); }
+}
+
+@media (max-width: 620px) {
+  .still-controls { max-width: calc(100% - 20px); padding-inline: 5px; font-size: 11px; }
+  .still-controls :where(button, a) { gap: 5px; padding-inline: 9px; }
+  .still-controls .still-controls-home { display: none; }
+  .still-controls .still-study-options { display: none; }
+  .still-study-select { position: relative; display: flex; align-items: center; }
+  .still-study-select select {
+    min-width: 100px;
+    height: 44px;
+    padding: 0 24px 0 12px;
+    border: 0;
+    border-radius: 23px;
+    background: transparent;
+    color: inherit;
+    font: 450 12px "Geist", system-ui, sans-serif;
+    appearance: none;
+    cursor: pointer;
+  }
+  .still-study-select select:focus-visible { outline: 2px solid currentColor; outline-offset: -3px; }
+  .still-study-select option { background: var(--still-background); color: var(--still-ink); }
+  .still-study-select > span:last-child { position: absolute; right: 9px; pointer-events: none; font-size: 15px; }
+  .still-controls .still-controls-compare { margin-left: 3px; }
+  .still-edition-options { gap: 0; margin-left: 3px; padding-left: 5px; }
+  .still-edition-name { display: none; }
+  .still-swatch { width: 13px; height: 13px; }
+  .still-edition-options button[aria-pressed="true"] .still-swatch { outline: 1px solid var(--still-ink); outline-offset: 3px; }
+}
+
+@media (max-width: 359px) {
+  .still-controls { padding-inline: 2px; }
+  .still-controls :where(button, a) { padding-inline: 7px; }
+  .still-study-select select { min-width: 90px; padding-left: 8px; }
+  .still-controls-collapsed { right: 12px; }
+}

@@ -1,0 +1,679 @@
+/* Drift: a humanist editorial spread, with a small study in flowing ink.
+   Include the edition attribute so legacy edition rules cannot narrow the spread. */
+.quiet[data-study="drift"][data-edition] {
+  --quiet-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --drift-gutter: clamp(36px, 5.7vw, 82px);
+  --drift-columns: minmax(0, 1.35fr) minmax(250px, .8fr);
+  font-family: "Geist", system-ui, sans-serif;
+  font-optical-sizing: auto;
+  text-align: left;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-shell {
+  width: calc(100% - clamp(48px, 9vw, 128px));
+  max-width: 1120px;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-home {
+  display: grid;
+  grid-template-columns: var(--drift-columns);
+  grid-template-rows: auto auto;
+  align-content: start;
+  align-items: start;
+  justify-content: stretch;
+  column-gap: var(--drift-gutter);
+  row-gap: 52px;
+  padding-block: clamp(64px, 9svh, 108px) 54px;
+}
+
+/* Both grids share their tracks; the artwork occupies the open upper corner. */
+.quiet[data-study="drift"][data-edition] .quiet-introduction {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  grid-template-columns: var(--drift-columns);
+  grid-template-areas:
+    "eyebrow ."
+    "name ."
+    "intro records"
+    "navigation records";
+  align-items: start;
+  column-gap: var(--drift-gutter);
+  width: 100%;
+  min-width: 0;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-introduction > .quiet-eyebrow {
+  grid-area: eyebrow;
+  margin: 0;
+  font: 450 11px/1.5 "Geist", system-ui, sans-serif;
+  letter-spacing: .115em;
+  text-align: left;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-introduction h1 {
+  grid-area: name;
+  min-width: 0;
+  margin: 18px 0 0;
+  font: 400 clamp(74px, 8.3vw, 120px)/1.02 var(--quiet-display);
+  font-variation-settings: "SOFT" 25, "WONK" 1;
+  letter-spacing: -.065em;
+  text-align: left;
+  text-wrap: balance;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-intro {
+  grid-area: intro;
+  max-width: 27ch;
+  margin: 35px 0 0;
+  color: var(--quiet-ink);
+  font: 400 clamp(28px, 2.45vw, 35px)/1.36 var(--quiet-display);
+  letter-spacing: -.032em;
+  text-align: left;
+  text-wrap: pretty;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-intro > span {
+  white-space: normal;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-intro .quiet-keep {
+  white-space: nowrap;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-emblem {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  justify-self: center;
+  width: clamp(180px, 17.2vw, 248px);
+  max-width: 100%;
+  height: auto;
+  margin: -10px 0 0;
+  padding: 0;
+  color: var(--quiet-muted);
+  pointer-events: none;
+  user-select: none;
+}
+
+.quiet[data-study="drift"][data-edition] .drift-artwork {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.quiet[data-study="drift"][data-edition] .drift-artwork-flow {
+  transform-box: fill-box;
+  transform-origin: 52% 54%;
+}
+
+.quiet[data-study="drift"][data-edition] .drift-artwork-contours {
+  stroke-width: .7px;
+  opacity: .66;
+}
+
+.quiet[data-study="drift"][data-edition] .drift-artwork-spine {
+  stroke-width: 1.15px;
+  opacity: .95;
+}
+
+.quiet[data-study="drift"][data-edition] .drift-artwork-wisps {
+  stroke-width: .65px;
+  opacity: .35;
+}
+
+/* Education and industry remain complete, vertically ordered records. */
+.quiet[data-study="drift"][data-edition] .quiet-background {
+  display: grid;
+  grid-area: records;
+  align-content: start;
+  gap: 23px;
+  min-width: 0;
+  margin: 39px 0 0;
+  font: 400 14px/1.6 "Geist", system-ui, sans-serif;
+  text-align: left;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-background > div {
+  min-width: 0;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-background dt {
+  margin: 0 0 9px;
+  color: var(--quiet-muted);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-background dd {
+  margin: 0;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-background dd + dd {
+  margin-top: 17px;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-experience-role {
+  font-size: 17px;
+  font-weight: 450;
+  line-height: 1.5;
+  letter-spacing: -.025em;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-experience-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 8px;
+  margin-top: 4px;
+  color: var(--quiet-muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-background .quiet-advisor {
+  margin-top: 6px;
+  color: var(--quiet-muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-industry {
+  padding-top: 19px;
+  border-top: 1px solid var(--quiet-rule);
+}
+
+/* Ribbon geometry only: the shared material supplies its optics and feedback. */
+.quiet[data-study="drift"][data-edition] .quiet-navigation {
+  display: flex;
+  grid-area: navigation;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  width: min(100%, 526px);
+  min-width: 0;
+  margin-top: 32px;
+}
+
+.quiet[data-study="drift"][data-edition] :is(.quiet-primary-nav, .quiet-reading-nav) {
+  --glass-radius: 18px;
+  display: grid;
+  flex: 1 1 0;
+  grid-template-columns: 1.65fr 1fr 1.2fr .8fr;
+  align-items: stretch;
+  gap: 2px;
+  width: auto;
+  min-width: 0;
+  margin: 0;
+  padding: 6px;
+  font: 400 14px/1.4 "Geist", system-ui, sans-serif;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-nav :where(button, a) {
+  justify-content: flex-start;
+  gap: 6px;
+  min-width: 0;
+  min-height: 48px;
+  padding: 0 15px;
+  text-align: left;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-nav .quiet-arrow {
+  width: 13px;
+  height: 13px;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-nav-label {
+  gap: 4px;
+}
+
+/* A full-width bibliographic row gives the composition a horizontal cadence. */
+.quiet[data-study="drift"][data-edition] .quiet-recent {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-row: 2;
+  grid-template-columns: minmax(150px, .45fr) minmax(0, 1.7fr);
+  align-items: start;
+  gap: var(--drift-gutter);
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--quiet-rule);
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-recent-caption {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 7px;
+  padding: 3px 0 0;
+  font: 400 11px/1.6 "Geist", system-ui, sans-serif;
+  letter-spacing: .015em;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-recent-caption h2 {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .105em;
+  text-transform: uppercase;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-recent-caption > span {
+  display: block;
+  margin: 0;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-recent-paper {
+  align-items: flex-start;
+  min-width: 0;
+  margin: 0;
+  padding: 0 40px 0 0;
+  text-align: left;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-recent-paper > span {
+  max-width: 37ch;
+  font: 400 clamp(25px, 2.2vw, 31px)/1.3 var(--quiet-display);
+  letter-spacing: -.033em;
+  text-wrap: pretty;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-recent-paper .quiet-arrow {
+  top: 14px;
+  right: 0;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  transform: none;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-footer {
+  justify-content: flex-start;
+  gap: 8px 30px;
+  padding-block: 12px 16px;
+  font: 400 11px/1.6 "Geist", system-ui, sans-serif;
+}
+
+/* The reader uses the same broad spread, with a quiet margin for its tools. */
+.quiet[data-study="drift"][data-edition] .quiet-header {
+  align-items: flex-start;
+  gap: 22px;
+  padding-block: 34px 28px;
+  border: 0;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-navigation-reading {
+  grid-area: auto;
+  margin: 0;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-reader {
+  padding-block: 16px 60px;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-reader-heading {
+  max-width: 760px;
+  margin: 0 0 0 calc(222px + var(--drift-gutter));
+  padding-bottom: 46px;
+  text-align: left;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-reader-heading h1 {
+  font: 400 clamp(58px, 5.6vw, 80px)/1.05 var(--quiet-display);
+  letter-spacing: -.055em;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-reader-intro {
+  max-width: 36ch;
+  margin-top: 24px;
+  font: 400 27px/1.45 var(--quiet-display);
+  letter-spacing: -.025em;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-reading-layout {
+  grid-template-columns: 222px minmax(0, 1fr);
+  align-items: start;
+  gap: var(--drift-gutter);
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-reader-aside {
+  position: sticky;
+  top: 28px;
+  display: block;
+  min-width: 0;
+  padding-top: 5px;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-search {
+  display: block;
+  min-width: 0;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-search-field {
+  margin-bottom: 24px;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-question {
+  margin-top: 36px;
+  padding-top: 21px;
+  border-top: 1px solid var(--quiet-rule);
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-question p {
+  font: 400 21px/1.45 var(--quiet-display);
+  letter-spacing: -.02em;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-scholar-link {
+  margin-top: 22px;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-paper {
+  padding-block: 30px 32px;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-paper h2 {
+  max-width: 33ch;
+  font: 400 33px/1.24 var(--quiet-display);
+  letter-spacing: -.035em;
+  text-align: left;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-paper-summary {
+  max-width: 64ch;
+  font: 400 17px/1.8 "Geist", system-ui, sans-serif;
+  letter-spacing: -.01em;
+}
+
+.quiet[data-study="drift"][data-edition] .quiet-info-dialog h2 {
+  font-family: var(--quiet-display);
+  font-weight: 400;
+  letter-spacing: -.04em;
+  text-align: left;
+}
+
+@media (max-width: 1050px) and (min-width: 781px) {
+  .quiet[data-study="drift"][data-edition] {
+    --drift-gutter: 40px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-intro {
+    font-size: 29px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-navigation {
+    gap: 10px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-nav :where(button, a) {
+    padding-inline: 8px;
+    font-size: 13px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-experience-meta {
+    column-gap: 6px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 780px) {
+  .quiet[data-study="drift"][data-edition] .quiet-shell {
+    width: calc(100% - 48px);
+    max-width: 620px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-home {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+    padding-block: 26px 30px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-introduction {
+    grid-column: 1;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "eyebrow" "name" "intro" "records" "navigation";
+    gap: 0;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-introduction > .quiet-eyebrow {
+    max-width: calc(100% - 108px);
+    min-height: 60px;
+    padding-top: 9px;
+    font-size: 10px;
+    line-height: 1.6;
+    letter-spacing: .085em;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-introduction h1 {
+    margin-top: 10px;
+    font-size: clamp(44px, 14.7vw, 86px);
+    line-height: 1.04;
+    letter-spacing: -.06em;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-emblem {
+    grid-column: 1;
+    justify-self: end;
+    width: clamp(84px, 22vw, 116px);
+    margin: -7px 0 0;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-intro {
+    max-width: 29ch;
+    margin-top: 19px;
+    font-size: clamp(24px, 6.45vw, 30px);
+    line-height: 1.36;
+    letter-spacing: -.025em;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-background {
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-background dt {
+    margin-bottom: 6px;
+    font-size: 10px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-experience-role {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-experience-meta {
+    gap: 0 7px;
+    margin-top: 3px;
+    font-size: 12px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-background .quiet-advisor {
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-industry {
+    padding-top: 14px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-navigation {
+    gap: 9px;
+    margin-top: 23px;
+  }
+
+  .quiet[data-study="drift"][data-edition] :is(.quiet-primary-nav, .quiet-reading-nav) {
+    --glass-radius: 16px;
+    gap: 0;
+    padding: 4px;
+    font-size: 13px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-nav :where(button, a) {
+    gap: 4px;
+    min-height: 46px;
+    padding-inline: 8px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-recent {
+    grid-column: 1;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    padding-top: 18px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-recent-caption {
+    flex-direction: row;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px 15px;
+    padding: 0;
+    font-size: 10px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-recent-caption h2 {
+    font-size: 9px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-recent-paper {
+    padding-right: 29px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-recent-paper > span {
+    max-width: 37ch;
+    font-size: 23px;
+    line-height: 1.3;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-recent-paper .quiet-arrow {
+    top: 7px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 24px;
+    padding-block: 5px 12px;
+    font-size: 10px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-header {
+    gap: 17px;
+    padding-block: 23px 25px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-navigation-reading {
+    margin: 0;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-reader {
+    padding-block: 8px 38px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-reader-heading {
+    max-width: none;
+    margin: 0;
+    padding-bottom: 31px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-reader-heading h1 {
+    font-size: 57px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-reader-intro {
+    margin-top: 18px;
+    font-size: 24px;
+    line-height: 1.45;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-reading-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 27px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-reader-aside {
+    position: static;
+    padding-top: 0;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-search-field {
+    margin-bottom: 19px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-paper h2 {
+    font-size: 28px;
+    line-height: 1.28;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-paper-summary {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 359px) {
+  .quiet[data-study="drift"][data-edition] .quiet-shell {
+    width: calc(100% - 36px);
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-home {
+    padding-top: 22px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-introduction > .quiet-eyebrow {
+    max-width: calc(100% - 82px);
+    min-height: 49px;
+    padding-top: 6px;
+    font-size: 9px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-emblem {
+    width: 74px;
+    margin-top: -3px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-intro {
+    font-size: 23px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-navigation {
+    gap: 8px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-nav :where(button, a) {
+    padding-inline: 4px;
+    font-size: 12px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-nav .quiet-arrow {
+    width: 11px;
+    height: 11px;
+  }
+
+  .quiet[data-study="drift"][data-edition] .quiet-recent-paper > span {
+    font-size: 21px;
+  }
+}
+
+@keyframes drift-ink-flow {
+  from { transform: translateY(1px) rotate(-1.5deg); }
+  to { transform: translateY(-3px) rotate(1.5deg); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .quiet[data-study="drift"][data-edition] .drift-artwork-flow {
+    animation: drift-ink-flow 22s ease-in-out infinite alternate;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quiet[data-study="drift"][data-edition] .drift-artwork-flow {
+    animation: none;
+    transform: none;
+  }
+}

@@ -1,0 +1,305 @@
+.dialogue {
+  --dialogue-plum: #50305f;
+  --dialogue-ink: #3f2d48;
+  --dialogue-muted: #715e7b;
+  --dialogue-lilac: #f2ecf8;
+  --dialogue-line: #e7deee;
+  background: var(--dialogue-lilac);
+  color: var(--dialogue-ink);
+  font-family: "Geist", system-ui, sans-serif;
+  padding: 0 clamp(24px, 4.3vw, 68px) 80px;
+}
+
+.dialogue ::selection { color: #fff; background: #684174; }
+.dialogue :where(button, a, input, select, summary):focus-visible { outline: 2px solid #805297; outline-offset: 5px; }
+.dialogue :where(button) { border: 0; background: none; }
+.dialogue a { color: inherit; }
+.dialogue button, .dialogue a, .dialogue summary { -webkit-tap-highlight-color: transparent; }
+.dialogue-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.dialogue-skip { position: absolute; z-index: 10; top: 8px; left: 24px; padding: 12px 18px; border-radius: 8px; background: #fff; transform: translateY(-160%); }
+.dialogue-skip:focus { transform: translateY(0); }
+.dialogue-arrow { display: inline-block; vertical-align: middle; flex-shrink: 0; }
+
+.dialogue-header {
+  max-width: 1312px;
+  margin: 0 auto;
+  min-height: 112px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  border-bottom: 1px solid #ded2e7;
+}
+.dialogue-identity { display: flex; align-items: center; gap: 16px; }
+.dialogue-brand-mark { color: var(--dialogue-plum); }
+.dialogue-name { font: 600 25px/1.2 "Bricolage Grotesque", sans-serif; letter-spacing: -.045em; }
+.dialogue-position { margin-top: 6px; color: var(--dialogue-muted); font-size: 12px; line-height: 1.5; }
+.dialogue-position > span { margin: 0 5px; }
+.dialogue-direct-nav { display: flex; align-items: center; gap: clamp(18px, 2.5vw, 36px); }
+.dialogue-direct-nav > a, .dialogue-direct-nav > button { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; gap: 6px; padding: 0; font-size: 13px; text-decoration: none; white-space: nowrap; }
+.dialogue-direct-nav > a:hover { text-decoration: underline; }
+.dialogue-direct-nav > .dialogue-publications-button { gap: 10px; }
+.dialogue-publications-button:hover, .dialogue-publications-button[aria-pressed="true"] { color: #773f93; }
+.dialogue-count { display: inline-flex; align-items: center; justify-content: center; min-width: 29px; height: 25px; padding: 0 6px; background: #e4d9ed; border-radius: 7px; font-size: 11px; font-variant-numeric: tabular-nums; }
+
+.dialogue-main {
+  display: grid;
+  grid-template-columns: minmax(280px, 350px) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(36px, 4.5vw, 68px);
+  max-width: 1312px;
+  margin: 48px auto 0;
+}
+.dialogue-question-rail { position: sticky; top: 32px; padding-top: 13px; }
+.dialogue-eyebrow { color: var(--dialogue-muted); font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; line-height: 1.7; }
+.dialogue-welcome { margin-top: 22px; font: 500 clamp(43px, 4.05vw, 58px)/1.03 "Bricolage Grotesque", sans-serif; letter-spacing: -.055em; }
+.dialogue-welcome-dot { color: #9e7db3; }
+.dialogue-invitation { margin-top: 22px; color: #75637e; font-size: 14px; line-height: 1.75; }
+.dialogue-questions { display: flex; flex-direction: column; gap: 10px; margin-top: 34px; }
+.dialogue-question {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) 18px;
+  gap: 11px;
+  width: 100%;
+  min-height: 66px;
+  align-items: center;
+  text-align: left;
+  padding: 14px 18px;
+  border-radius: 18px 18px 18px 5px;
+  transition: background-color .18s ease, color .18s ease;
+}
+.dialogue-question-number { color: #75637e; font-size: 10px; line-height: 1; font-variant-numeric: tabular-nums; }
+.dialogue-question-label { font: 500 18px/1.3 "Bricolage Grotesque", sans-serif; letter-spacing: -.025em; }
+.dialogue-question > .dialogue-arrow { width: 16px; height: 16px; }
+.dialogue-question:hover { background: #e9dff1; }
+.dialogue-question[aria-pressed="true"] { color: #fff; background: var(--dialogue-plum); }
+.dialogue-question[aria-pressed="true"] .dialogue-question-number { color: #d9c5e6; }
+.dialogue-about-note { display: flex; align-items: flex-start; gap: 13px; margin: 35px 16px 0; padding-top: 24px; border-top: 1px solid #dfd3e8; }
+.dialogue-note-star { color: #8b689e; font: 25px/1.2 "Bricolage Grotesque", sans-serif; }
+.dialogue-about-note > p { color: #75637e; font-size: 13px; line-height: 1.85; max-width: 275px; }
+.dialogue-about-note strong { font-weight: 500; color: var(--dialogue-plum); }
+.dialogue-rail-email { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; margin: 12px 0 0 49px; font-size: 12px; text-decoration: none; }
+.dialogue-rail-email:hover { text-decoration: underline; }
+
+.dialogue-response {
+  position: relative;
+  min-width: 0;
+  padding: 34px clamp(28px, 3.2vw, 48px) 26px;
+  background: #fffefd;
+  border-radius: 8px 62px 8px 8px;
+  border: 1px solid #eae2f0;
+  scroll-margin-top: 24px;
+}
+.dialogue-response::before { content: ""; position: absolute; top: 46px; left: -15px; width: 28px; height: 28px; background: #fffefd; border-left: 1px solid #eae2f0; border-bottom: 1px solid #eae2f0; border-radius: 0 0 0 4px; transform: rotate(45deg); }
+.dialogue-response-topline { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 26px; }
+.dialogue-response-topline .dialogue-eyebrow { color: #80698b; font-size: 10px; letter-spacing: .1em; }
+.dialogue-response-dot { width: 8px; height: 8px; border-radius: 50%; background: #c6aed7; flex: 0 0 auto; }
+.dialogue-answer-heading { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 175px; align-items: start; gap: 4px; }
+.dialogue-answer-copy { position: relative; z-index: 1; min-width: 0; }
+.dialogue-response-title { font: 500 clamp(42px, 3.9vw, 58px)/1.02 "Bricolage Grotesque", sans-serif; letter-spacing: -.055em; color: var(--dialogue-plum); scroll-margin-top: 30px; }
+.dialogue-response-title > span { display: block; color: #9675aa; }
+.dialogue-response-title:focus-visible { outline: 2px solid #805297; outline-offset: 8px; border-radius: 3px; }
+.dialogue-answer-introduction { margin-top: 22px; font-size: 15px; line-height: 1.8; color: #786b7e; max-width: 470px; }
+.dialogue-sculpture { width: 192px; margin: -7px -12px 0 -5px; pointer-events: none; }
+.dialogue-question-svg, .dialogue-knowledge-svg { display: block; width: 100%; height: auto; }
+.dialogue-knowledge-svg text { font: 13px "Bricolage Grotesque", sans-serif; }
+.dialogue-sculpture-learning { margin-top: -4px; }
+
+.dialogue-trail-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--dialogue-line); margin-top: 32px; }
+.dialogue-trail-heading > p { font: 500 15px/1.5 "Bricolage Grotesque", sans-serif; letter-spacing: -.01em; }
+.dialogue-trail-heading > span { flex: 0 0 auto; color: var(--dialogue-muted); font-size: 10px; }
+.dialogue-paper-trail, .dialogue-publication-list { list-style: none; margin: 0; padding: 0; }
+.dialogue-paper { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 14px; padding: 21px 0 12px; }
+.dialogue-paper + .dialogue-paper { border-top: 1px solid var(--dialogue-line); }
+.dialogue-paper-number { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; margin-top: 1px; border: 1px solid #e6ddee; border-radius: 50%; color: #886499; font-size: 9px; font-variant-numeric: tabular-nums; }
+.dialogue-paper-body { min-width: 0; }
+.dialogue-paper-meta { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 5px 12px; margin-bottom: 8px; font-size: 11px; line-height: 1.5; }
+.dialogue-paper-note { color: #81658f; }
+.dialogue-paper-venue { color: #76677e; font-size: 10px; letter-spacing: .025em; }
+.dialogue-paper-title { font: 500 20px/1.28 "Bricolage Grotesque", sans-serif; letter-spacing: -.025em; }
+.dialogue-paper-title > a { text-decoration: none; }
+.dialogue-paper-title > a > .dialogue-arrow { width: 15px; height: 15px; margin-left: 6px; color: #9574a7; }
+.dialogue-paper-title > a:hover { text-decoration: underline; text-decoration-thickness: 1px; }
+.dialogue-paper-summary { font-size: 14px; line-height: 1.75; margin-top: 9px; color: #75697c; }
+.dialogue-paper-details { margin-top: 1px; font-size: 11px; }
+.dialogue-paper-details > summary { width: fit-content; display: flex; align-items: center; gap: 12px; min-height: 44px; list-style: none; cursor: pointer; color: #826391; }
+.dialogue-paper-details > summary::-webkit-details-marker { display: none; }
+.dialogue-paper-details > summary:hover { color: #50305f; text-decoration: underline; text-underline-offset: 4px; }
+.dialogue-details-mark { font-size: 17px; line-height: 1; transition: transform .18s ease; }
+.dialogue-paper-details[open] .dialogue-details-mark { transform: rotate(45deg); }
+.dialogue-paper-authors { padding: 0 0 10px; color: #75697c; font-size: 13px; line-height: 1.8; }
+.dialogue-paper-tags { display: flex; gap: 5px 14px; flex-wrap: wrap; color: #7a6288; font-size: 11px; }
+.dialogue-paper-tags > span::before { content: "#"; }
+.dialogue-paper-links { display: flex; flex-wrap: wrap; gap: 20px; padding: 4px 0; }
+.dialogue-paper-links > a { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; text-underline-offset: 4px; }
+.dialogue-answer-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 5px 16px; margin-top: 8px; padding: 14px 0 0; border-top: 1px solid var(--dialogue-line); }
+.dialogue-next-label { color: #80638d; font-size: 11px; }
+.dialogue-answer-footer > button { display: inline-flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 0; text-align: left; font: 500 16px/1.4 "Bricolage Grotesque", sans-serif; letter-spacing: -.015em; }
+.dialogue-answer-footer > button:hover { text-decoration: underline; text-underline-offset: 4px; }
+.dialogue-all-papers-link { display: flex; align-items: center; justify-content: flex-end; gap: 9px; width: 100%; min-height: 44px; padding: 4px 0 0; font-size: 11px; color: #80638d; text-align: right; }
+.dialogue-all-papers-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+.dialogue-contact { margin-top: 30px; padding: 22px 24px 10px; background: #f4eff9; border-radius: 4px 24px 4px 4px; }
+.dialogue-contact-email { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 54px; margin-top: 5px; font: 500 clamp(23px, 2.3vw, 32px)/1.3 "Bricolage Grotesque", sans-serif; letter-spacing: -.03em; text-decoration: none; }
+.dialogue-contact-email > .dialogue-arrow { width: 24px; height: 24px; }
+.dialogue-contact-email:hover { text-decoration: underline; text-decoration-thickness: 1px; }
+.dialogue-contact-links { display: flex; flex-wrap: wrap; gap: 8px 25px; }
+.dialogue-contact-links > a { display: inline-flex; align-items: center; gap: 5px; min-height: 44px; font-size: 12px; text-decoration: none; }
+.dialogue-contact-links > a:hover { text-decoration: underline; }
+
+.dialogue-answer-heading-wide { display: block; }
+.dialogue-answer-heading-wide .dialogue-answer-introduction { max-width: 600px; }
+.dialogue-response-title > .dialogue-title-period { display: inline; }
+.dialogue-publications { margin-top: 28px; }
+.dialogue-search-row { display: grid; grid-template-columns: minmax(0, 1fr) 120px; gap: 16px; }
+.dialogue-search-field, .dialogue-year-field { min-width: 0; }
+.dialogue-search-field > label, .dialogue-year-field > label { display: block; margin-bottom: 9px; font-size: 12px; color: #786780; }
+.dialogue-search-control { position: relative; }
+.dialogue-search-icon { position: absolute; top: 15px; left: 15px; color: #886f98; pointer-events: none; }
+.dialogue-search-control > input { display: block; width: 100%; height: 50px; min-width: 0; padding: 10px 12px 10px 43px; border: 1px solid #c6b4d1; border-radius: 9px; background: #fff; font-size: 14px; appearance: auto; }
+.dialogue-search-control > input::placeholder { color: #786780; opacity: 1; }
+.dialogue-year-field > select { display: block; width: 100%; height: 50px; padding: 10px 12px; border: 1px solid #c6b4d1; border-radius: 9px; background: #fff; font-size: 13px; appearance: auto; cursor: pointer; }
+.dialogue-topic-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.dialogue-topic-filters > button { min-height: 44px; padding: 8px 13px; border: 1px solid #dfd3e8; border-radius: 25px; font-size: 11px; line-height: 1.4; }
+.dialogue-topic-filters > button:hover { background: #f2ecf8; }
+.dialogue-topic-filters > button[aria-pressed="true"] { color: #fff; background: var(--dialogue-plum); border-color: var(--dialogue-plum); }
+.dialogue-results-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 58px; margin-top: 20px; border-bottom: 1px solid var(--dialogue-line); font-size: 12px; }
+.dialogue-results-bar > span { color: #786780; font-size: 11px; }
+.dialogue-results-bar > button { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0; color: #805297; text-decoration: underline; text-underline-offset: 4px; }
+.dialogue-results-bar > button > span { font-size: 19px; text-decoration: none; }
+.dialogue-paper-compact { padding-top: 24px; }
+.dialogue-paper-compact .dialogue-paper-meta { margin-bottom: 6px; }
+.dialogue-empty { padding: 40px 0; }
+.dialogue-empty > h3 { font: 500 25px/1.25 "Bricolage Grotesque", sans-serif; letter-spacing: -.03em; }
+.dialogue-empty > p { margin-top: 12px; font-size: 14px; color: #786780; }
+.dialogue-empty > button { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; margin-top: 20px; padding: 0; text-decoration: underline; text-underline-offset: 4px; }
+
+.dialogue-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px 24px; max-width: 1312px; margin: 40px auto 0; padding-top: 20px; border-top: 1px solid #dfd3e8; color: #796584; font-size: 11px; }
+.dialogue-footer > p > span { display: inline-block; margin: 0 8px; color: #796584; }
+.dialogue-footer > a { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; text-decoration: none; }
+.dialogue-footer > a:hover { text-decoration: underline; }
+
+@media (max-width: 1150px) {
+  .dialogue-main { grid-template-columns: 280px minmax(0, 1fr); gap: 36px; }
+  .dialogue-question { padding-right: 12px; padding-left: 12px; gap: 8px; }
+  .dialogue-question-label { font-size: 17px; }
+  .dialogue-response { padding-right: 28px; padding-left: 28px; }
+  .dialogue-answer-heading { grid-template-columns: minmax(0, 1fr) 132px; }
+  .dialogue-sculpture { width: 146px; }
+  .dialogue-response-title { font-size: 45px; }
+  .dialogue-paper-title { font-size: 19px; }
+  .dialogue-about-note { margin-right: 10px; margin-left: 10px; }
+}
+
+@media (max-width: 960px) {
+  .dialogue-header { max-width: 720px; flex-wrap: wrap; gap: 12px 24px; padding: 24px 0 16px; }
+  .dialogue-direct-nav { flex-wrap: wrap; gap: 12px 26px; }
+  .dialogue-main { grid-template-columns: minmax(0, 1fr); max-width: 720px; gap: 32px; margin-top: 32px; }
+  .dialogue-question-rail { position: static; display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: "hello questions" "welcome questions" "invitation questions" "about about" "email email"; gap: 0 28px; padding: 0; }
+  .dialogue-question-rail > .dialogue-eyebrow { grid-area: hello; align-self: end; }
+  .dialogue-welcome { grid-area: welcome; align-self: center; font-size: 46px; margin-top: 12px; }
+  .dialogue-invitation { grid-area: invitation; align-self: start; margin-top: 16px; font-size: 13px; }
+  .dialogue-questions { grid-area: questions; gap: 6px; margin-top: 0; }
+  .dialogue-question { min-height: 64px; }
+  .dialogue-about-note { grid-area: about; margin: 25px 0 0; padding-top: 18px; }
+  .dialogue-about-note > p { max-width: 620px; }
+  .dialogue-rail-email { grid-area: email; justify-self: start; margin: 5px 0 0 38px; }
+  .dialogue-response { padding: 30px 36px 24px; border-top-right-radius: 44px; }
+  .dialogue-response::before { top: -14px; left: 42px; transform: rotate(135deg); }
+  .dialogue-answer-heading { grid-template-columns: minmax(0, 1fr) 175px; gap: 12px; }
+  .dialogue-answer-heading-wide { display: block; }
+  .dialogue-response-title { font-size: 54px; }
+  .dialogue-sculpture { width: 188px; }
+  .dialogue-footer { max-width: 720px; }
+}
+
+@media (max-width: 620px) {
+  .dialogue { padding: 0 18px 84px; }
+  .dialogue-header { gap: 14px; padding-top: 20px; padding-bottom: 10px; }
+  .dialogue-identity { gap: 12px; }
+  .dialogue-brand-mark { width: 32px; height: 32px; }
+  .dialogue-name { font-size: 24px; }
+  .dialogue-position { font-size: 11px; margin-top: 4px; }
+  .dialogue-direct-nav { justify-content: space-between; gap: 6px; width: 100%; }
+  .dialogue-direct-nav > a, .dialogue-direct-nav > button { font-size: 11px; gap: 3px; }
+  .dialogue-direct-nav > a > .dialogue-arrow { width: 14px; height: 14px; }
+  .dialogue-direct-nav > .dialogue-publications-button { gap: 6px; }
+  .dialogue-count { min-width: 23px; height: 22px; font-size: 10px; padding: 0 4px; }
+  .dialogue-main { margin-top: 26px; gap: 24px; }
+  .dialogue-question-rail { display: block; }
+  .dialogue-welcome { font-size: 43px; line-height: 1.03; margin-top: 13px; }
+  .dialogue-invitation { font-size: 13px; line-height: 1.6; margin-top: 14px; }
+  .dialogue-questions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 22px; }
+  .dialogue-question { grid-template-columns: minmax(0, 1fr) 14px; gap: 5px; min-height: 80px; padding: 12px; border-radius: 15px 15px 15px 4px; background: #e9e0f0; }
+  .dialogue-question-number { display: none; }
+  .dialogue-question-label { font-size: 16px; line-height: 1.3; }
+  .dialogue-question > .dialogue-arrow { width: 14px; height: 14px; }
+  .dialogue-about-note { margin-top: 24px; padding-top: 15px; gap: 10px; }
+  .dialogue-about-note > p { font-size: 12px; line-height: 1.75; }
+  .dialogue-note-star { font-size: 22px; }
+  .dialogue-rail-email { margin-top: 5px; margin-left: 32px; }
+  .dialogue-response { padding: 25px 22px 20px; border-top-right-radius: 35px; }
+  .dialogue-response::before { left: 31px; width: 22px; height: 22px; top: -11px; }
+  .dialogue-response-topline { margin-bottom: 24px; gap: 10px; }
+  .dialogue-response-topline .dialogue-eyebrow { font-size: 9px; letter-spacing: .085em; }
+  .dialogue-response-dot { width: 6px; height: 6px; }
+  .dialogue-answer-heading { grid-template-columns: minmax(0, 1fr) 83px; align-items: center; gap: 0; }
+  .dialogue-answer-copy { display: contents; }
+  .dialogue-response-title { grid-column: 1; grid-row: 1; font-size: 39px; line-height: 1.04; }
+  .dialogue-sculpture { grid-column: 2; grid-row: 1; width: 98px; margin: 0 -12px 0 0; }
+  .dialogue-answer-introduction { grid-column: 1 / -1; grid-row: 2; margin-top: 20px; font-size: 14px; line-height: 1.8; }
+  .dialogue-answer-heading-wide { display: block; }
+  .dialogue-answer-heading-wide .dialogue-response-title { font-size: 42px; }
+  .dialogue-trail-heading { margin-top: 26px; gap: 12px; padding-bottom: 13px; }
+  .dialogue-trail-heading > p { font-size: 14px; }
+  .dialogue-trail-heading > span { font-size: 9px; }
+  .dialogue-paper { grid-template-columns: 20px minmax(0, 1fr); gap: 10px; padding-top: 20px; }
+  .dialogue-paper-number { width: 20px; height: 20px; font-size: 8px; }
+  .dialogue-paper-meta { display: block; font-size: 10px; margin-bottom: 9px; }
+  .dialogue-paper-venue { display: block; margin-top: 5px; font-size: 10px; }
+  .dialogue-paper-title { font-size: 19px; line-height: 1.35; }
+  .dialogue-paper-summary { font-size: 13px; line-height: 1.8; }
+  .dialogue-paper-details { font-size: 11px; margin-top: 4px; }
+  .dialogue-answer-footer { gap: 0; padding-top: 16px; }
+  .dialogue-next-label { width: 100%; }
+  .dialogue-answer-footer > button { width: 100%; font-size: 15px; }
+  .dialogue-all-papers-link { justify-content: flex-start; text-align: left; }
+  .dialogue-contact { padding: 19px 16px 10px; margin-top: 24px; }
+  .dialogue-contact-email { font-size: 24px; }
+  .dialogue-contact-email > .dialogue-arrow { width: 18px; height: 18px; }
+  .dialogue-contact-links { gap: 4px 16px; }
+  .dialogue-contact-links > a { font-size: 11px; }
+  .dialogue-search-row { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .dialogue-search-control > input { font-size: 16px; padding-left: 38px; }
+  .dialogue-search-icon { left: 12px; width: 18px; }
+  .dialogue-year-field { display: flex; align-items: center; gap: 14px; }
+  .dialogue-year-field > label { margin: 0; }
+  .dialogue-year-field > select { width: 132px; height: 44px; font-size: 16px; }
+  .dialogue-topic-filters { gap: 7px; margin-top: 18px; }
+  .dialogue-topic-filters > button { padding: 9px 11px; font-size: 11px; }
+  .dialogue-results-bar { font-size: 11px; margin-top: 14px; }
+  .dialogue-empty > h3 { font-size: 22px; }
+  .dialogue-empty > button { font-size: 14px; }
+  .dialogue-footer { margin-top: 28px; gap: 8px; font-size: 10px; }
+  .dialogue-footer > p > span { margin: 0 4px; }
+  .dialogue-footer > a { gap: 6px; font-size: 11px; }
+}
+
+@media (max-width: 360px) {
+  .dialogue { padding-right: 14px; padding-left: 14px; }
+  .dialogue-question { padding: 10px; }
+  .dialogue-question-label { font-size: 15px; }
+  .dialogue-response { padding-right: 18px; padding-left: 18px; }
+  .dialogue-response-title { font-size: 35px; }
+  .dialogue-sculpture { width: 88px; }
+  .dialogue-answer-heading { grid-template-columns: minmax(0, 1fr) 72px; }
+  .dialogue-contact-email { font-size: 21px; }
+}
+
+@media (max-height: 820px) and (min-width: 961px) {
+  .dialogue-question-rail { position: static; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialogue *, .dialogue *::before, .dialogue *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}

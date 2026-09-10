@@ -1,0 +1,932 @@
+/* Lens: a humanist reading column, an ink drawing, and quiet typographic navigation. */
+.quiet[data-study="lens"][data-edition] {
+  --quiet-display: "Fraunces", Georgia, serif;
+  --lens-measure: 596px;
+  --lens-gutter: 32px;
+  --lens-name-weight: 380;
+  font-family: "Geist", system-ui, sans-serif;
+  font-size: 15px;
+  font-optical-sizing: auto;
+  line-height: 1.7;
+  text-align: left;
+}
+
+.quiet[data-study="lens"][data-edition="black"] {
+  --quiet-stone: #000000;
+  --quiet-paper: #000000;
+  --quiet-ink: #eae7df;
+  --quiet-body: #c5c1b8;
+  --quiet-muted: #99968e;
+  --quiet-rule: #292824;
+  --quiet-accent: #eae7df;
+  --quiet-control-rule: #706e65;
+  --quiet-detail-edge: #57554d;
+  --quiet-selection: #ded9cd;
+  --quiet-selection-ink: #000000;
+  color-scheme: dark;
+  background: #000000;
+  color: var(--quiet-ink);
+}
+
+.quiet[data-study="lens"][data-edition="paper"] {
+  --quiet-stone: #f5f1e8;
+  --quiet-paper: #f5f1e8;
+  --quiet-ink: #35352f;
+  --quiet-body: #57564d;
+  --quiet-muted: #706c61;
+  --quiet-rule: #d9d3c5;
+  --quiet-accent: #61533e;
+  --quiet-control-rule: #938977;
+  --quiet-detail-edge: #b0a48e;
+  --quiet-selection: #ded5c3;
+  --quiet-selection-ink: #35352f;
+  --lens-name-weight: 400;
+  color-scheme: light;
+  background: #f5f1e8;
+  color: var(--quiet-ink);
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-shell {
+  width: calc(100% - var(--lens-gutter) * 2);
+  max-width: var(--lens-measure);
+  margin-inline: auto;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-home {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0;
+  padding-block: clamp(44px, 6.5svh, 76px) 40px;
+  text-align: left;
+}
+.quiet[data-study="lens"][data-edition] .quiet-home:focus { outline: none; }
+
+.quiet[data-study="lens"][data-edition] .quiet-emblem {
+  align-self: flex-start;
+  width: 64px;
+  height: auto;
+  margin: 0 0 24px -5px;
+  padding: 0;
+  color: var(--quiet-muted);
+  pointer-events: none;
+  user-select: none;
+}
+
+.quiet[data-study="lens"][data-edition] .lens-artwork {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-introduction {
+  width: 100%;
+  min-width: 0;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-eyebrow,
+.quiet[data-study="lens"][data-edition] .quiet-introduction .quiet-eyebrow {
+  color: var(--quiet-muted);
+  font: 400 11.5px/1.6 "Geist", system-ui, sans-serif;
+  letter-spacing: .015em;
+  text-transform: none;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-introduction h1 {
+  margin-top: 12px;
+  font: var(--lens-name-weight) clamp(56px, 5.1vw, 70px)/1.12 var(--quiet-display);
+  font-variation-settings: "SOFT" 30, "WONK" 1;
+  letter-spacing: -.038em;
+  text-wrap: balance;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-intro {
+  max-width: 555px;
+  margin: 22px 0 0;
+  color: var(--quiet-body);
+  font: 380 24px/1.65 var(--quiet-display);
+  font-variation-settings: "SOFT" 20, "WONK" 1;
+  letter-spacing: -.016em;
+  text-wrap: pretty;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-intro .quiet-keep {
+  white-space: nowrap;
+}
+
+/* Two adjacent records, with shared typographic levels for role, place, and dates. */
+.quiet[data-study="lens"][data-edition] .quiet-background {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 0;
+  margin: 31px 0 0;
+  font: 400 14px/1.55 "Geist", system-ui, sans-serif;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-background dt {
+  margin: 0 0 10px;
+  color: var(--quiet-muted);
+  font-size: 11.5px;
+  font-weight: 450;
+  line-height: 1.5;
+  letter-spacing: .025em;
+  text-transform: none;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-education { min-width: 0; padding-right: 27px; }
+.quiet[data-study="lens"][data-edition] .quiet-background dd {
+  margin: 0;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-background dd + dd {
+  margin-top: 12px;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-experience-role {
+  color: var(--quiet-ink);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -.022em;
+}
+.quiet[data-study="lens"][data-edition] .quiet-experience-field { white-space: nowrap; }
+
+.quiet[data-study="lens"][data-edition] .quiet-experience-meta {
+  display: block;
+  margin-top: 6px;
+  color: var(--quiet-body);
+  font-size: 14px;
+  line-height: 1.6;
+  letter-spacing: -.01em;
+}
+.quiet[data-study="lens"][data-edition] .quiet-experience-organization { display: block; }
+.quiet[data-study="lens"][data-edition] .quiet-experience-divider { display: none; }
+.quiet[data-study="lens"][data-edition] .quiet-experience-dates {
+  display: block;
+  margin-top: 5px;
+  color: var(--quiet-muted);
+  font-size: 12px;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-background .quiet-advisor {
+  margin-top: 8px;
+  color: var(--quiet-muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-industry {
+  min-width: 0;
+  padding: 0 0 0 27px;
+  border-top: 0;
+  border-left: 1px solid var(--quiet-rule);
+}
+
+/* Text and a moving rule carry the navigation; all surfaces stay flat. */
+.quiet[data-study="lens"][data-edition] .quiet-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 22px;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 27px;
+}
+
+.quiet[data-study="lens"][data-edition] :is(.quiet-primary-nav, .quiet-reading-nav) {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 24px;
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  font: 400 14px/1.4 "Geist", system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+.quiet[data-study="lens"][data-edition] :is(.quiet-primary-nav, .quiet-reading-nav) :where(button, a) {
+  justify-content: center;
+  gap: 6px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border-radius: 0;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-primary-nav .quiet-nav-work {
+  font-weight: 450;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-nav .quiet-nav-indicator {
+  inset: auto 0 4px;
+  height: 1px;
+  border: 0;
+  border-radius: 0;
+  background: var(--quiet-ink);
+  box-shadow: none;
+}
+
+.quiet[data-study="lens"][data-edition] .still-appearance {
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--quiet-muted);
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  transition: color 180ms ease;
+}
+.quiet[data-study="lens"][data-edition] .still-appearance:hover { color: var(--quiet-ink); }
+.quiet[data-study="lens"][data-edition] .still-appearance-icon { width: 19px; height: 19px; }
+
+.quiet[data-study="lens"][data-edition] :is(.quiet-primary-nav, .quiet-reading-nav) .quiet-arrow {
+  width: 12px;
+  height: 12px;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-recent {
+  display: block;
+  width: 100%;
+  max-width: none;
+  margin: 36px 0 0;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--quiet-rule);
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-recent-caption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  padding: 0;
+  color: var(--quiet-muted);
+  font: 400 10px/1.6 "Geist", system-ui, sans-serif;
+  letter-spacing: .02em;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-recent-caption h2 {
+  font: inherit;
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-recent-caption > span {
+  display: inline;
+  margin: 0;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-recent-paper {
+  position: relative;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0;
+  min-height: 44px;
+  padding: 10px 32px 0 0;
+  text-align: left;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-recent-paper > span {
+  max-width: 100%;
+  color: var(--quiet-body);
+  font: 400 21px/1.43 var(--quiet-display);
+  letter-spacing: -.021em;
+  text-wrap: pretty;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-recent-paper .quiet-arrow {
+  position: absolute;
+  top: calc(50% + 5px);
+  right: 1px;
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  transform: translateY(-50%);
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 4px 27px;
+  padding-block: 5px 10px;
+  border-top: 0;
+  color: var(--quiet-muted);
+  font: 400 10px/1.6 "Geist", system-ui, sans-serif;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-footer a {
+  gap: 7px;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-footer .quiet-arrow {
+  width: 11px;
+  height: 11px;
+}
+
+/* Publications continue directly below the introduction at the same measure. */
+.quiet[data-study="lens"][data-edition] .quiet-header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  padding-block: 40px 26px;
+  border: 0;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-signature {
+  gap: 14px;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-initials {
+  font: 380 31px/1 var(--quiet-display);
+  letter-spacing: -.055em;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-signature-note {
+  display: inline;
+  padding: 0;
+  border: 0;
+  font: 400 11px/1.6 "Geist", system-ui, sans-serif;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-navigation-reading {
+  margin-top: 0;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-reader {
+  padding-block: 20px 48px;
+}
+.quiet[data-study="lens"][data-edition] .quiet-publications {
+  margin-top: 10px;
+  padding-top: 32px;
+  border-top: 1px solid var(--quiet-rule);
+  scroll-margin-top: 30px;
+}
+.quiet[data-study="lens"][data-edition] .quiet-publications-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+}
+.quiet[data-study="lens"][data-edition] .quiet-publications-heading h2 {
+  color: var(--quiet-ink);
+  font: 400 38px/1.15 var(--quiet-display);
+  letter-spacing: -.035em;
+  scroll-margin-top: 32px;
+}
+.quiet[data-study="lens"][data-edition] .quiet-publications-heading > span {
+  color: var(--quiet-muted);
+  font: 400 12px/1.5 "Geist", system-ui, sans-serif;
+  white-space: nowrap;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-reader-heading {
+  max-width: none;
+  margin: 0;
+  padding-bottom: 24px;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-reader-heading .quiet-back {
+  margin-bottom: 26px;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-reader-heading h1 {
+  margin-top: 12px;
+  font: var(--lens-name-weight) 56px/1.12 var(--quiet-display);
+  letter-spacing: -.045em;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-reader-intro {
+  max-width: 555px;
+  margin: 20px 0 0;
+  color: var(--quiet-body);
+  font: 400 23px/1.6 var(--quiet-display);
+  letter-spacing: -.015em;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-reading-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-reader-aside {
+  position: static;
+  display: block;
+  min-width: 0;
+  padding: 0;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-search {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 0 24px;
+  font-family: "Geist", system-ui, sans-serif;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-search label {
+  margin-bottom: 8px;
+  color: var(--quiet-muted);
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-search label:first-child {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-search label[for="quiet-topic"] {
+  grid-column: 2;
+  grid-row: 1;
+  margin-top: 0;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-search-field {
+  grid-column: 1;
+  grid-row: 2;
+  min-width: 0;
+  margin: 0;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-search :is(input, select) {
+  min-width: 0;
+  min-height: 46px;
+  color: var(--quiet-ink);
+  background: var(--quiet-stone);
+  font-size: 14px;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-search select {
+  grid-column: 2;
+  grid-row: 2;
+  padding-left: 11px;
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-result-count {
+  grid-column: 1;
+  grid-row: 3;
+  align-self: center;
+  margin-top: 12px;
+  font-size: 11px;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-reset {
+  grid-column: 2;
+  grid-row: 3;
+  justify-self: end;
+  margin-top: 4px;
+  font-size: 11px;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-question {
+  display: block;
+  margin-top: 23px;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--quiet-rule);
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-question .quiet-eyebrow {
+  font-size: 9px;
+  letter-spacing: .1em;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-question p {
+  max-width: 48ch;
+  margin-top: 7px;
+  color: var(--quiet-body);
+  font: 400 18px/1.6 var(--quiet-display);
+  letter-spacing: -.01em;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-scholar-link {
+  display: inline-flex;
+  margin-top: 10px;
+  font-size: 11px;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-paper {
+  padding-block: 27px 29px;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-paper:first-child {
+  padding-top: 27px;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-paper-meta {
+  margin-bottom: 12px;
+  color: var(--quiet-body);
+  font: 500 16px/1.5 "Geist", system-ui, sans-serif;
+  letter-spacing: .015em;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-paper-title {
+  font: 400 26px/1.32 var(--quiet-display);
+  font-variation-settings: "SOFT" 20, "WONK" 1;
+  letter-spacing: -.027em;
+}
+.quiet[data-study="lens"][data-edition] .quiet-paper-title:focus { outline: none; }
+.quiet[data-study="lens"][data-edition] .quiet-paper-title-link {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  color: inherit;
+  text-decoration: none;
+}
+.quiet[data-study="lens"][data-edition] .quiet-paper-title-link > span {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .16em;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 200ms ease;
+}
+.quiet[data-study="lens"][data-edition] .quiet-paper-title-link:hover > span { text-decoration-color: currentColor; }
+.quiet[data-study="lens"][data-edition] .quiet-paper-title-link .quiet-arrow {
+  flex: 0 0 15px;
+  width: 15px;
+  height: 15px;
+  margin-top: 8px;
+  color: var(--quiet-muted);
+  transition: translate 250ms cubic-bezier(.22,1,.36,1);
+}
+.quiet[data-study="lens"][data-edition] .quiet-paper-title-link:hover .quiet-arrow { translate: 2px -2px; }
+
+.quiet[data-study="lens"][data-edition] .quiet-paper-summary {
+  margin-top: 15px;
+  font: 380 17.5px/1.65 var(--quiet-display);
+  color: var(--quiet-body);
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-paper-details {
+  margin-top: 12px;
+  border-radius: 0;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-paper-details > summary {
+  gap: 15px;
+  min-height: 48px;
+  font: 400 12px/1.6 "Geist", system-ui, sans-serif;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-paper-content {
+  margin-top: 14px;
+  padding: 20px 0 3px 22px;
+  border-left: 1px solid var(--quiet-detail-edge);
+  background: var(--quiet-paper);
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-paper-content :is(h3, h4) {
+  color: var(--quiet-muted);
+  font: 450 10px/1.7 "Geist", system-ui, sans-serif;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-authors {
+  margin: 7px 0 22px;
+  font: 400 13px/1.85 "Geist", system-ui, sans-serif;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-authors strong {
+  font-weight: 500;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-research-summary {
+  margin-top: 9px;
+  font: 380 17px/1.8 var(--quiet-display);
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-paper-topics {
+  gap: 6px 16px;
+  margin-top: 22px;
+  font: 400 11px/1.7 "Geist", system-ui, sans-serif;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-paper-links {
+  gap: 4px 22px;
+  margin-top: 18px;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-paper-links :where(a, button) {
+  min-width: 44px;
+  font-size: 12px;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-citation {
+  margin-top: 14px;
+  padding-top: 14px;
+  font: 400 13px/1.8 "Geist", system-ui, sans-serif;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-reader-end {
+  gap: 8px 24px;
+  padding-top: 26px;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-reader-end > p {
+  font: 400 17px/1.6 var(--quiet-display);
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-info-dialog {
+  width: min(560px, calc(100% - 48px));
+  padding: 25px 34px 32px;
+  border-color: var(--quiet-rule);
+  border-radius: 10px;
+  box-shadow: none;
+  font: 400 15px/1.85 "Geist", system-ui, sans-serif;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-info-dialog h2 {
+  margin-bottom: 22px;
+  font: 400 38px/1.2 var(--quiet-display);
+  letter-spacing: -.035em;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-dialog-copy {
+  color: var(--quiet-body);
+  font: 380 18px/1.75 var(--quiet-display);
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-photographer {
+  color: var(--quiet-ink);
+  font: 500 1.4em/1 "Caveat", "Segoe Print", "Bradley Hand", cursive;
+  font-variation-settings: normal;
+  letter-spacing: .005em;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-info-dialog::backdrop {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.quiet[data-study="lens"][data-edition] .quiet-dialog-top button {
+  padding-inline: 6px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-dialog-copy > p + p {
+  margin-top: 18px;
+}
+
+.quiet[data-study="lens"][data-edition] .quiet-contact-email {
+  font-family: var(--quiet-display);
+}
+
+@media (max-width: 720px) {
+  .quiet[data-study="lens"][data-edition] {
+    --lens-gutter: 24px;
+    --lens-measure: 520px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-home {
+    justify-content: flex-start;
+    padding-block: 32px 28px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-emblem {
+    width: 56px;
+    margin: 0 0 18px -4px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-introduction .quiet-eyebrow {
+    font-size: 11px;
+    letter-spacing: .015em;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-introduction h1 {
+    margin-top: 10px;
+    font-size: clamp(42px, 11.4vw, 60px);
+    line-height: 1.12;
+    letter-spacing: -.035em;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-intro {
+    max-width: 440px;
+    margin-top: 19px;
+    font-size: 21px;
+    line-height: 1.55;
+    letter-spacing: -.023em;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-background {
+    gap: 0;
+    margin-top: 26px;
+  }
+  .quiet[data-study="lens"][data-edition] .quiet-education { padding-right: 17px; }
+  .quiet[data-study="lens"][data-edition] .quiet-industry { padding-left: 17px; }
+
+  .quiet[data-study="lens"][data-edition] .quiet-background dt {
+    margin-bottom: 8px;
+    font-size: 10.5px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-experience-role {
+    font-size: 14px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-experience-meta {
+    font-size: 13px;
+  }
+  .quiet[data-study="lens"][data-edition] .quiet-experience-dates { font-size: 11px; }
+
+  .quiet[data-study="lens"][data-edition] .quiet-background .quiet-advisor {
+    margin-top: 7px;
+    font-size: 11.5px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-navigation {
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .quiet[data-study="lens"][data-edition] :is(.quiet-primary-nav, .quiet-reading-nav) {
+    gap: 12px;
+    padding: 0;
+    font-size: 13px;
+  }
+
+  .quiet[data-study="lens"][data-edition] :is(.quiet-primary-nav, .quiet-reading-nav) :where(button, a) {
+    gap: 5px;
+    min-width: 44px;
+    min-height: 44px;
+    padding-inline: 0;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-recent {
+    margin-top: 29px;
+    padding-top: 16px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-recent-caption {
+    column-gap: 12px;
+    font-size: 9px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-recent-paper {
+    padding-top: 10px;
+    padding-right: 26px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-recent-paper > span {
+    font-size: 19px;
+    line-height: 1.42;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-footer {
+    gap: 4px 23px;
+    padding-block: 2px 8px;
+    font-size: 10px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-header {
+    gap: 14px;
+    padding-block: 25px 18px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-navigation-reading {
+    margin-top: 0;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-reader {
+    padding-block: 12px 36px;
+  }
+  .quiet[data-study="lens"][data-edition] .quiet-publications { margin-top: 7px; padding-top: 26px; scroll-margin-top: 24px; }
+  .quiet[data-study="lens"][data-edition] .quiet-publications-heading h2 { font-size: 32px; scroll-margin-top: 24px; }
+
+  .quiet[data-study="lens"][data-edition] .quiet-reader-heading h1 {
+    font-size: 46px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-reader-intro {
+    font-size: 21px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-search {
+    gap: 0 16px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-search :is(input, select) {
+    font-size: 16px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-question p {
+    font-size: 17px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-paper-title {
+    font-size: 23px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-paper-content {
+    padding-left: 17px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-info-dialog {
+    width: calc(100% - 32px);
+    padding: 20px 24px 27px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-info-dialog h2 {
+    font-size: 33px;
+  }
+}
+
+@media (max-width: 480px) {
+  .quiet[data-study="lens"][data-edition] .quiet-search {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    column-gap: 12px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-result-count {
+    grid-column: 1 / -1;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-reset {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 359px) {
+  .quiet[data-study="lens"][data-edition] {
+    --lens-gutter: 18px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-home {
+    padding-top: 25px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-emblem {
+    width: 50px;
+    margin-bottom: 13px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-introduction h1 {
+    font-size: 39px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-intro {
+    font-size: 20px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-navigation {
+    gap: 8px;
+  }
+  .quiet[data-study="lens"][data-edition] .quiet-education { padding-right: 13px; }
+  .quiet[data-study="lens"][data-edition] .quiet-industry { padding-left: 13px; }
+  .quiet[data-study="lens"][data-edition] .quiet-experience-role { font-size: 13px; }
+  .quiet[data-study="lens"][data-edition] .quiet-experience-meta { font-size: 12px; }
+  .quiet[data-study="lens"][data-edition] .quiet-background dt { font-size: 10px; }
+
+  .quiet[data-study="lens"][data-edition] :is(.quiet-primary-nav, .quiet-reading-nav) {
+    gap: 6px;
+    padding: 0;
+    font-size: 12px;
+  }
+
+  .quiet[data-study="lens"][data-edition] :is(.quiet-primary-nav, .quiet-reading-nav) :where(button, a) {
+    padding-inline: 0;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-recent-paper > span {
+    font-size: 18px;
+  }
+
+  .quiet[data-study="lens"][data-edition] .quiet-info-dialog {
+    padding-inline: 20px;
+  }
+}
+
+html[data-still-layout="inline"] { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-still-layout="inline"] { scroll-behavior: auto; }
+}
+
+@media (forced-colors: active) {
+  .quiet[data-study="lens"][data-edition] .lens-artwork {
+    color: CanvasText;
+  }
+}

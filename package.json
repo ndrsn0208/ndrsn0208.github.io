@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc -b --noEmit"
+    "typecheck": "tsc -b --noEmit",
+    "test:designs": "playwright test",
+    "design:screenshots": "node scripts/capture_designs.mjs",
+    "still:screenshots": "node scripts/capture_still.mjs"
   },
   "dependencies": {
     "fuse.js": "7.0.0",
@@ -21,6 +24,8 @@
     "remark-math": "6.0.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
     "@types/node": "22.9.0",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",

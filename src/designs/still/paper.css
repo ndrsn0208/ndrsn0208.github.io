@@ -1,0 +1,870 @@
+/* Paper: a short scholarly letter, with one continuous reading column. */
+.quiet[data-edition="paper"] {
+  --quiet-stone: #f5f1e8;
+  --quiet-paper: #faf7ef;
+  --quiet-ink: #39382f;
+  --quiet-muted: #70695e;
+  --quiet-body: #4e493f;
+  --quiet-rule: #d3cabc;
+  --quiet-accent: #685036;
+  --quiet-control-rule: #8b8170;
+  --quiet-guide: #c2b5a0;
+  --quiet-outline: #a99b84;
+  --quiet-detail-edge: #b4a38a;
+  --quiet-selection: #e3d7c3;
+  --quiet-selection-ink: #39382f;
+  --quiet-backdrop: #39382f66;
+  --quiet-display: Georgia, serif;
+  padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+  color-scheme: light;
+  font-family: var(--quiet-display);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.quiet[data-edition="paper"] :where(
+  .quiet-eyebrow,
+  .quiet-signature-note,
+  .quiet-nav,
+  .quiet-advisor,
+  .quiet-work-invitation,
+  .quiet-recent-caption,
+  .quiet-footer,
+  .quiet-back,
+  .quiet-search,
+  .quiet-scholar-link,
+  .quiet-paper-meta,
+  .quiet-paper-details > summary,
+  .quiet-paper-content h3,
+  .quiet-paper-topics,
+  .quiet-paper-links,
+  .quiet-copy-status,
+  .quiet-dialog-top,
+  .quiet-dialog-links,
+  .quiet-copy-email,
+  .quiet-skip
+) {
+  font-family: "Geist", system-ui, sans-serif;
+}
+
+.quiet[data-edition="paper"]::selection,
+.quiet[data-edition="paper"] ::selection {
+  color: var(--quiet-selection-ink);
+  background: var(--quiet-selection);
+}
+
+.quiet[data-edition="paper"] :where(button, a, input, select, summary):focus-visible {
+  outline: 2px solid var(--quiet-accent);
+  outline-offset: 4px;
+}
+
+.quiet[data-edition="paper"] .quiet-shell {
+  width: calc(100% - 96px);
+  max-width: 832px;
+}
+
+.quiet[data-edition="paper"] .quiet-arrow {
+  flex-shrink: 0;
+}
+
+.quiet[data-edition="paper"] .quiet-eyebrow {
+  font-size: 11px;
+  line-height: 1.6;
+  letter-spacing: .09em;
+}
+
+.quiet[data-edition="paper"] .quiet-header {
+  padding-block: 27px 21px;
+  border-bottom: 1px solid var(--quiet-rule);
+}
+
+.quiet[data-edition="paper"] .quiet-signature {
+  gap: 16px;
+}
+
+.quiet[data-edition="paper"] .quiet-initials {
+  font-size: 31px;
+  font-style: italic;
+  letter-spacing: -.065em;
+}
+
+.quiet[data-edition="paper"] .quiet-signature-note {
+  padding-left: 0;
+  border-left: 0;
+  font-size: 12px;
+}
+
+.quiet[data-edition="paper"] .quiet-nav {
+  gap: 24px;
+  font-size: 13px;
+}
+
+/* The mark precedes the letter instead of occupying a second column. */
+.quiet[data-edition="paper"] .quiet-home {
+  max-width: 640px;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto;
+  align-content: start;
+  gap: 0;
+  padding-block: 40px 48px;
+}
+
+.quiet[data-edition="paper"] .quiet-emblem {
+  grid-column: 1;
+  grid-row: auto;
+  height: auto;
+  margin: 0 0 20px;
+  padding: 0;
+}
+
+.quiet[data-edition="paper"] .quiet-mark {
+  width: 50px;
+  height: auto;
+}
+
+.quiet[data-edition="paper"] .quiet-mark-arc {
+  stroke-width: 1.7;
+}
+
+.quiet[data-edition="paper"] .quiet-introduction {
+  grid-column: 1;
+  min-width: 0;
+}
+
+.quiet[data-edition="paper"] .quiet-introduction h1 {
+  margin-top: 12px;
+  font-size: clamp(42px, 4.6vw, 66px);
+  line-height: 1.12;
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+
+.quiet[data-edition="paper"] .quiet-bio {
+  max-width: none;
+  margin-top: 18px;
+  color: var(--quiet-body);
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.quiet[data-edition="paper"] .quiet-intro {
+  max-width: 580px;
+  margin-top: 23px;
+  color: var(--quiet-ink);
+  font-size: 25px;
+  line-height: 1.58;
+  letter-spacing: -.015em;
+  text-wrap: pretty;
+}
+
+.quiet[data-edition="paper"] .quiet-intro > span {
+  white-space: normal;
+}
+
+.quiet[data-edition="paper"] .quiet-advisor {
+  margin-top: 17px;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.quiet[data-edition="paper"] .quiet-work-invitation {
+  column-gap: 25px;
+  row-gap: 8px;
+  margin-top: 25px;
+}
+
+.quiet[data-edition="paper"] .quiet-read-button {
+  gap: 27px;
+  min-height: 46px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.quiet[data-edition="paper"] .quiet-read-button:hover {
+  color: var(--quiet-accent);
+}
+
+.quiet[data-edition="paper"] .quiet-read-button:hover .quiet-arrow {
+  transform: none;
+}
+
+.quiet[data-edition="paper"] .quiet-collection-note {
+  font-size: 11px;
+  letter-spacing: 0;
+}
+
+/* A marginal caption and a title form a small bibliographic postscript. */
+.quiet[data-edition="paper"] .quiet-recent {
+  display: grid;
+  grid-column: 1;
+  grid-template-columns: 116px minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
+  max-width: none;
+  margin-top: 38px;
+  padding-top: 21px;
+}
+
+.quiet[data-edition="paper"] .quiet-recent-caption {
+  display: block;
+  padding-top: 3px;
+  font-size: 11px;
+  line-height: 1.7;
+  letter-spacing: 0;
+}
+
+.quiet[data-edition="paper"] .quiet-recent-caption h2 {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.quiet[data-edition="paper"] .quiet-recent-caption > span {
+  display: block;
+  margin-top: 5px;
+}
+
+.quiet[data-edition="paper"] .quiet-recent-paper {
+  align-items: baseline;
+  gap: 18px;
+  padding: 0;
+}
+
+.quiet[data-edition="paper"] .quiet-recent-paper > span {
+  max-width: none;
+  font-size: 21px;
+  line-height: 1.5;
+  letter-spacing: -.015em;
+  text-wrap: pretty;
+}
+
+.quiet[data-edition="paper"] .quiet-recent-paper .quiet-arrow {
+  width: 15px;
+  height: 15px;
+}
+
+.quiet[data-edition="paper"] .quiet-footer {
+  gap: 22px;
+  padding-block: 15px 17px;
+  font-size: 12px;
+}
+
+.quiet[data-edition="paper"] .quiet-footer a {
+  gap: 8px;
+  overflow-wrap: anywhere;
+}
+
+.quiet[data-edition="paper"] .quiet-footer-note {
+  display: block;
+  font-size: 11px;
+  line-height: 1.7;
+  letter-spacing: 0;
+}
+
+/* The reader keeps the letter's measure, with its tools above the prose. */
+.quiet[data-edition="paper"] .quiet-reader {
+  max-width: 680px;
+  padding-block: 25px 52px;
+  animation: none;
+}
+
+.quiet[data-edition="paper"] .quiet-reader-heading {
+  max-width: none;
+  margin-left: 0;
+  padding-bottom: 31px;
+}
+
+.quiet[data-edition="paper"] .quiet-back {
+  gap: 11px;
+  font-size: 12px;
+}
+
+.quiet[data-edition="paper"] .quiet-reader-heading .quiet-back {
+  margin-bottom: 27px;
+}
+
+.quiet[data-edition="paper"] .quiet-reader-heading h1 {
+  margin-top: 12px;
+  font-size: 56px;
+  line-height: 1.15;
+  letter-spacing: -.04em;
+}
+
+.quiet[data-edition="paper"] .quiet-reader-intro {
+  max-width: 580px;
+  margin-top: 19px;
+  font-size: 21px;
+  line-height: 1.7;
+  letter-spacing: -.01em;
+}
+
+.quiet[data-edition="paper"] .quiet-reading-layout {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 29px;
+}
+
+.quiet[data-edition="paper"] .quiet-reader-aside {
+  position: static;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 19px 28px;
+  padding-top: 0;
+}
+
+.quiet[data-edition="paper"] .quiet-search {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 0 24px;
+  min-width: 0;
+}
+
+.quiet[data-edition="paper"] .quiet-search label {
+  margin-bottom: 8px;
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+.quiet[data-edition="paper"] .quiet-search label:first-child {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.quiet[data-edition="paper"] .quiet-search label[for="quiet-topic"] {
+  grid-column: 2;
+  grid-row: 1;
+  margin-top: 0;
+}
+
+.quiet[data-edition="paper"] .quiet-search-field {
+  grid-column: 1;
+  grid-row: 2;
+  gap: 10px;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.quiet[data-edition="paper"] .quiet-search-icon {
+  flex-shrink: 0;
+}
+
+.quiet[data-edition="paper"] .quiet-search :where(input, select) {
+  min-width: 0;
+  min-height: 46px;
+  color: var(--quiet-ink);
+  font-family: "Geist", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  caret-color: var(--quiet-accent);
+}
+
+.quiet[data-edition="paper"] .quiet-search input::placeholder {
+  color: var(--quiet-muted);
+  opacity: 1;
+}
+
+.quiet[data-edition="paper"] .quiet-search-field:focus-within {
+  border-color: var(--quiet-accent);
+}
+
+.quiet[data-edition="paper"] .quiet-search select {
+  grid-column: 2;
+  grid-row: 2;
+  max-width: 100%;
+  padding: 9px 24px 9px 12px;
+  background: var(--quiet-paper);
+}
+
+.quiet[data-edition="paper"] .quiet-search select:hover {
+  border-color: var(--quiet-accent);
+}
+
+.quiet[data-edition="paper"] .quiet-search option {
+  color: var(--quiet-ink);
+  background: var(--quiet-paper);
+}
+
+.quiet[data-edition="paper"] .quiet-result-count {
+  grid-column: 1;
+  grid-row: 3;
+  align-self: center;
+  margin-top: 13px;
+  font-size: 12px;
+}
+
+.quiet[data-edition="paper"] .quiet-reset {
+  grid-column: 2;
+  grid-row: 3;
+  justify-self: end;
+  margin-top: 6px;
+  font-size: 12px;
+}
+
+.quiet[data-edition="paper"] .quiet-question {
+  display: block;
+  grid-column: 1;
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.quiet[data-edition="paper"] .quiet-question .quiet-eyebrow {
+  font-size: 10px;
+  letter-spacing: .07em;
+}
+
+.quiet[data-edition="paper"] .quiet-question p {
+  max-width: 42ch;
+  margin-top: 5px;
+  color: var(--quiet-body);
+  font-size: 17px;
+  font-style: italic;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+
+.quiet[data-edition="paper"] .quiet-scholar-link {
+  display: inline-flex;
+  grid-column: 2;
+  gap: 9px;
+  margin-top: 0;
+  font-size: 12px;
+}
+
+.quiet[data-edition="paper"] .quiet-paper-list {
+  border-top-color: var(--quiet-control-rule);
+}
+
+.quiet[data-edition="paper"] .quiet-paper {
+  padding-block: 29px 27px;
+}
+
+.quiet[data-edition="paper"] .quiet-paper-meta {
+  margin-bottom: 11px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: .025em;
+}
+
+.quiet[data-edition="paper"] .quiet-paper h2 {
+  font-size: 28px;
+  line-height: 1.35;
+  letter-spacing: -.02em;
+  overflow-wrap: anywhere;
+}
+
+.quiet[data-edition="paper"] .quiet-paper-summary {
+  max-width: none;
+  margin-top: 15px;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.quiet[data-edition="paper"] .quiet-paper-details {
+  margin-top: 11px;
+}
+
+.quiet[data-edition="paper"] .quiet-paper-details > summary {
+  gap: 13px;
+  color: var(--quiet-accent);
+  font-size: 12px;
+}
+
+.quiet[data-edition="paper"] .quiet-paper-details[open] > summary {
+  color: var(--quiet-ink);
+}
+
+.quiet[data-edition="paper"] .quiet-paper-content {
+  margin-top: 12px;
+  padding: 17px 0 2px 24px;
+  border-left: 1px solid var(--quiet-detail-edge);
+  background: transparent;
+  animation: none;
+}
+
+.quiet[data-edition="paper"] .quiet-paper-content h3 {
+  font-size: 12px;
+  letter-spacing: .025em;
+  text-transform: none;
+}
+
+.quiet[data-edition="paper"] .quiet-authors {
+  margin-top: 7px;
+  margin-bottom: 22px;
+  color: var(--quiet-body);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.quiet[data-edition="paper"] .quiet-authors strong {
+  color: var(--quiet-ink);
+  font-weight: 700;
+}
+
+.quiet[data-edition="paper"] .quiet-research-summary {
+  margin-top: 8px;
+  color: var(--quiet-body);
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+.quiet[data-edition="paper"] .quiet-paper-topics {
+  gap: 6px 18px;
+  margin-top: 21px;
+  font-size: 11px;
+}
+
+.quiet[data-edition="paper"] .quiet-paper-links {
+  gap: 3px 23px;
+  margin-top: 14px;
+}
+
+.quiet[data-edition="paper"] .quiet-paper-links :where(a, button) {
+  font-size: 13px;
+}
+
+.quiet[data-edition="paper"] .quiet-copy-status {
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.quiet[data-edition="paper"] .quiet-citation {
+  margin-top: 14px;
+  padding-top: 14px;
+  color: var(--quiet-body);
+  font-size: 14px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.quiet[data-edition="paper"] .quiet-empty {
+  padding-block: 35px;
+}
+
+.quiet[data-edition="paper"] .quiet-empty h2 {
+  font-size: 30px;
+  line-height: 1.35;
+  letter-spacing: -.025em;
+}
+
+.quiet[data-edition="paper"] .quiet-empty .quiet-read-button {
+  font-family: "Geist", system-ui, sans-serif;
+}
+
+.quiet[data-edition="paper"] .quiet-reader-end {
+  gap: 10px 24px;
+  padding-top: 25px;
+}
+
+.quiet[data-edition="paper"] .quiet-reader-end > p {
+  font-size: 17px;
+  font-style: italic;
+}
+
+.quiet[data-edition="paper"] .quiet-info-dialog {
+  width: min(560px, calc(100% - 48px));
+  max-height: calc(100svh - 112px);
+  padding: 22px 34px 29px;
+  border-color: var(--quiet-control-rule);
+  border-radius: 0;
+  box-shadow: none;
+  font: 400 17px/1.8 var(--quiet-display);
+  scroll-padding-block: 20px;
+}
+
+.quiet[data-edition="paper"] .quiet-info-dialog[open] {
+  animation: none;
+}
+
+.quiet[data-edition="paper"] .quiet-info-dialog::backdrop {
+  background: var(--quiet-backdrop);
+}
+
+.quiet[data-edition="paper"] .quiet-dialog-top {
+  margin-bottom: 20px;
+}
+
+.quiet[data-edition="paper"] .quiet-dialog-top button {
+  gap: 12px;
+  min-width: 44px;
+}
+
+.quiet[data-edition="paper"] .quiet-info-dialog h2 {
+  margin-bottom: 19px;
+  font-size: 38px;
+  line-height: 1.2;
+  letter-spacing: -.035em;
+}
+
+.quiet[data-edition="paper"] .quiet-dialog-copy {
+  color: var(--quiet-body);
+  font-size: 17px;
+}
+
+.quiet[data-edition="paper"] .quiet-dialog-copy > p + p {
+  margin-top: 17px;
+}
+
+.quiet[data-edition="paper"] .quiet-dialog-links {
+  gap: 4px 25px;
+  margin-top: 23px;
+  padding-top: 15px;
+}
+
+.quiet[data-edition="paper"] .quiet-dialog-links a {
+  font-size: 13px;
+}
+
+.quiet[data-edition="paper"] .quiet-contact-email {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 11px;
+  max-width: 100%;
+  margin-top: 16px;
+  color: var(--quiet-ink);
+  font-size: 24px;
+  letter-spacing: -.025em;
+  overflow-wrap: anywhere;
+}
+
+.quiet[data-edition="paper"] .quiet-copy-email {
+  font-size: 12px;
+}
+
+.quiet[data-edition="paper"] :where(
+  .quiet-nav a,
+  .quiet-nav button,
+  .quiet-footer a,
+  .quiet-paper-links a,
+  .quiet-paper-links button,
+  .quiet-dialog-links a,
+  .quiet-dialog-top button,
+  .quiet-contact-email,
+  .quiet-copy-email,
+  .quiet-scholar-link,
+  .quiet-back,
+  .quiet-reset
+):hover {
+  color: var(--quiet-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 720px) {
+  .quiet[data-edition="paper"] .quiet-shell {
+    width: calc(100% - 48px);
+  }
+
+  .quiet[data-edition="paper"] .quiet-header {
+    gap: 12px;
+    padding-block: 19px 16px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-signature {
+    gap: 0;
+  }
+
+  .quiet[data-edition="paper"] .quiet-nav {
+    gap: 12px;
+    font-size: 12px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-home {
+    padding-block: 28px 35px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-emblem {
+    margin-bottom: 19px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-mark {
+    width: 44px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-introduction h1 {
+    font-size: clamp(40px, 12vw, 52px);
+    letter-spacing: -.045em;
+  }
+
+  .quiet[data-edition="paper"] .quiet-bio {
+    margin-top: 16px;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .quiet[data-edition="paper"] .quiet-intro {
+    margin-top: 21px;
+    font-size: 22px;
+    line-height: 1.6;
+  }
+
+  .quiet[data-edition="paper"] .quiet-advisor {
+    margin-top: 14px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-work-invitation {
+    margin-top: 21px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-recent {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    margin-top: 30px;
+    padding-top: 17px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-recent-caption {
+    display: flex;
+    align-items: baseline;
+    gap: 5px 18px;
+    padding-top: 0;
+  }
+
+  .quiet[data-edition="paper"] .quiet-recent-caption > span {
+    margin-top: 0;
+  }
+
+  .quiet[data-edition="paper"] .quiet-recent-paper > span {
+    font-size: 20px;
+    line-height: 1.5;
+  }
+
+  .quiet[data-edition="paper"] .quiet-footer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px 16px;
+    padding-block: 12px 18px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-footer-note {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .quiet[data-edition="paper"] .quiet-reader {
+    padding-block: 16px 40px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-reader-heading h1 {
+    font-size: 46px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-reader-intro {
+    font-size: 20px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-paper h2 {
+    font-size: 25px;
+    line-height: 1.4;
+  }
+
+  .quiet[data-edition="paper"] .quiet-paper-summary {
+    font-size: 17px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-paper-content {
+    padding-left: 18px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-info-dialog {
+    width: calc(100% - 32px);
+    padding: 18px 24px 25px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-info-dialog h2 {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 480px) {
+  .quiet[data-edition="paper"] .quiet-work-invitation {
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 9px;
+  }
+
+  /* Stack controls in their source order, including the filter reset. */
+  .quiet[data-edition="paper"] .quiet-reader-aside {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 17px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-search {
+    display: block;
+  }
+
+  .quiet[data-edition="paper"] .quiet-search-field {
+    margin-bottom: 19px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-result-count {
+    margin-top: 13px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-reset {
+    margin-top: 3px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-scholar-link {
+    grid-column: 1;
+    justify-self: start;
+    margin-top: -6px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-paper-links {
+    gap: 2px 20px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-contact-email {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 359px) {
+  .quiet[data-edition="paper"] .quiet-shell {
+    width: calc(100% - 36px);
+  }
+
+  .quiet[data-edition="paper"] .quiet-nav {
+    gap: 8px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-intro {
+    font-size: 20px;
+    line-height: 1.65;
+  }
+
+  .quiet[data-edition="paper"] .quiet-recent-paper {
+    gap: 12px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-recent-paper > span {
+    font-size: 19px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-paper-content {
+    padding-left: 14px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-info-dialog {
+    padding-inline: 18px;
+  }
+
+  .quiet[data-edition="paper"] .quiet-info-dialog h2 {
+    font-size: 31px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quiet[data-edition="paper"],
+  .quiet[data-edition="paper"] *,
+  .quiet[data-edition="paper"] *::before,
+  .quiet[data-edition="paper"] *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

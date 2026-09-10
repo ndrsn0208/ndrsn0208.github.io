@@ -35,3 +35,9 @@ venv/
 .env.local
 
 # Local arxiv cache stays committed; build artifacts do not
+
+# Local design review and browser verification
+artifacts/
+test-results/
+playwright-report/
+*.tsbuildinfo

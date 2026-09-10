@@ -22,7 +22,36 @@ obvious from the code alone.
 - **Markdown / math:** `react-markdown` + `remark-math` + `rehype-katex` +
   `katex` for paper detail rendering.
 
-## What the site looks like
+## Approved homepage
+
+The approved homepage at `/` is **Lens** from the Still studies. Keep its
+centered introduction and left-aligned text, parallel education/industry records,
+and Fraunces/Geist typography. Black is exactly
+`#000000`; Paper is `#f5f1e8`. The current direction is minimal and humanist:
+flat surfaces, serif reading copy, an ink drawing, and text navigation with a
+moving underline. Lens has no glass blur, highlights, gradients, or raised controls.
+
+On desktop (1024px and above), selecting any of the four destinations moves
+the introduction to the left with a Motion layout animation and reveals an
+independently scrolling right pane. The introduction's width stays constant.
+About and Contact are inline reading panes; CV previews the real PDF. Keep each
+pane mounted to preserve reading position and paper state. Close/Escape returns
+to the centered introduction and restores focus. Destination hashes support
+browser history; appearance changes must preserve the hash.
+`SplitPane.tsx` and `split-layout.css` define the desktop composition.
+
+Phones retain the continuous Publications list and native dialogs.
+`src/designs/still/AdaptiveNavigation.tsx` switches the mobile introductory navigation
+into a floating four-option dock only when that navigation is above the viewport.
+It uses the installed Motion package, native viewport observation, reversible
+spring motion, and focus hand-off. Preserve reduced-motion and keyboard behavior.
+The public homepage has no design-selection bar. `/still?review=1` exposes the
+archived design controls; `/designs` retains the earlier explorations.
+See `STILL_MINIMAL_BRIEF.md` for the current design and interaction contract.
+
+The styling notes below describe the legacy detail routes, not the approved Lens homepage.
+
+## Legacy site appearance
 
 Direction: **Liquid Glass** (evolved from the original `02-liquid-metal.html`
 Phase 0 mockup). Dark warm base (`#0B0910`) with **saturated colored haze
@@ -144,7 +173,8 @@ re-fetch unless `--force`.
 
 `vite.config.ts` uses `base: '/'` because the repo is `ndrsn0208.github.io`
 (apex, not subpath). The GitHub Actions workflow at
-`.github/workflows/deploy.yml` builds on push to `main` and publishes via
+`.github/workflows/deploy.yml` builds on push to the default branch, `master`
+(and also supports `main`), and publishes via
 `actions/deploy-pages@v4`.
 
 ## Conventions

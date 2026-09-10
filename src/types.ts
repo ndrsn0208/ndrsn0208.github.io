@@ -51,7 +51,22 @@ export interface SiteConfig {
   title: string
   affiliation: string
   advisor: string
+  advisorUrl?: string
   bio: string
+  shortBio?: string
+  researchStatement?: string
+  researchQuestion?: string
+  researchVision?: string[]
+  personalNote?: string
+  education?: {
+    degree: string
+    field: string
+    institution: string
+    startYear: number
+    endYear: number
+    expected?: boolean
+  }
+  industryExperience?: { role: string; organization: string }[]
   researchInterests: string[]
   contacts: {
     email?: string
@@ -59,6 +74,7 @@ export interface SiteConfig {
     twitter?: string
     github?: string
     linkedin?: string
+    instagram?: string
     semanticScholar?: string
   }
   googleScholarId?: string

@@ -1,6 +1,27 @@
 # ndrsn0208.github.io
 
-Personal academic website — Vite + React + TypeScript + Tailwind, deployed to GitHub Pages at the apex of `https://ndrsn0208.github.io`. Four sections: **About**, **Publications**, **Blog**, **Photography**. Publication metadata is hand-curated in [`papers.toml`](papers.toml); a local script fetches arxiv metadata, summarizes each paper via your **local Claude Code CLI**, and writes [`src/data/publications.json`](src/data/publications.json). The deployed site runs zero AI calls in production.
+Personal academic website — Vite + React + TypeScript + Tailwind, deployed to GitHub Pages at the apex of `https://ndrsn0208.github.io`. Publication metadata is hand-curated in [`papers.toml`](papers.toml); a local script fetches arxiv metadata, summarizes each paper via your **local Claude Code CLI**, and writes [`src/data/publications.json`](src/data/publications.json). The deployed site runs zero AI calls in production.
+
+The homepage at `/` is **Lens**, with a minimal, humanist design and pure **Black**
+and warm **Paper** appearances. Education and industry sit side by side.
+On desktop, the introduction starts centered; opening Publications, About,
+Contact, or CV moves it smoothly left and reveals the right pane. Only that
+pane scrolls, and switching destinations preserves the reading position.
+Close or Escape returns to the centered introduction.
+
+Phones retain the continuous Publications list and native About/Contact dialogs.
+When the introductory navigation scrolls offscreen, its four destinations appear
+in an opaque text dock. The dock yields to the mobile search keyboard.
+The appearance button beside the introduction switches Black and Paper.
+
+The ten earlier redesign studies remain at `/designs`. The Still explorations
+are at `/still`: **Lens, Drift, and Frame**. Public pages have no design-selection
+bar; append `&review=1` to an explicit Still preview to open the archived review
+controls. Independent comparisons and saved reading state remain available.
+See [STILL_MINIMAL_BRIEF.md](STILL_MINIMAL_BRIEF.md) for the current visual direction.
+The earlier Still base is retained at `/designs/quiet`.
+See [DESIGN_STUDIES.md](DESIGN_STUDIES.md) for the directions, comparison view,
+and verification commands.
 
 ---
 
@@ -42,7 +63,7 @@ Requires Node 20+ and Python 3.11+ (the script uses the built-in `tomllib`).
 
 ## Deploy
 
-Push to `main`. The GitHub Actions workflow at [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) builds and publishes to GitHub Pages. In repo Settings → Pages, set the source to "GitHub Actions" the first time.
+Push to the default branch, `master`. The GitHub Actions workflow at [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) builds and publishes to GitHub Pages. Pages is configured to use GitHub Actions.
 
 ## What needs to be on your machine
 

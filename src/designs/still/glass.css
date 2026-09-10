@@ -1,0 +1,240 @@
+/* Glass belongs to the controls. Type and reading surfaces keep their own contrast. */
+.quiet-nav-caption { display: none; }
+.quiet-nav-label { display: inline-flex; align-items: center; gap: 6px; }
+
+.quiet[data-study] {
+  --glass-radius: 32px;
+  --glass-tint: rgb(28 29 28 / .68);
+  --glass-edge: rgb(255 255 247 / .30);
+  --glass-edge-dim: rgb(255 255 247 / .075);
+  --glass-highlight: rgb(255 255 255 / .14);
+  --glass-inner: rgb(255 255 255 / .045);
+  --glass-selected: rgb(255 255 245 / .12);
+  --glass-shadow: 0 8px 28px rgb(0 0 0 / .16), 0 1px 3px rgb(0 0 0 / .08);
+  --glass-solid: #20211f;
+  --glass-position: 28% 0%;
+  --quiet-display: "Fraunces", Georgia, serif;
+  isolation: isolate;
+}
+.quiet[data-study][data-edition="paper"] {
+  --glass-tint: rgb(255 253 247 / .62);
+  --glass-edge: rgb(255 255 255 / .96);
+  --glass-edge-dim: rgb(82 76 61 / .12);
+  --glass-highlight: rgb(255 255 255 / .9);
+  --glass-inner: rgb(255 255 255 / .48);
+  --glass-selected: rgb(109 96 69 / .075);
+  --glass-shadow: 0 9px 26px rgb(57 48 32 / .07), 0 1px 2px rgb(57 48 32 / .07);
+  --glass-solid: #fdfaf3;
+}
+
+.quiet[data-study] .still-glass {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid var(--glass-edge-dim);
+  border-radius: var(--glass-radius);
+  background:
+    linear-gradient(165deg, var(--glass-inner), transparent 48%),
+    var(--glass-tint);
+  color: var(--quiet-ink);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-edge), inset 0 -1px 0 var(--glass-edge-dim);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+  backdrop-filter: blur(18px) saturate(1.25);
+}
+
+/* A lit perimeter and a broad traveling reflection describe a curved surface. */
+.quiet[data-study] .still-glass::before,
+.quiet[data-study] .still-glass::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  content: "";
+}
+.quiet[data-study] .still-glass::before {
+  padding: 1px;
+  background: linear-gradient(138deg, var(--glass-edge) 0%, transparent 35%, var(--glass-edge-dim) 65%, var(--glass-edge) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.quiet[data-study] .still-glass::after {
+  background: radial-gradient(ellipse at var(--glass-position), var(--glass-highlight), transparent 66%);
+  opacity: .65;
+}
+.quiet[data-study] .quiet-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 28px;
+}
+.quiet[data-study] .quiet-nav {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 3px;
+  margin: 0;
+  padding: 5px;
+  width: max-content;
+  max-width: 100%;
+  font: 450 14px/1.3 "Geist", system-ui, sans-serif;
+}
+.quiet[data-study] .quiet-nav :where(button, a) {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  gap: 5px;
+  min-width: 66px;
+  min-height: 44px;
+  padding: 0 15px;
+  border-radius: calc(var(--glass-radius) - 6px);
+  color: var(--quiet-ink);
+  font-weight: 450;
+}
+.quiet[data-study] .quiet-nav .quiet-nav-indicator {
+  z-index: -1;
+  inset: 0;
+  height: auto;
+  border: 1px solid var(--glass-edge-dim);
+  border-radius: inherit;
+  background:
+    linear-gradient(150deg, var(--glass-inner), transparent 75%),
+    var(--glass-selected);
+  box-shadow: inset 0 1px 0 var(--glass-edge), 0 2px 6px rgb(0 0 0 / .035);
+}
+.quiet[data-study] .quiet-nav :where(button, a):focus-visible {
+  outline: 2px solid var(--quiet-ink);
+  outline-offset: 3px;
+}
+.quiet[data-study] .still-appearance {
+  --glass-radius: 50%;
+  display: grid;
+  flex: 0 0 46px;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.quiet[data-study] .still-appearance-icon { display: flex; width: 21px; height: 21px; }
+.quiet[data-study] .still-appearance-icon svg { width: 100%; height: 100%; }
+.quiet[data-study] .still-appearance:focus-visible { outline: 2px solid var(--quiet-ink); outline-offset: 4px; }
+
+/* A consistent reading layout makes changing appearance preserve spatial context. */
+.quiet[data-study] .quiet-header {
+  position: relative;
+  max-width: 860px;
+  gap: 15px;
+  padding-block: 30px 24px;
+}
+.quiet[data-study] .quiet-navigation-reading { margin-top: 0; }
+.quiet[data-study] .quiet-reader {
+  width: calc(100% - 64px);
+  max-width: 860px;
+  padding-block: 15px 56px;
+}
+.quiet[data-study] .quiet-reader-heading {
+  max-width: 100%;
+  margin: 0;
+  padding-bottom: 36px;
+}
+.quiet[data-study] .quiet-reader-heading h1 { font-family: var(--quiet-display); }
+.quiet[data-study] .quiet-reader-intro { max-width: 58ch; }
+.quiet[data-study] .quiet-reading-layout { grid-template-columns: 200px minmax(0, 1fr); gap: 50px; }
+.quiet[data-study] .quiet-reader-aside { position: sticky; top: 28px; display: block; align-self: start; }
+.quiet[data-study] .quiet-search { display: block; }
+.quiet[data-study] .quiet-search label { display: block; margin: 0 0 8px; }
+.quiet[data-study] .quiet-search label[for="quiet-topic"] { margin-top: 20px; }
+.quiet[data-study] .quiet-search-field { margin-bottom: 0; }
+.quiet[data-study] .quiet-search :where(input, select) { font-size: 16px; }
+.quiet[data-study] .quiet-search select { width: 100%; margin-top: 0; }
+.quiet[data-study] .quiet-result-count { margin-top: 14px; }
+.quiet[data-study] .quiet-question { margin-top: 34px; }
+.quiet[data-study] .quiet-scholar-link { margin-top: 20px; }
+.quiet[data-study] .quiet-paper { padding-block: 25px; }
+.quiet[data-study] .quiet-paper:first-child { padding-top: 0; }
+.quiet[data-study] .quiet-paper h2 { font-family: var(--quiet-display); font-size: 25px; line-height: 1.3; }
+.quiet[data-study] .quiet-paper-summary { font: 400 15px/1.75 "Geist", system-ui, sans-serif; }
+.quiet[data-study] .quiet-paper-content { font: 400 15px/1.75 "Geist", system-ui, sans-serif; }
+.quiet[data-study] .quiet-paper-details { border-radius: 12px; }
+.quiet[data-study] .quiet-paper-details > summary { min-height: 48px; }
+.quiet[data-study] .quiet-info-dialog {
+  padding: 26px 32px 32px;
+  border: 1px solid var(--quiet-rule);
+  border-radius: 28px;
+  background: var(--quiet-paper);
+  box-shadow: 0 32px 100px rgb(0 0 0 / .2);
+}
+.quiet[data-study] .quiet-info-dialog::backdrop {
+  background: rgb(0 0 0 / .32);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.quiet[data-study][data-edition="black"] .quiet-info-dialog::backdrop { background: rgb(0 0 0 / .58); }
+.quiet[data-study] .quiet-info-dialog h2 { font: 400 38px/1.15 var(--quiet-display); letter-spacing: -.045em; }
+.quiet[data-study] .quiet-dialog-copy { font: 400 16px/1.8 "Geist", system-ui, sans-serif; }
+.quiet[data-study] .quiet-dialog-top button {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--glass-edge-dim);
+  border-radius: 24px;
+  background: var(--glass-tint);
+}
+
+html[data-still-transition="study"]::view-transition-old(root) { animation: still-fade-out 220ms ease both; }
+html[data-still-transition="study"]::view-transition-new(root) { animation: still-screen-in 480ms cubic-bezier(.22,1,.36,1) both; }
+
+@media (max-width: 720px) {
+  .quiet[data-study] .quiet-navigation { gap: 9px; margin-top: 23px; }
+  .quiet[data-study] .quiet-nav { gap: 1px; padding: 4px; font-size: 13px; }
+  .quiet[data-study] .quiet-nav :where(button, a) { min-width: 55px; min-height: 44px; padding-inline: 11px; }
+  .quiet[data-study] .still-appearance { flex-basis: 44px; width: 44px; height: 44px; }
+  .quiet[data-study] .quiet-navigation-reading { margin-top: 0; }
+  .quiet[data-study] .quiet-header,
+  .quiet[data-study] .quiet-reader { width: calc(100% - 48px); }
+  .quiet[data-study] .quiet-header { padding-block: 22px 20px; }
+  .quiet[data-study] .quiet-reading-layout { grid-template-columns: minmax(0, 1fr); gap: 27px; }
+  .quiet[data-study] .quiet-reader-aside { position: static; }
+  .quiet[data-study] .quiet-question { display: none; }
+  .quiet[data-study] .quiet-scholar-link { margin-top: 15px; }
+  .quiet[data-study] .quiet-reader-heading h1 { font-size: 48px; }
+  .quiet[data-study] .quiet-info-dialog { padding: 20px 24px 27px; border-radius: 24px; }
+  .quiet[data-study] .quiet-info-dialog h2 { font-size: 33px; }
+  .quiet[data-study] .quiet-dialog-copy { font-size: 15px; }
+}
+@media (max-width: 359px) {
+  .quiet[data-study] .quiet-navigation { gap: 7px; }
+  .quiet[data-study] .quiet-nav { font-size: 12px; gap: 0; }
+  .quiet[data-study] .quiet-nav :where(button, a) { min-width: 44px; padding-inline: 4px; }
+  .quiet[data-study] .quiet-header,
+  .quiet[data-study] .quiet-reader { width: calc(100% - 36px); }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .quiet[data-study] .still-glass { background: var(--glass-solid); }
+}
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .quiet[data-study] .still-glass {
+    background: var(--glass-solid);
+    border-color: var(--quiet-muted);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .quiet[data-study] .still-glass::before,
+  .quiet[data-study] .still-glass::after { display: none; }
+  .quiet[data-study] .quiet-info-dialog::backdrop { -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+@media (forced-colors: active) {
+  .quiet[data-study] .still-glass { border: 1px solid ButtonText; background: Canvas; box-shadow: none; }
+  .quiet[data-study] .quiet-nav-indicator { outline: 1px solid Highlight; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .quiet[data-study] .still-glass::after { background-position: 28% 0%; }
+}

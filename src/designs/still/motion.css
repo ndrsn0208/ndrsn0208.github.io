@@ -1,0 +1,96 @@
+.quiet[data-edition] .quiet-home { padding-block: 54px 42px; }
+.quiet[data-edition] .quiet-emblem { margin-bottom: 19px; }
+.quiet[data-edition] .quiet-mark { width: 48px; }
+.quiet[data-edition] .quiet-background {
+  display: grid;
+  gap: 20px;
+  margin: 27px 0 0;
+  font: 400 14px/1.65 "Geist", system-ui, sans-serif;
+}
+.quiet[data-edition] .quiet-background dt {
+  margin-bottom: 7px;
+  color: var(--quiet-muted);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .105em;
+  text-transform: uppercase;
+}
+.quiet[data-edition] .quiet-background dd { margin: 0; }
+.quiet[data-edition] .quiet-experience-role { font-size: 15px; font-weight: 500; letter-spacing: -.015em; }
+.quiet[data-edition] .quiet-experience-meta { display: flex; flex-wrap: wrap; gap: 0 9px; margin-top: 3px; color: var(--quiet-muted); font-size: 13px; }
+.quiet[data-edition] .quiet-background .quiet-advisor { margin-top: 5px; font-size: 11px; line-height: 1.7; }
+.quiet[data-edition] .quiet-industry { padding-top: 16px; border-top: 1px solid var(--quiet-rule); }
+.quiet[data-edition] .quiet-primary-nav { margin-top: 23px; }
+.quiet[data-edition] .quiet-nav :where(button, a)::after { display: none; }
+.quiet[data-edition] .quiet-nav-indicator {
+  position: absolute;
+  left: 0;
+  right: 9px;
+  bottom: 5px;
+  height: 1px;
+  border-radius: 1px;
+  background: currentColor;
+  pointer-events: none;
+}
+.quiet[data-edition] .quiet-reading-nav .quiet-nav-indicator { right: 2px; }
+.quiet[data-edition] :where(.quiet-reader, .quiet-paper-content, .quiet-info-dialog[open]) { animation: none; }
+.quiet[data-edition] .quiet-paper-details[data-animating] { overflow: clip; will-change: height; }
+.quiet[data-edition] .quiet-paper-list { position: relative; }
+.quiet[data-edition] .quiet-paper { transform-origin: center top; }
+.quiet[data-edition] .quiet-info-dialog {
+  border-radius: 20px;
+  box-shadow: 0 24px 80px #00000018;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+.quiet[data-edition="black"] .quiet-info-dialog { box-shadow: none; }
+.quiet[data-edition] .quiet-info-dialog[open]::backdrop { animation: still-backdrop-in 280ms ease-out both; }
+.quiet[data-edition] .quiet-info-dialog[data-closing]::backdrop { animation: still-backdrop-out 200ms ease-in both; }
+.quiet[data-edition] .quiet-search select { border-radius: 8px; transition: border-color 180ms ease, box-shadow 180ms ease; }
+.quiet[data-edition] .quiet-search-field { transition: border-color 180ms ease; }
+.quiet[data-edition] .quiet-recent-paper .quiet-arrow { transition: translate 300ms cubic-bezier(.22,1,.36,1), color 200ms ease; }
+.quiet[data-edition] .quiet-recent-paper:hover .quiet-arrow { translate: 4px 0; }
+.quiet[data-edition] :where(.quiet-footer a, .quiet-paper-links a, .quiet-dialog-links a, .quiet-back, .quiet-dialog-top button, .quiet-copy-email) {
+  transition: color 180ms ease, opacity 180ms ease, translate 250ms cubic-bezier(.22,1,.36,1);
+}
+.quiet[data-edition] :where(.quiet-paper-links a, .quiet-dialog-links a, .quiet-dialog-top button, .quiet-copy-email):active { translate: 0 1px; }
+
+@keyframes still-backdrop-in { from { opacity: var(--quiet-backdrop-enter, 0); } to { opacity: 1; } }
+@keyframes still-backdrop-out { from { opacity: var(--quiet-backdrop-exit, 1); } to { opacity: 0; } }
+@keyframes still-screen-out { to { opacity: 0; transform: translateY(-7px) scale(.997); } }
+@keyframes still-screen-in { from { opacity: 0; transform: translateY(10px) scale(.997); } }
+@keyframes still-screen-back-out { to { opacity: 0; transform: translateY(7px) scale(.997); } }
+@keyframes still-screen-back-in { from { opacity: 0; transform: translateY(-10px) scale(.997); } }
+@keyframes still-fade-out { to { opacity: 0; } }
+@keyframes still-fade-in { from { opacity: 0; } }
+
+html[data-still-transition]::view-transition { pointer-events: none; }
+html[data-still-transition]::view-transition-group(*) { animation-duration: 420ms; animation-timing-function: cubic-bezier(.22,1,.36,1); }
+html[data-still-transition]::view-transition-old(root) { animation: still-screen-out 180ms ease-out both; }
+html[data-still-transition]::view-transition-new(root) { animation: still-screen-in 420ms cubic-bezier(.22,1,.36,1) both; }
+html[data-still-transition="back"]::view-transition-old(root) { animation-name: still-screen-back-out; }
+html[data-still-transition="back"]::view-transition-new(root) { animation-name: still-screen-back-in; }
+html[data-still-transition="edition"]::view-transition-old(root) { animation: still-fade-out 380ms ease both; }
+html[data-still-transition="edition"]::view-transition-new(root) { animation: still-fade-in 420ms ease both; }
+html[data-still-transition="controls"]::view-transition-old(root),
+html[data-still-transition="controls"]::view-transition-new(root) { animation: none; }
+html[data-still-transition]::view-transition-old(still-controls) { animation: still-fade-out 180ms ease both; }
+html[data-still-transition]::view-transition-new(still-controls) { animation: still-fade-in 240ms ease both; }
+
+@media (max-width: 720px) {
+  .quiet[data-edition] .quiet-home { padding-block: 32px 28px; }
+  .quiet[data-edition] .quiet-mark { width: 38px; }
+  .quiet[data-edition] .quiet-background { margin-top: 24px; gap: 17px; }
+  .quiet[data-edition] .quiet-experience-role { font-size: 14px; }
+  .quiet[data-edition] .quiet-experience-meta { column-gap: 7px; font-size: 12px; }
+  .quiet[data-edition] .quiet-industry { padding-top: 14px; }
+  .quiet[data-edition] .quiet-primary-nav { margin-top: 20px; }
+  .quiet[data-edition] .quiet-info-dialog { border-radius: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-still-transition]::view-transition-group(*),
+  html[data-still-transition]::view-transition-old(*),
+  html[data-still-transition]::view-transition-new(*) { animation: none !important; }
+  .quiet[data-edition] .quiet-info-dialog::backdrop { animation: none !important; }
+}

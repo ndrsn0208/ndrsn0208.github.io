@@ -3,7 +3,30 @@
   "title": "PhD Student in Computer Science",
   "affiliation": "Georgia Institute of Technology",
   "advisor": "Christopher MacLellan",
-  "bio": "I'm a CS PhD student at **Georgia Tech**, advised by **Christopher MacLellan**. My research sits at the intersection of **continual learning**, **compositional structure**, and **concept learning** — asking how an AI agent (a [robotic policy](/publications/trust-region-continual-learning-as-implicit-meta-2026), a [large language model](/publications/self-consolidating-language-models-continual-kno-2026), or a [diffusion model](/publications/avoid-catastrophic-forgetting-rank-1-fisher-from-2026)) can keep accumulating new skills over a lifetime without overwriting what it already knows.",
+  "advisorUrl": "https://chrismaclellan.com/",
+  "bio": "I'm a CS PhD student at **Georgia Tech**, advised by **Christopher MacLellan**, and currently interning at **Amazon**. I study **continual learning for deployment-time adaptation and generalization**.",
+  "shortBio": "PhD student at Georgia Tech. Currently interning at Amazon.",
+  "researchStatement": "I study continual learning for deployment-time adaptation and generalization.",
+  "researchQuestion": "How can deployed AI keep adapting and generalize to what comes next?",
+  "researchVision": [
+    "I want to build AI that keeps learning throughout its life: acquiring new knowledge, retaining useful skills, and adapting to unfamiliar situations.",
+    "I’m inspired by how people, especially children, learn so much from so little. My research on continual learning and compositionality explores how models can recombine past knowledge, adapt after deployment, and generalize to new problems."
+  ],
+  "personalNote": "Outside research, I’m a semi-professional photographer.",
+  "education": {
+    "degree": "PhD",
+    "field": "Computer Science",
+    "institution": "Georgia Tech",
+    "startYear": 2024,
+    "endYear": 2029,
+    "expected": true
+  },
+  "industryExperience": [
+    {
+      "role": "Research Intern",
+      "organization": "Amazon"
+    }
+  ],
   "researchInterests": [
     "continual learning",
     "compositionality",
@@ -15,7 +38,8 @@
   "contacts": {
     "email": "zekun@gatech.edu",
     "googleScholar": "https://scholar.google.com/citations?user=VIGsFiYAAAAJ",
-    "linkedin": "https://www.linkedin.com/in/andersonw142857/"
+    "linkedin": "https://www.linkedin.com/in/andersonw142857/",
+    "instagram": "https://www.instagram.com/ndrsnphotography/"
   },
   "googleScholarId": "VIGsFiYAAAAJ",
   "featuredPaperIds": [
