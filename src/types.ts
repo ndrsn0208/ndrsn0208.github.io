@@ -25,6 +25,8 @@ export interface Publication {
   authors: string[]
   venue: string
   year: number
+  /** Canonical paper page, including proceedings and DOI destinations. */
+  url?: string
   arxivId?: string
   arxivUrl?: string
   arxivHtmlUrl?: string
@@ -34,6 +36,7 @@ export interface Publication {
   summary: string
   tldr: string
   tags: string[]
+  equalContribution?: string[]
   /** Optional badge: "spotlight", "oral", "best paper", etc. */
   award?: string
   gradient?: PaperGradient
@@ -57,6 +60,12 @@ export interface SiteConfig {
   researchStatement?: string
   researchQuestion?: string
   researchVision?: string[]
+  academicService?: {
+    role: string
+    title: string
+    note?: string
+    url?: string
+  }[]
   personalNote?: string
   education?: {
     degree: string
@@ -66,7 +75,15 @@ export interface SiteConfig {
     endYear: number
     expected?: boolean
   }
-  industryExperience?: { role: string; organization: string }[]
+  previousEducation?: {
+    degree: string
+    field: string
+    institution: string
+    startYear: number
+    endYear: number
+    detail?: string
+  }[]
+  industryExperience?: { role: string; organization: string; location?: string; dates?: string }[]
   researchInterests: string[]
   contacts: {
     email?: string

@@ -7,9 +7,31 @@ export default function InfoCopy({ panel, emailStatus, onCopyEmail, onCV }: {
   onCV?: () => void
 }) {
   return panel === 'about' ? (
-    <div className="quiet-dialog-copy">
-      {profile.researchVision.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-      <p>
+    <div className="quiet-dialog-copy quiet-about-copy">
+      <p className="quiet-bio">{profile.bio}</p>
+      <section className="quiet-about-section" aria-label="Research focus">
+        <h3>Research focus</h3>
+        {profile.researchVision.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+      </section>
+      <section className="quiet-about-section" aria-label="Academic service">
+        <h3>Academic service</h3>
+        <dl className="quiet-service-list">
+          {profile.academicService.map((service) => (
+            <div key={service.role}>
+              <dt>{service.role}</dt>
+              <dd>
+                {service.url ? (
+                  <a className="quiet-service-link" href={service.url} target="_blank" rel="noreferrer">
+                    {service.title} <Arrow className="quiet-arrow" />
+                  </a>
+                ) : service.title}
+                {service.note && <span className="quiet-service-note">{service.note}</span>}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+      <p className="quiet-about-personal">
         {profile.personalNote.split(/(semi-professional photographer\.?)/).map((part, index) => (
           part.startsWith('semi-professional photographer')
             ? <span className="quiet-photographer" key={index}>{part}</span>

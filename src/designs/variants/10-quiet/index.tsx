@@ -18,6 +18,7 @@ import AppearanceSwitch from '../../still/AppearanceSwitch'
 import AdaptiveNavigation from '../../still/AdaptiveNavigation'
 import SplitPane, { useSplitLayout } from '../../still/SplitPane'
 import InfoCopy from '../../still/InfoCopy'
+import BackgroundInfo from '../../still/BackgroundInfo'
 import ResearchTopics from '../../still/ResearchTopics'
 import type { MobileStudyId } from '../../mobile/registry'
 import { getStillStudy, type StillStudyId } from '../../still/studies'
@@ -37,6 +38,7 @@ import '../../still/studies/frame/style.css'
 import '../../still/adaptive-navigation.css'
 import '../../still/split-layout.css'
 import '../../still/research-topics.css'
+import '../../still/profile-content.css'
 
 const artworks: Record<StillStudyId, ComponentType> = { lens: LensArtwork, drift: DriftArtwork, frame: FrameArtwork }
 
@@ -161,7 +163,7 @@ function QuietPaper({ paper, inline = false }: { paper: Publication; inline?: bo
       transition={{ duration: reduce ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
       style={!present ? { overflow: 'hidden', pointerEvents: 'none' } : undefined}
     >
-      <p className="quiet-paper-meta">{paper.venue}</p>
+      <p className="quiet-paper-meta">{paper.venue}{paper.award && <span> · {paper.award}</span>}</p>
       <PaperHeading id={`quiet-title-${paper.id}`} className="quiet-paper-title" tabIndex={-1}>
         {inline ? (
           <a href={paperHref(paper)} target="_blank" rel="noreferrer" className="quiet-paper-title-link">
@@ -186,9 +188,11 @@ function QuietPaper({ paper, inline = false }: { paper: Publication; inline?: bo
               <span key={`${author}-${index}`}>
                 {index > 0 && ', '}
                 {author === profile.name ? <strong>{author}</strong> : author}
+                {paper.equalContribution?.includes(author) && <sup>*</sup>}
               </span>
             ))}
           </p>
+          {Boolean(paper.equalContribution?.length) && <p className="quiet-equal-note">* Equal contribution.</p>}
           <DetailHeading>Research summary</DetailHeading>
           <p className="quiet-research-summary">{paper.summary}</p>
           <ul className="quiet-paper-topics" aria-label="Research topics">
@@ -584,31 +588,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
                 part === 'deployment-time' ? <span className="quiet-keep" key={index}>{part}</span> : part
               ))}
             </p>
-            <dl className="quiet-background" aria-label="Education and industry experience">
-              <div className="quiet-education">
-                <dt>Education</dt>
-                <dd>
-                  <p className="quiet-experience-role">{profile.education.degree}, <span className="quiet-experience-field">{profile.education.field}</span></p>
-                  <p className="quiet-experience-meta">
-                    <span className="quiet-experience-organization">{profile.education.institution}</span>
-                    <span className="quiet-experience-divider" aria-hidden="true">·</span>
-                    <span className="quiet-experience-dates">{profile.education.startYear}–{profile.education.endYear}{profile.education.expected ? ' (expected)' : ''}</span>
-                  </p>
-                  <p className="quiet-advisor">
-                    Advisor: <a href={profile.advisorUrl} target="_blank" rel="noreferrer">{profile.advisor}</a>
-                  </p>
-                </dd>
-              </div>
-              <div className="quiet-industry">
-                <dt>Industry experience</dt>
-                {profile.industryExperience.map((experience) => (
-                  <dd key={`${experience.role}-${experience.organization}`}>
-                    <p className="quiet-experience-role">{experience.role}</p>
-                    <p className="quiet-experience-meta"><span className="quiet-experience-organization">{experience.organization}</span></p>
-                  </dd>
-                ))}
-              </div>
-            </dl>
+            <BackgroundInfo />
             {!chapterLayout && navigation(true)}
           </div>
           {!inlinePublications && <aside className="quiet-recent" aria-labelledby="quiet-recent-label">

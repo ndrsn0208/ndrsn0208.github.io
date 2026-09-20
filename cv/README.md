@@ -1,39 +1,45 @@
 # Editable CV
 
 This editable LaTeX CV was reconstructed from the site's **four-page, May 2026
-CV** and updated in **September 2026** with the user's revised research interests
-and Amazon research internship.
+CV** and updated in **September 2026** with a contribution-focused research
+summary, Amazon research experience, workshop organization, and audited publications.
 
-Research Interests is now one sentence about continual learning of generative
-models for deployment-time generalization and adaptation without forgetting.
-Industry Experience follows Education and records a Research Intern position
-at Amazon in Washington, USA, researching one-shot harness adaptation to novel
-environments. The internship date range is awaiting confirmation and is omitted.
+Research Focus is one paragraph introducing continual learning for deployment-time
+adaptation and generalization in foundation models and AI agents. Keep specific
+papers, methods, and numerical results in Selected Publications rather
+than repeating them in Research Focus. Industry Experience follows Education and
+records Amazon, August 2026 to present, with WA, USA below the company and two
+projects: one-shot harness adaptation and self-improving agent harnesses.
+Academic Leadership and Service includes the upcoming NeurIPS 2026 TTCL
+workshop. Selected Publications links to Google Scholar for the complete record;
+the 18-entry Full Publication List appears at the end of the CV. Publication
+years follow the published venue or first preprint
+posting, rather than mixing first-posting and revision dates.
 
 ## Edit
 
 | File | Content |
 | --- | --- |
 | `metadata.tex` | Name, contact links, and the visible “Last updated” date |
-| `sections/01-research.tex` | Research interests |
+| `sections/01-research.tex` | One paragraph describing the broad research direction |
 | `sections/02-education.tex` | Degrees, dates, advisor, major/minor |
 | `sections/industry-experience.tex` | Amazon research internship, location, and research focus |
-| `sections/03-selected-publications.tex` | Five selected publications and their project descriptions |
-| `sections/04-all-publications.tex` | Sixteen publications, authors, venues, dates, and URLs |
+| `sections/03-selected-publications.tex` | Five selected publications, contribution summaries, and the Google Scholar link |
+| `sections/04-all-publications.tex` | Full Publication List at the end of the CV: eighteen works, authors, venues, years, and URLs |
 | `sections/05-research-experiences.tex` | Research positions |
 | `sections/06-teaching.tex` | Teaching positions |
 | `sections/07-talks.tex` | Talks and guest lectures |
-| `sections/08-service-and-advising.tex` | Service and advising |
+| `sections/08-service-and-advising.tex` | Workshop organization, academic service, and research mentoring |
 | `sections/09-skills.tex` | Skills |
 | `style.tex` | Fonts, measurements, and reusable entry commands |
-| `cv.tex` | Section order and the page break before Teaching Experiences |
+| `cv.tex` | Section order; content flows automatically between pages |
 
 Each publication uses this five-field command:
 
 ```tex
 \CVPublication
   {Paper title}
-  {Month Year}
+  {Year}
   {https://arxiv.org/abs/...}
   {\CVNameInAuthors\CVEqual, Another Author}
   {Venue}
@@ -234,7 +240,12 @@ The original PDF's SHA-256 is:
 These assets document the original reconstruction, before the September 2026
 content edits. The source PDF did not include Amazon; the new entry uses the
 user's supplied role, state, and research focus. No employment dates have been
-inferred. Other sections retain the baseline content: the PhD date reads
-`2024 – 2029` without “expected,” and the publication list has 16 entries.
-The original `ACL 2026 (63rd Annual Meeting …)` wording is retained verbatim
-and should be confirmed during a future publication update.
+inferred. The subsequently confirmed Amazon start date is August 2026.
+The September 18 publication audit added two works, corrected the two Findings
+of ACL venues and the geometric/topological paper's CogSci 2025 year, completed
+SCoL and Trust Region equal-contribution markers, and removed duplicate-version
+counting. The original 16-entry transcription is a historical baseline.
+The masked-word paper's equal-contribution marks are retained from the user's
+original CV; the publisher's contribution footnote was not independently read.
+The new diffusion/concept-formation paper uses its verified arXiv preprint status.
+Its author-reported ACS 2026 oral is recorded in the audit for a later metadata update.

@@ -99,7 +99,7 @@ export function papersForTopic(topic: string): Publication[] {
 }
 
 export function paperHref(paper: Publication): string {
-  return paper.arxivUrl ?? paper.pdfUrl ?? profile.scholar
+  return paper.url ?? paper.arxivUrl ?? paper.pdfUrl ?? profile.scholar
 }
 
 export function formatAuthors(paper: Publication, limit = 5): string {

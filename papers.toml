@@ -15,12 +15,39 @@
 # in production — everything is baked in at update time.
 #
 # ── Schema ─────────────────────────────────────────────────────────────
-#   arxiv  (required) — arxiv id; bare ("2401.12345"), URL, or with `vN`
+#   arxiv  — arxiv id; bare ("2401.12345"), URL, or with `vN`
+#   id + url — stable id and canonical page for papers without an arxiv record
 #   venue  (optional) — e.g. "ICML 2026", "NeurIPS 2025". Defaults to
 #                       "arXiv {YYYY}" inferred from the arxiv id.
 #   award  (optional) — "spotlight", "oral", "best paper", etc. Renders
 #                       as a small badge on the card and detail page.
+#   year, title, authors, url, pdf_url, summary, tldr, tags, equal_contribution
+#     override fetched metadata. A complete title/authors/summary/tldr/tags set
+#     can create an entry offline. Tags must use config.researchInterests.
+#
+# Bibliography reconciled with the author-reviewed CV, September 18, 2026.
+# Published venue pages and paper PDFs take precedence over arxiv title typos.
 # ───────────────────────────────────────────────────────────────────────
+
+[[paper]]
+arxiv = "2609.13047"
+title = "Diffusion Models and Concept Formation"
+authors = ["Zekun Wang", "Karthik Singaravadivelan", "Christopher J. MacLellan"]
+venue = "arXiv 2026"
+summary = "The modes of a diffusion model's noisy distributions form a hierarchy of concepts, connecting its learned score field with Cobweb's probabilistic concept tree. The paper studies their shared structure and basic-level categories, then compares recovered hierarchies on MNIST and Fashion-MNIST. This offers a cognitive interpretation of diffusion as a continuous model of concept formation."
+tldr = "A diffusion model's noise levels reveal a hierarchy of concepts, connecting image generation with how people organize knowledge."
+tags = ["diffusion models", "concept learning"]
+
+[[paper]]
+arxiv = "2606.14040"
+title = "Decompose Sparsely Where You Should, Absorb Densely Where You Should Not"
+authors = ["Ruixuan Deng", "Zehao Jin", "Zekun Wang", "Zihan Dong"]
+venue = "ICML 2026 Mechanistic Interpretability Workshop"
+award = "Poster"
+url = "https://openreview.net/forum?id=GhH9CY7Ohk"
+summary = "Not all language-model activations are well represented by a sparse dictionary. Adding a small dense linear bottleneck alongside sparse autoencoders separates a low-rank computational scaffold from sparse features. Experiments on Gemma-2-2B show fewer dense latents and better sparse probing, while ablations reveal the scaffold's importance to the model's predictions."
+tldr = "Separating a compact, dense scaffold from sparse features helps explain what sparse autoencoders capture—and what they represent poorly."
+tags = ["language models", "concept learning"]
 
 [[paper]]
 arxiv = "2603.29895"
@@ -28,26 +55,49 @@ venue = "CogSci 2026"
 
 [[paper]]
 arxiv = "2604.14489"
-venue = "ACL 2026"
+venue = "Findings of ACL 2026"
+url = "https://aclanthology.org/2026.findings-acl.1753/"
+pdf_url = "https://aclanthology.org/2026.findings-acl.1753.pdf"
+equal_contribution = ["Karthik Singaravadivelan", "Anant Gupta"]
 
 [[paper]]
 arxiv = "2510.02539"
-venue = "ACS 2025"
+venue = "Advances in Cognitive Systems 12 (2025)"
+equal_contribution = ["Anant Gupta", "Karthik Singaravadivelan"]
+
+[[paper]]
+id = "efficient-scalable-masked-word-prediction-concept-2025"
+url = "https://doi.org/10.1016/j.cogsys.2025.101371"
+title = "Efficient and Scalable Masked Word Prediction Using Concept Formation"
+authors = ["Xin Lian", "Zekun Wang", "Christopher J. MacLellan"]
+venue = "Cognitive Systems Research 92 (2025), 101371"
+year = 2025
+summary = "This work studies concept formation as an approach to masked word prediction, with a focus on efficient and scalable learning. It connects probabilistic concept learning with language prediction."
+tldr = "Using concept formation to study efficient and scalable masked word prediction."
+tags = ["language models", "concept learning"]
+# Equal-contribution credit retained from the author's supplied CV.
+equal_contribution = ["Xin Lian", "Zekun Wang"]
 
 [[paper]]
 arxiv = "2602.02417"
+equal_contribution = ["Zekun Wang", "Anant Gupta"]
 
 [[paper]]
 arxiv = "2509.23593"
 venue = "ICLR 2026"
+equal_contribution = ["Zekun Wang", "Anant Gupta"]
+summary = "In the low-SNR regime near convergence, this work derives a rank-1 approximation to the Fisher information for diffusion models and combines the resulting EWC penalty with generative distillation. It reduces mean FID-based forgetting by 67% relative to generative distillation alone on ImageNet-1k (32×32, 20 tasks), and nearly eliminates forgetting on MNIST and Fashion-MNIST."
 
 [[paper]]
 arxiv = "2601.18065"
-venue = "ACL 2026"
+venue = "Findings of ACL 2026"
+url = "https://aclanthology.org/2026.findings-acl.2081/"
+pdf_url = "https://aclanthology.org/2026.findings-acl.2081.pdf"
 
 [[paper]]
 arxiv = "2511.15029"
 venue = "AAAI 2026"
+url = "https://doi.org/10.1609/aaai.v40i3.37197"
 
 [[paper]]
 arxiv = "2509.23602"
@@ -59,22 +109,32 @@ venue = "NeuS 2025"
 
 [[paper]]
 arxiv = "2505.13281"
-venue = "CogSci 2026"
+venue = "CogSci 2025"
 
 [[paper]]
 arxiv = "2405.13828"
 venue = "NAACL 2025"
+url = "https://aclanthology.org/2025.naacl-long.46/"
+pdf_url = "https://aclanthology.org/2025.naacl-long.46.pdf"
+equal_contribution = ["Ziqiao Ma", "Zekun Wang"]
 
 [[paper]]
 arxiv = "2305.12544"
-venue = "COLING 2024"
+venue = "LREC-COLING 2024"
+url = "https://aclanthology.org/2024.lrec-main.708/"
+pdf_url = "https://aclanthology.org/2024.lrec-main.708.pdf"
+equal_contribution = ["Oana Ignat", "Zhijing Jin"]
 
 [[paper]]
 arxiv = "2205.02829"
 venue = "ICOTS 2022"
+title = "Foundations for AI-Assisted Formative Assessment Feedback for Short-Answer Tasks in Large-Enrollment Classes"
+authors = ["Susan E. Lloyd", "Matthew D. Beckman", "Dennis K. Pearl", "Rebecca J. Passonneau", "Zhaohui Li", "Zekun Wang"]
 
 [[paper]]
 arxiv = "2605.07076"
+equal_contribution = ["Zekun Wang", "Anant Gupta"]
+summary = "SCoL uses meta-reinforcement learning to decide which layers of a language model should consolidate streaming context into their weights. On SQuAD, it improves knowledge acquisition and retention over sequential SEAL. On LongBench v2, learned consolidation improves accuracy over sequential fine-tuning and transfers to longer streams."
 
 [[paper]]
 arxiv = "2605.07078"

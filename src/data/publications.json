@@ -1,6 +1,115 @@
 {
-  "lastUpdated": "2026-05-11T02:44:07+00:00",
+  "lastUpdated": "2026-09-20T04:45:16+00:00",
   "publications": [
+    {
+      "id": "diffusion-models-concept-formation-2026",
+      "venue": "arXiv 2026",
+      "year": 2026,
+      "addedAt": "2026-09-20T04:45:16+00:00",
+      "arxivId": "2609.13047",
+      "arxivUrl": "https://arxiv.org/abs/2609.13047",
+      "arxivHtmlUrl": "https://arxiv.org/html/2609.13047",
+      "arxivHtmlAvailable": false,
+      "pdfUrl": "https://arxiv.org/pdf/2609.13047",
+      "title": "Diffusion Models and Concept Formation",
+      "authors": [
+        "Zekun Wang",
+        "Karthik Singaravadivelan",
+        "Christopher J. MacLellan"
+      ],
+      "summary": "The modes of a diffusion model's noisy distributions form a hierarchy of concepts, connecting its learned score field with Cobweb's probabilistic concept tree. The paper studies their shared structure and basic-level categories, then compares recovered hierarchies on MNIST and Fashion-MNIST. This offers a cognitive interpretation of diffusion as a continuous model of concept formation.",
+      "tldr": "A diffusion model's noise levels reveal a hierarchy of concepts, connecting image generation with how people organize knowledge.",
+      "tags": [
+        "diffusion models",
+        "concept learning"
+      ],
+      "gradient": {
+        "stops": [
+          {
+            "color": "#A78BFA",
+            "pos": 0.0
+          },
+          {
+            "color": "#FFE3D8",
+            "pos": 74.65832303627394
+          },
+          {
+            "color": "#FF6B6B",
+            "pos": 162.32039057300426
+          },
+          {
+            "color": "#FFD7B5",
+            "pos": 291.23389422660694
+          }
+        ],
+        "fromAngle": 124,
+        "cx": 64,
+        "cy": 54,
+        "hx": 16,
+        "hy": 64,
+        "hIntensity": 0.643003,
+        "noiseFreq": 0.681943,
+        "noiseOpacity": 0.556511
+      }
+    },
+    {
+      "id": "decompose-sparsely-where-you-should-absorb-dense-2026",
+      "venue": "ICML 2026 Mechanistic Interpretability Workshop",
+      "year": 2026,
+      "addedAt": "2026-09-20T04:45:16+00:00",
+      "arxivId": "2606.14040",
+      "arxivUrl": "https://arxiv.org/abs/2606.14040",
+      "arxivHtmlUrl": "https://arxiv.org/html/2606.14040",
+      "arxivHtmlAvailable": false,
+      "pdfUrl": "https://arxiv.org/pdf/2606.14040",
+      "award": "Poster",
+      "title": "Decompose Sparsely Where You Should, Absorb Densely Where You Should Not",
+      "authors": [
+        "Ruixuan Deng",
+        "Zehao Jin",
+        "Zekun Wang",
+        "Zihan Dong"
+      ],
+      "url": "https://openreview.net/forum?id=GhH9CY7Ohk",
+      "summary": "Not all language-model activations are well represented by a sparse dictionary. Adding a small dense linear bottleneck alongside sparse autoencoders separates a low-rank computational scaffold from sparse features. Experiments on Gemma-2-2B show fewer dense latents and better sparse probing, while ablations reveal the scaffold's importance to the model's predictions.",
+      "tldr": "Separating a compact, dense scaffold from sparse features helps explain what sparse autoencoders capture—and what they represent poorly.",
+      "tags": [
+        "language models",
+        "concept learning"
+      ],
+      "gradient": {
+        "stops": [
+          {
+            "color": "#FCA5A5",
+            "pos": 8.112495744600892
+          },
+          {
+            "color": "#FF6B6B",
+            "pos": 82.56868280936033
+          },
+          {
+            "color": "#FFE3D8",
+            "pos": 144.03858444001526
+          },
+          {
+            "color": "#FFA94D",
+            "pos": 215.65342866349965
+          },
+          {
+            "color": "#F97316",
+            "pos": 293.23416064772755
+          }
+        ],
+        "fromAngle": 189,
+        "cx": 62,
+        "cy": 50,
+        "hx": 35,
+        "hy": 20,
+        "hIntensity": 0.507939,
+        "noiseFreq": 1.315975,
+        "noiseOpacity": 0.569234
+      }
+    },
     {
       "id": "test-time-compositional-generalization-diffusion-2026",
       "title": "Test-Time Compositional Generalization in Diffusion Models via Concept Discovery",
@@ -70,7 +179,7 @@
       "arxivHtmlUrl": "https://arxiv.org/html/2605.07076",
       "arxivHtmlAvailable": true,
       "pdfUrl": "https://arxiv.org/pdf/2605.07076",
-      "summary": "Long context windows expose evidence but don't ensure information is preserved and reused across streams. SCoL trains an LLM with meta-reinforcement learning to generate textual update directives picking which of its own layers to LoRA-adapt, instantiated with QA rewards on SQuAD and likelihood rewards on LongBench v2. It beats prompting, summarization, batch test-time training, and sequential finetuning, and learned selections concentrate on high-Fisher-information layers.",
+      "summary": "SCoL uses meta-reinforcement learning to decide which layers of a language model should consolidate streaming context into their weights. On SQuAD, it improves knowledge acquisition and retention over sequential SEAL. On LongBench v2, learned consolidation improves accuracy over sequential fine-tuning and transfers to longer streams.",
       "tldr": "SCoL post-trains an LLM via meta-RL to emit textual instructions selecting which Transformer layers to LoRA-update from streaming context, balancing acquisition against forgetting.",
       "tags": [
         "continual learning",
@@ -113,52 +222,11 @@
         "noiseFreq": 0.774312,
         "noiseOpacity": 0.415044
       },
-      "addedAt": "2026-05-11T02:43:58+00:00"
-    },
-    {
-      "id": "computer-vision-models-show-human-like-sensitivi-2026",
-      "title": "Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts",
-      "authors": [
+      "addedAt": "2026-05-11T02:43:58+00:00",
+      "equalContribution": [
         "Zekun Wang",
-        "Sashank Varma"
-      ],
-      "venue": "CogSci 2026",
-      "year": 2026,
-      "arxivId": "2505.13281",
-      "arxivUrl": "https://arxiv.org/abs/2505.13281",
-      "arxivHtmlUrl": "https://arxiv.org/html/2505.13281",
-      "arxivHtmlAvailable": true,
-      "pdfUrl": "https://arxiv.org/pdf/2505.13281",
-      "summary": "Cognitive scientists debate whether sensitivity to geometric and topological concepts is innate or learned from visual experience. The authors evaluate three classes of computer vision models — CNNs, transformers, and vision-language models — on a 43-concept odd-one-out task used with humans. Transformers exceed young children's accuracy and align with their concept-difficulty profile, while adding language degrades geometric sensitivity.",
-      "tldr": "Tests CNNs, vision transformers, and vision-language models on a 43-concept odd-one-out task and finds transformers match children's geometric sensitivity while VLMs underperform.",
-      "tags": [
-        "concept learning"
-      ],
-      "gradient": {
-        "stops": [
-          {
-            "color": "#FFE3D8",
-            "pos": 20.3750046947971
-          },
-          {
-            "color": "#FBCFE8",
-            "pos": 122.48440128285438
-          },
-          {
-            "color": "#FF6B6B",
-            "pos": 268.00835432019085
-          }
-        ],
-        "fromAngle": 25,
-        "cx": 26,
-        "cy": 67,
-        "hx": 7,
-        "hy": 13,
-        "hIntensity": 0.528911,
-        "noiseFreq": 1.289035,
-        "noiseOpacity": 0.45654
-      },
-      "addedAt": "2026-05-08T14:18:38+00:00"
+        "Anant Gupta"
+      ]
     },
     {
       "id": "computer-vision-modeling-development-geometric-n-2026",
@@ -203,7 +271,8 @@
         "noiseFreq": 1.299194,
         "noiseOpacity": 0.449416
       },
-      "addedAt": "2026-05-08T14:13:55+00:00"
+      "addedAt": "2026-05-08T14:13:55+00:00",
+      "url": "https://doi.org/10.1609/aaai.v40i3.37197"
     },
     {
       "id": "grounded-concreteness-human-like-concreteness-se-2026",
@@ -213,13 +282,13 @@
         "Zekun Wang",
         "Christopher J. MacLellan"
       ],
-      "venue": "ACL 2026",
+      "venue": "Findings of ACL 2026",
       "year": 2026,
       "arxivId": "2601.18065",
       "arxivUrl": "https://arxiv.org/abs/2601.18065",
       "arxivHtmlUrl": "https://arxiv.org/html/2601.18065",
       "arxivHtmlAvailable": true,
-      "pdfUrl": "https://arxiv.org/pdf/2601.18065",
+      "pdfUrl": "https://aclanthology.org/2026.findings-acl.2081.pdf",
       "summary": "Text-only LLMs lack perceptual grounding, raising doubts about whether they encode concreteness like humans do. The authors run a controlled LLM-vs-VLM ablation across Llama scales, measuring QA accuracy by concreteness, embedding geometry via t-SNE dispersion, and attention entropy. VLMs show larger gains on concrete inputs, clearer concreteness-structured representations, and ratings closer to human norms.",
       "tldr": "Compares matched Llama text and Llama Vision models on text-only prompts to test whether multimodal pretraining yields more human-like sensitivity to word concreteness.",
       "tags": [
@@ -258,7 +327,8 @@
         "noiseFreq": 0.663958,
         "noiseOpacity": 0.431908
       },
-      "addedAt": "2026-05-08T14:09:48+00:00"
+      "addedAt": "2026-05-08T14:09:48+00:00",
+      "url": "https://aclanthology.org/2026.findings-acl.2081/"
     },
     {
       "id": "trust-region-continual-learning-as-implicit-meta-2026",
@@ -313,7 +383,11 @@
         "noiseFreq": 1.074478,
         "noiseOpacity": 0.408467
       },
-      "addedAt": "2026-05-08T14:09:26+00:00"
+      "addedAt": "2026-05-08T14:09:26+00:00",
+      "equalContribution": [
+        "Zekun Wang",
+        "Anant Gupta"
+      ]
     },
     {
       "id": "cobwebtm-probabilistic-concept-formation-lifelon-2026",
@@ -324,13 +398,13 @@
         "Zekun Wang",
         "Christopher J. MacLellan"
       ],
-      "venue": "ACL 2026",
+      "venue": "Findings of ACL 2026",
       "year": 2026,
       "arxivId": "2604.14489",
       "arxivUrl": "https://arxiv.org/abs/2604.14489",
       "arxivHtmlUrl": "https://arxiv.org/html/2604.14489",
       "arxivHtmlAvailable": true,
-      "pdfUrl": "https://arxiv.org/pdf/2604.14489",
+      "pdfUrl": "https://aclanthology.org/2026.findings-acl.1753.pdf",
       "summary": "Neural topic models forget catastrophically and have fixed capacity, while LDA-style models can't adapt to streaming data or learn hierarchies online. CobwebTM applies incremental probabilistic concept formation over pretrained document embeddings, growing a semantic tree without predefining topic count. Across multiple datasets it matches or beats neural and clustering baselines on topic coherence, temporal stability, and hierarchy quality.",
       "tldr": "CobwebTM adapts the Cobweb concept-formation algorithm to dense document embeddings, building a topic hierarchy incrementally as documents stream in.",
       "tags": [
@@ -374,7 +448,12 @@
         "noiseFreq": 1.221936,
         "noiseOpacity": 0.522435
       },
-      "addedAt": "2026-05-08T14:05:37+00:00"
+      "addedAt": "2026-05-08T14:05:37+00:00",
+      "url": "https://aclanthology.org/2026.findings-acl.1753/",
+      "equalContribution": [
+        "Karthik Singaravadivelan",
+        "Anant Gupta"
+      ]
     },
     {
       "id": "avoid-catastrophic-forgetting-rank-1-fisher-from-2026",
@@ -392,7 +471,7 @@
       "arxivHtmlUrl": "https://arxiv.org/html/2509.23593",
       "arxivHtmlAvailable": true,
       "pdfUrl": "https://arxiv.org/pdf/2509.23593",
-      "summary": "Continual learning of diffusion models suffers from catastrophic forgetting: replay drifts and diagonal-Fisher EWC misses cross-parameter curvature. The authors show diffusion gradients become rank-1 and aligned with the mean gradient at low SNR, and use this to build a rank-1 EWC penalty combined with replay. On MNIST, FashionMNIST, CIFAR-10, and ImageNet-1k, forgetting is halved or nearly eliminated versus baselines.",
+      "summary": "In the low-SNR regime near convergence, this work derives a rank-1 approximation to the Fisher information for diffusion models and combines the resulting EWC penalty with generative distillation. It reduces mean FID-based forgetting by 67% relative to generative distillation alone on ImageNet-1k (32×32, 20 tasks), and nearly eliminates forgetting on MNIST and Fashion-MNIST.",
       "tldr": "Proposes a rank-1 Fisher approximation for EWC that exploits the collinear per-sample gradients of diffusion models at low SNR, paired with generative replay for continual image generation.",
       "tags": [
         "continual learning",
@@ -430,7 +509,11 @@
         "noiseFreq": 1.176138,
         "noiseOpacity": 0.43513
       },
-      "addedAt": "2026-05-08T13:51:32+00:00"
+      "addedAt": "2026-05-08T13:51:32+00:00",
+      "equalContribution": [
+        "Zekun Wang",
+        "Anant Gupta"
+      ]
     },
     {
       "id": "rational-account-categorization-based-informatio-2026",
@@ -477,6 +560,61 @@
       "addedAt": "2026-05-08T13:46:50+00:00"
     },
     {
+      "id": "efficient-scalable-masked-word-prediction-concept-2025",
+      "venue": "Cognitive Systems Research 92 (2025), 101371",
+      "year": 2025,
+      "addedAt": "2026-09-20T04:45:16+00:00",
+      "title": "Efficient and Scalable Masked Word Prediction Using Concept Formation",
+      "authors": [
+        "Xin Lian",
+        "Zekun Wang",
+        "Christopher J. MacLellan"
+      ],
+      "url": "https://doi.org/10.1016/j.cogsys.2025.101371",
+      "summary": "This work studies concept formation as an approach to masked word prediction, with a focus on efficient and scalable learning. It connects probabilistic concept learning with language prediction.",
+      "tldr": "Using concept formation to study efficient and scalable masked word prediction.",
+      "tags": [
+        "language models",
+        "concept learning"
+      ],
+      "equalContribution": [
+        "Xin Lian",
+        "Zekun Wang"
+      ],
+      "gradient": {
+        "stops": [
+          {
+            "color": "#FF6B6B",
+            "pos": 2.921054782345891
+          },
+          {
+            "color": "#FBCFE8",
+            "pos": 69.36751370877028
+          },
+          {
+            "color": "#FFE3D8",
+            "pos": 129.43793901521713
+          },
+          {
+            "color": "#FFA94D",
+            "pos": 206.75917575135827
+          },
+          {
+            "color": "#F97316",
+            "pos": 287.55912959575653
+          }
+        ],
+        "fromAngle": 243,
+        "cx": 21,
+        "cy": 36,
+        "hx": 92,
+        "hy": 33,
+        "hIntensity": 0.59498,
+        "noiseFreq": 0.738122,
+        "noiseOpacity": 0.493156
+      }
+    },
+    {
       "id": "babysit-language-model-from-scratch-interactive-2025",
       "title": "Babysit A Language Model From Scratch: Interactive Language Learning by Trials and Demonstrations",
       "authors": [
@@ -490,7 +628,7 @@
       "arxivUrl": "https://arxiv.org/abs/2405.13828",
       "arxivHtmlUrl": "https://arxiv.org/html/2405.13828",
       "arxivHtmlAvailable": true,
-      "pdfUrl": "https://arxiv.org/pdf/2405.13828",
+      "pdfUrl": "https://aclanthology.org/2025.naacl-long.46.pdf",
       "summary": "Standard language models learn non-interactively from corpora, unlike children who get corrective feedback from caregivers. The authors propose Trial-and-Demonstration (TnD): a randomly initialized GPT-2 student produces trials, a teacher model gives demonstrations, and an age-conditioned reward drives RL updates. TnD speeds up word acquisition for equal- and smaller-sized students, with trial frequency strongly correlating with per-word learning curves.",
       "tldr": "Trains GPT-2 from scratch with a teacher model giving demonstrations on student trials, scored by an age-conditioned reward, to accelerate word acquisition.",
       "tags": [
@@ -525,7 +663,57 @@
         "noiseFreq": 1.134601,
         "noiseOpacity": 0.636447
       },
-      "addedAt": "2026-05-08T14:19:43+00:00"
+      "addedAt": "2026-05-08T14:19:43+00:00",
+      "url": "https://aclanthology.org/2025.naacl-long.46/",
+      "equalContribution": [
+        "Ziqiao Ma",
+        "Zekun Wang"
+      ]
+    },
+    {
+      "id": "computer-vision-models-show-human-like-sensitivi-2026",
+      "title": "Computer Vision Models Show Human-Like Sensitivity to Geometric and Topological Concepts",
+      "authors": [
+        "Zekun Wang",
+        "Sashank Varma"
+      ],
+      "venue": "CogSci 2025",
+      "year": 2025,
+      "arxivId": "2505.13281",
+      "arxivUrl": "https://arxiv.org/abs/2505.13281",
+      "arxivHtmlUrl": "https://arxiv.org/html/2505.13281",
+      "arxivHtmlAvailable": true,
+      "pdfUrl": "https://arxiv.org/pdf/2505.13281",
+      "summary": "Cognitive scientists debate whether sensitivity to geometric and topological concepts is innate or learned from visual experience. The authors evaluate three classes of computer vision models — CNNs, transformers, and vision-language models — on a 43-concept odd-one-out task used with humans. Transformers exceed young children's accuracy and align with their concept-difficulty profile, while adding language degrades geometric sensitivity.",
+      "tldr": "Tests CNNs, vision transformers, and vision-language models on a 43-concept odd-one-out task and finds transformers match children's geometric sensitivity while VLMs underperform.",
+      "tags": [
+        "concept learning"
+      ],
+      "gradient": {
+        "stops": [
+          {
+            "color": "#FFE3D8",
+            "pos": 20.3750046947971
+          },
+          {
+            "color": "#FBCFE8",
+            "pos": 122.48440128285438
+          },
+          {
+            "color": "#FF6B6B",
+            "pos": 268.00835432019085
+          }
+        ],
+        "fromAngle": 25,
+        "cx": 26,
+        "cy": 67,
+        "hx": 7,
+        "hy": 13,
+        "hIntensity": 0.528911,
+        "noiseFreq": 1.289035,
+        "noiseOpacity": 0.45654
+      },
+      "addedAt": "2026-05-08T14:18:38+00:00"
     },
     {
       "id": "hierarchical-semantic-retrieval-cobweb-2025",
@@ -535,7 +723,7 @@
         "Karthik Singaravadivelan",
         "Zekun Wang"
       ],
-      "venue": "ACS 2025",
+      "venue": "Advances in Cognitive Systems 12 (2025)",
       "year": 2025,
       "arxivId": "2510.02539",
       "arxivUrl": "https://arxiv.org/abs/2510.02539",
@@ -576,7 +764,11 @@
         "noiseFreq": 1.195387,
         "noiseOpacity": 0.492779
       },
-      "addedAt": "2026-05-08T14:06:47+00:00"
+      "addedAt": "2026-05-08T14:06:47+00:00",
+      "equalContribution": [
+        "Anant Gupta",
+        "Karthik Singaravadivelan"
+      ]
     },
     {
       "id": "taxonomic-networks-representation-neuro-symbolic-2025",
@@ -704,13 +896,13 @@
         "Winston Wu",
         "Rada Mihalcea"
       ],
-      "venue": "COLING 2024",
+      "venue": "LREC-COLING 2024",
       "year": 2024,
       "arxivId": "2305.12544",
       "arxivUrl": "https://arxiv.org/abs/2305.12544",
       "arxivHtmlUrl": "https://arxiv.org/html/2305.12544",
       "arxivHtmlAvailable": true,
-      "pdfUrl": "https://arxiv.org/pdf/2305.12544",
+      "pdfUrl": "https://aclanthology.org/2024.lrec-main.708.pdf",
       "summary": "Public discourse around LLMs has convinced many junior researchers that NLP is 'solved,' creating uncertainty about what to work on. The University of Michigan LIT lab compiles 45 research directions across fundamental, responsible, and applied NLP that LLMs do not address and that fit academic compute budgets. The result is a roadmap of PhD-scale problems outside the LLM-scaling paradigm.",
       "tldr": "This position paper catalogs 14 NLP research areas and 45 specific directions that remain open and tractable for academic labs despite LLM progress.",
       "tags": [
@@ -740,16 +932,21 @@
         "noiseFreq": 0.947888,
         "noiseOpacity": 0.62762
       },
-      "addedAt": "2026-05-08T14:20:23+00:00"
+      "addedAt": "2026-05-08T14:20:23+00:00",
+      "url": "https://aclanthology.org/2024.lrec-main.708/",
+      "equalContribution": [
+        "Oana Ignat",
+        "Zhijing Jin"
+      ]
     },
     {
       "id": "foundations-nlp-assisted-formative-assessment-fe-2022",
-      "title": "Foundations for NLP-assisted formative assessment feedback for short-answer tasks in large-enrollment classes",
+      "title": "Foundations for AI-Assisted Formative Assessment Feedback for Short-Answer Tasks in Large-Enrollment Classes",
       "authors": [
-        "Susan Lloyd",
-        "Matthew Beckman",
-        "Dennis Pearl",
-        "Rebecca Passonneau",
+        "Susan E. Lloyd",
+        "Matthew D. Beckman",
+        "Dennis K. Pearl",
+        "Rebecca J. Passonneau",
         "Zhaohui Li",
         "Zekun Wang"
       ],

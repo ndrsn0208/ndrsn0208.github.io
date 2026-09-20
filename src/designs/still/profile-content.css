@@ -1,0 +1,162 @@
+/* Biography and education share the same quiet, upright reading language. */
+.quiet[data-edition] .quiet-education-heading {
+  position: relative;
+  padding-right: 66px;
+}
+
+.quiet[data-edition] .quiet-education-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  min-width: 48px;
+  min-height: 44px;
+  padding: 8px 0 8px 6px;
+  transform: translateY(-50%);
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--quiet-body);
+  font: inherit;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+.quiet[data-edition] .quiet-education-toggle:hover {
+  color: var(--quiet-ink);
+}
+
+.quiet[data-edition] .quiet-education-toggle:focus-visible {
+  outline: 1px solid var(--quiet-ink);
+  outline-offset: 3px;
+}
+
+.quiet[data-edition] .quiet-experience-location {
+  display: block;
+  margin-top: 2px;
+  color: var(--quiet-muted);
+  font-size: .9em;
+}
+
+.quiet[data-edition] .quiet-education-history {
+  grid-column: 1 / -1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.quiet[data-edition] .quiet-education-history-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 0;
+  margin: 22px 0 0;
+  padding: 19px 0 2px;
+  border-top: 1px solid var(--quiet-rule);
+  list-style: none;
+  text-align: left;
+}
+
+.quiet[data-edition] .quiet-education-history-list > li:first-child { padding-right: 22px; }
+.quiet[data-edition] .quiet-education-history-list > li + li { padding-left: 22px; }
+
+.quiet[data-edition] .quiet-history-degree {
+  color: var(--quiet-ink);
+  font: 500 18px/1.35 var(--quiet-display);
+  letter-spacing: -.01em;
+}
+
+.quiet[data-edition] .quiet-history-institution {
+  margin-top: 7px;
+  color: var(--quiet-body);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.quiet[data-edition] :is(.quiet-history-dates, .quiet-history-detail) {
+  margin-top: 5px;
+  color: var(--quiet-muted);
+  font-size: 12.5px;
+  line-height: 1.5;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.quiet[data-edition] .quiet-history-detail { margin-top: 9px; }
+
+.quiet[data-edition] .quiet-about-section {
+  margin-top: 30px;
+  padding-top: 23px;
+  border-top: 1px solid var(--quiet-rule);
+}
+
+.quiet[data-edition] .quiet-about-section > h3 {
+  margin-bottom: 14px;
+  color: var(--quiet-ink);
+  font: 500 14px/1.5 var(--type-ui, "Geist", system-ui, sans-serif);
+  letter-spacing: .015em;
+}
+
+.quiet[data-edition] .quiet-about-section > p + p { margin-top: 20px; }
+
+.quiet[data-edition] .quiet-service-list {
+  display: grid;
+  gap: 19px;
+}
+
+.quiet[data-edition] .quiet-service-list dt {
+  margin-bottom: 4px;
+  color: var(--quiet-muted);
+  font: 400 13px/1.5 var(--type-ui, "Geist", system-ui, sans-serif);
+}
+
+.quiet[data-edition] .quiet-service-list dd {
+  margin: 0;
+  font-size: .94em;
+  line-height: 1.5;
+}
+
+.quiet[data-edition] .quiet-service-link { color: var(--quiet-ink); }
+.quiet[data-edition] .quiet-service-link .quiet-arrow {
+  display: inline;
+  width: 13px;
+  height: 13px;
+  margin-left: 3px;
+  vertical-align: baseline;
+}
+.quiet[data-edition] .quiet-service-link:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.quiet[data-edition] .quiet-service-note {
+  display: block;
+  margin-top: 7px;
+  color: var(--quiet-muted);
+  font: 400 13px/1.55 var(--type-ui, "Geist", system-ui, sans-serif);
+}
+
+.quiet[data-edition] .quiet-about-personal {
+  margin-top: 29px;
+  padding-top: 23px;
+  border-top: 1px solid var(--quiet-rule);
+}
+
+.quiet[data-edition] .quiet-equal-note {
+  margin: -12px 0 22px;
+  color: var(--quiet-muted);
+  font: 400 13px/1.5 var(--type-ui, "Geist", system-ui, sans-serif);
+}
+
+@media (max-width: 1023px) {
+  .quiet[data-edition] .quiet-education-history-list > li:first-child { padding-right: 16px; }
+  .quiet[data-edition] .quiet-education-history-list > li + li { padding-left: 16px; }
+}
+
+@media (max-width: 359px) {
+  .quiet[data-edition] .quiet-education-heading { padding-right: 59px; }
+  .quiet[data-edition] .quiet-education-history-list > li:first-child { padding-right: 12px; }
+  .quiet[data-edition] .quiet-education-history-list > li + li { padding-left: 12px; }
+  .quiet[data-edition] .quiet-history-degree { font-size: 17px; }
+}

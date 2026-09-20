@@ -4,13 +4,29 @@
   "affiliation": "Georgia Institute of Technology",
   "advisor": "Christopher MacLellan",
   "advisorUrl": "https://chrismaclellan.com/",
-  "bio": "I'm a CS PhD student at **Georgia Tech**, advised by **Christopher MacLellan**, and currently interning at **Amazon**. I study **continual learning for deployment-time adaptation and generalization**.",
-  "shortBio": "PhD student at Georgia Tech. Currently interning at Amazon.",
+  "bio": "I'm a third-year PhD student in Computer Science at Georgia Tech, advised by Christopher MacLellan. I'm also a Research Intern at Amazon in Washington, working on deployment-time agent adaptation and self-improving harnesses.",
+  "shortBio": "CS PhD student at Georgia Tech and Research Intern at Amazon.",
   "researchStatement": "I study continual learning for deployment-time adaptation and generalization.",
   "researchQuestion": "How can deployed AI keep adapting and generalize to what comes next?",
   "researchVision": [
-    "I want to build AI that keeps learning throughout its life: acquiring new knowledge, retaining useful skills, and adapting to unfamiliar situations.",
-    "I’m inspired by how people, especially children, learn so much from so little. My research on continual learning and compositionality explores how models can recombine past knowledge, adapt after deployment, and generalize to new problems."
+    "I study continual learning for deployment-time adaptation and generalization in foundation models and AI agents. I investigate how these systems can learn from ongoing experience, adapt to unfamiliar tasks and environments, and improve over time while preserving prior knowledge and capabilities.",
+    "I'm inspired by how people, especially children, learn so much from so little. My broader goal is to understand how AI can build reusable knowledge from experience and combine familiar ideas to solve new problems."
+  ],
+  "academicService": [
+    {
+      "role": "Workshop co-organizer",
+      "title": "Towards Test-Time Continual Learning Agents (TTCL)",
+      "note": "NeurIPS 2026 · December 2026 · upcoming",
+      "url": "https://ttcl-agents.github.io/"
+    },
+    {
+      "role": "Reviewer",
+      "title": "NeurIPS, ICML, ICLR, AAAI, ACL, NAACL, and ACS."
+    },
+    {
+      "role": "Student volunteer",
+      "title": "Advances in Cognitive Systems (ACS)."
+    }
   ],
   "personalNote": "Outside research, I’m a semi-professional photographer.",
   "education": {
@@ -21,10 +37,29 @@
     "endYear": 2029,
     "expected": true
   },
+  "previousEducation": [
+    {
+      "degree": "M.S.",
+      "field": "Computer Science",
+      "institution": "University of Michigan",
+      "startYear": 2022,
+      "endYear": 2024
+    },
+    {
+      "degree": "B.S.",
+      "field": "Computer Science",
+      "institution": "Pennsylvania State University",
+      "startYear": 2018,
+      "endYear": 2022,
+      "detail": "Double major in Mathematics. Minor in Economics."
+    }
+  ],
   "industryExperience": [
     {
       "role": "Research Intern",
-      "organization": "Amazon"
+      "organization": "Amazon",
+      "location": "Washington, USA",
+      "dates": "Aug. 2026–present"
     }
   ],
   "researchInterests": [

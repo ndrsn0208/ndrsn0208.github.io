@@ -12,6 +12,7 @@ function PubRow({ p, index }: { p: Publication; index: number }) {
   const reduce = useReducedMotion()
 
   const links: { label: string; href: string }[] = []
+  if (p.url) links.push({ label: 'Paper ↗', href: p.url })
   if (p.arxivUrl) links.push({ label: 'arXiv ↗', href: p.arxivUrl })
   if (p.arxivHtmlAvailable && p.arxivHtmlUrl) links.push({ label: 'HTML ↗', href: p.arxivHtmlUrl })
   if (p.pdfUrl) links.push({ label: 'PDF ↗', href: p.pdfUrl })
