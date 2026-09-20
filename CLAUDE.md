@@ -40,9 +40,10 @@ pane mounted to preserve reading position and paper state. Close/Escape returns
 to the centered introduction and restores focus. Destination hashes support
 browser history; appearance changes must preserve the hash.
 `SplitPane.tsx` and `split-layout.css` define the desktop composition.
-`BackgroundInfo.tsx` adds a reversible, animated **More / Less** disclosure below
-the current education and industry records. It shows the earlier Michigan and
-Penn State degrees while preserving the two-column layout. `InfoCopy.tsx`
+`BackgroundInfo.tsx` adds a reversible, animated **More / Less** disclosure inside
+the Education record. Both earlier degrees, Michigan and Penn State, stay stacked
+in that column beneath the PhD; never place either beneath Industry experience.
+The industry record stays aligned to the top of its own column. `InfoCopy.tsx`
 renders the short biography, broad research focus, academic service, and personal
 note from `config.json`; `profile-content.css` supplies their shared reading styles.
 

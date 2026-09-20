@@ -41,6 +41,30 @@ export default function BackgroundInfo() {
           <p className="quiet-advisor">
             Advisor: <a href={profile.advisorUrl} target="_blank" rel="noreferrer">{profile.advisor}</a>
           </p>
+          <motion.div
+            id={historyId}
+            className="quiet-education-history"
+            role="region"
+            aria-label="Previous education"
+            aria-hidden={!expanded}
+            initial={false}
+            animate={{ height: expanded ? 'auto' : 0, opacity: expanded ? 1 : 0 }}
+            transition={reduce ? { duration: 0 } : {
+              height: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
+              opacity: { duration: expanded ? 0.3 : 0.18 },
+            }}
+          >
+            <ul className="quiet-education-history-list">
+              {profile.previousEducation.map((education) => (
+                <li key={education.institution}>
+                  <p className="quiet-history-degree">{education.degree}, {education.field}</p>
+                  <p className="quiet-history-institution">{education.institution}</p>
+                  <p className="quiet-history-dates">{education.startYear}–{education.endYear}</p>
+                  {education.detail && <p className="quiet-history-detail">{education.detail}</p>}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
         </dd>
       </div>
       <div className="quiet-industry">
@@ -56,31 +80,6 @@ export default function BackgroundInfo() {
           </dd>
         ))}
       </div>
-      <motion.div
-        id={historyId}
-        className="quiet-education-history"
-        aria-hidden={!expanded}
-        initial={false}
-        animate={{ height: expanded ? 'auto' : 0, opacity: expanded ? 1 : 0 }}
-        transition={reduce ? { duration: 0 } : {
-          height: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
-          opacity: { duration: expanded ? 0.3 : 0.18 },
-        }}
-      >
-        <dt className="ds-visually-hidden">Previous education</dt>
-        <dd>
-          <ul className="quiet-education-history-list">
-            {profile.previousEducation.map((education) => (
-              <li key={education.institution}>
-                <p className="quiet-history-degree">{education.degree}, {education.field}</p>
-                <p className="quiet-history-institution">{education.institution}</p>
-                <p className="quiet-history-dates">{education.startYear}–{education.endYear}</p>
-                {education.detail && <p className="quiet-history-detail">{education.detail}</p>}
-              </li>
-            ))}
-          </ul>
-        </dd>
-      </motion.div>
     </dl>
   )
 }

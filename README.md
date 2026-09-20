@@ -7,7 +7,7 @@ with a minimal, humanist design and pure **Black** and warm **Paper** appearance
 Upright EB Garamond and Source Sans 3 give the text a book-like rhythm.
 Education and industry sit side by side.
 Education's **More** control smoothly expands the earlier Michigan and Penn State
-degrees. About includes a short biography, broad research focus, academic service,
+degrees within the Education column, one below the other. About includes a short biography, broad research focus, academic service,
 and the photography note. Profile content lives in `src/data/config.json`.
 On desktop, the introduction starts centered; opening Publications, About,
 Contact, or CV moves it smoothly left and reveals the right pane. Only that
