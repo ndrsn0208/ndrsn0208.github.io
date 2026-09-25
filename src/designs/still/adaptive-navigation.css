@@ -33,6 +33,10 @@
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
+
+.quiet[data-study="lens"][data-edition] .quiet-dock-nav[data-destination-count="3"] {
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr) minmax(44px, .7fr);
+}
 .quiet[data-study="lens"][data-edition] .quiet-dock-nav :where(button, a) {
   flex-direction: row;
   min-width: 44px;

@@ -147,6 +147,9 @@
     margin-inline: auto;
     font: 400 14px/1.4 var(--type-ui);
   }
+  .mobile-preview .quiet[data-study="lens"][data-edition] .quiet-chapter-navigation .quiet-primary-nav[data-destination-count="3"] {
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr) minmax(44px, .7fr);
+  }
   .mobile-preview .quiet[data-layout="chapters"] .quiet-chapter-navigation :where(a, button) {
     min-width: 44px;
     min-height: 48px;

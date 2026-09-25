@@ -4,7 +4,7 @@ import AppearanceSwitch from './AppearanceSwitch'
 import StillNavigation from './StillNavigation'
 import type { StillEditionId } from './editions'
 
-type NavigationProps = Pick<ComponentProps<typeof StillNavigation>, 'mode' | 'info' | 'onPublications' | 'onInfo' | 'panels'>
+type NavigationProps = Pick<ComponentProps<typeof StillNavigation>, 'mode' | 'info' | 'onPublications' | 'onInfo' | 'panels' | 'contactInline'>
 
 function Dock({ active, ...props }: NavigationProps & { active: boolean }) {
   const reduce = useReducedMotion()

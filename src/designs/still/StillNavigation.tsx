@@ -31,13 +31,14 @@ function NavigationIcon({ destination }: { destination: Destination }) {
 }
 
 export default function StillNavigation({
-  primary = false, glass = false, inline = false, docked = false, inactive = false, mode, info, onPublications, onInfo, panels,
+  primary = false, glass = false, inline = false, docked = false, inactive = false, contactInline = false, mode, info, onPublications, onInfo, panels,
 }: {
   primary?: boolean
   glass?: boolean
   inline?: boolean
   docked?: boolean
   inactive?: boolean
+  contactInline?: boolean
   mode: 'home' | 'work'
   info: 'about' | 'contact' | null
   onPublications: () => void
@@ -82,6 +83,7 @@ export default function StillNavigation({
         aria-label="Main navigation"
         aria-hidden={inactive || undefined}
         data-inactive={inactive || undefined}
+        data-destination-count={contactInline ? 3 : 4}
         onMouseLeave={() => setHovered(null)}
         onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setHovered(null) }}
       >
@@ -118,14 +120,14 @@ export default function StillNavigation({
           onHoverStart={() => setHovered('about')} onFocus={() => setHovered('about')}
           onClick={() => panels ? panels.onChange('about') : onInfo('about')}
         ><NavigationIcon destination="about" /><span className="quiet-nav-label">About</span><span className="quiet-nav-caption" aria-hidden="true">Background</span>{indicator('about')}</motion.button>
-        <motion.button
+        {!contactInline && <motion.button
           {...feedback} type="button" aria-label="Contact" aria-haspopup={panels ? undefined : 'dialog'}
           aria-expanded={panels ? panels.active === 'contact' : info === 'contact'}
           aria-controls={panels ? 'quiet-pane-contact' : undefined}
           data-nav-destination="contact"
           onHoverStart={() => setHovered('contact')} onFocus={() => setHovered('contact')}
           onClick={() => panels ? panels.onChange('contact') : onInfo('contact')}
-        ><NavigationIcon destination="contact" /><span className="quiet-nav-label">Contact</span><span className="quiet-nav-caption" aria-hidden="true">Get in touch</span>{indicator('contact')}</motion.button>
+        ><NavigationIcon destination="contact" /><span className="quiet-nav-label">Contact</span><span className="quiet-nav-caption" aria-hidden="true">Get in touch</span>{indicator('contact')}</motion.button>}
         {panels ? (
           <motion.button
             {...feedback} type="button" aria-label="CV (PDF)"

@@ -5,6 +5,12 @@ Education, including the linked PhD advisor, and Amazon experience remain side b
 destination moves this introduction left and reveals the content on the right.
 Black is `#000000`; Paper is `#f5f1e8`.
 
+Email, Scholar, LinkedIn, and GitHub appear directly beneath the name. News is a
+bounded list on the introduction, ordered by month, with native scrolling and
+smooth, reduced-motion-aware arrow controls. It preserves its reading position
+through panel and appearance changes. Announcements live in `src/data/news.json`;
+exclude arXiv-only preprint uploads. Blog work is deferred.
+
 About contains two short research-vision paragraphs and a personal photography
 note. The vision condenses `_pages/about.md` from `origin/archive-old-site`,
 connecting learning from limited experience and recombining knowledge to the
@@ -22,7 +28,7 @@ links live in `src/data/config.json`.
 - A small drawing of two open contours replaces the glass sculpture.
 - Navigation uses plain text and one moving underline. The appearance control
   is a simple sun/moon icon.
-- The mobile chapter navigation has an opaque surface, a fine border, and four text
+- The mobile chapter navigation has an opaque surface, a fine border, and three text
   destinations. It has no glass blur, reflection, gradient, raised selection,
   or shadow.
 - Mobile destinations are full-height reading chapters. Reading and form
@@ -31,30 +37,31 @@ links live in `src/data/config.json`.
 ## Desktop interaction
 
 At widths of 1024px and above, the introduction begins in the center of the
-viewport. Publications, About, Contact, and CV each open a right-hand pane.
+viewport. Publications, About, and CV each open a right-hand pane.
 Motion moves the original introduction without changing its width, font size,
 or line breaks; the content fades in shortly after the movement begins. A fine
 vertical rule separates the two columns. There are no desktop modals or dock.
 
 The right pane is the scroll container. The page and introduction stay still;
 on exceptionally short windows the introduction can scroll within its own
-bounds so every control remains reachable. About and Contact appear as reading
-pages. CV embeds the real PDF and provides separate open/download links.
+bounds so every control remains reachable. About appears as a reading
+page. CV embeds the real PDF and provides separate open/download links.
 The close control stays above the scrolling content.
 
 Panes remain mounted, preserving scroll position, search, filters, and expanded
 paper details. Switching back to a scrolled reader focuses its region without
 scrolling it to the top. Close or Escape returns the introduction to the center
-and restores focus to the selected navigation control. The four destination
+and restores focus to the selected navigation control. The three destination
 hashes support direct links and browser history. Appearance changes preserve
-the active destination. Reduced motion makes these changes immediate.
+the active destination. Older `#contact` links focus the contact details beneath
+the name. Reduced motion makes these changes immediate.
 
 `SplitPane.tsx` and `split-layout.css` implement this composition; the shared
 Quiet component owns the reader and navigation state.
 
 ## Mobile interaction
 
-Below 1024px, Chapters presents a centered introduction followed by four
+Below 1024px, Chapters presents a centered introduction followed by three
 full-height reading panes. A running header and persistent bottom navigation
 frame the active page. Selecting a destination fades it into place with a small
 vertical movement; active text is marked with a moving rule. Selecting the name

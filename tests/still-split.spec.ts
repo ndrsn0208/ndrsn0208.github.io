@@ -11,7 +11,7 @@ function destination(page: Page, name: string) {
 }
 
 for (const edition of ['black', 'paper']) {
-  test(`${edition}: the centered introduction opens four inline panels and returns home`, async ({ page }) => {
+  test(`${edition}: the centered introduction opens three inline panels and returns home`, async ({ page }) => {
     await page.goto(`/?edition=${edition}`)
     const home = page.locator('.quiet-home')
     await expect(home).toBeVisible()
@@ -22,7 +22,7 @@ for (const edition of ['black', 'paper']) {
     await expect(page.getByRole('searchbox')).toHaveCount(0)
     await expect(page.locator('.quiet-dock')).not.toBeVisible()
 
-    for (const name of ['publications', 'about', 'contact', 'cv']) {
+    for (const name of ['publications', 'about', 'cv']) {
       await destination(page, name).click()
       const pane = page.locator(`#quiet-pane-${name}`)
       await expect(page.locator('.quiet')).toHaveAttribute('data-panel', name)
@@ -96,16 +96,16 @@ test('search and expanded details survive closing the desktop reader and browser
   await page.getByRole('searchbox').fill('rank-1 fisher')
   await expect(page.locator('.quiet-paper')).toHaveCount(1)
   await page.locator('.quiet-paper-details summary').click()
-  await destination(page, 'contact').click()
-  await expect(page.locator('#quiet-contact-title')).toBeFocused()
+  await destination(page, 'cv').click()
+  await expect(page.locator('#quiet-cv-title')).toBeFocused()
   await page.goBack()
   await expect(page.locator('.quiet')).toHaveAttribute('data-panel', 'publications')
   await expect(page.getByRole('searchbox')).toHaveValue('rank-1 fisher')
   await expect(page.locator('.quiet-paper-details')).toHaveAttribute('open', '')
   await page.goForward()
-  await expect(page.locator('.quiet')).toHaveAttribute('data-panel', 'contact')
+  await expect(page.locator('.quiet')).toHaveAttribute('data-panel', 'cv')
   await page.keyboard.press('Escape')
-  await expect(destination(page, 'contact')).toBeFocused()
+  await expect(destination(page, 'cv')).toBeFocused()
   await expect(page.locator('.quiet')).toHaveAttribute('data-panel', 'home')
   await destination(page, 'publications').click()
   await expect(page.getByRole('searchbox')).toHaveValue('rank-1 fisher')
@@ -141,11 +141,11 @@ test('the introduction moves continuously without changing its text measure, inc
   expect(frames.every((frame) => Math.abs(frame.width - before.width) < 1)).toBe(true)
   expect(frames.some((frame) => frame.opacity > 0 && frame.opacity < 1)).toBe(true)
 
-  for (const name of ['contact', 'about', 'publications', 'contact']) {
+  for (const name of ['cv', 'about', 'publications', 'cv']) {
     await destination(page, name).evaluate((element) => (element as HTMLElement).click())
   }
-  await expect(page.locator('#quiet-pane-contact')).toHaveCSS('opacity', '1')
-  await expect(page.locator('#quiet-contact-title')).toBeFocused()
+  await expect(page.locator('#quiet-pane-cv')).toHaveCSS('opacity', '1')
+  await expect(page.locator('#quiet-cv-title')).toBeFocused()
   await expect(page.locator('.quiet-pane[data-active]')).toHaveCount(1)
   await page.keyboard.press('Escape')
   await destination(page, 'about').evaluate((element) => (element as HTMLElement).click())
@@ -167,14 +167,14 @@ test('resizing between Book desktop and Chapters keeps the same readers and acti
   await expect(page.locator('.quiet-chapter-navigation')).toBeVisible()
   await expect(page.getByRole('searchbox')).toHaveValue('rank-1 fisher')
   expect(await paper!.evaluate((element) => element.isConnected && element.hasAttribute('open'))).toBe(true)
-  await destination(page, 'contact').click()
-  await expect(page.locator('#quiet-contact-title')).toBeFocused()
+  await destination(page, 'about').click()
+  await expect(page.locator('#quiet-about-title')).toBeFocused()
   await expect(page.getByRole('dialog')).toHaveCount(0)
   await page.setViewportSize({ width: 1440, height: 1000 })
   await expect(page.locator('.quiet')).toHaveAttribute('data-layout', 'split')
-  await expect(page.locator('.quiet')).toHaveAttribute('data-panel', 'contact')
+  await expect(page.locator('.quiet')).toHaveAttribute('data-panel', 'about')
   await expect(page.getByRole('dialog')).toHaveCount(0)
-  await expect(page.locator('#quiet-contact-title')).toBeFocused()
+  await expect(page.locator('#quiet-about-title')).toBeFocused()
   await expect(page.locator('.quiet-dock')).not.toBeVisible()
   await expect(navigation(page)).toHaveCount(1)
   await destination(page, 'publications').click()

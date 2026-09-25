@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-20T04:45:16+00:00",
+  "lastUpdated": "2026-09-25T18:40:15+00:00",
   "publications": [
     {
       "id": "diffusion-models-concept-formation-2026",
@@ -338,7 +338,7 @@
         "Anant Gupta",
         "Christopher J. MacLellan"
       ],
-      "venue": "arXiv 2026",
+      "venue": "NeurIPS 2026",
       "year": 2026,
       "arxivId": "2602.02417",
       "arxivUrl": "https://arxiv.org/abs/2602.02417",

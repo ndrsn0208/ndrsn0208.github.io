@@ -32,10 +32,10 @@ upright Newsreader with a subtle difference in weight. Black is exactly
 flat surfaces, serif reading copy, an ink drawing, and text navigation with a
 moving underline. Lens has no glass blur, highlights, gradients, or raised controls.
 
-On desktop (1024px and above), selecting any of the four destinations moves
+On desktop (1024px and above), selecting any of the three destinations moves
 the introduction to the left with a Motion layout animation and reveals an
 independently scrolling right pane. The introduction's width stays constant.
-About and Contact are inline reading panes; CV previews the real PDF. Keep each
+About is an inline reading pane; CV previews the real PDF. Keep each
 pane mounted to preserve reading position and paper state. Close/Escape returns
 to the centered introduction and restores focus. Destination hashes support
 browser history; appearance changes must preserve the hash.
@@ -47,9 +47,20 @@ The industry record stays aligned to the top of its own column. `InfoCopy.tsx`
 renders the short biography, broad research focus, academic service, and personal
 note from `config.json`; `profile-content.css` supplies their shared reading styles.
 
-Phones use **Chapters**: a centered cover and four full-height reading panes,
-with a persistent four-option navigation at the bottom. Publications, About,
-Contact, and CV switch within the page using Motion; each retains its own reading
+`HomeContacts.tsx` places the email, Scholar, LinkedIn, and GitHub links directly
+beneath the name. Lens has no separate Contact destination; older `#contact`
+links focus these homepage details. `HomeNews.tsx` renders a bounded, manually
+scrollable news list on the introduction, with keyboard access and smooth arrow
+controls. News keeps its reading position across panel and appearance changes.
+Edit `src/data/news.json` for dated announcements and links. Do not add news for
+arXiv-only preprint uploads. Published blog announcements can use the same data
+format when the blog is implemented; the blog itself is deferred.
+`home-updates.css` keeps the first news items visible on shorter displays by
+reducing decorative space while preserving the Book type sizes.
+
+Phones use **Chapters**: a centered cover and three full-height reading panes,
+with a persistent three-option navigation at the bottom. Publications, About,
+and CV switch within the page using Motion; each retains its own reading
 position. The name in the running header returns to the introduction. Preserve
 safe areas, reduced-motion, focus, keyboard, and browser-history behavior.
 `src/Homepage.tsx` loads only Book and Chapters styles for the public homepage.

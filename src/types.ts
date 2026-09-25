@@ -49,6 +49,14 @@ export interface PublicationsFile {
   publications: Publication[]
 }
 
+export interface NewsItem {
+  id: string
+  /** Month of the announcement, YYYY-MM. */
+  date: string
+  /** Inline text and links, also suitable for a future published blog post. */
+  content: { text: string; href?: string }[]
+}
+
 export interface SiteConfig {
   name: string
   title: string

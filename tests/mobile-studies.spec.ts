@@ -71,11 +71,11 @@ test('Chapters keeps independent reading positions, history, and focus through p
   expect(await publications.evaluate((element) => element.scrollTop)).toBe(position)
   expect(await detailsNode!.evaluate((element) => element.isConnected && element.hasAttribute('open'))).toBe(true)
 
-  await destination(page, 'contact').click()
-  await expect(page.locator('#quiet-contact-title')).toBeFocused()
+  await destination(page, 'about').click()
+  await expect(page.locator('#quiet-about-title')).toBeFocused()
   await page.getByRole('button', { name: 'Switch to Black appearance' }).click()
   await expect(page.locator('.quiet')).toHaveAttribute('data-edition', 'black')
-  await expect(page).toHaveURL(/#contact$/)
+  await expect(page).toHaveURL(/#about$/)
   await destination(page, 'cv').click()
   await expect(page.locator('.quiet-cv-preview')).toBeVisible()
   await expect(page.getByRole('link', { name: 'Open PDF', exact: true })).toHaveAttribute('href', '/cv.pdf')
@@ -130,7 +130,7 @@ test('Chapters animates page changes and settles correctly after rapid navigatio
   await destination(page, 'publications').click()
   await expect(page.locator('#quiet-pane-publications')).toHaveCSS('opacity', '1')
   expect((await samples.jsonValue()).filter((value) => value > 0 && value < 1).length).toBeGreaterThan(3)
-  for (const name of ['about', 'contact', 'publications', 'about']) {
+  for (const name of ['about', 'cv', 'publications', 'about']) {
     await destination(page, name).evaluate((element) => (element as HTMLElement).click())
   }
   await expect(page.locator('#quiet-pane-about')).toHaveCSS('opacity', '1')

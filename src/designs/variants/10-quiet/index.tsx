@@ -19,6 +19,8 @@ import AdaptiveNavigation from '../../still/AdaptiveNavigation'
 import SplitPane, { useSplitLayout } from '../../still/SplitPane'
 import InfoCopy from '../../still/InfoCopy'
 import BackgroundInfo from '../../still/BackgroundInfo'
+import HomeContacts from '../../still/HomeContacts'
+import HomeNews from '../../still/HomeNews'
 import ResearchTopics from '../../still/ResearchTopics'
 import type { MobileStudyId } from '../../mobile/registry'
 import { getStillStudy, type StillStudyId } from '../../still/studies'
@@ -39,6 +41,7 @@ import '../../still/adaptive-navigation.css'
 import '../../still/split-layout.css'
 import '../../still/research-topics.css'
 import '../../still/profile-content.css'
+import '../../still/home-updates.css'
 
 const artworks: Record<StillStudyId, ComponentType> = { lens: LensArtwork, drift: DriftArtwork, frame: FrameArtwork }
 
@@ -239,7 +242,8 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
   const desktop = inlinePublications && wide
   const chapterLayout = inlinePublications && !wide && mobileStudy === 'chapters'
   const paneLayout = desktop || chapterLayout
-  const panel = panelForHash(location.hash)
+  const requestedPanel = panelForHash(location.hash)
+  const panel = inlinePublications && requestedPanel === 'contact' ? null : requestedPanel
   const previousPanel = useRef(panel)
   const previousPaneLayout = useRef(paneLayout)
   const Artwork = study ? artworks[study] : undefined
@@ -284,6 +288,16 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
     })
     return () => { active = false }
   }, [inlinePublications, paneLayout])
+
+  useEffect(() => {
+    if (!inlinePublications || location.hash !== '#contact') return
+    const frame = requestAnimationFrame(() => {
+      const contact = rootRef.current?.querySelector<HTMLElement>('#contact')
+      contact?.focus({ preventScroll: true })
+      contact?.scrollIntoView({ block: 'nearest', behavior: reducedMotion() ? 'instant' : 'smooth' })
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [inlinePublications, location.hash])
 
   function focusPanel(destination: StillDestination) {
     const pane = rootRef.current?.querySelector<HTMLElement>(`#quiet-pane-${destination}`)
@@ -468,7 +482,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
   useEffect(() => {
     if (reducedMotion()) return
     const elements = rootRef.current?.querySelectorAll<HTMLElement>(
-      '.quiet-emblem, .quiet-introduction > .quiet-eyebrow, #quiet-name, .quiet-intro, .quiet-background, .quiet-navigation, .quiet-recent',
+      '.quiet-emblem, .quiet-introduction > .quiet-eyebrow, #quiet-name, .quiet-home-contacts, .quiet-intro, .quiet-background, .quiet-navigation, .quiet-news, .quiet-recent',
     )
     const animations = Array.from(elements ?? []).map((element, index) => element.animate(
       [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'translateY(0)' }],
@@ -515,6 +529,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
           dockOffset={mobileStudy === 'index' && !desktop ? 78 : 0}
           mode={mode}
           info={info}
+          contactInline
           onPublications={() => openPublications()}
           onInfo={openInfo}
           panels={desktop ? { active: panel, onChange: openPanel } : undefined}
@@ -523,7 +538,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
     }
     return (
       <div className={`quiet-navigation${primary ? '' : ' quiet-navigation-reading'}`}>
-        <StillNavigation primary={primary} glass={Boolean(study) && !inlinePublications} inline={inlinePublications} mode={mode} info={info} onPublications={() => openPublications()} onInfo={openInfo} />
+        <StillNavigation primary={primary} glass={Boolean(study) && !inlinePublications} inline={inlinePublications} contactInline={inlinePublications} mode={mode} info={info} onPublications={() => openPublications()} onInfo={openInfo} />
         {study && <AppearanceSwitch edition={edition} onChange={changeAppearance} glass={!inlinePublications} />}
       </div>
     )
@@ -583,6 +598,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
           <div className="quiet-introduction">
             <p className="quiet-eyebrow">Research · Computer science</p>
             <h1 id="quiet-name">{profile.name}</h1>
+            {inlinePublications && <HomeContacts />}
             <p className="quiet-intro">
               {profile.researchStatement.split(/(deployment-time)/).map((part, index) => (
                 part === 'deployment-time' ? <span className="quiet-keep" key={index}>{part}</span> : part
@@ -590,6 +606,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
             </p>
             <BackgroundInfo />
             {!chapterLayout && navigation(true)}
+            {inlinePublications && <HomeNews />}
           </div>
           {!inlinePublications && <aside className="quiet-recent" aria-labelledby="quiet-recent-label">
             <div className="quiet-recent-caption">
@@ -693,7 +710,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
               </div>
             </section>
           </SplitPane>
-          {(['about', 'contact'] as const).map((name) => (
+          {(inlinePublications ? ['about'] as const : ['about', 'contact'] as const).map((name) => (
             <SplitPane
               key={name} name={name} enabled={paneLayout} active={paneLayout && panel === name}
               titleId={`quiet-${name}-title`} enterDelay={previousPanel.current ? 0.04 : 0.16}
@@ -717,7 +734,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
       {chapterLayout && (
         <div className="quiet-chapter-navigation">
           <StillNavigation
-            primary inline mode={mode} info={info}
+            primary inline contactInline mode={mode} info={info}
             onPublications={() => openPublications()} onInfo={openInfo}
             panels={{ active: panel, onChange: openPanel }}
           />

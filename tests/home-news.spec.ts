@@ -1,0 +1,77 @@
+import AxeBuilder from '@axe-core/playwright'
+import { expect, test, type Page } from '@playwright/test'
+
+const navigation = (page: Page) => page.getByRole('navigation', { name: 'Main navigation', exact: true })
+const destination = (page: Page, name: string) => navigation(page).locator(`[data-nav-destination="${name}"]`)
+
+test('the homepage shows direct contact links and news without a separate Contact destination', async ({ page }) => {
+  await page.goto('/?edition=paper')
+  await page.evaluate(() => document.fonts.ready)
+  const contacts = page.locator('#contact')
+  const name = page.locator('#quiet-name')
+  await expect(contacts.getByRole('link', { name: 'zekun@gatech.edu', exact: true })).toHaveAttribute('href', 'mailto:zekun@gatech.edu')
+  await expect(contacts.getByRole('link', { name: 'Scholar', exact: true })).toHaveAttribute('href', /scholar.google.com/)
+  await expect(contacts.getByRole('link', { name: 'LinkedIn', exact: true })).toHaveAttribute('href', /linkedin.com/)
+  expect((await contacts.boundingBox())!.y).toBeGreaterThan((await name.boundingBox())!.y + (await name.boundingBox())!.height)
+  await expect(navigation(page).locator('[data-nav-destination]')).toHaveCount(3)
+  await expect(destination(page, 'contact')).toHaveCount(0)
+  await expect(page.locator('#quiet-pane-contact')).toHaveCount(0)
+  await expect(page.locator('.quiet')).toHaveAttribute('data-panel', 'home')
+
+  const news = page.getByRole('region', { name: 'News', exact: true })
+  await expect(news).toContainText('was accepted to NeurIPS 2026')
+  await expect(news).toContainText("I'm co-organizing TTCL")
+  await expect(news).toContainText('I joined Amazon')
+  await expect(news).not.toContainText(/new preprint|arxiv/i)
+  await expect(news.getByRole('link', { name: 'TTCL', exact: true })).toHaveAttribute('href', 'https://ttcl-agents.github.io/')
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize()!.width)
+
+  const accessibility = await new AxeBuilder({ page }).include('.quiet-home').withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()
+  expect(accessibility.violations.map(({ id }) => id)).toEqual([])
+
+  await destination(page, 'publications').click()
+  await page.getByRole('searchbox').fill('trust region continual learning')
+  await expect(page.locator('.quiet-paper')).toHaveCount(1)
+  await expect(page.locator('.quiet-paper-meta')).toHaveText('NeurIPS 2026')
+})
+
+test('news scrolls independently and retains its position across chapters and appearance changes', async ({ page, isMobile }) => {
+  if (!isMobile) await page.setViewportSize({ width: 1280, height: 720 })
+  await page.goto('/?edition=paper')
+  const news = page.getByRole('region', { name: 'News', exact: true })
+  await page.evaluate(() => document.fonts.ready)
+  await news.scrollIntoViewIfNeeded()
+  const homeTop = await page.locator('.quiet-home').evaluate((element) => element.scrollTop)
+  await expect(page.getByRole('button', { name: 'Scroll to newer news', exact: true })).toBeDisabled()
+  await page.getByRole('button', { name: 'Scroll to older news', exact: true }).click()
+  await expect.poll(() => news.evaluate((element) => element.scrollTop)).toBeGreaterThan(0)
+  const newsTop = await news.evaluate((element) => element.scrollTop)
+  expect(await page.locator('.quiet-home').evaluate((element) => element.scrollTop)).toBe(homeTop)
+  expect(await page.evaluate(() => window.scrollY)).toBe(0)
+
+  await destination(page, 'about').click()
+  if (isMobile) await page.getByRole('button', { name: 'Zekun Wang, return to introduction', exact: true }).click()
+  else await page.getByRole('button', { name: 'Close panel', exact: true }).click()
+  expect(await news.evaluate((element) => element.scrollTop)).toBe(newsTop)
+  await page.getByRole('button', { name: 'Switch to Black appearance', exact: true }).click()
+  expect(await news.evaluate((element) => element.scrollTop)).toBe(newsTop)
+  await news.focus()
+  await page.keyboard.press('Home')
+  await expect.poll(() => news.evaluate((element) => element.scrollTop)).toBe(0)
+  await page.keyboard.press('End')
+  await expect.poll(() => news.evaluate((element) => element.scrollTop)).toBeGreaterThan(0)
+})
+
+test('existing contact links return to the contact details beneath the name', async ({ page }) => {
+  await page.goto('/?edition=black#contact')
+  await expect(page.locator('.quiet')).toHaveAttribute('data-panel', 'home')
+  await expect(page.locator('#contact')).toBeFocused()
+  await expect(page.locator('#contact a').first()).toBeInViewport()
+  await expect(page.locator('.quiet-pane[data-active]')).toHaveCount(0)
+  await expect(page.getByRole('dialog')).toHaveCount(0)
+
+  await destination(page, 'about').click()
+  await page.goBack()
+  await expect(page.locator('#contact')).toBeFocused()
+  await expect(page.locator('.quiet')).toHaveAttribute('data-panel', 'home')
+})

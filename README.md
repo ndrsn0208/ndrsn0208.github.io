@@ -7,10 +7,16 @@ with a minimal, humanist design and pure **Black** and warm **Paper** appearance
 Upright EB Garamond and Source Sans 3 give the text a book-like rhythm.
 Education and industry sit side by side.
 Education's **More** control smoothly expands the earlier Michigan and Penn State
-degrees within the Education column, one below the other. About includes a short biography, broad research focus, academic service,
+degrees within the Education column, one below the other. About includes a short
+biography, broad research focus, academic service,
 and the photography note. Profile content lives in `src/data/config.json`.
+Email, Scholar, LinkedIn, and GitHub sit directly beneath the name. News appears
+on the introduction as a bounded list with native scrolling, keyboard access,
+and smooth arrow controls. Dated announcements and links live in
+`src/data/news.json`; arXiv-only preprint uploads are not news items.
+The data format can link to future blog posts; blog implementation is deferred.
 On desktop, the introduction starts centered; opening Publications, About,
-Contact, or CV moves it smoothly left and reveals the right pane. Only that
+or CV moves it smoothly left and reveals the right pane. Only that
 pane scrolls, and switching destinations preserves the reading position.
 Close or Escape returns to the centered introduction.
 

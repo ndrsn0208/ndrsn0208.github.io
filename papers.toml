@@ -80,6 +80,7 @@ equal_contribution = ["Xin Lian", "Zekun Wang"]
 
 [[paper]]
 arxiv = "2602.02417"
+venue = "NeurIPS 2026"
 equal_contribution = ["Zekun Wang", "Anant Gupta"]
 
 [[paper]]

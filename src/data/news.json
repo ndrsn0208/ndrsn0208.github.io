@@ -1,0 +1,32 @@
+[
+  {
+    "id": "trust-region-neurips-2026",
+    "date": "2026-09",
+    "content": [
+      { "text": "Our " },
+      {
+        "text": "trust-region continual learning paper",
+        "href": "https://arxiv.org/abs/2602.02417"
+      },
+      { "text": " was accepted to NeurIPS 2026." }
+    ]
+  },
+  {
+    "id": "ttcl-workshop-2026",
+    "date": "2026-09",
+    "content": [
+      { "text": "I'm co-organizing " },
+      { "text": "TTCL", "href": "https://ttcl-agents.github.io/" },
+      {
+        "text": ", a NeurIPS 2026 workshop on test-time continual learning agents."
+      }
+    ]
+  },
+  {
+    "id": "amazon-research-internship-2026",
+    "date": "2026-08",
+    "content": [
+      { "text": "I joined Amazon as a Research Intern in Washington." }
+    ]
+  }
+]
