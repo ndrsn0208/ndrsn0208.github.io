@@ -16,7 +16,8 @@
       ;(() => {
         const redirect = new URLSearchParams(location.search).get('_redirect')
         const destination = new URL(redirect || location.href, location.origin)
-        if (destination.pathname !== '/' && !/^\/still\/?$/.test(destination.pathname)) return
+        const isBlog = /^\/blog(?:\/|$)/.test(destination.pathname)
+        if (destination.pathname !== '/' && !/^\/still\/?$/.test(destination.pathname) && !isBlog) return
         const colors = { black: '#000000', paper: '#f5f1e8' }
         const current = (value) => value === 'stone' || value === 'line' ? 'paper' : value
         const valid = (value) => Object.prototype.hasOwnProperty.call(colors, value)
@@ -24,7 +25,7 @@
         if (!valid(edition)) {
           try { edition = current(localStorage.getItem('zekun-still-edition-v1')) } catch {}
         }
-        if (!valid(edition)) edition = 'black'
+        if (!valid(edition)) edition = isBlog ? 'paper' : 'black'
         const root = document.documentElement
         root.style.setProperty('--paper', colors[edition])
         root.style.setProperty('--still-screen', colors[edition])

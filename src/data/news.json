@@ -1,11 +1,22 @@
 [
   {
+    "id": "scol-blog-2026",
+    "date": "2026-09",
+    "content": [
+      { "text": "New blog: " },
+      {
+        "text": "Self-Consolidating Language Models",
+        "href": "/blog/self-consolidating-language-models"
+      },
+      { "text": ". Writing context into model weights at test time." }
+    ]
+  },
+  {
     "id": "trust-region-neurips-2026",
     "date": "2026-09",
     "content": [
-      { "text": "Our " },
       {
-        "text": "trust-region continual learning paper",
+        "text": "Trust Region Continual Learning as an Implicit Meta-Learner",
         "href": "https://arxiv.org/abs/2602.02417"
       },
       { "text": " was accepted to NeurIPS 2026." }

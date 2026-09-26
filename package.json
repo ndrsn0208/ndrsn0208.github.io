@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/build-blog-pages.mjs",
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit",
     "test:designs": "playwright test",
@@ -14,7 +14,8 @@
     "type:screenshots": "node scripts/capture_typography.mjs",
     "mobile:screenshots": "node scripts/capture_mobile.mjs",
     "cv:build": "python3 scripts/build_cv.py",
-    "cv:publish": "python3 scripts/build_cv.py --publish"
+    "cv:publish": "python3 scripts/build_cv.py --publish",
+    "blog:paper": "node scripts/sync-scol-paper.mjs"
   },
   "dependencies": {
     "fuse.js": "7.0.0",

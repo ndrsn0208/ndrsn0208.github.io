@@ -53,10 +53,44 @@ links focus these homepage details. `HomeNews.tsx` renders a bounded, manually
 scrollable news list on the introduction, with keyboard access and smooth arrow
 controls. News keeps its reading position across panel and appearance changes.
 Edit `src/data/news.json` for dated announcements and links. Do not add news for
-arXiv-only preprint uploads. Published blog announcements can use the same data
-format when the blog is implemented; the blog itself is deferred.
+arXiv-only preprint uploads. Blog announcements use the same data format.
+The implemented research blog is documented in `BLOG.md`.
 `home-updates.css` keeps the first news items visible on shorter displays by
 reducing decorative space while preserving the Book type sizes.
+
+## Local blog manuscript
+
+`writing/` is a local, Git-ignored authoring workspace, separate from the public
+site assets. It contains an independent copy of **Self-Consolidating Language
+Models**, imported from the ICLR Codex task on September 25, 2026, along with the
+copied live LaTeX/PDF tools. Read `writing/README.md` and `paper.config.json`.
+`npm --prefix writing run preview` serves the copied manuscript at port 4331;
+`npm --prefix writing run build` exports its latest PDF. The machine-wide
+TinyTeX installation is shared; source, build outputs, watcher state, and
+reference snapshots are independent. For blog work, edit only the local copy,
+never the original `/Users/zekunw/Documents/ChatGPT/inclr` paper or preview.
+The imported ICLR source and frozen reference remain unchanged.
+`writing/self-consolidating-language-models/template-studies/` contains three
+independent signed preprint studies: arXiv Classic, HenriquesLab, and Tufte.
+`npm --prefix writing run templates:preview` opens their local comparison at
+port 4332, with separate live readers on 4341–4343. These studies adapt typography
+and figure/formula layout while preserving scientific content. Template selection
+and expanded paper prose were explored in subsequent local studies.
+
+The newer paper comparison is in
+`writing/self-consolidating-language-models/frontier-studies/`.
+`npm --prefix writing run frontier:preview` serves the gallery on 4333 and
+independent Essay, Folio, and Signal readers on 4351–4353. Ten actual research
+reports are collected in a separate reference view. The user's explicit
+constraint is to study how those reports work and design our own layout;
+do not directly apply or recreate a lab's template. All three new editions use
+independently written styles and open fonts. Keep third-party lab templates,
+private fonts, logos, and distinctive branded cover compositions in references
+only. An early Google-class trial was replaced with the original Essay layout.
+The paper's scientific text and all results remain unchanged during layout
+selection; expansion and blog writing follow the user's choice.
+
+## Homepage layouts
 
 Phones use **Chapters**: a centered cover and three full-height reading panes,
 with a persistent three-option navigation at the bottom. Publications, About,

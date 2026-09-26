@@ -48,3 +48,6 @@ cv/*.aux
 cv/*.out
 cv/*.toc
 cv/*.synctex.gz
+
+# Local paper/blog drafting workspace; publish finished material explicitly.
+/writing/

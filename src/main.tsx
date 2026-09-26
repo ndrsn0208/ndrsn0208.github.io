@@ -9,6 +9,8 @@ const DesignStudio = lazy(() => import('./designs/DesignStudio'))
 const StillStudio = lazy(() => import('./designs/still/StillStudio'))
 const TypographyStudio = lazy(() => import('./designs/typography/TypographyStudio'))
 const MobileStudio = lazy(() => import('./designs/mobile/MobileStudio'))
+const BlogIndex = lazy(() => import('./blog/BlogIndex'))
+const ScolPost = lazy(() => import('./blog/scol/ScolPost'))
 
 // Handle the GH Pages SPA fallback hand-off: 404.html stashes the
 // original deep-link path in `?_redirect=...` and bounces here.
@@ -28,6 +30,8 @@ createRoot(root).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Suspense fallback={<div style={{ minHeight: '100svh', background: 'var(--still-screen, #000000)' }} />}><Homepage /></Suspense>} />
+        <Route path="/blog" element={<Suspense fallback={<div style={{ minHeight: '100svh', background: 'var(--paper, #f5f1e8)' }} />}><BlogIndex /></Suspense>} />
+        <Route path="/blog/self-consolidating-language-models" element={<Suspense fallback={<div style={{ minHeight: '100svh', background: 'var(--paper, #f5f1e8)' }} />}><ScolPost /></Suspense>} />
         <Route path="/still" element={<Suspense fallback={<div style={{ minHeight: '100svh', background: 'var(--still-screen, #000000)' }} />}><StillStudio /></Suspense>} />
         <Route path="/typography/*" element={<Suspense fallback={<div style={{ minHeight: '100svh', background: '#f5f1e8' }} />}><TypographyStudio /></Suspense>} />
         <Route path="/mobile/*" element={<Suspense fallback={<div style={{ minHeight: '100svh', background: '#f5f1e8' }} />}><MobileStudio /></Suspense>} />

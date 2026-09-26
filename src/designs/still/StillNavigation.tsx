@@ -1,7 +1,8 @@
 import { useId, useLayoutEffect, useRef, useState } from 'react'
 import { LayoutGroup, motion, useReducedMotion } from 'motion/react'
+import { useNavigate } from 'react-router-dom'
 import { Arrow, papers, profile } from '../shared'
-import { stillSpring } from './transitions'
+import { stillSpring, transitionStill } from './transitions'
 import { useGlassLight } from './useGlassLight'
 
 export type StillDestination = 'publications' | 'about' | 'contact' | 'cv'
@@ -48,8 +49,9 @@ export default function StillNavigation({
   const id = useId()
   const reduce = useReducedMotion()
   const light = useGlassLight()
+  const navigate = useNavigate()
   const navRef = useRef<HTMLElement>(null)
-  const [hovered, setHovered] = useState<Destination | null>(null)
+  const [hovered, setHovered] = useState<Destination | 'blog' | null>(null)
   const active = hovered ?? (panels ? panels.active : info ?? 'publications')
   const transition = reduce ? { duration: 0 } : glass ? stillSpring : { duration: 0.24, ease: [0.22, 1, 0.36, 1] as const }
   const feedback = {
@@ -57,7 +59,7 @@ export default function StillNavigation({
     whileTap: reduce ? undefined : glass ? { scale: 0.96, y: 0 } : { opacity: 0.65 },
     transition,
   }
-  const indicator = (destination: Destination) => active === destination && (
+  const indicator = (destination: Destination | 'blog') => active === destination && (
     <motion.span className="quiet-nav-indicator" layoutId="underline" transition={transition} aria-hidden="true" />
   )
   const publicationsLabel = (
@@ -83,7 +85,7 @@ export default function StillNavigation({
         aria-label="Main navigation"
         aria-hidden={inactive || undefined}
         data-inactive={inactive || undefined}
-        data-destination-count={contactInline ? 3 : 4}
+        data-destination-count={4}
         onMouseLeave={() => setHovered(null)}
         onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setHovered(null) }}
       >
@@ -112,6 +114,20 @@ export default function StillNavigation({
             onHoverStart={() => setHovered('publications')} onFocus={() => setHovered('publications')} onClick={onPublications}
           >{publicationsLabel}</motion.button>
         )}
+        {contactInline && <motion.a
+          {...feedback}
+          href="/blog"
+          aria-label="Blog"
+          data-nav-destination="blog"
+          onHoverStart={() => { setHovered('blog'); void import('../../blog/BlogIndex') }}
+          onFocus={() => setHovered('blog')}
+          onClick={async (event) => {
+            if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+            event.preventDefault()
+            await import('../../blog/BlogIndex')
+            transitionStill(() => navigate('/blog'), 'forward')
+          }}
+        ><span className="quiet-nav-label">Blog</span><span className="quiet-nav-caption" aria-hidden="true">Research notes</span>{indicator('blog')}</motion.a>}
         <motion.button
           {...feedback} type="button" aria-label="About" aria-haspopup={panels ? undefined : 'dialog'}
           aria-expanded={panels ? panels.active === 'about' : info === 'about'}
