@@ -61,4 +61,6 @@ Do not edit the original ICLR workspace while working on this blog. The imported
 
 `ArticleShare.tsx` adds quiet text links beneath the article byline and beside the closing paper section. X, LinkedIn, and Bluesky open their compose or share pages. Copy link uses the canonical public article URL, excluding local hosts, appearance parameters, and section anchors. If clipboard access fails, a selected, read-only URL field remains available for manual copying. Sharing requires no embedded social scripts.
 
+On phones, the author details span the reading width and Paper joins the sharing links in a wrapping row below. Keep each name, contribution marker, and trailing comma together. Contribution superscripts use one vertical offset, and the affiliation's inline separator is omitted when the contribution note moves onto its own line.
+
 The blog and copied paper are ready to participate in the normal website deployment. Local authoring does not itself publish the changes.

@@ -184,18 +184,20 @@ function ScolContent() {
           <p className="scol-subtitle">{scolArticle.subtitle}</p>
           <p className="scol-deck">{scolArticle.deck}</p>
           <div className="scol-author-row">
-            <div>
+            <div className="scol-author-info">
               <p className="scol-authors">
-                <strong className="scol-author-name">Zekun Wang<sup>*</sup></strong>,{' '}
-                <span className="scol-author-name">Anant Gupta<sup>*</sup></span>,{' '}
-                <span className="scol-author-name">Zihan Dong</span>,{' '}
+                <span className="scol-author-name"><strong>Zekun Wang</strong><sup>*</sup>,</span>{' '}
+                <span className="scol-author-name">Anant Gupta<sup>*</sup>,</span>{' '}
+                <span className="scol-author-name">Zihan Dong,</span>{' '}
                 <span className="scol-author-name">and Christopher J. MacLellan</span>
               </p>
-              <p className="scol-affiliation">Georgia Institute of Technology <span>· * Equal contribution</span></p>
+              <p className="scol-affiliation">Georgia Institute of Technology <span>* Equal contribution</span></p>
             </div>
-            <a className="scol-text-link" href={paperUrl} target="_blank" rel="noreferrer">Paper <ArrowIcon direction="up" /></a>
+            <div className="scol-hero-actions">
+              <a className="scol-text-link" href={paperUrl} target="_blank" rel="noreferrer">Paper <ArrowIcon direction="up" /></a>
+              <ArticleShare title={scolArticle.title} subtitle={scolArticle.subtitle} url={articleUrl} />
+            </div>
           </div>
-          <ArticleShare title={scolArticle.title} subtitle={scolArticle.subtitle} url={articleUrl} />
         </motion.header>
 
         <div className="scol-hero-figure scol-width">
