@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from 'motion/react'
 import BlogLayout, { ArrowIcon, useBlogMetadata } from '../BlogLayout'
+import ArticleShare from '../ArticleShare'
 import ContextJourney from './ContextJourney'
 import DeploymentHero from './DeploymentHero'
 import MetaLearning from './MetaLearning'
@@ -10,6 +11,7 @@ import Equation from './Equation'
 import { paragraphCitations, paragraphParts, scolArticle } from './article'
 
 const paperUrl = '/papers/self-consolidating-language-models.pdf'
+const articleUrl = 'https://ndrsn0208.github.io/blog/self-consolidating-language-models/'
 const chapterLinks = [
   { id: 'history', number: '01', title: 'Context' },
   { id: 'consolidation', number: '02', title: 'Consolidation' },
@@ -193,6 +195,7 @@ function ScolContent() {
             </div>
             <a className="scol-text-link" href={paperUrl} target="_blank" rel="noreferrer">Paper <ArrowIcon direction="up" /></a>
           </div>
+          <ArticleShare title={scolArticle.title} subtitle={scolArticle.subtitle} url={articleUrl} />
         </motion.header>
 
         <div className="scol-hero-figure scol-width">
@@ -282,6 +285,10 @@ function ScolContent() {
           </section>
 
           <Paper />
+
+          <div className="scol-share-closing">
+            <ArticleShare title={scolArticle.title} subtitle={scolArticle.subtitle} url={articleUrl} />
+          </div>
 
           <section className="scol-references" aria-labelledby="scol-references-title">
             <h2 id="scol-references-title">Further reading</h2>

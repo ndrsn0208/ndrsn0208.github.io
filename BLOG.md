@@ -59,4 +59,6 @@ Do not edit the original ICLR workspace while working on this blog. The imported
 
 `public/blog-assets/scol/social-card.png` is the 1200 by 630 share image. The independently drawn SVG source is stored next to it. The card repeats the approved subtitle.
 
+`ArticleShare.tsx` adds quiet text links beneath the article byline and beside the closing paper section. X, LinkedIn, and Bluesky open their compose or share pages. Copy link uses the canonical public article URL, excluding local hosts, appearance parameters, and section anchors. If clipboard access fails, a selected, read-only URL field remains available for manual copying. Sharing requires no embedded social scripts.
+
 The blog and copied paper are ready to participate in the normal website deployment. Local authoring does not itself publish the changes.
