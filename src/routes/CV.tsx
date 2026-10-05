@@ -1,4 +1,4 @@
-const PDF = '/cv.pdf'
+const PDF = __CV_PDF_URL__
 
 export default function CV() {
   return (

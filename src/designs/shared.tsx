@@ -12,7 +12,7 @@ export const profile = {
   scholar: config.contacts.googleScholar,
   linkedin: config.contacts.linkedin,
   github: 'https://github.com/ndrsn0208',
-  cv: '/cv.pdf',
+  cv: __CV_PDF_URL__,
   intro:
     "I'm Zekun, a computer science PhD student at Georgia Tech, advised by Christopher MacLellan. I study how AI can learn new things without losing what it already knows.",
   research:

@@ -64,6 +64,10 @@ The date in `metadata.tex` is intentional: it does **not** change to today's
 date during a build. Website metadata and the publication-update pipeline do
 not overwrite this CV.
 
+Vite includes a hash of `public/cv.pdf` in every CV preview, open, and download
+URL. Each deployment therefore gives an updated PDF a new browser cache key
+without requiring a manually maintained version number.
+
 ## Build and review
 
 Requires **Python 3.9+** and **Tectonic 0.17.0**. The helper uses only Python's
