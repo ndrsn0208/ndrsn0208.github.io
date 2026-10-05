@@ -4,6 +4,12 @@ This editable LaTeX CV was reconstructed from the site's **four-page, May 2026
 CV** and updated in **September 2026** with a contribution-focused research
 summary, Amazon research experience, workshop organization, and audited publications.
 
+The October 2026 update records Trust Region's acceptance at NeurIPS 2026 and
+links Self-Consolidating Language Models to the current PDF on the personal website.
+Selected Publications are ordered as Self-Consolidating, Trust Region (NeurIPS
+2026), Rank-1 Fisher (ICLR 2026), Deep Taxonomic Networks (NeurIPS 2025), and
+Test-Time Compositional Generalization via Concept Discovery.
+
 Research Focus is one paragraph introducing continual learning for deployment-time
 adaptation and generalization in foundation models and AI agents. Keep specific
 papers, methods, and numerical results in Selected Publications rather
