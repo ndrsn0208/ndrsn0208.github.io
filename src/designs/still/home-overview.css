@@ -1,6 +1,17 @@
 /* The introduction keeps its own measure. News and papers share the page width. */
 .quiet-home-page { display: contents; }
 
+/* Keep the overview scrollable without visible browser chrome. */
+.quiet[data-study="lens"][data-edition] :is(.quiet-home-page, .quiet-news-feed) {
+  scrollbar-width: none;
+}
+
+.quiet[data-study="lens"][data-edition] :is(.quiet-home-page, .quiet-news-feed)::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
 .quiet[data-study="lens"][data-edition] .quiet-home-feed {
   width: calc(100% - var(--lens-gutter) * 2);
   max-width: 1240px;
@@ -122,8 +133,6 @@
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior-y: contain;
-  scrollbar-width: thin;
-  scrollbar-color: var(--quiet-rule) transparent;
 }
 
 .quiet[data-study="lens"][data-edition][data-layout="split"] .quiet-home-page .quiet-home {
@@ -171,8 +180,6 @@
     overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior-y: contain;
-    scrollbar-width: thin;
-    scrollbar-color: var(--quiet-rule) transparent;
     visibility: visible;
     transition: visibility 0s;
   }
