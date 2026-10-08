@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-25T18:40:15+00:00",
+  "lastUpdated": "2026-10-08T17:54:16+00:00",
   "publications": [
     {
       "id": "diffusion-models-concept-formation-2026",
@@ -344,7 +344,7 @@
       "arxivUrl": "https://arxiv.org/abs/2602.02417",
       "arxivHtmlUrl": "https://arxiv.org/html/2602.02417",
       "arxivHtmlAvailable": true,
-      "pdfUrl": "https://arxiv.org/pdf/2602.02417",
+      "pdfUrl": "https://ndrsn0208.github.io/papers/trust-region-continual-learning.pdf?v=f24a30d7db6c",
       "summary": "Continual learning methods trade off regularization that overconstrains updates against replay that drifts under imperfect generations. The authors combine generative replay with an EWC Fisher-metric trust region and prove that, under local approximations, the update takes a one-step MAML form where replay acts as the query gradient and the Fisher as offline curvature. On ImageNet-500 diffusion generation and Continual-World-10 diffusion policies, it beats EWC, replay, FTML, and VR-MCL on retention and re-convergence speed.",
       "tldr": "Combines generative replay with a Fisher-metric trust region for continual diffusion training, and shows the update reduces to a one-step MAML form.",
       "tags": [
