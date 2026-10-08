@@ -1,0 +1,2390 @@
+{
+  "evidenceSha256": "a6ae15c3c50fd272790ab1c28c5aa7bd4a7771e37132cb57537eb167885b0536",
+  "generator": "scripts/render-diffusion-results.py",
+  "matplotlib": "3.11.2",
+  "checks": "Zero baselines, full errors, no missing-value bars, text bounds and value collisions checked",
+  "assets": [
+    {
+      "file": "iclr-imagenet1k-performance-paper-desktop.svg",
+      "benchmark": "iclr-imagenet1k",
+      "metric": "performance",
+      "theme": "paper",
+      "layout": "desktop",
+      "width": 700,
+      "height": 530,
+      "yLimits": [
+        0,
+        140.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2509.23593v2#S5.T1",
+      "measurements": [
+        {
+          "method": "non-continual",
+          "estimate": {
+            "mean": 11.7,
+            "standardError": 0.1
+          },
+          "bar": true
+        },
+        {
+          "method": "diagonal-only",
+          "estimate": {
+            "mean": 86.1,
+            "standardError": 4.2
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-only",
+          "estimate": {
+            "mean": 74.3,
+            "standardError": 1.9
+          },
+          "bar": true
+        },
+        {
+          "method": "gd",
+          "estimate": {
+            "mean": 69,
+            "standardError": 2.2
+          },
+          "bar": true
+        },
+        {
+          "method": "diagonal-gd",
+          "estimate": {
+            "mean": 73.8,
+            "standardError": 2.8
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-gd",
+          "estimate": {
+            "mean": 48.5,
+            "standardError": 1.9
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "iclr-imagenet1k-performance-paper-mobile.svg",
+      "benchmark": "iclr-imagenet1k",
+      "metric": "performance",
+      "theme": "paper",
+      "layout": "mobile",
+      "width": 360,
+      "height": 540,
+      "yLimits": [
+        0,
+        140.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2509.23593v2#S5.T1",
+      "measurements": [
+        {
+          "method": "non-continual",
+          "estimate": {
+            "mean": 11.7,
+            "standardError": 0.1
+          },
+          "bar": true
+        },
+        {
+          "method": "diagonal-only",
+          "estimate": {
+            "mean": 86.1,
+            "standardError": 4.2
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-only",
+          "estimate": {
+            "mean": 74.3,
+            "standardError": 1.9
+          },
+          "bar": true
+        },
+        {
+          "method": "gd",
+          "estimate": {
+            "mean": 69,
+            "standardError": 2.2
+          },
+          "bar": true
+        },
+        {
+          "method": "diagonal-gd",
+          "estimate": {
+            "mean": 73.8,
+            "standardError": 2.8
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-gd",
+          "estimate": {
+            "mean": 48.5,
+            "standardError": 1.9
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "iclr-imagenet1k-performance-paper-cell.svg",
+      "benchmark": "iclr-imagenet1k",
+      "metric": "performance",
+      "theme": "paper",
+      "layout": "cell",
+      "width": 320,
+      "height": 200,
+      "orientation": "horizontal",
+      "xLimits": [
+        0,
+        140.0
+      ],
+      "yLimits": [
+        5.5,
+        -0.5
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2509.23593v2#S5.T1",
+      "measurements": [
+        {
+          "method": "non-continual",
+          "estimate": {
+            "mean": 11.7,
+            "standardError": 0.1
+          },
+          "bar": true
+        },
+        {
+          "method": "diagonal-only",
+          "estimate": {
+            "mean": 86.1,
+            "standardError": 4.2
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-only",
+          "estimate": {
+            "mean": 74.3,
+            "standardError": 1.9
+          },
+          "bar": true
+        },
+        {
+          "method": "gd",
+          "estimate": {
+            "mean": 69,
+            "standardError": 2.2
+          },
+          "bar": true
+        },
+        {
+          "method": "diagonal-gd",
+          "estimate": {
+            "mean": 73.8,
+            "standardError": 2.8
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-gd",
+          "estimate": {
+            "mean": 48.5,
+            "standardError": 1.9
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "iclr-imagenet1k-performance-black-desktop.svg",
+      "benchmark": "iclr-imagenet1k",
+      "metric": "performance",
+      "theme": "black",
+      "layout": "desktop",
+      "width": 700,
+      "height": 530,
+      "yLimits": [
+        0,
+        140.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2509.23593v2#S5.T1",
+      "measurements": [
+        {
+          "method": "non-continual",
+          "estimate": {
+            "mean": 11.7,
+            "standardError": 0.1
+          },
+          "bar": true
+        },
+        {
+          "method": "diagonal-only",
+          "estimate": {
+            "mean": 86.1,
+            "standardError": 4.2
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-only",
+          "estimate": {
+            "mean": 74.3,
+            "standardError": 1.9
+          },
+          "bar": true
+        },
+        {
+          "method": "gd",
+          "estimate": {
+            "mean": 69,
+            "standardError": 2.2
+          },
+          "bar": true
+        },
+        {
+          "method": "diagonal-gd",
+          "estimate": {
+            "mean": 73.8,
+            "standardError": 2.8
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-gd",
+          "estimate": {
+            "mean": 48.5,
+            "standardError": 1.9
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "iclr-imagenet1k-performance-black-mobile.svg",
+      "benchmark": "iclr-imagenet1k",
+      "metric": "performance",
+      "theme": "black",
+      "layout": "mobile",
+      "width": 360,
+      "height": 540,
+      "yLimits": [
+        0,
+        140.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2509.23593v2#S5.T1",
+      "measurements": [
+        {
+          "method": "non-continual",
+          "estimate": {
+            "mean": 11.7,
+            "standardError": 0.1
+          },
+          "bar": true
+        },
+        {
+          "method": "diagonal-only",
+          "estimate": {
+            "mean": 86.1,
+            "standardError": 4.2
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-only",
+          "estimate": {
+            "mean": 74.3,
+            "standardError": 1.9
+          },
+          "bar": true
+        },
+        {
+          "method": "gd",
+          "estimate": {
+            "mean": 69,
+            "standardError": 2.2
+          },
+          "bar": true
+        },
+        {
+          "method": "diagonal-gd",
+          "estimate": {
+            "mean": 73.8,
+            "standardError": 2.8
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-gd",
+          "estimate": {
+            "mean": 48.5,
+            "standardError": 1.9
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "iclr-imagenet1k-performance-black-cell.svg",
+      "benchmark": "iclr-imagenet1k",
+      "metric": "performance",
+      "theme": "black",
+      "layout": "cell",
+      "width": 320,
+      "height": 200,
+      "orientation": "horizontal",
+      "xLimits": [
+        0,
+        140.0
+      ],
+      "yLimits": [
+        5.5,
+        -0.5
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2509.23593v2#S5.T1",
+      "measurements": [
+        {
+          "method": "non-continual",
+          "estimate": {
+            "mean": 11.7,
+            "standardError": 0.1
+          },
+          "bar": true
+        },
+        {
+          "method": "diagonal-only",
+          "estimate": {
+            "mean": 86.1,
+            "standardError": 4.2
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-only",
+          "estimate": {
+            "mean": 74.3,
+            "standardError": 1.9
+          },
+          "bar": true
+        },
+        {
+          "method": "gd",
+          "estimate": {
+            "mean": 69,
+            "standardError": 2.2
+          },
+          "bar": true
+        },
+        {
+          "method": "diagonal-gd",
+          "estimate": {
+            "mean": 73.8,
+            "standardError": 2.8
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-gd",
+          "estimate": {
+            "mean": 48.5,
+            "standardError": 1.9
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "iclr-imagenet1k-forgetting-paper-desktop.svg",
+      "benchmark": "iclr-imagenet1k",
+      "metric": "forgetting",
+      "theme": "paper",
+      "layout": "desktop",
+      "width": 700,
+      "height": 530,
+      "yLimits": [
+        0,
+        84.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2509.23593v2#S5.T1",
+      "measurements": [
+        {
+          "method": "non-continual",
+          "estimate": null,
+          "bar": false
+        },
+        {
+          "method": "diagonal-only",
+          "estimate": {
+            "mean": 34.2,
+            "standardError": 3.6
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-only",
+          "estimate": {
+            "mean": 41.3,
+            "standardError": 1.8
+          },
+          "bar": true
+        },
+        {
+          "method": "gd",
+          "estimate": {
+            "mean": 46.2,
+            "standardError": 12.9
+          },
+          "bar": true
+        },
+        {
+          "method": "diagonal-gd",
+          "estimate": {
+            "mean": 25.8,
+            "standardError": 9.4
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-gd",
+          "estimate": {
+            "mean": 15.2,
+            "standardError": 4.8
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "iclr-imagenet1k-forgetting-paper-mobile.svg",
+      "benchmark": "iclr-imagenet1k",
+      "metric": "forgetting",
+      "theme": "paper",
+      "layout": "mobile",
+      "width": 360,
+      "height": 540,
+      "yLimits": [
+        0,
+        84.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2509.23593v2#S5.T1",
+      "measurements": [
+        {
+          "method": "non-continual",
+          "estimate": null,
+          "bar": false
+        },
+        {
+          "method": "diagonal-only",
+          "estimate": {
+            "mean": 34.2,
+            "standardError": 3.6
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-only",
+          "estimate": {
+            "mean": 41.3,
+            "standardError": 1.8
+          },
+          "bar": true
+        },
+        {
+          "method": "gd",
+          "estimate": {
+            "mean": 46.2,
+            "standardError": 12.9
+          },
+          "bar": true
+        },
+        {
+          "method": "diagonal-gd",
+          "estimate": {
+            "mean": 25.8,
+            "standardError": 9.4
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-gd",
+          "estimate": {
+            "mean": 15.2,
+            "standardError": 4.8
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "iclr-imagenet1k-forgetting-paper-cell.svg",
+      "benchmark": "iclr-imagenet1k",
+      "metric": "forgetting",
+      "theme": "paper",
+      "layout": "cell",
+      "width": 320,
+      "height": 200,
+      "orientation": "horizontal",
+      "xLimits": [
+        0,
+        84.0
+      ],
+      "yLimits": [
+        5.5,
+        -0.5
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2509.23593v2#S5.T1",
+      "measurements": [
+        {
+          "method": "non-continual",
+          "estimate": null,
+          "bar": false
+        },
+        {
+          "method": "diagonal-only",
+          "estimate": {
+            "mean": 34.2,
+            "standardError": 3.6
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-only",
+          "estimate": {
+            "mean": 41.3,
+            "standardError": 1.8
+          },
+          "bar": true
+        },
+        {
+          "method": "gd",
+          "estimate": {
+            "mean": 46.2,
+            "standardError": 12.9
+          },
+          "bar": true
+        },
+        {
+          "method": "diagonal-gd",
+          "estimate": {
+            "mean": 25.8,
+            "standardError": 9.4
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-gd",
+          "estimate": {
+            "mean": 15.2,
+            "standardError": 4.8
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "iclr-imagenet1k-forgetting-black-desktop.svg",
+      "benchmark": "iclr-imagenet1k",
+      "metric": "forgetting",
+      "theme": "black",
+      "layout": "desktop",
+      "width": 700,
+      "height": 530,
+      "yLimits": [
+        0,
+        84.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2509.23593v2#S5.T1",
+      "measurements": [
+        {
+          "method": "non-continual",
+          "estimate": null,
+          "bar": false
+        },
+        {
+          "method": "diagonal-only",
+          "estimate": {
+            "mean": 34.2,
+            "standardError": 3.6
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-only",
+          "estimate": {
+            "mean": 41.3,
+            "standardError": 1.8
+          },
+          "bar": true
+        },
+        {
+          "method": "gd",
+          "estimate": {
+            "mean": 46.2,
+            "standardError": 12.9
+          },
+          "bar": true
+        },
+        {
+          "method": "diagonal-gd",
+          "estimate": {
+            "mean": 25.8,
+            "standardError": 9.4
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-gd",
+          "estimate": {
+            "mean": 15.2,
+            "standardError": 4.8
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "iclr-imagenet1k-forgetting-black-mobile.svg",
+      "benchmark": "iclr-imagenet1k",
+      "metric": "forgetting",
+      "theme": "black",
+      "layout": "mobile",
+      "width": 360,
+      "height": 540,
+      "yLimits": [
+        0,
+        84.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2509.23593v2#S5.T1",
+      "measurements": [
+        {
+          "method": "non-continual",
+          "estimate": null,
+          "bar": false
+        },
+        {
+          "method": "diagonal-only",
+          "estimate": {
+            "mean": 34.2,
+            "standardError": 3.6
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-only",
+          "estimate": {
+            "mean": 41.3,
+            "standardError": 1.8
+          },
+          "bar": true
+        },
+        {
+          "method": "gd",
+          "estimate": {
+            "mean": 46.2,
+            "standardError": 12.9
+          },
+          "bar": true
+        },
+        {
+          "method": "diagonal-gd",
+          "estimate": {
+            "mean": 25.8,
+            "standardError": 9.4
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-gd",
+          "estimate": {
+            "mean": 15.2,
+            "standardError": 4.8
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "iclr-imagenet1k-forgetting-black-cell.svg",
+      "benchmark": "iclr-imagenet1k",
+      "metric": "forgetting",
+      "theme": "black",
+      "layout": "cell",
+      "width": 320,
+      "height": 200,
+      "orientation": "horizontal",
+      "xLimits": [
+        0,
+        84.0
+      ],
+      "yLimits": [
+        5.5,
+        -0.5
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2509.23593v2#S5.T1",
+      "measurements": [
+        {
+          "method": "non-continual",
+          "estimate": null,
+          "bar": false
+        },
+        {
+          "method": "diagonal-only",
+          "estimate": {
+            "mean": 34.2,
+            "standardError": 3.6
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-only",
+          "estimate": {
+            "mean": 41.3,
+            "standardError": 1.8
+          },
+          "bar": true
+        },
+        {
+          "method": "gd",
+          "estimate": {
+            "mean": 46.2,
+            "standardError": 12.9
+          },
+          "bar": true
+        },
+        {
+          "method": "diagonal-gd",
+          "estimate": {
+            "mean": 25.8,
+            "standardError": 9.4
+          },
+          "bar": true
+        },
+        {
+          "method": "rank-one-gd",
+          "estimate": {
+            "mean": 15.2,
+            "standardError": 4.8
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-imagenet500-performance-paper-desktop.svg",
+      "benchmark": "trust-imagenet500",
+      "metric": "performance",
+      "theme": "paper",
+      "layout": "desktop",
+      "width": 700,
+      "height": 530,
+      "yLimits": [
+        0,
+        280.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 86.2,
+            "standardError": 7.3
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 77.2,
+            "standardError": 1.2
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 53.4,
+            "standardError": 6
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 172.5,
+            "standardError": 9.1
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 142.2,
+            "standardError": 8.5
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 44.5,
+            "standardError": 2.3
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-imagenet500-performance-paper-mobile.svg",
+      "benchmark": "trust-imagenet500",
+      "metric": "performance",
+      "theme": "paper",
+      "layout": "mobile",
+      "width": 360,
+      "height": 540,
+      "yLimits": [
+        0,
+        280.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 86.2,
+            "standardError": 7.3
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 77.2,
+            "standardError": 1.2
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 53.4,
+            "standardError": 6
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 172.5,
+            "standardError": 9.1
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 142.2,
+            "standardError": 8.5
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 44.5,
+            "standardError": 2.3
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-imagenet500-performance-paper-cell.svg",
+      "benchmark": "trust-imagenet500",
+      "metric": "performance",
+      "theme": "paper",
+      "layout": "cell",
+      "width": 320,
+      "height": 200,
+      "orientation": "horizontal",
+      "xLimits": [
+        0,
+        280.0
+      ],
+      "yLimits": [
+        5.5,
+        -0.5
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 86.2,
+            "standardError": 7.3
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 77.2,
+            "standardError": 1.2
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 53.4,
+            "standardError": 6
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 172.5,
+            "standardError": 9.1
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 142.2,
+            "standardError": 8.5
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 44.5,
+            "standardError": 2.3
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-imagenet500-performance-black-desktop.svg",
+      "benchmark": "trust-imagenet500",
+      "metric": "performance",
+      "theme": "black",
+      "layout": "desktop",
+      "width": 700,
+      "height": 530,
+      "yLimits": [
+        0,
+        280.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 86.2,
+            "standardError": 7.3
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 77.2,
+            "standardError": 1.2
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 53.4,
+            "standardError": 6
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 172.5,
+            "standardError": 9.1
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 142.2,
+            "standardError": 8.5
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 44.5,
+            "standardError": 2.3
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-imagenet500-performance-black-mobile.svg",
+      "benchmark": "trust-imagenet500",
+      "metric": "performance",
+      "theme": "black",
+      "layout": "mobile",
+      "width": 360,
+      "height": 540,
+      "yLimits": [
+        0,
+        280.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 86.2,
+            "standardError": 7.3
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 77.2,
+            "standardError": 1.2
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 53.4,
+            "standardError": 6
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 172.5,
+            "standardError": 9.1
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 142.2,
+            "standardError": 8.5
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 44.5,
+            "standardError": 2.3
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-imagenet500-performance-black-cell.svg",
+      "benchmark": "trust-imagenet500",
+      "metric": "performance",
+      "theme": "black",
+      "layout": "cell",
+      "width": 320,
+      "height": 200,
+      "orientation": "horizontal",
+      "xLimits": [
+        0,
+        280.0
+      ],
+      "yLimits": [
+        5.5,
+        -0.5
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 86.2,
+            "standardError": 7.3
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 77.2,
+            "standardError": 1.2
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 53.4,
+            "standardError": 6
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 172.5,
+            "standardError": 9.1
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 142.2,
+            "standardError": 8.5
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 44.5,
+            "standardError": 2.3
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-imagenet500-forgetting-paper-desktop.svg",
+      "benchmark": "trust-imagenet500",
+      "metric": "forgetting",
+      "theme": "paper",
+      "layout": "desktop",
+      "width": 700,
+      "height": 530,
+      "yLimits": [
+        0,
+        210.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 50.4,
+            "standardError": 7.2
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 41.2,
+            "standardError": 2.3
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 18.2,
+            "standardError": 4.6
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 128.5,
+            "standardError": 9
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 96.6,
+            "standardError": 8.4
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 10.6,
+            "standardError": 3
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-imagenet500-forgetting-paper-mobile.svg",
+      "benchmark": "trust-imagenet500",
+      "metric": "forgetting",
+      "theme": "paper",
+      "layout": "mobile",
+      "width": 360,
+      "height": 540,
+      "yLimits": [
+        0,
+        210.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 50.4,
+            "standardError": 7.2
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 41.2,
+            "standardError": 2.3
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 18.2,
+            "standardError": 4.6
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 128.5,
+            "standardError": 9
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 96.6,
+            "standardError": 8.4
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 10.6,
+            "standardError": 3
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-imagenet500-forgetting-paper-cell.svg",
+      "benchmark": "trust-imagenet500",
+      "metric": "forgetting",
+      "theme": "paper",
+      "layout": "cell",
+      "width": 320,
+      "height": 200,
+      "orientation": "horizontal",
+      "xLimits": [
+        0,
+        210.0
+      ],
+      "yLimits": [
+        5.5,
+        -0.5
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 50.4,
+            "standardError": 7.2
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 41.2,
+            "standardError": 2.3
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 18.2,
+            "standardError": 4.6
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 128.5,
+            "standardError": 9
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 96.6,
+            "standardError": 8.4
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 10.6,
+            "standardError": 3
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-imagenet500-forgetting-black-desktop.svg",
+      "benchmark": "trust-imagenet500",
+      "metric": "forgetting",
+      "theme": "black",
+      "layout": "desktop",
+      "width": 700,
+      "height": 530,
+      "yLimits": [
+        0,
+        210.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 50.4,
+            "standardError": 7.2
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 41.2,
+            "standardError": 2.3
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 18.2,
+            "standardError": 4.6
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 128.5,
+            "standardError": 9
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 96.6,
+            "standardError": 8.4
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 10.6,
+            "standardError": 3
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-imagenet500-forgetting-black-mobile.svg",
+      "benchmark": "trust-imagenet500",
+      "metric": "forgetting",
+      "theme": "black",
+      "layout": "mobile",
+      "width": 360,
+      "height": 540,
+      "yLimits": [
+        0,
+        210.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 50.4,
+            "standardError": 7.2
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 41.2,
+            "standardError": 2.3
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 18.2,
+            "standardError": 4.6
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 128.5,
+            "standardError": 9
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 96.6,
+            "standardError": 8.4
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 10.6,
+            "standardError": 3
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-imagenet500-forgetting-black-cell.svg",
+      "benchmark": "trust-imagenet500",
+      "metric": "forgetting",
+      "theme": "black",
+      "layout": "cell",
+      "width": 320,
+      "height": 200,
+      "orientation": "horizontal",
+      "xLimits": [
+        0,
+        210.0
+      ],
+      "yLimits": [
+        5.5,
+        -0.5
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 50.4,
+            "standardError": 7.2
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 41.2,
+            "standardError": 2.3
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 18.2,
+            "standardError": 4.6
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 128.5,
+            "standardError": 9
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 96.6,
+            "standardError": 8.4
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 10.6,
+            "standardError": 3
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-cw10-performance-paper-desktop.svg",
+      "benchmark": "trust-cw10",
+      "metric": "performance",
+      "theme": "paper",
+      "layout": "desktop",
+      "width": 700,
+      "height": 530,
+      "yLimits": [
+        0,
+        140.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 17.9,
+            "standardError": 2.4
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 17.6,
+            "standardError": 1.8
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 85.3,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 78.5,
+            "standardError": 3.8
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 77.9,
+            "standardError": 1.5
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 88.3,
+            "standardError": 0.4
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-cw10-performance-paper-mobile.svg",
+      "benchmark": "trust-cw10",
+      "metric": "performance",
+      "theme": "paper",
+      "layout": "mobile",
+      "width": 360,
+      "height": 540,
+      "yLimits": [
+        0,
+        140.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 17.9,
+            "standardError": 2.4
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 17.6,
+            "standardError": 1.8
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 85.3,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 78.5,
+            "standardError": 3.8
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 77.9,
+            "standardError": 1.5
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 88.3,
+            "standardError": 0.4
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-cw10-performance-paper-cell.svg",
+      "benchmark": "trust-cw10",
+      "metric": "performance",
+      "theme": "paper",
+      "layout": "cell",
+      "width": 320,
+      "height": 200,
+      "orientation": "horizontal",
+      "xLimits": [
+        0,
+        140.0
+      ],
+      "yLimits": [
+        5.5,
+        -0.5
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 17.9,
+            "standardError": 2.4
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 17.6,
+            "standardError": 1.8
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 85.3,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 78.5,
+            "standardError": 3.8
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 77.9,
+            "standardError": 1.5
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 88.3,
+            "standardError": 0.4
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-cw10-performance-black-desktop.svg",
+      "benchmark": "trust-cw10",
+      "metric": "performance",
+      "theme": "black",
+      "layout": "desktop",
+      "width": 700,
+      "height": 530,
+      "yLimits": [
+        0,
+        140.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 17.9,
+            "standardError": 2.4
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 17.6,
+            "standardError": 1.8
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 85.3,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 78.5,
+            "standardError": 3.8
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 77.9,
+            "standardError": 1.5
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 88.3,
+            "standardError": 0.4
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-cw10-performance-black-mobile.svg",
+      "benchmark": "trust-cw10",
+      "metric": "performance",
+      "theme": "black",
+      "layout": "mobile",
+      "width": 360,
+      "height": 540,
+      "yLimits": [
+        0,
+        140.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 17.9,
+            "standardError": 2.4
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 17.6,
+            "standardError": 1.8
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 85.3,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 78.5,
+            "standardError": 3.8
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 77.9,
+            "standardError": 1.5
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 88.3,
+            "standardError": 0.4
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-cw10-performance-black-cell.svg",
+      "benchmark": "trust-cw10",
+      "metric": "performance",
+      "theme": "black",
+      "layout": "cell",
+      "width": 320,
+      "height": 200,
+      "orientation": "horizontal",
+      "xLimits": [
+        0,
+        140.0
+      ],
+      "yLimits": [
+        5.5,
+        -0.5
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 17.9,
+            "standardError": 2.4
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 17.6,
+            "standardError": 1.8
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 85.3,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 78.5,
+            "standardError": 3.8
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 77.9,
+            "standardError": 1.5
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 88.3,
+            "standardError": 0.4
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-cw10-forgetting-paper-desktop.svg",
+      "benchmark": "trust-cw10",
+      "metric": "forgetting",
+      "theme": "paper",
+      "layout": "desktop",
+      "width": 700,
+      "height": 530,
+      "yLimits": [
+        0,
+        112.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 73,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 73.7,
+            "standardError": 1.3
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 8.2,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 13.3,
+            "standardError": 3.3
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 11.7,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 4.4,
+            "standardError": 0.9
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-cw10-forgetting-paper-mobile.svg",
+      "benchmark": "trust-cw10",
+      "metric": "forgetting",
+      "theme": "paper",
+      "layout": "mobile",
+      "width": 360,
+      "height": 540,
+      "yLimits": [
+        0,
+        112.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 73,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 73.7,
+            "standardError": 1.3
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 8.2,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 13.3,
+            "standardError": 3.3
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 11.7,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 4.4,
+            "standardError": 0.9
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-cw10-forgetting-paper-cell.svg",
+      "benchmark": "trust-cw10",
+      "metric": "forgetting",
+      "theme": "paper",
+      "layout": "cell",
+      "width": 320,
+      "height": 200,
+      "orientation": "horizontal",
+      "xLimits": [
+        0,
+        112.0
+      ],
+      "yLimits": [
+        5.5,
+        -0.5
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 73,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 73.7,
+            "standardError": 1.3
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 8.2,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 13.3,
+            "standardError": 3.3
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 11.7,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 4.4,
+            "standardError": 0.9
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-cw10-forgetting-black-desktop.svg",
+      "benchmark": "trust-cw10",
+      "metric": "forgetting",
+      "theme": "black",
+      "layout": "desktop",
+      "width": 700,
+      "height": 530,
+      "yLimits": [
+        0,
+        112.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 73,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 73.7,
+            "standardError": 1.3
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 8.2,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 13.3,
+            "standardError": 3.3
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 11.7,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 4.4,
+            "standardError": 0.9
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-cw10-forgetting-black-mobile.svg",
+      "benchmark": "trust-cw10",
+      "metric": "forgetting",
+      "theme": "black",
+      "layout": "mobile",
+      "width": 360,
+      "height": 540,
+      "yLimits": [
+        0,
+        112.0
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 73,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 73.7,
+            "standardError": 1.3
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 8.2,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 13.3,
+            "standardError": 3.3
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 11.7,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 4.4,
+            "standardError": 0.9
+          },
+          "bar": true
+        }
+      ]
+    },
+    {
+      "file": "trust-cw10-forgetting-black-cell.svg",
+      "benchmark": "trust-cw10",
+      "metric": "forgetting",
+      "theme": "black",
+      "layout": "cell",
+      "width": 320,
+      "height": 200,
+      "orientation": "horizontal",
+      "xLimits": [
+        0,
+        112.0
+      ],
+      "yLimits": [
+        5.5,
+        -0.5
+      ],
+      "errorBars": "\u00b11 standard error",
+      "source": "https://arxiv.org/html/2602.02417v1#S4.T1",
+      "measurements": [
+        {
+          "method": "finetuning",
+          "estimate": {
+            "mean": 73,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "ewc",
+          "estimate": {
+            "mean": 73.7,
+            "standardError": 1.3
+          },
+          "bar": true
+        },
+        {
+          "method": "replay",
+          "estimate": {
+            "mean": 8.2,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "ftml",
+          "estimate": {
+            "mean": 13.3,
+            "standardError": 3.3
+          },
+          "bar": true
+        },
+        {
+          "method": "vrmcl",
+          "estimate": {
+            "mean": 11.7,
+            "standardError": 2
+          },
+          "bar": true
+        },
+        {
+          "method": "trust-region",
+          "estimate": {
+            "mean": 4.4,
+            "standardError": 0.9
+          },
+          "bar": true
+        }
+      ]
+    }
+  ]
+}

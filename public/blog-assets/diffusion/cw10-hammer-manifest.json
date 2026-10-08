@@ -1,0 +1,20 @@
+{
+  "source": "cw10_task1_s42_4methods.gif",
+  "sourceSha256": "52e08edc51095b5c9097149cfbdd49d138399d68dae760b821da07b244fc680e",
+  "width": 1200,
+  "height": 756,
+  "frames": 151,
+  "durationSeconds": 7.55,
+  "posterFrame": 150,
+  "socialImage": {
+    "width": 1200,
+    "height": 630,
+    "treatment": "Complete final GIF frame, proportionally resized and padded. No panels cropped."
+  },
+  "assets": {
+    "cw10-hammer.gif": 2405134,
+    "cw10-hammer.mp4": 655934,
+    "cw10-hammer-poster.png": 560008,
+    "cw10-hammer-social.png": 595489
+  }
+}

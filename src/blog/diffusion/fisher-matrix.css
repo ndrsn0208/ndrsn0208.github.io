@@ -1,0 +1,48 @@
+.fisher-matrix {
+  --fisher-matrix-background: #f5f1e8;
+  --fisher-matrix-positive: #496577;
+  --fisher-matrix-negative: #95664e;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  background: var(--fisher-matrix-background);
+  color: var(--scol-ink, #292c29);
+}
+
+.scol-blog[data-edition="black"] .fisher-matrix {
+  --fisher-matrix-background: #000;
+  --fisher-matrix-positive: #9cb2c0;
+  --fisher-matrix-negative: #c89b7f;
+  color: var(--scol-ink, #e9e8e1);
+}
+
+.fisher-matrix-cell {
+  opacity: 1;
+  stroke: none;
+  transition: opacity 240ms ease;
+}
+
+.fisher-matrix-guide {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 0.5;
+  opacity: 0.12;
+  pointer-events: none;
+  transition: opacity 240ms ease;
+}
+
+.fisher-matrix[data-highlight-off-diagonal="true"] .fisher-matrix-cell[data-diagonal="true"] {
+  opacity: 0.15;
+}
+
+.fisher-matrix[data-highlight-off-diagonal="true"] .fisher-matrix-guide {
+  opacity: 0.035;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fisher-matrix-cell,
+  .fisher-matrix-guide {
+    transition: none;
+  }
+}

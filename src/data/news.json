@@ -1,5 +1,17 @@
 [
   {
+    "id": "continual-diffusion-blog-2026",
+    "date": "2026-10",
+    "content": [
+      { "text": "New blog: " },
+      {
+        "text": "Continual Learning Diffusion Models",
+        "href": "/blog/continual-learning-diffusion-models/"
+      },
+      { "text": ". Learning new tasks while preserving earlier abilities." }
+    ]
+  },
+  {
     "id": "scol-blog-2026",
     "date": "2026-09",
     "content": [

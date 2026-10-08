@@ -2,6 +2,10 @@ import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'motion/react'
 import BlogLayout, { ArrowIcon, useBlogMetadata, useBlogTheme } from './BlogLayout'
 import DeploymentHero from './scol/DeploymentHero'
+import DiffusionTeaser from './diffusion/DiffusionTeaser'
+import { diffusionArticle } from './diffusion/article'
+import { diffusionImage, diffusionImageAlt, diffusionPath } from './diffusion/format'
+import './diffusion/diffusion.css'
 
 function BlogIndexContent() {
   const edition = useBlogTheme()
@@ -10,6 +14,8 @@ function BlogIndexContent() {
     title: 'Research notes · Zekun Wang',
     description: 'Research notes on how models learn, adapt, and retain what they know.',
     path: '/blog/',
+    image: diffusionImage,
+    imageAlt: diffusionImageAlt,
   })
 
   return (
@@ -19,6 +25,16 @@ function BlogIndexContent() {
         <h1>Research notes</h1>
         <p>A closer look at how models learn, adapt, and retain what they know.</p>
       </header>
+      <article className="scol-index-entry diff-index-entry">
+        <div className="scol-index-copy">
+          <div className="scol-entry-meta"><time dateTime={diffusionArticle.date}>October 2026</time><span>Generation &amp; control</span></div>
+          <h2><Link to={`${diffusionPath}?edition=${edition}`}>Continual Learning<br /> Diffusion Models</Link></h2>
+          <p className="scol-index-subtitle">{diffusionArticle.subtitle}</p>
+          <p>Two connected studies of Fisher geometry, replay, and how a model can keep learning without losing its earlier abilities.</p>
+          <Link className="scol-text-link" to={`${diffusionPath}?edition=${edition}`}>Explore the work <ArrowIcon /></Link>
+        </div>
+        <div className="scol-index-illustration"><DiffusionTeaser /></div>
+      </article>
       <article className="scol-index-entry">
         <div className="scol-index-copy">
           <div className="scol-entry-meta"><time dateTime="2026-09-25">September 2026</time><span>Continual learning</span></div>

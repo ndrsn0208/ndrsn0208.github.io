@@ -21,6 +21,7 @@ import InfoCopy from '../../still/InfoCopy'
 import BackgroundInfo from '../../still/BackgroundInfo'
 import HomeContacts from '../../still/HomeContacts'
 import HomeNews from '../../still/HomeNews'
+import HomeSelectedPublications from '../../still/HomeSelectedPublications'
 import ResearchTopics from '../../still/ResearchTopics'
 import type { MobileStudyId } from '../../mobile/registry'
 import { getStillStudy, type StillStudyId } from '../../still/studies'
@@ -42,6 +43,7 @@ import '../../still/split-layout.css'
 import '../../still/research-topics.css'
 import '../../still/profile-content.css'
 import '../../still/home-updates.css'
+import '../../still/home-overview.css'
 
 const artworks: Record<StillStudyId, ComponentType> = { lens: LensArtwork, drift: DriftArtwork, frame: FrameArtwork }
 
@@ -166,7 +168,7 @@ function QuietPaper({ paper, inline = false }: { paper: Publication; inline?: bo
       transition={{ duration: reduce ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
       style={!present ? { overflow: 'hidden', pointerEvents: 'none' } : undefined}
     >
-      <p className="quiet-paper-meta">{paper.venue}{paper.award && <span> · {paper.award}</span>}</p>
+      <p className="quiet-paper-meta">{paper.venue}{paper.award && <span> ({paper.award})</span>}</p>
       <PaperHeading id={`quiet-title-${paper.id}`} className="quiet-paper-title" tabIndex={-1}>
         {inline ? (
           <a href={paperHref(paper)} target="_blank" rel="noreferrer" className="quiet-paper-title-link">
@@ -255,6 +257,9 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
   const [dialogContent, setDialogContent] = useState<'about' | 'contact'>('about')
   const [emailStatus, setEmailStatus] = useState('')
   const rootRef = useRef<HTMLDivElement>(null)
+  const homePageRef = useRef<HTMLDivElement>(null)
+  const homeFeedRef = useRef<HTMLDivElement>(null)
+  const homeScrollRef = useRef(0)
   const readerTitleRef = useRef<HTMLHeadingElement>(null)
   const searchRef = useRef<HTMLInputElement>(null)
   const dialogRef = useRef<HTMLDialogElement>(null)
@@ -321,6 +326,11 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
   useLayoutEffect(() => {
     const home = rootRef.current?.querySelector<HTMLElement>('.quiet-home')
     if (home) home.inert = chapterLayout && Boolean(panel)
+    if (homePageRef.current) {
+      homePageRef.current.inert = chapterLayout && Boolean(panel)
+      if (desktop) homePageRef.current.scrollTop = panel ? 0 : homeScrollRef.current
+    }
+    if (homeFeedRef.current) homeFeedRef.current.inert = paneLayout && Boolean(panel)
     if (paneLayout) {
       if (panel) focusPanel(panel)
       else if (previousPanel.current) {
@@ -329,7 +339,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
       }
     }
     previousPanel.current = panel
-  }, [paneLayout, chapterLayout, panel])
+  }, [paneLayout, chapterLayout, desktop, panel])
 
   useLayoutEffect(() => {
     if (previousPaneLayout.current === paneLayout) return
@@ -351,7 +361,7 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
   const words = query.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean)
   const filteredPapers = papers.filter((paper) => {
     const searchable = [
-      paper.title, paper.venue, paper.year, paper.arxivId,
+      paper.title, paper.venue, paper.award, paper.year, paper.arxivId,
       ...paper.authors, ...paper.tags, paperSummary(paper), paper.summary,
     ].join(' ').toLocaleLowerCase()
     return (topic === 'all' || paper.tags.includes(topic))
@@ -581,44 +591,74 @@ export default function Quiet({ edition: preferredEdition, study: preferredStudy
       </header>
 
       <main id="quiet-main" className="quiet-main" tabIndex={-1}>
-        <motion.section
-          id="introduction" className="quiet-home quiet-shell"
-          layout={desktop && !reduce ? 'position' : false}
+        <motion.div
+          ref={homePageRef}
+          className="quiet-home-page"
+          layoutScroll
           initial={false}
           animate={chapterLayout ? { opacity: panel ? 0 : 1, y: panel && !reduce ? -8 : 0 } : { opacity: 1, y: 0 }}
-          transition={{
-            layout: { duration: 0.76, ease: [0.22, 1, 0.36, 1] },
-            opacity: { duration: reduce ? 0 : 0.24 },
-            y: { duration: reduce ? 0 : 0.42, ease: [0.22, 1, 0.36, 1] },
-          }}
+          transition={{ duration: reduce ? 0 : 0.24 }}
           aria-hidden={chapterLayout && Boolean(panel) || undefined}
-          hidden={!inlinePublications && mode !== 'home'} aria-labelledby="quiet-name" tabIndex={inlinePublications ? -1 : undefined}
+          onScroll={(event) => {
+            if (!paneLayout || !panel) homeScrollRef.current = event.currentTarget.scrollTop
+          }}
         >
-          <div className="quiet-emblem" aria-hidden="true">{Artwork ? <Artwork /> : <QuietMark />}</div>
-          <div className="quiet-introduction">
-            <p className="quiet-eyebrow">Research · Computer science</p>
-            <h1 id="quiet-name">{profile.name}</h1>
-            {inlinePublications && <HomeContacts />}
-            <p className="quiet-intro">
-              {profile.researchStatement.split(/(deployment-time)/).map((part, index) => (
-                part === 'deployment-time' ? <span className="quiet-keep" key={index}>{part}</span> : part
-              ))}
-            </p>
-            <BackgroundInfo />
-            {!chapterLayout && navigation(true)}
-            {inlinePublications && <HomeNews />}
-          </div>
-          {!inlinePublications && <aside className="quiet-recent" aria-labelledby="quiet-recent-label">
-            <div className="quiet-recent-caption">
-              <h2 id="quiet-recent-label">Latest publication</h2>
-              <span>{recentPaper.venue}</span>
+          <motion.section
+            id="introduction" className="quiet-home quiet-shell"
+            layout={desktop && !reduce ? 'position' : false}
+            initial={false}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              layout: { duration: 0.76, ease: [0.22, 1, 0.36, 1] },
+              opacity: { duration: reduce ? 0 : 0.24 },
+              y: { duration: reduce ? 0 : 0.42, ease: [0.22, 1, 0.36, 1] },
+            }}
+            aria-hidden={chapterLayout && Boolean(panel) || undefined}
+            hidden={!inlinePublications && mode !== 'home'} aria-labelledby="quiet-name" tabIndex={inlinePublications ? -1 : undefined}
+          >
+            <div className="quiet-emblem" aria-hidden="true">{Artwork ? <Artwork /> : <QuietMark />}</div>
+            <div className="quiet-introduction">
+              <p className="quiet-eyebrow">Research · Computer science</p>
+              <h1 id="quiet-name">{profile.name}</h1>
+              {inlinePublications && <HomeContacts />}
+              <p className="quiet-intro">
+                {profile.researchStatement.split(/(deployment-time)/).map((part, index) => (
+                  part === 'deployment-time' ? <span className="quiet-keep" key={index}>{part}</span> : part
+                ))}
+              </p>
+              <BackgroundInfo />
+              {!chapterLayout && navigation(true)}
             </div>
-            <button type="button" className="quiet-recent-paper" onClick={() => openPublications(recentPaper.id)}>
-              <span>{recentPaper.title}</span>
-              <Arrow direction="right" className="quiet-arrow" />
-            </button>
-          </aside>}
-        </motion.section>
+            {!inlinePublications && <aside className="quiet-recent" aria-labelledby="quiet-recent-label">
+              <div className="quiet-recent-caption">
+                <h2 id="quiet-recent-label">Latest publication</h2>
+                <span>{recentPaper.venue}</span>
+              </div>
+              <button type="button" className="quiet-recent-paper" onClick={() => openPublications(recentPaper.id)}>
+                <span>{recentPaper.title}</span>
+                <Arrow direction="right" className="quiet-arrow" />
+              </button>
+            </aside>}
+          </motion.section>
+          {inlinePublications && (
+            <div
+              ref={homeFeedRef}
+              className="quiet-home-feed"
+              aria-hidden={paneLayout && Boolean(panel) || undefined}
+            >
+              <HomeNews />
+              <HomeSelectedPublications onAllPublications={() => {
+                setQuery('')
+                setTopic('all')
+                if (paneLayout) openPanel('publications')
+                else {
+                  openPublications()
+                  rootRef.current?.querySelector('#publications')?.scrollIntoView({ behavior: reduce ? 'instant' : 'smooth' })
+                }
+              }} />
+            </div>
+          )}
+        </motion.div>
 
         <div className="quiet-panels" data-open={paneLayout && Boolean(panel) || undefined}>
           <div className="quiet-panel-toolbar" aria-hidden={!desktop || !panel || undefined}>

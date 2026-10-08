@@ -1,0 +1,36 @@
+{
+  "source": "https://arxiv.org/pdf/2602.02417v1",
+  "page": 7,
+  "figure": 2,
+  "renderDpi": 240,
+  "panels": [
+    {
+      "path": "public/blog-assets/diffusion/convergence/imagenet500-figure2a.png",
+      "pdfCropPoints": [
+        55,
+        67,
+        542,
+        152
+      ],
+      "dimensions": [
+        1624,
+        284
+      ],
+      "sha256": "cb9997827b7100b3ea37f8406231af94ff0b0f178f61e2b44edd39e9cdb0d9dd"
+    },
+    {
+      "path": "public/blog-assets/diffusion/convergence/cw10-figure2b.png",
+      "pdfCropPoints": [
+        55,
+        171,
+        542,
+        263
+      ],
+      "dimensions": [
+        1624,
+        307
+      ],
+      "sha256": "d742556ec9c1be746ae53b7a77291a7d11ac00cb75603c3ccbadaefa12c561db"
+    }
+  ]
+}

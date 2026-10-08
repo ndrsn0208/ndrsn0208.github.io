@@ -15,7 +15,8 @@
     "mobile:screenshots": "node scripts/capture_mobile.mjs",
     "cv:build": "python3 scripts/build_cv.py",
     "cv:publish": "python3 scripts/build_cv.py --publish",
-    "blog:paper": "node scripts/sync-scol-paper.mjs"
+    "blog:paper": "node scripts/sync-scol-paper.mjs",
+    "blog:figure-cards": "node scripts/render-diffusion-evidence-cards.mjs && node scripts/render-diffusion-concept-cards.mjs"
   },
   "dependencies": {
     "fuse.js": "7.0.0",
@@ -26,7 +27,8 @@
     "react-markdown": "9.0.1",
     "react-router-dom": "6.28.0",
     "rehype-katex": "7.0.1",
-    "remark-math": "6.0.0"
+    "remark-math": "6.0.0",
+    "three": "^0.170.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
@@ -34,9 +36,11 @@
     "@types/node": "22.9.0",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
+    "@types/three": "^0.170.0",
     "@vitejs/plugin-react": "4.3.4",
     "autoprefixer": "10.4.20",
     "postcss": "8.4.49",
+    "sharp": "0.34.5",
     "tailwindcss": "3.4.14",
     "typescript": "5.6.3",
     "vite": "5.4.10"

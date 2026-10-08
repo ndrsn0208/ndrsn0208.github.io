@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2026-10-08T17:54:16+00:00",
+  "lastUpdated": "2026-10-08T19:16:10+00:00",
   "publications": [
     {
       "id": "diffusion-models-concept-formation-2026",
-      "venue": "arXiv 2026",
+      "venue": "Advances in Cognitive Systems 2026",
       "year": 2026,
       "addedAt": "2026-09-20T04:45:16+00:00",
       "arxivId": "2609.13047",
@@ -50,7 +50,8 @@
         "hIntensity": 0.643003,
         "noiseFreq": 0.681943,
         "noiseOpacity": 0.556511
-      }
+      },
+      "award": "🏆 Ada Lovelace Award for Excellent Paper"
     },
     {
       "id": "decompose-sparsely-where-you-should-absorb-dense-2026",
@@ -165,7 +166,7 @@
     },
     {
       "id": "self-consolidating-language-models-continual-kno-2026",
-      "title": "Self-Consolidating Language Models: Continual Knowledge Incorporation from Context",
+      "title": "Self-Consolidating Language Models",
       "authors": [
         "Zekun Wang",
         "Anant Gupta",

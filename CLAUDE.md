@@ -49,12 +49,25 @@ note from `config.json`; `profile-content.css` supplies their shared reading sty
 
 `HomeContacts.tsx` places the email, Scholar, LinkedIn, and GitHub links directly
 beneath the name. Lens has no separate Contact destination; older `#contact`
-links focus these homepage details. `HomeNews.tsx` renders a bounded, manually
-scrollable news list on the introduction, with keyboard access and smooth arrow
-controls. News keeps its reading position across panel and appearance changes.
+links focus these homepage details. The overview keeps the introduction at its
+original measure, followed by page-width News and Selected Publications.
+`HomeNews.tsx` renders a longer, bounded news list with keyboard access and smooth
+arrow controls. `HomeSelectedPublications.tsx` reads `featuredPaperIds` in the
+configured order: SCoL, Trust Region, compositional diffusion, rank-1 Fisher, Babysit.
+`home-overview.css` owns the shared width and responsive layout. The overview
+and news keep their scroll positions across panel and appearance changes.
+Opening a desktop destination hides the feed and moves the same introduction
+left. On mobile, the whole overview gives way to the active chapter.
 Edit `src/data/news.json` for dated announcements and links. Do not add news for
 arXiv-only preprint uploads. Blog announcements use the same data format.
 The implemented research blog is documented in `BLOG.md`.
+The second illustrated article at `/blog/continual-learning-diffusion-models/`
+joins the ICLR 2026 rank-1 Fisher and NeurIPS 2026 trust-region papers. Its sources
+and interactive figures live under `src/blog/diffusion/`. The title is
+“Continual Learning Diffusion Models”. The author-supplied CW10 hammer recording
+is the hero and index preview, configured in `media.ts`. Low-resolution generated
+image samples are retired. Link cards use a static robot poster; the GIF or MP4
+can be attached natively to social posts for animation.
 `home-updates.css` keeps the first news items visible on shorter displays by
 reducing decorative space while preserving the Book type sizes.
 

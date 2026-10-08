@@ -17,11 +17,17 @@ export function ArrowIcon({ direction = 'right' }: { direction?: 'right' | 'left
   )
 }
 
-export function useBlogMetadata({ title, description, path, article = false }: {
+export function useBlogMetadata({
+  title, description, path, article = false,
+  image = '/blog-assets/scol/social-card.png',
+  imageAlt = 'Self-Consolidating Language Models. Writing context into model weights at test time.',
+}: {
   title: string
   description: string
   path: string
   article?: boolean
+  image?: string
+  imageAlt?: string
 }) {
   useEffect(() => {
     const oldTitle = document.title
@@ -46,9 +52,13 @@ export function useBlogMetadata({ title, description, path, article = false }: {
     meta('property', 'og:description', description)
     meta('property', 'og:type', article ? 'article' : 'website')
     meta('property', 'og:url', url)
-    meta('property', 'og:image', 'https://ndrsn0208.github.io/blog-assets/scol/social-card.png')
-    meta('property', 'og:image:alt', 'Self-Consolidating Language Models. Writing context into model weights at test time.')
+    meta('property', 'og:image', `https://ndrsn0208.github.io${image}`)
+    meta('property', 'og:image:alt', imageAlt)
     meta('name', 'twitter:card', 'summary_large_image')
+    meta('name', 'twitter:title', title)
+    meta('name', 'twitter:description', description)
+    meta('name', 'twitter:image', `https://ndrsn0208.github.io${image}`)
+    meta('name', 'twitter:image:alt', imageAlt)
     const previousCanonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]')
     const canonical = previousCanonical ?? document.createElement('link')
     const oldHref = canonical.getAttribute('href')
@@ -61,10 +71,10 @@ export function useBlogMetadata({ title, description, path, article = false }: {
       if (!previousCanonical) canonical.remove()
       else if (oldHref !== null) canonical.setAttribute('href', oldHref)
     }
-  }, [title, description, path, article])
+  }, [title, description, path, article, image, imageAlt])
 }
 
-export default function BlogLayout({ children }: { children: ReactNode }) {
+export default function BlogLayout({ children, initialAnchor }: { children: ReactNode; initialAnchor?: string }) {
   const [params] = useSearchParams()
   const location = useLocation()
   const navigate = useNavigate()
@@ -100,16 +110,37 @@ export default function BlogLayout({ children }: { children: ReactNode }) {
   }, [edition])
 
   useEffect(() => {
-    if (!location.hash) {
+    let id = initialAnchor
+    if (location.hash) {
+      try { id = decodeURIComponent(location.hash.slice(1)) }
+      catch { id = location.hash.slice(1) }
+    }
+    if (!id) {
       window.scrollTo({ top: 0, behavior: 'instant' })
       return
     }
+    const targetId = id
+    let cancelled = false
     const frame = requestAnimationFrame(() => {
-      const id = decodeURIComponent(location.hash.slice(1))
-      document.getElementById(id)?.scrollIntoView({ behavior: 'instant' })
+      if (!cancelled) document.getElementById(targetId)?.scrollIntoView({ behavior: 'instant', block: 'start' })
     })
-    return () => cancelAnimationFrame(frame)
-  }, [location.pathname])
+    // A shared figure may be far down the article. Font loading must not leave
+    // its first visit above the target, but never pull back a reader who moves.
+    const stop = () => { cancelled = true }
+    window.addEventListener('wheel', stop, { passive: true, once: true })
+    window.addEventListener('pointerdown', stop, { passive: true, once: true })
+    window.addEventListener('keydown', stop, { once: true })
+    void document.fonts?.ready.then(() => {
+      if (!cancelled) document.getElementById(targetId)?.scrollIntoView({ behavior: 'instant', block: 'start' })
+    })
+    return () => {
+      cancelled = true
+      cancelAnimationFrame(frame)
+      window.removeEventListener('wheel', stop)
+      window.removeEventListener('pointerdown', stop)
+      window.removeEventListener('keydown', stop)
+    }
+  }, [location.pathname, initialAnchor])
 
   const changeEdition = () => {
     const next = edition === 'paper' ? 'black' : 'paper'

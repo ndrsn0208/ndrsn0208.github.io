@@ -1,0 +1,125 @@
+{
+  "source": "cw10-hammer.gif",
+  "sourceSha256": "52e08edc51095b5c9097149cfbdd49d138399d68dae760b821da07b244fc680e",
+  "paper": "#f5f1e8",
+  "width": 1200,
+  "height": 756,
+  "durationSeconds": 7.55,
+  "posterFrame": 150,
+  "treatment": "Paper matte applied outside protected robot views, timeline, and blue method label. Near-white canvas pixels normalized. Source originals unchanged. GIF palette and H.264 delivery encoding can introduce ordinary quantization.",
+  "protectedRegions": [
+    [
+      213,
+      134,
+      447,
+      369
+    ],
+    [
+      458,
+      134,
+      693,
+      369
+    ],
+    [
+      703,
+      134,
+      938,
+      369
+    ],
+    [
+      947,
+      134,
+      1181,
+      369
+    ],
+    [
+      213,
+      503,
+      447,
+      738
+    ],
+    [
+      458,
+      503,
+      693,
+      738
+    ],
+    [
+      703,
+      503,
+      938,
+      738
+    ],
+    [
+      947,
+      503,
+      1181,
+      738
+    ],
+    [
+      240,
+      393,
+      326,
+      479
+    ],
+    [
+      344,
+      393,
+      430,
+      479
+    ],
+    [
+      447,
+      393,
+      533,
+      479
+    ],
+    [
+      551,
+      393,
+      637,
+      479
+    ],
+    [
+      655,
+      393,
+      741,
+      479
+    ],
+    [
+      758,
+      393,
+      844,
+      479
+    ],
+    [
+      861,
+      393,
+      947,
+      479
+    ],
+    [
+      965,
+      393,
+      1051,
+      479
+    ],
+    [
+      1069,
+      393,
+      1155,
+      479
+    ]
+  ],
+  "protectedPixelsIdenticalBeforeEncoding": true,
+  "gifCornersExactPaperEveryFrame": true,
+  "assets": {
+    "cw10-hammer-paper.mp4": 757497,
+    "cw10-hammer-paper.gif": 13451563,
+    "cw10-hammer-paper-poster.png": 551220
+  },
+  "sourceFrames": 151,
+  "gifFrames": 101,
+  "videoFrames": 151,
+  "gifPalette": "One fixed palette. Identical adjacent frames are combined while preserving their total duration."
+}
