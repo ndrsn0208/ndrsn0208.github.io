@@ -9,7 +9,7 @@ export default function RobotFilm({ compact = false }: { compact?: boolean }) {
   const stage = useRef<HTMLDivElement>(null)
   const videoId = useId()
   const theme = useBlogTheme()
-  const film = theme === 'paper' ? diffusionRobot.paper : diffusionRobot
+  const film = theme === 'paper' ? diffusionRobot.paper : diffusionRobot.black
   const reduce = useDiffusionReducedMotion()
   const [intent, setIntent] = useState<'auto' | 'play' | 'pause'>('auto')
   const [visible, setVisible] = useState(false)
@@ -82,7 +82,7 @@ export default function RobotFilm({ compact = false }: { compact?: boolean }) {
             <span>Restart</span>
           </button>}
         </>}
-        {(!compact || failed) && <a href={failed ? film.gif : film.src} target="_blank" rel="noreferrer">Full size <span aria-hidden="true">↗</span></a>}
+        {(!compact || failed) && <a href={failed ? film.gif : film.src} target="_blank" rel="noreferrer">Full size</a>}
         {failed && <span className="diff-film-status">The still frame is shown. Open the full-size animation to play it.</span>}
       </div>
       {failed

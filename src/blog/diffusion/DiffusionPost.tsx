@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
-import { motion, useScroll, useSpring } from 'motion/react'
-import BlogLayout, { ArrowIcon, useBlogMetadata } from '../BlogLayout'
+import BlogLayout, { useBlogMetadata } from '../BlogLayout'
+import ArticleHeader from '../ArticleHeader'
+import ArticleOutline from '../ArticleOutline'
+import ArticleRelatedReading from '../ArticleRelatedReading'
 import ArticleShare from '../ArticleShare'
 import FigureShare from '../FigureShare'
 import DiffusionFigureShare from './DiffusionFigureShare'
@@ -17,19 +19,18 @@ import { diffusionArticle } from './article'
 import { metaLearningConnection } from './meta-learning-connection'
 import { diffusionImage, diffusionImageAlt, diffusionPapers, diffusionPath, diffusionTextParts, diffusionUrl } from './format'
 import { diffusionFigurePath, getDiffusionFigure, type DiffusionFigure } from './figure-shares'
-import { useDiffusionReducedMotion } from './useMotionPreference'
 import './diffusion.css'
-
-const publicationDate = new Intl.DateTimeFormat('en', {
-  month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC',
-}).format(new Date(diffusionArticle.date))
 
 const chapters = [
   { id: 'problem', label: 'The problem' },
-  { id: 'fisher', label: 'Fisher' },
-  { id: 'trust-region', label: 'Sharing' },
-  { id: 'meta-learning', label: 'Meta-learning' },
-  { id: 'results', label: 'Evidence' },
+  { id: 'fisher', label: 'What Fisher preserves' },
+  { id: 'rank-one', label: 'One shared direction' },
+  { id: 'trust-region', label: 'A region to learn in' },
+  { id: 'meta-learning', label: 'Learning to recover' },
+  { id: 'results', label: 'Measured results' },
+  { id: 'outlook', label: 'Looking ahead' },
+  { id: 'papers', label: 'The two papers' },
+  { id: 'references', label: 'Further reading' },
 ] as const
 
 function Paragraphs({ paragraphs, id, citations = [] }: { paragraphs: readonly string[], id: string, citations?: readonly string[] }) {
@@ -72,12 +73,11 @@ function PaperLinks() {
   }
 
   return (
-    <section className="diff-papers diff-column" id="papers" aria-labelledby="diff-papers-title">
-      <p className="diff-overline">The two papers</p>
+    <section className="diff-papers article-paper-library" id="papers" aria-labelledby="diff-papers-title">
       <h2 id="diff-papers-title">Read the full work</h2>
       <p className="diff-papers-intro">The derivations, experimental protocols, and complete results are in the papers.</p>
       {diffusionPapers.map(paper => (
-        <article className="diff-paper" key={paper.id} id={paper.id}>
+        <article className="diff-paper article-paper-record" key={paper.id} id={paper.id}>
           <a className="diff-paper-cover" href={paper.pdf} target="_blank" rel="noreferrer" aria-label={`Read ${paper.title}`}>
             <img src={paper.cover} alt={`First page of ${paper.title}`} width="850" height="1100" loading="lazy" />
           </a>
@@ -87,7 +87,7 @@ function PaperLinks() {
             <p className="diff-paper-authors">{paper.authors}</p>
             <p className="diff-paper-description">{paper.description}</p>
             <div className="diff-paper-actions">
-              <a href={paper.pdf} target="_blank" rel="noreferrer">Read PDF <ArrowIcon direction="up" /></a>
+              <a href={paper.pdf} target="_blank" rel="noreferrer">Read PDF</a>
               <a href={paper.url} target="_blank" rel="noreferrer">arXiv</a>
               <button type="button" onClick={() => copyCitation(paper)}>{copied === paper.id ? 'Citation copied' : 'Copy citation'}</button>
               <button type="button" aria-expanded={openCitation === paper.id} aria-controls={`citation-${paper.id}`} onClick={() => setOpenCitation(openCitation === paper.id ? null : paper.id)}>BibTeX</button>
@@ -102,10 +102,6 @@ function PaperLinks() {
 }
 
 function DiffusionContent({ sharedFigure }: { sharedFigure?: DiffusionFigure }) {
-  const reduce = useDiffusionReducedMotion()
-  const { scrollYProgress } = useScroll()
-  const progress = useSpring(scrollYProgress, { stiffness: 180, damping: 36, restDelta: 0.001 })
-  const [chapter, setChapter] = useState<string>('problem')
   const sections = diffusionArticle.sections
   const words = [
     ...diffusionArticle.introduction,
@@ -128,75 +124,34 @@ function DiffusionContent({ sharedFigure }: { sharedFigure?: DiffusionFigure }) 
     imageAlt: sharedFigure?.imageAlt ?? diffusionImageAlt,
   })
 
-  useEffect(() => {
-    let frame = 0
-    const update = () => {
-      frame = 0
-      let next: string = chapters[0].id
-      const threshold = Math.max(170, window.innerHeight * 0.38)
-      for (const item of chapters) {
-        if ((document.getElementById(item.id)?.getBoundingClientRect().top ?? Infinity) <= threshold) next = item.id
-      }
-      setChapter(next)
-    }
-    const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(update)
-    }
-    window.addEventListener('scroll', schedule, { passive: true })
-    window.addEventListener('resize', schedule)
-    update()
-    return () => {
-      cancelAnimationFrame(frame)
-      window.removeEventListener('scroll', schedule)
-      window.removeEventListener('resize', schedule)
-    }
-  }, [])
-
   return (
-    <>
-      <motion.div className="scol-reading-progress" style={{ scaleX: reduce ? scrollYProgress : progress }} aria-hidden="true" />
-      <main id="blog-main" className="diff-post">
-        <motion.header className="diff-cover scol-width" initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}>
-          <div className="diff-cover-top">
-            <p className="diff-overline">Continual learning</p>
-            <span><time dateTime={diffusionArticle.date}>{publicationDate}</time><span aria-hidden="true"> · </span>{Math.ceil(words / 210)} min read</span>
+      <main id="blog-main" className="diff-post article-post">
+        <ArticleHeader
+          kind="diffusion"
+          title={diffusionArticle.title}
+          subtitle={diffusionArticle.subtitle}
+          date={diffusionArticle.date}
+          minutes={Math.ceil(words / 210)}
+          authors={[{ name: diffusionArticle.author }]}
+          resources={[{ label: 'Read the two papers', href: '#papers' }]}
+          url={diffusionUrl}
+        />
+        <div id="diffusion-demonstration" className="article-cover article-cover-diffusion site-container">
+          <div className="article-cover-media">
+            <DiffusionLead />
+            <FigureShare title={diffusionArticle.title} url={diffusionUrl} image={diffusionImage} article />
           </div>
-          <h1>
-            <span>Continual Learning</span>{' '}
-            <span>Diffusion Models</span>
-          </h1>
-          <p className="diff-cover-deck">{diffusionArticle.subtitle}</p>
-          <div className="diff-byline">
-            <div><strong>Zekun Wang</strong><span>Georgia Institute of Technology</span></div>
-            <a href="#papers" className="diff-paper-jump">Read the papers <ArrowIcon direction="up" /></a>
-          </div>
-          <ArticleShare title={diffusionArticle.title} subtitle={diffusionArticle.subtitle} url={diffusionUrl} />
-        </motion.header>
-
-        <div id="diffusion-demonstration" className="diff-cover-figure scol-width">
-          <DiffusionLead />
-          <FigureShare title={diffusionArticle.title} url={diffusionUrl} image={diffusionImage} article />
         </div>
 
-        <nav className="scol-chapters diff-chapters" aria-label="Article chapters">
-          <div className="scol-width">
-            {chapters.map((item, index) => (
-              <a key={item.id} href={`#${item.id}`} aria-current={chapter === item.id ? 'location' : undefined}>
-                <span>{String(index + 1).padStart(2, '0')}</span>{item.label}
-              </a>
-            ))}
-            <a href="#papers" className="scol-chapter-paper">Papers <ArrowIcon direction="up" /></a>
-          </div>
-        </nav>
-
-        <div className="diff-body scol-width">
-          <div className="diff-introduction diff-column scol-prose">
+        <div className="article-reading site-container">
+          <ArticleOutline items={chapters} />
+          <article className="article-reading-content diff-body">
+          <div className="article-opening diff-introduction scol-prose">
             <Paragraphs id="introduction" paragraphs={diffusionArticle.introduction} />
           </div>
-          {sections.map((section, index) => (
-            <section id={section.id} className={`diff-section diff-section-${section.id} diff-column`} key={section.id} aria-labelledby={`diff-heading-${section.id}`}>
+          {sections.map(section => (
+            <section id={section.id} className={`diff-section diff-section-${section.id} article-section`} key={section.id} aria-labelledby={`diff-heading-${section.id}`}>
               <div className="scol-prose">
-                <p className="diff-section-label"><span>{String(index + 1).padStart(2, '0')}</span>{section.label}</p>
                 <h2 id={`diff-heading-${section.id}`}>{section.title}</h2>
                 <Paragraphs id={section.id} paragraphs={section.paragraphs} citations={section.citations} />
               </div>
@@ -245,24 +200,26 @@ function DiffusionContent({ sharedFigure }: { sharedFigure?: DiffusionFigure }) 
             </section>
           ))}
           <PaperLinks />
-          <div className="diff-column diff-closing-share">
+          <div className="diff-closing-share article-closing-share">
+            <p>Share this essay</p>
             <ArticleShare title={diffusionArticle.title} subtitle={diffusionArticle.subtitle} url={diffusionUrl} />
           </div>
-          <section className="diff-references diff-column" aria-labelledby="diff-references-title">
+          <ArticleRelatedReading current="diffusion" />
+          <section className="diff-references article-references" id="references" aria-labelledby="diff-references-title">
             <h2 id="diff-references-title">Further reading</h2>
             <ol>
               {diffusionArticle.references.map(reference => (
                 <li id={`reference-${reference.id}`} key={reference.id}>
-                  <a href={reference.url} target="_blank" rel="noreferrer">{reference.title} <ArrowIcon direction="up" /></a>
+                  <a href={reference.url} target="_blank" rel="noreferrer">{reference.title}</a>
                   <p>{reference.detail}</p>
-                  <a className="diff-reference-back" href={`#diff-text-${sections.find(section => section.citations.includes(reference.id))?.id ?? 'problem'}-${(sections.find(section => section.citations.includes(reference.id))?.paragraphs.length ?? 1) - 1}`} aria-label={`Back to the text citing ${reference.title}`}>Back to the text ↑</a>
+                  <a className="diff-reference-back" href={`#diff-text-${sections.find(section => section.citations.includes(reference.id))?.id ?? 'problem'}-${(sections.find(section => section.citations.includes(reference.id))?.paragraphs.length ?? 1) - 1}`} aria-label={`Back to the text citing ${reference.title}`}>Back to the text</a>
                 </li>
               ))}
             </ol>
           </section>
+          </article>
         </div>
       </main>
-    </>
   )
 }
 

@@ -8,6 +8,11 @@ export const diffusionRobot = {
     gif: '/blog-assets/diffusion/cw10-hammer-paper.gif?v=paper1',
     poster: '/blog-assets/diffusion/cw10-hammer-paper-poster.png?v=paper1',
   },
+  black: {
+    src: '/blog-assets/diffusion/cw10-hammer-black.mp4?v=black1',
+    gif: '/blog-assets/diffusion/cw10-hammer.gif',
+    poster: '/blog-assets/diffusion/cw10-hammer-black-poster.png?v=black1',
+  },
   width: 1200,
   height: 756,
   durationSeconds: 7.55,

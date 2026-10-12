@@ -333,7 +333,7 @@ export default function FisherAlignment() {
           </button>
           <span className="scol-fisher__passage">{example.label}</span>
           <button className="scol-fisher__next" type="button" onClick={nextPassage}>
-            Next passage <span aria-hidden="true">→</span>
+            Next passage
           </button>
         </div>
 

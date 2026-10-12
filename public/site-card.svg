@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f5f1e8"/>
+  <path d="M64 84H1136M64 537H1136" stroke="#cfcec1"/>
+  <g fill="#242923">
+    <text x="64" y="56" font-family="Helvetica, Arial, sans-serif" font-size="16" letter-spacing="2">RESEARCH &amp; WRITING</text>
+    <text x="64" y="239" font-family="Georgia, serif" font-size="112" letter-spacing="-5">Zekun Wang</text>
+    <text x="67" y="329" font-family="Georgia, serif" font-size="40">How can models keep learning</text>
+    <text x="67" y="381" font-family="Georgia, serif" font-size="40">after deployment?</text>
+  </g>
+  <text x="68" y="456" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#484d46">Continual learning for adaptation and generalization.</text>
+  <g font-family="Helvetica, Arial, sans-serif" font-size="18">
+    <text x="64" y="580" fill="#3c5c45">Georgia Institute of Technology</text>
+    <text x="1136" y="580" fill="#71766d" text-anchor="end">ndrsn0208.github.io</text>
+  </g>
+</svg>

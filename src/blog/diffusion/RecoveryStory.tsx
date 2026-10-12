@@ -35,7 +35,7 @@ export default function RecoveryStory() {
               <h4 id={`${uid}-${panel.id}`}>{panel.title}</h4>
               <p>{panel.measure}</p>
             </div>
-            <a href={panel.src} target="_blank" rel="noreferrer" aria-label={`Open the original ${panel.title} figure at full size`}>Full size ↗</a>
+            <a href={panel.src} target="_blank" rel="noreferrer" aria-label={`Open the original ${panel.title} figure at full size`}>Full size</a>
           </header>
           <div className="diff-recovery-viewport" role="region" aria-label={`${panel.title} original figure. Scroll horizontally on narrow screens.`} tabIndex={0}>
             <img className="diff-recovery-image" src={panel.src} alt={panel.alt} width={panel.width} height={panel.height} loading="lazy" />

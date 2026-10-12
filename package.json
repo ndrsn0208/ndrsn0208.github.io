@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && node scripts/build-blog-pages.mjs",
+    "build": "tsc -b && vite build && node scripts/build-blog-pages.mjs && node scripts/build-site-pages.mjs",
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit",
     "test:designs": "playwright test",

@@ -1,56 +1,96 @@
 import { Link } from 'react-router-dom'
-import { motion, useReducedMotion } from 'motion/react'
-import BlogLayout, { ArrowIcon, useBlogMetadata, useBlogTheme } from './BlogLayout'
-import DeploymentHero from './scol/DeploymentHero'
-import DiffusionTeaser from './diffusion/DiffusionTeaser'
+import SiteFrame, { useSiteTheme } from '../site/SiteFrame'
+import ResearchPreview from '../site/ResearchPreview'
+import { useBlogMetadata } from './BlogLayout'
 import { diffusionArticle } from './diffusion/article'
-import { diffusionImage, diffusionImageAlt, diffusionPath } from './diffusion/format'
-import './diffusion/diffusion.css'
+import { diffusionImage, diffusionImageAlt, diffusionPapers, diffusionPath } from './diffusion/format'
+import { scolArticle } from './scol/article'
+import './blog-index.css'
+
+const scolPath = '/blog/self-consolidating-language-models/'
+const scolPaper = '/papers/self-consolidating-language-models.pdf'
 
 function BlogIndexContent() {
-  const edition = useBlogTheme()
-  const reduce = useReducedMotion()
+  const { href } = useSiteTheme()
+
   useBlogMetadata({
     title: 'Research notes · Zekun Wang',
-    description: 'Research notes on how models learn, adapt, and retain what they know.',
+    description: 'Illustrated research notes on continual learning, diffusion models, and learning from context.',
     path: '/blog/',
     image: diffusionImage,
     imageAlt: diffusionImageAlt,
   })
 
   return (
-    <motion.main id="blog-main" className="scol-index scol-width" initial={reduce ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}>
-      <header className="scol-index-heading">
-        <p className="scol-eyebrow">Blog</p>
+    <main id="blog-main" className="blog-index site-container">
+      <header className="blog-index-intro">
         <h1>Research notes</h1>
-        <p>A closer look at how models learn, adapt, and retain what they know.</p>
+        <div className="blog-index-intro-copy">
+          <p>A closer look at how models learn, adapt, and retain what they know. The questions, the figures, and the papers behind the work.</p>
+          <nav aria-label="Articles on this page" className="blog-index-contents">
+            <a href="#diffusion">Generation &amp; control</a>
+            <a href="#scol">Language &amp; memory</a>
+          </nav>
+        </div>
       </header>
-      <article className="scol-index-entry diff-index-entry">
-        <div className="scol-index-copy">
-          <div className="scol-entry-meta"><time dateTime={diffusionArticle.date}>October 2026</time><span>Generation &amp; control</span></div>
-          <h2><Link to={`${diffusionPath}?edition=${edition}`}>Continual Learning<br /> Diffusion Models</Link></h2>
-          <p className="scol-index-subtitle">{diffusionArticle.subtitle}</p>
-          <p>Two connected studies of Fisher geometry, replay, and how a model can keep learning without losing its earlier abilities.</p>
-          <Link className="scol-text-link" to={`${diffusionPath}?edition=${edition}`}>Explore the work <ArrowIcon /></Link>
+
+      <article id="diffusion" className="blog-index-feature" aria-labelledby="diffusion-title">
+        <div className="blog-index-feature-story">
+          <header className="blog-index-feature-copy">
+            <div className="blog-index-meta">
+              <time dateTime={diffusionArticle.date}>October 2026</time>
+            </div>
+            <h2 id="diffusion-title"><Link to={href(diffusionPath)}>{diffusionArticle.title}</Link></h2>
+            <p className="blog-index-deck">{diffusionArticle.subtitle}.</p>
+            <p className="blog-index-description">A robot returns to an earlier skill after learning nine more. Follow the comparison into Fisher geometry, replay, and the experiments behind two connected papers.</p>
+            <Link to={href(diffusionPath)} className="site-text-link blog-index-read">
+              Read the illustrated article
+            </Link>
+          </header>
+          <ResearchPreview kind="diffusion" layout="feature" />
         </div>
-        <div className="scol-index-illustration"><DiffusionTeaser /></div>
+
+        <div className="blog-index-paper-strip">
+          <ul className="blog-index-papers">
+            {diffusionPapers.map(paper => (
+              <li key={paper.id}>
+                <span className="blog-index-paper-venue">{paper.venue}</span>
+                <a href={paper.pdf} target="_blank" rel="noreferrer">
+                  <span>{paper.title}</span>
+                  <span className="blog-index-paper-format">PDF</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </article>
-      <article className="scol-index-entry">
-        <div className="scol-index-copy">
-          <div className="scol-entry-meta"><time dateTime="2026-09-25">September 2026</time><span>Continual learning</span></div>
-          <h2><Link to={`/blog/self-consolidating-language-models?edition=${edition}`}>Self-Consolidating<br className="scol-index-break" /> Language Models</Link></h2>
-          <p className="scol-index-subtitle">Writing context into model weights at test time.</p>
-          <p>What changes when a language model learns from each new piece of context? An illustrated account of consolidation, forgetting, and learning where to update.</p>
-          <Link className="scol-text-link" to={`/blog/self-consolidating-language-models?edition=${edition}`}>Read the story <ArrowIcon /></Link>
+
+      <article id="scol" className="blog-index-secondary" aria-labelledby="scol-title">
+        <div className="blog-index-secondary-date">
+          <time dateTime="2026-09-25">September<br className="blog-index-date-break" /> 2026</time>
         </div>
-        <div className="scol-index-illustration" aria-label="Context enters a model through sparse updates">
-          <DeploymentHero compact />
-        </div>
+        <header className="blog-index-secondary-copy">
+          <h2 id="scol-title"><Link to={href(scolPath)}>{scolArticle.title}</Link></h2>
+          <p className="blog-index-deck">{scolArticle.subtitle}.</p>
+          <p className="blog-index-description">What changes when a model learns from the context itself? An illustrated account of consolidation, forgetting, and learning where to update.</p>
+          <div className="blog-index-secondary-links">
+            <Link to={href(scolPath)} className="site-text-link blog-index-read">Read the story</Link>
+            <a href={scolPaper} target="_blank" rel="noreferrer" className="site-text-link" aria-label="Read the Self-Consolidating Language Models paper, PDF">
+              Read the paper <span className="blog-index-pdf-label">PDF</span>
+            </a>
+          </div>
+        </header>
+        <ResearchPreview kind="scol" layout="compact" />
       </article>
-    </motion.main>
+
+      <aside className="blog-index-record" aria-label="Complete publication record">
+        <p>For the full research record, including abstracts and citations.</p>
+        <Link to={href('/publications')} className="site-text-link">Browse publications</Link>
+      </aside>
+    </main>
   )
 }
 
 export default function BlogIndex() {
-  return <BlogLayout><BlogIndexContent /></BlogLayout>
+  return <SiteFrame page="blog" mainId="blog-main"><BlogIndexContent /></SiteFrame>
 }

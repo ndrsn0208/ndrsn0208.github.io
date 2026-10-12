@@ -1,0 +1,381 @@
+{
+  "source": "public/blog-assets/diffusion/cw10-hammer.gif",
+  "sourceSha256": "52e08edc51095b5c9097149cfbdd49d138399d68dae760b821da07b244fc680e",
+  "width": 1200,
+  "height": 756,
+  "frames": 151,
+  "durationSeconds": 7.55,
+  "fps": 20,
+  "posterFrame": 150,
+  "background": "#000000",
+  "foreground": "#f5f1e8",
+  "treatment": "Decode the original GIF directly. Preserve all RGB pixels in the eight rollout boxes, nine complete thumbnail boxes (including rounded corners), and the blue Trust Region pill silhouette. Outside those masks, preserve any chromatic pixel with RGB channel spread >32. Map neutral pixels using integer luminance Y=(54R+183G+19B+128)//256 and coverage=clip(235-Y,0,207): RGB=(coverage*[245,241,232]+103)//207. Thus dark lettering becomes #f5f1e8, gray lettering/arrows retain intermediate contrast, and white/pale-gray canvas becomes #000000. No crop, rescale, synthesis, or footage repainting. H.264 delivery encoding is lossy; pre-encoding RGB and the PNG poster preserve every protected pixel exactly.",
+  "coordinateConvention": "zero-based half-open [left, top, right, bottom]",
+  "protectedRegions": [
+    {
+      "name": "after-task-1-trust-region",
+      "box": [
+        213,
+        134,
+        447,
+        368
+      ]
+    },
+    {
+      "name": "after-task-1-replay",
+      "box": [
+        458,
+        134,
+        692,
+        368
+      ]
+    },
+    {
+      "name": "after-task-1-ewc",
+      "box": [
+        702,
+        134,
+        936,
+        368
+      ]
+    },
+    {
+      "name": "after-task-1-fine-tuning",
+      "box": [
+        947,
+        134,
+        1181,
+        368
+      ]
+    },
+    {
+      "name": "after-task-10-trust-region",
+      "box": [
+        213,
+        503,
+        447,
+        737
+      ]
+    },
+    {
+      "name": "after-task-10-replay",
+      "box": [
+        458,
+        503,
+        692,
+        737
+      ]
+    },
+    {
+      "name": "after-task-10-ewc",
+      "box": [
+        702,
+        503,
+        936,
+        737
+      ]
+    },
+    {
+      "name": "after-task-10-fine-tuning",
+      "box": [
+        947,
+        503,
+        1181,
+        737
+      ]
+    },
+    {
+      "name": "task-2",
+      "box": [
+        240,
+        393,
+        325,
+        478
+      ]
+    },
+    {
+      "name": "task-3",
+      "box": [
+        344,
+        393,
+        429,
+        478
+      ]
+    },
+    {
+      "name": "task-4",
+      "box": [
+        447,
+        393,
+        533,
+        478
+      ]
+    },
+    {
+      "name": "task-5",
+      "box": [
+        551,
+        393,
+        636,
+        478
+      ]
+    },
+    {
+      "name": "task-6",
+      "box": [
+        655,
+        393,
+        740,
+        478
+      ]
+    },
+    {
+      "name": "task-7",
+      "box": [
+        758,
+        393,
+        843,
+        478
+      ]
+    },
+    {
+      "name": "task-8",
+      "box": [
+        862,
+        393,
+        947,
+        478
+      ]
+    },
+    {
+      "name": "task-9",
+      "box": [
+        965,
+        393,
+        1050,
+        478
+      ]
+    },
+    {
+      "name": "task-10",
+      "box": [
+        1069,
+        393,
+        1154,
+        478
+      ]
+    }
+  ],
+  "trustRegionPillRows": [
+    [
+      86,
+      258,
+      403
+    ],
+    [
+      87,
+      254,
+      406
+    ],
+    [
+      88,
+      252,
+      409
+    ],
+    [
+      89,
+      251,
+      410
+    ],
+    [
+      90,
+      249,
+      412
+    ],
+    [
+      91,
+      248,
+      413
+    ],
+    [
+      92,
+      247,
+      414
+    ],
+    [
+      93,
+      246,
+      415
+    ],
+    [
+      94,
+      246,
+      415
+    ],
+    [
+      95,
+      245,
+      416
+    ],
+    [
+      96,
+      244,
+      417
+    ],
+    [
+      97,
+      244,
+      417
+    ],
+    [
+      98,
+      243,
+      418
+    ],
+    [
+      99,
+      243,
+      418
+    ],
+    [
+      100,
+      242,
+      419
+    ],
+    [
+      101,
+      242,
+      419
+    ],
+    [
+      102,
+      242,
+      419
+    ],
+    [
+      103,
+      242,
+      419
+    ],
+    [
+      104,
+      242,
+      419
+    ],
+    [
+      105,
+      242,
+      419
+    ],
+    [
+      106,
+      242,
+      419
+    ],
+    [
+      107,
+      242,
+      419
+    ],
+    [
+      108,
+      242,
+      419
+    ],
+    [
+      109,
+      242,
+      419
+    ],
+    [
+      110,
+      242,
+      419
+    ],
+    [
+      111,
+      242,
+      419
+    ],
+    [
+      112,
+      243,
+      418
+    ],
+    [
+      113,
+      243,
+      418
+    ],
+    [
+      114,
+      244,
+      417
+    ],
+    [
+      115,
+      244,
+      417
+    ],
+    [
+      116,
+      245,
+      416
+    ],
+    [
+      117,
+      246,
+      415
+    ],
+    [
+      118,
+      246,
+      414
+    ],
+    [
+      119,
+      247,
+      413
+    ],
+    [
+      120,
+      248,
+      412
+    ],
+    [
+      121,
+      250,
+      411
+    ],
+    [
+      122,
+      251,
+      410
+    ],
+    [
+      123,
+      253,
+      408
+    ],
+    [
+      124,
+      255,
+      406
+    ]
+  ],
+  "protectedPixelsIdenticalBeforeEncoding": true,
+  "posterProtectedPixelsIdentical": true,
+  "assets": {
+    "public/blog-assets/diffusion/cw10-hammer-black.mp4": {
+      "bytes": 711126,
+      "sha256": "431b60c31a7d8e435c73b893276678b0eb12ef1fdfe421c706ac49b802088d39"
+    },
+    "public/blog-assets/diffusion/cw10-hammer-black-poster.png": {
+      "bytes": 532492,
+      "sha256": "0f8841cfa54ce076e3941f9f19258be4ce6c273d3b4e9a74042563931513d402"
+    }
+  },
+  "script": "scripts/render-robot-black.py",
+  "verification": "artifacts/site-redesign/black-media/verification.json",
+  "gif": "Not generated; MP4 plus PNG satisfy this delivery task."
+}
