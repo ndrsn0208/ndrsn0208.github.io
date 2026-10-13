@@ -53,7 +53,7 @@ export function PublicationEntry({ paper, compact = false }: PublicationEntryPro
   }
 
   return (
-    <article className={`publication-entry${compact ? ' publication-entry--compact' : ''}`} aria-labelledby={`${id}-title`}>
+    <article className={`publication-entry${compact ? ' publication-entry--compact' : ''}`} data-adapt-key={`paper:${paper.id}`} aria-labelledby={`${id}-title`}>
       <div className="publication-entry-body">
         <h3 id={`${id}-title`} className="publication-entry-title">
           {resources.primary

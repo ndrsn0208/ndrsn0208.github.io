@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build && node scripts/build-blog-pages.mjs && node scripts/build-site-pages.mjs",
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit",
+    "test:adaptation": "node scripts/test-adaptation.mjs",
     "test:designs": "playwright test",
     "design:screenshots": "node scripts/capture_designs.mjs",
     "still:screenshots": "node scripts/capture_still.mjs",

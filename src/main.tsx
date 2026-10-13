@@ -2,6 +2,7 @@ import { lazy, StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import './styles/globals.css'
+import AdaptGate from './adapt/AdaptGate'
 
 const Homepage = lazy(() => import('./site/HomePage'))
 const PublicationsPage = lazy(() => import('./site/PublicationsPage'))
@@ -53,6 +54,7 @@ createRoot(root).render(
         <Route path="/designs/*" element={<Suspense fallback={<div style={{ minHeight: '100vh', background: '#f4f3ee' }} />}><DesignStudio /></Suspense>} />
         <Route path="*" element={<Suspense fallback={<div style={{ minHeight: '100svh', background: 'var(--paper, #f5f1e8)' }} />}><NotFoundPage /></Suspense>} />
       </Routes>
+      <AdaptGate />
     </BrowserRouter>
   </StrictMode>,
 )

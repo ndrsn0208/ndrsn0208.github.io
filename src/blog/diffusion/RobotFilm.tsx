@@ -69,7 +69,7 @@ export default function RobotFilm({ compact = false }: { compact?: boolean }) {
     <div className="diff-robot-film" data-compact={compact} ref={stage}>
       <div className="diff-film-controls" role="group" aria-label="Robot comparison playback">
         {!failed && <>
-          <button type="button" className="diff-film-toggle" onClick={toggle} aria-controls={videoId}>
+          <button type="button" className="diff-film-toggle" data-adapt-key="robot-comparison-play" onClick={toggle} aria-controls={videoId}>
             <svg viewBox="0 0 20 20" aria-hidden="true">
               {playing ? <path d="M6 4v12M14 4v12" fill="none" stroke="currentColor" strokeWidth="2" /> : <path d="m6 3 10 7-10 7Z" fill="currentColor" />}
             </svg>
@@ -91,6 +91,7 @@ export default function RobotFilm({ compact = false }: { compact?: boolean }) {
             id={videoId}
             ref={video}
             className="diff-lead-film"
+            data-adapt-key="robot-comparison-video"
             src={film.src}
             poster={film.poster}
             width={1200}

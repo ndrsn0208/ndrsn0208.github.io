@@ -1,0 +1,82 @@
+.adapt-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  isolation: isolate;
+}
+
+.adapt-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.adapt-selection {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  border: 1.5px solid var(--site-accent, #3c5c45);
+  border-radius: 3px;
+  outline: 3px solid color-mix(in srgb, var(--site-paper, #f5f1e8) 70%, transparent);
+  pointer-events: none;
+  will-change: transform;
+}
+
+html[data-adapt-active] .site-shell { overflow-x: clip; }
+
+html[data-adapt-active] [data-adapt-character-run] { display: contents; }
+html[data-adapt-active] [data-adapt-character-word] {
+  display: inline-block;
+  white-space: pre;
+  text-indent: 0;
+}
+html[data-adapt-active] [data-adapt-character-slot] {
+  display: inline-block;
+  position: relative;
+  white-space: pre;
+  text-indent: 0;
+  vertical-align: baseline;
+}
+html[data-adapt-active] [data-adapt-character] {
+  display: inline-block;
+  font: inherit;
+  line-height: inherit;
+  color: inherit;
+  white-space: pre;
+  text-indent: 0;
+  transform-origin: center;
+}
+html[data-adapt-active] [data-adapt-empty-action] {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+html[data-adapt-tool="edit"] .site-shell { cursor: grab; }
+html[data-adapt-dragging] .site-shell { cursor: grabbing; }
+html:is([data-adapt-tool="draw"], [data-adapt-tool="diffuse"], [data-adapt-tool="break"]) .site-shell { cursor: crosshair; }
+html:is([data-adapt-tool="draw"], [data-adapt-tool="diffuse"], [data-adapt-tool="break"], [data-adapt-tool="edit"]) .site-shell {
+  touch-action: none;
+}
+
+html[data-adapt-layout="columns"] .site-shell :is(.home-story, .blog-index-feature-story) {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+}
+
+html[data-adapt-layout="columns"] .site-shell .blog-index-secondary {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "date" "copy" "preview";
+}
+
+html[data-adapt-layout="columns"] .site-shell .research-preview {
+  max-width: 360px;
+  justify-self: center;
+}
+
+@media print {
+  [data-adapt-ui] { display: none !important; }
+}

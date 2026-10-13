@@ -73,6 +73,7 @@ function RobotComparison({ film }: { film: RobotMedia }) {
               height={diffusionRobot.height}
               alt={diffusionRobot.alt}
               className="research-preview-robot"
+              data-adapt-key="robot-preview-video"
             />
           : <video
               ref={video}
@@ -86,6 +87,7 @@ function RobotComparison({ film }: { film: RobotMedia }) {
               preload="none"
               aria-label={diffusionRobot.alt}
               className="research-preview-robot"
+              data-adapt-key="robot-preview-video"
               onPlay={() => {
                 if (document.hidden || !inView.current) {
                   video.current?.pause()
@@ -103,7 +105,7 @@ function RobotComparison({ film }: { film: RobotMedia }) {
         <p>{diffusionRobot.caption}</p>
         <div className="research-preview-controls">
           {!failed && (
-            <button type="button" onClick={togglePlayback} aria-controls={id} aria-label={`${playing ? 'Pause' : ended ? 'Replay' : 'Play'} the recorded CW10 robot comparison`}>
+            <button type="button" data-adapt-key="robot-preview-play" onClick={togglePlayback} aria-controls={id} aria-label={`${playing ? 'Pause' : ended ? 'Replay' : 'Play'} the recorded CW10 robot comparison`}>
               <svg viewBox="0 0 20 20" aria-hidden="true">
                 {playing
                   ? <path d="M7 4v12M13 4v12" fill="none" stroke="currentColor" strokeWidth="2" />

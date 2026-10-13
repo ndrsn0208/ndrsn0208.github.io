@@ -87,3 +87,16 @@ their initial HTML metadata and unique PNG cards.
 Do not publish private `writing/` sources, local research evidence, screenshots,
 or test artifacts. The latest hosted PDFs and current CV must not be replaced
 with earlier versions.
+
+## Optional adaptation playground
+
+The normal website remains the default. `Adapt this website` opens a local
+playground for destruction, drawing, procedural diffusion, text editing, and
+layout changes. Its enabled state and page edits belong to this browser.
+No visitor changes are uploaded or applied to other visitors.
+
+The gate is lightweight and the actual playground loads only on entry.
+Browse preserves normal interactions. Exit restores the authored DOM and
+disables automatic entry without deleting saved edits. The controls themselves
+must never be destructible. See `ADAPTATION_PLAN.md` for the interaction and
+resource limits, and run `npm run test:adaptation` for its regression checks.

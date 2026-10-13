@@ -35,6 +35,9 @@ jobs:
       - name: Type check
         run: npm run typecheck
 
+      - name: Check adaptation state and effects
+        run: npm run test:adaptation
+
       - name: Build
         run: npm run build
 

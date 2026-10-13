@@ -1,0 +1,44 @@
+.adapt-launcher,
+.adapt-load-state {
+  position: fixed;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  z-index: 120;
+  color: var(--site-ink, #242923);
+  font: 500 15px/1.35 var(--site-sans, system-ui, sans-serif);
+}
+
+.adapt-launcher button,
+.adapt-load-state {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 8px 15px;
+  border: 1px solid var(--site-rule, #cfcec1);
+  border-radius: 999px;
+  background: var(--site-paper, #f5f1e8);
+  box-shadow: 0 3px 16px #00000009;
+}
+
+.adapt-launcher button { color: inherit; cursor: pointer; font: inherit; }
+.adapt-launcher button:hover { border-color: var(--site-accent, #3c5c45); }
+.adapt-launcher button:focus-visible,
+.adapt-load-state button:focus-visible { outline: 2px solid var(--site-accent, #3c5c45); outline-offset: 4px; }
+.adapt-launcher-mark { font: 500 25px/1 var(--site-serif, Georgia, serif); }
+.adapt-launcher-mark > span { color: var(--site-accent, #3c5c45); }
+.adapt-load-state { border-radius: 12px; max-width: calc(100vw - 32px); }
+.adapt-load-state p { margin: 0; }
+.adapt-load-state button { min-height: 44px; font: inherit; color: inherit; text-decoration: underline; cursor: pointer; }
+
+@media (max-width: 760px) {
+  .adapt-launcher, .adapt-load-state {
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(12px, env(safe-area-inset-bottom));
+  }
+  .adapt-launcher button { font-size: 14px; padding-inline: 13px; }
+}
+
+@media print {
+  .adapt-launcher, .adapt-load-state { display: none !important; }
+}

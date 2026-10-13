@@ -151,7 +151,7 @@ export default function SiteFrame({ children, page, mainId = 'site-main', initia
             </Link>)}
           </nav>
           <div className="site-header-actions">
-            <button className="site-appearance" onClick={toggleEdition} type="button" aria-label={`Switch to ${edition === 'paper' ? 'Black' : 'Paper'} appearance`} title={`Switch to ${edition === 'paper' ? 'Black' : 'Paper'} appearance`}>
+            <button className="site-appearance" data-adapt-key="appearance" onClick={toggleEdition} type="button" aria-label={`Switch to ${edition === 'paper' ? 'Black' : 'Paper'} appearance`} title={`Switch to ${edition === 'paper' ? 'Black' : 'Paper'} appearance`}>
               <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" strokeWidth="1.25" /><path d="M12 4a8 8 0 0 1 0 16Z" fill="currentColor" /></svg>
             </button>
           </div>
