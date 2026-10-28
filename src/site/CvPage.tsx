@@ -31,7 +31,7 @@ function CvContent() {
         <div>
           <h1>Curriculum vitae</h1>
           <p className="cv-intro-description">
-            Education, research, publications, teaching, and academic service.
+            Research, publications, patent applications, awards, and academic experience.
           </p>
         </div>
         <PdfActions />
@@ -102,7 +102,7 @@ function CvContent() {
 export default function CvPage() {
   useBlogMetadata({
     title: `Curriculum vitae · ${config.name}`,
-    description: `The curriculum vitae of ${config.name}. Education, research, publications, teaching, and academic service.`,
+    description: `The curriculum vitae of ${config.name}. Research, publications, patent applications, awards, and academic experience.`,
     path: '/cv/',
     image: '/site-card.png',
     imageAlt: config.name,

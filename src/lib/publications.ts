@@ -7,12 +7,18 @@ export const config: SiteConfig = configData as SiteConfig
 
 const file = publicationsData as PublicationsFile
 
+export function comparePublications(a: Publication, b: Publication): number {
+  return b.year - a.year
+    || (b.publicationDate ?? String(b.year)).localeCompare(a.publicationDate ?? String(a.year))
+    || a.title.localeCompare(b.title)
+}
+
 /* Hydrate any publication missing a precomputed gradient.
    Once the Python pipeline runs, every entry will already have one. */
 export const publications: Publication[] = file.publications.map((p) => ({
   ...p,
   gradient: p.gradient ?? generateGradient(p.id, p.tags),
-}))
+})).sort(comparePublications)
 
 export const lastUpdated = file.lastUpdated
 
@@ -33,9 +39,10 @@ export function featuredPublications(): Publication[] {
     return featuredIds
       .map((id) => bySlug.get(id) ?? byArxiv.get(id))
       .filter((p): p is Publication => Boolean(p))
+      .sort(comparePublications)
   }
   // fallback: 4 newest
   return [...publications]
-    .sort((a, b) => b.year - a.year || b.addedAt.localeCompare(a.addedAt))
+    .sort(comparePublications)
     .slice(0, 4)
 }

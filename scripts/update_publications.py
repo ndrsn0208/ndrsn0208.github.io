@@ -29,7 +29,7 @@ import re
 import sys
 import time
 import tomllib
-from datetime import datetime, timezone
+from datetime import date as calendar_date, datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -133,6 +133,7 @@ _CURATED_FIELDS = {
     "tldr": "tldr",
     "tags": "tags",
     "equal_contribution": "equalContribution",
+    "publication_date": "publicationDate",
 }
 _REQUIRED_METADATA = ("title", "authors", "summary", "tldr", "tags")
 
@@ -157,6 +158,15 @@ def _apply_curated_fields(
     equal = record.get("equalContribution", [])
     if not isinstance(equal, list) or any(author not in authors for author in equal):
         raise ValueError(f"{record['id']}: equal contributors must be listed authors")
+    publication_date = record.get("publicationDate")
+    if publication_date is not None:
+        if not isinstance(publication_date, str) or not re.fullmatch(
+            r"\d{4}(?:-\d{2}){0,2}", publication_date
+        ):
+            raise ValueError(f"{record['id']}: publication_date must be YYYY, YYYY-MM, or YYYY-MM-DD")
+        suffix = {4: "-01-01", 7: "-01", 10: ""}[len(publication_date)]
+        if calendar_date.fromisoformat(publication_date + suffix).year != record["year"]:
+            raise ValueError(f"{record['id']}: publication_date must match the venue year")
     if "tags" in entry or not record.get("gradient"):
         record["gradient"] = generate_gradient(record["id"], tags)
     return record
@@ -339,10 +349,15 @@ def update(args: argparse.Namespace) -> None:
         print(f"  {tag} {title[:80]}")
         out.append(_apply_curated_fields(record, entry, allowed_tags))
 
-    # Newest first.
+    # Formal venue dates and first preprint dates share one chronology.
+    # addedAt records when the catalog entry was created, not when the work appeared.
     if len({paper["id"] for paper in out}) != len(out):
         sys.exit("error: generated paper ids collide; set an explicit id in papers.toml")
-    out.sort(key=lambda p: (p.get("year") or 0, p.get("addedAt", "")), reverse=True)
+    out.sort(key=lambda p: p["title"].casefold())
+    out.sort(
+        key=lambda p: (p["year"], p.get("publicationDate") or str(p["year"])),
+        reverse=True,
+    )
     payload = {
         "lastUpdated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "publications": out,

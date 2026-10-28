@@ -26,7 +26,7 @@ function PublicationsContent() {
   }
   const updated = new Date(lastUpdated)
   const updatedLabel = Number.isNaN(updated.getTime()) ? null
-    : new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }).format(updated)
+    : new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: 'numeric' }).format(updated)
 
   useBlogMetadata({
     title: `Publications · ${config.name}`,

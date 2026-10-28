@@ -59,7 +59,8 @@ copy another researcher's markup, branding, or distinctive composition.
 
 Home introduces Zekun and the broad research agenda, current affiliations,
 recent news, two illustrated research stories, and five selected publications.
-The selection retains its authored order. About gives the full research
+The selection retains its authored membership and follows publication chronology.
+About gives the full research
 vision, education, industry, service, and photography note. CV opens the
 current versioned PDF in the same site shell.
 
@@ -67,6 +68,15 @@ Publications has one complete year-grouped record, six visible canonical
 topic filters, search, direct artifacts, and inline abstract/citation details.
 Titles, venues, and author credit must be readable without interacting.
 Use the actual generated publication data, not a second copy of the record.
+Published work, accepted papers, and preprints share one timeline. The curated
+`publication_date` in `papers.toml` becomes `publicationDate` in the catalog:
+formal venue timing for published/accepted work and first posting for preprints.
+The catalog, browser filtering, homepage selection, and static fallbacks use
+that order; `addedAt` is only the catalog creation timestamp.
+
+All CV links carry the current PDF content hash. The local preview also reloads
+that version when `public/cv.pdf` changes, so it cannot retain a startup-time link
+after a CV rebuild.
 
 Blog is rebuilt as an editorial index with real research previews and links
 to the corresponding papers. Both article covers, metadata, contents,

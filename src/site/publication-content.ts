@@ -1,4 +1,5 @@
 import type { Publication } from '@/types'
+import { comparePublications } from '@/lib/publications'
 
 const origin = 'https://ndrsn0208.github.io'
 const scolPdf = '/papers/self-consolidating-language-models.pdf'
@@ -79,9 +80,7 @@ export function filterPublications(record: readonly Publication[], query: string
       publicationContribution(paper),
     ].join(' '))
     return terms.every(term => text.includes(term))
-  }).sort((a, b) => b.year - a.year
-    || (b.addedAt ?? '').localeCompare(a.addedAt ?? '')
-    || a.title.localeCompare(b.title))
+  }).sort(comparePublications)
 }
 
 const texEscapes: Record<string, string> = {

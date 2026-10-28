@@ -25,6 +25,8 @@ export interface Publication {
   authors: string[]
   venue: string
   year: number
+  /** Venue/publication chronology, or first preprint posting: YYYY, YYYY-MM, or YYYY-MM-DD. */
+  publicationDate?: string
   /** Canonical paper page, including proceedings and DOI destinations. */
   url?: string
   arxivId?: string

@@ -18,7 +18,9 @@ const escape = value => String(value).replace(/[&<>"']/g, character => ({ '&': '
 const link = (href, text) => `<a href="${escape(href)}">${escape(text)}</a>`
 const paperHref = paper => paper.arxivId === '2605.07076' ? '/papers/self-consolidating-language-models.pdf' : paper.pdfUrl || paper.url || paper.arxivUrl || config.contacts.googleScholar
 const paperRow = paper => `<article><p class="meta">${escape(paper.venue)} · ${paper.year}${paper.award ? ` · ${escape(paper.award)}` : ''}</p><h3>${link(paperHref(paper), paper.title)}</h3><p>${escape(paper.authors.join(', '))}</p>${paper.tldr ? `<p>${escape(paper.tldr)}</p>` : ''}</article>`
-const selected = config.featuredPaperIds.map(id => record.publications.find(paper => paper.id === id || paper.arxivId === id)).filter(Boolean)
+// The catalog is already chronological. Featured ids choose membership, not a separate order.
+const selectedIds = new Set(config.featuredPaperIds)
+const selected = record.publications.filter(paper => selectedIds.has(paper.id) || selectedIds.has(paper.arxivId))
 const title = 'Zekun Wang · Research & writing'
 const researchDescription = 'Continual learning for deployment-time adaptation and generalization. Research, publications, and illustrated essays by Zekun Wang, a Computer Science PhD student at Georgia Tech.'
 const education = [config.education, ...config.previousEducation].map(item => `<article><h3>${escape(item.institution)}</h3><p>${escape(item.degree)}, ${escape(item.field)} · ${item.startYear}–${item.endYear}${item.expected ? ' expected' : ''}</p>${item === config.education ? `<p>Advised by ${link(config.advisorUrl, config.advisor)}.</p>` : ''}${item.detail ? `<p>${escape(item.detail)}</p>` : ''}</article>`).join('')
@@ -39,7 +41,7 @@ const pages = [
   },
   {
     route: '/cv/', title: 'Curriculum vitae · Zekun Wang', schema: 'ProfilePage',
-    description: 'Curriculum vitae of Zekun Wang, PhD student in Computer Science at Georgia Tech.',
+    description: 'Curriculum vitae of Zekun Wang. Research, publications, patent applications, awards, and academic experience.',
     body: `<h1>Curriculum vitae</h1><p>${escape(config.bio)}</p><p class="lead">${link(cv, 'Read the current CV (PDF)')}</p><section><h2>Research focus</h2><p>${escape(config.researchStatement)}</p></section><section><h2>Education</h2>${education}</section>`,
   },
 ]

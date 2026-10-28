@@ -24,6 +24,11 @@
 #   year, title, authors, url, pdf_url, summary, tldr, tags, equal_contribution
 #     override fetched metadata. A complete title/authors/summary/tldr/tags set
 #     can create an entry offline. Tags must use config.researchInterests.
+#   publication_date — YYYY, YYYY-MM, or YYYY-MM-DD for chronological display.
+#     Use venue/conference timing for published or accepted work, journal issue
+#     timing for journal papers, and first arxiv posting for preprints.
+#     Parent-conference timing is sufficient for ordering a workshop paper.
+#     Records of all publication statuses share one list. addedAt is not a publication date.
 #
 # Bibliography reconciled with the author-reviewed CV, September 18, 2026.
 # Published venue pages and paper PDFs take precedence over arxiv title typos.
@@ -31,6 +36,7 @@
 
 [[paper]]
 arxiv = "2609.13047"
+publication_date = "2026-10-06"
 title = "Diffusion Models and Concept Formation"
 authors = ["Zekun Wang", "Karthik Singaravadivelan", "Christopher J. MacLellan"]
 venue = "Advances in Cognitive Systems 2026"
@@ -41,6 +47,7 @@ tags = ["diffusion models", "concept learning"]
 
 [[paper]]
 arxiv = "2606.14040"
+publication_date = "2026-07-06"
 title = "Decompose Sparsely Where You Should, Absorb Densely Where You Should Not"
 authors = ["Ruixuan Deng", "Zehao Jin", "Zekun Wang", "Zihan Dong"]
 venue = "ICML 2026 Mechanistic Interpretability Workshop"
@@ -52,10 +59,12 @@ tags = ["language models", "concept learning"]
 
 [[paper]]
 arxiv = "2603.29895"
+publication_date = "2026-07-22"
 venue = "CogSci 2026"
 
 [[paper]]
 arxiv = "2604.14489"
+publication_date = "2026-07-02"
 venue = "Findings of ACL 2026"
 url = "https://aclanthology.org/2026.findings-acl.1753/"
 pdf_url = "https://aclanthology.org/2026.findings-acl.1753.pdf"
@@ -63,11 +72,13 @@ equal_contribution = ["Karthik Singaravadivelan", "Anant Gupta"]
 
 [[paper]]
 arxiv = "2510.02539"
+publication_date = "2025-10-13"
 venue = "Advances in Cognitive Systems 12 (2025)"
 equal_contribution = ["Anant Gupta", "Karthik Singaravadivelan"]
 
 [[paper]]
 id = "efficient-scalable-masked-word-prediction-concept-2025"
+publication_date = "2025-09"
 url = "https://doi.org/10.1016/j.cogsys.2025.101371"
 title = "Efficient and Scalable Masked Word Prediction Using Concept Formation"
 authors = ["Xin Lian", "Zekun Wang", "Christopher J. MacLellan"]
@@ -81,41 +92,51 @@ equal_contribution = ["Xin Lian", "Zekun Wang"]
 
 [[paper]]
 arxiv = "2602.02417"
+publication_date = "2026-12"
 venue = "NeurIPS 2026"
+url = "https://ndrsn0208.github.io/papers/trust-region-continual-learning.pdf?v=f24a30d7db6c"
 pdf_url = "https://ndrsn0208.github.io/papers/trust-region-continual-learning.pdf?v=f24a30d7db6c"
 equal_contribution = ["Zekun Wang", "Anant Gupta"]
 
 [[paper]]
 arxiv = "2509.23593"
+publication_date = "2026-04-23"
 venue = "ICLR 2026"
 equal_contribution = ["Zekun Wang", "Anant Gupta"]
 summary = "In the low-SNR regime near convergence, this work derives a rank-1 approximation to the Fisher information for diffusion models and combines the resulting EWC penalty with generative distillation. It reduces mean FID-based forgetting by 67% relative to generative distillation alone on ImageNet-1k (32×32, 20 tasks), and nearly eliminates forgetting on MNIST and Fashion-MNIST."
 
 [[paper]]
 arxiv = "2601.18065"
+publication_date = "2026-07-02"
 venue = "Findings of ACL 2026"
 url = "https://aclanthology.org/2026.findings-acl.2081/"
 pdf_url = "https://aclanthology.org/2026.findings-acl.2081.pdf"
 
 [[paper]]
 arxiv = "2511.15029"
+# Formal proceedings publication date from Crossref.
+publication_date = "2026-03-14"
 venue = "AAAI 2026"
 url = "https://doi.org/10.1609/aaai.v40i3.37197"
 
 [[paper]]
 arxiv = "2509.23602"
+publication_date = "2025-12"
 venue = "NeurIPS 2025"
 
 [[paper]]
 arxiv = "2505.24601"
+publication_date = "2025-05-28"
 venue = "NeuS 2025"
 
 [[paper]]
 arxiv = "2505.13281"
+publication_date = "2025-07-30"
 venue = "CogSci 2025"
 
 [[paper]]
 arxiv = "2405.13828"
+publication_date = "2025-04-29"
 venue = "NAACL 2025"
 url = "https://aclanthology.org/2025.naacl-long.46/"
 pdf_url = "https://aclanthology.org/2025.naacl-long.46.pdf"
@@ -123,6 +144,7 @@ equal_contribution = ["Ziqiao Ma", "Zekun Wang"]
 
 [[paper]]
 arxiv = "2305.12544"
+publication_date = "2024"
 venue = "LREC-COLING 2024"
 url = "https://aclanthology.org/2024.lrec-main.708/"
 pdf_url = "https://aclanthology.org/2024.lrec-main.708.pdf"
@@ -130,15 +152,29 @@ equal_contribution = ["Oana Ignat", "Zhijing Jin"]
 
 [[paper]]
 arxiv = "2205.02829"
+publication_date = "2022"
 venue = "ICOTS 2022"
 title = "Foundations for AI-Assisted Formative Assessment Feedback for Short-Answer Tasks in Large-Enrollment Classes"
 authors = ["Susan E. Lloyd", "Matthew D. Beckman", "Dennis K. Pearl", "Rebecca J. Passonneau", "Zhaohui Li", "Zekun Wang"]
 
 [[paper]]
 arxiv = "2605.07076"
+publication_date = "2026-05-08"
 title = "Self-Consolidating Language Models"
 equal_contribution = ["Zekun Wang", "Anant Gupta"]
 summary = "SCoL uses meta-reinforcement learning to decide which layers of a language model should consolidate streaming context into their weights. On SQuAD, it improves knowledge acquisition and retention over sequential SEAL. On LongBench v2, learned consolidation improves accuracy over sequential fine-tuning and transfers to longer streams."
 
 [[paper]]
 arxiv = "2605.07078"
+publication_date = "2026-05-08"
+
+[[paper]]
+arxiv = "2610.02616"
+id = "verse-verified-self-evolving-optimizer-2026"
+title = "VERSE: Verified Self-Evolving Optimizer for Agent Harnesses"
+authors = ["Zekai Wang", "Yingqiang Ge", "Zekun Wang", "Hai Wang", "Yuhui Xu", "Joshua Frandsen", "Shancong Fu", "Ashia C. Wilson", "Chandan K. Reddy"]
+venue = "arXiv 2026"
+publication_date = "2026-10-02"
+summary = "VERSE combines execution-based verification with an optimizer that evolves its own harness. It tests draft edits, replays failures, and tracks fixes and regressions to revise both the executor harness and the optimizer's tools and procedures while keeping model weights fixed. Experiments evaluate the resulting harnesses on held-out software engineering tasks and newer tasks in five programming languages."
+tldr = "Execution checks guide an optimizer that improves both an agent's harness and its own tools and procedures."
+tags = ["continual learning", "language models"]
