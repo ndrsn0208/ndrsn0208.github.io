@@ -6,10 +6,10 @@ summary, Amazon research experience, workshop organization, and audited publicat
 
 The October 2026 update records Trust Region's acceptance at NeurIPS 2026 and
 links Self-Consolidating Language Models to the current PDF on the personal website.
-Selected Publications list Trust Region (NeurIPS 2026), Rank-1 Fisher (ICLR
-2026), and Deep Taxonomic Networks (NeurIPS 2025), followed by the selected
-preprints Self-Consolidating Language Models and Test-Time Compositional
-Generalization via Concept Discovery.
+Selected Publications form one chronological list: Trust Region (NeurIPS
+2026), Self-Consolidating Language Models, Test-Time Compositional
+Generalization via Concept Discovery, Rank-1 Fisher (ICLR 2026), and Deep
+Taxonomic Networks (NeurIPS 2025).
 
 The October 27 update adds four U.S. patent applications with the author's
 co-inventor role, filing dates, application numbers, and Georgia Tech Research
@@ -21,15 +21,16 @@ retains its NeurIPS 2026 venue and now links to the hosted final manuscript.
 The subsequent October 27 update adds VERSE: Verified Self-Evolving Optimizer
 for Agent Harnesses (arXiv:2610.02616), with Zekun Wang correctly listed as
 third author. It is a preprint, not an accepted ICLR 2027 paper. The full list
-has 19 distinct works, grouped into 16 published/accepted papers and 3 preprints.
-Following the author's clarified preference, published papers are ordered by
-formal venue year and then conference timing or journal publication date,
-newest first. This is not ordering by acceptance emails or arXiv upload dates.
-Preprints are grouped separately by first posting date, retaining the prior
-order for the two papers first posted on May 8, 2026.
+has 19 distinct works in one chronological list. The author explicitly wants
+published papers, accepted papers, and arXiv preprints interleaved, without
+status-based subsections in either Selected Publications or the Full Publication
+List. Use formal venue year and conference timing or journal publication date
+for published/accepted work, and first posting date for preprints, newest first.
+Retain the prior order for the two papers first posted on May 8, 2026.
 
-Within 2026, the venue order is NeurIPS (December), ACS (October 6--9),
-CogSci (July 22--25), ICML workshops (July 10--11), ACL (July 2--7),
+Within 2026, the order is NeurIPS (December), ACS (October 6--9), VERSE
+(October 2), CogSci (July 22--25), ICML workshops (July 10--11), ACL
+(July 2--7), the SCoL and compositional-diffusion preprints (May 8),
 ICLR (April 23--27), and AAAI. Within 2025, it is NeurIPS (December),
 ACS (October 13--15), Cognitive Systems Research volume 92 (September),
 CogSci (July 30--August 2), NeuS (May 28--30), and NAACL (April 29--May 4).
@@ -57,8 +58,8 @@ posting, rather than mixing first-posting and revision dates.
 | `sections/01-research.tex` | One paragraph describing the broad research direction |
 | `sections/02-education.tex` | Degrees, dates, advisor, major/minor |
 | `sections/industry-experience.tex` | Amazon research internship, location, and research focus |
-| `sections/03-selected-publications.tex` | Three selected published/accepted papers, two selected preprints, contribution summaries, and the Google Scholar link |
-| `sections/04-all-publications.tex` | Full Publication List: nineteen works, grouped by publication status and ordered by venue timing or first preprint posting |
+| `sections/03-selected-publications.tex` | Five selected works in one chronological list, with contribution summaries and the Google Scholar link |
+| `sections/04-all-publications.tex` | Full Publication List: nineteen works interleaved by venue timing or first preprint posting |
 | `sections/05-research-experiences.tex` | Research positions |
 | `sections/06-teaching.tex` | Teaching positions |
 | `sections/07-talks.tex` | Talks and guest lectures |
