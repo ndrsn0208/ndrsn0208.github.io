@@ -6,9 +6,10 @@ summary, Amazon research experience, workshop organization, and audited publicat
 
 The October 2026 update records Trust Region's acceptance at NeurIPS 2026 and
 links Self-Consolidating Language Models to the current PDF on the personal website.
-Selected Publications are ordered as Self-Consolidating, Trust Region (NeurIPS
-2026), Rank-1 Fisher (ICLR 2026), Deep Taxonomic Networks (NeurIPS 2025), and
-Test-Time Compositional Generalization via Concept Discovery.
+Selected Publications list Trust Region (NeurIPS 2026), Rank-1 Fisher (ICLR
+2026), and Deep Taxonomic Networks (NeurIPS 2025), followed by the selected
+preprints Self-Consolidating Language Models and Test-Time Compositional
+Generalization via Concept Discovery.
 
 The October 27 update adds four U.S. patent applications with the author's
 co-inventor role, filing dates, application numbers, and Georgia Tech Research
@@ -16,6 +17,25 @@ Corporation as applicant. Honors and Awards highlights the Ada Lovelace Award
 for Excellent Paper at ACS 2026. The full bibliography also records that award
 and the ACS 2026 venue for Diffusion Models and Concept Formation. Trust Region
 retains its NeurIPS 2026 venue and now links to the hosted final manuscript.
+
+The subsequent October 27 update adds VERSE: Verified Self-Evolving Optimizer
+for Agent Harnesses (arXiv:2610.02616), with Zekun Wang correctly listed as
+third author. It is a preprint, not an accepted ICLR 2027 paper. The full list
+has 19 distinct works, grouped into 16 published/accepted papers and 3 preprints.
+Following the author's clarified preference, published papers are ordered by
+formal venue year and then conference timing or journal publication date,
+newest first. This is not ordering by acceptance emails or arXiv upload dates.
+Preprints are grouped separately by first posting date, retaining the prior
+order for the two papers first posted on May 8, 2026.
+
+Within 2026, the venue order is NeurIPS (December), ACS (October 6--9),
+CogSci (July 22--25), ICML workshops (July 10--11), ACL (July 2--7),
+ICLR (April 23--27), and AAAI. Within 2025, it is NeurIPS (December),
+ACS (October 13--15), Cognitive Systems Research volume 92 (September),
+CogSci (July 30--August 2), NeuS (May 28--30), and NAACL (April 29--May 4).
+These periods were checked against the official conference pages, PMLR
+volume 288, and the journal's Crossref record. No individual acceptance
+dates are asserted.
 
 Research Focus is one paragraph introducing continual learning for deployment-time
 adaptation and generalization in foundation models and AI agents. Keep specific
@@ -25,7 +45,7 @@ records Amazon, August 2026 to present, with WA, USA below the company and two
 projects: one-shot harness adaptation and self-improving agent harnesses.
 Academic Leadership and Service includes the upcoming NeurIPS 2026 TTCL
 workshop. Selected Publications links to Google Scholar for the complete record;
-the 18-entry Full Publication List appears at the end of the CV. Publication
+the 19-entry Full Publication List appears at the end of the CV. Publication
 years follow the published venue or first preprint
 posting, rather than mixing first-posting and revision dates.
 
@@ -37,8 +57,8 @@ posting, rather than mixing first-posting and revision dates.
 | `sections/01-research.tex` | One paragraph describing the broad research direction |
 | `sections/02-education.tex` | Degrees, dates, advisor, major/minor |
 | `sections/industry-experience.tex` | Amazon research internship, location, and research focus |
-| `sections/03-selected-publications.tex` | Five selected publications, contribution summaries, and the Google Scholar link |
-| `sections/04-all-publications.tex` | Full Publication List at the end of the CV: eighteen works, authors, venues, years, and URLs |
+| `sections/03-selected-publications.tex` | Three selected published/accepted papers, two selected preprints, contribution summaries, and the Google Scholar link |
+| `sections/04-all-publications.tex` | Full Publication List: nineteen works, grouped by publication status and ordered by venue timing or first preprint posting |
 | `sections/05-research-experiences.tex` | Research positions |
 | `sections/06-teaching.tex` | Teaching positions |
 | `sections/07-talks.tex` | Talks and guest lectures |

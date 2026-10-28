@@ -113,6 +113,13 @@
 }
 
 % Full-list entry: title, date, URL, authors, publication venue.
+\newcommand{\CVPublicationGroup}[1]{%
+  \Needspace{7\baselineskip}%
+  \par\vspace{4pt}%
+  {\normalsize\bfseries #1\par}%
+  \nobreak\vspace{4pt}%
+}
+
 \newcommand{\CVPublication}[5]{%
   \begin{samepage}
   \CVPaperHeading{#1}{#2}{#3}{#4}
