@@ -122,6 +122,18 @@
   \CVGap
 }
 
+% Application title, U.S. application number, and filing date.
+\newcommand{\CVPatent}[3]{%
+  \Needspace{4\baselineskip}%
+  \begin{samepage}
+  \raggedright
+  \textbf{#1}\par\nobreak
+  U.S. Patent Application No.\ #2, filed #3.\par\nobreak
+  {\itshape Co-inventor. Applicant: Georgia Tech Research Corporation.\par}
+  \end{samepage}
+  \CVGap
+}
+
 \newlist{CVHighlights}{itemize}{1}
 \setlist[CVHighlights]{
   label=$\circ$,

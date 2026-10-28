@@ -10,6 +10,13 @@ Selected Publications are ordered as Self-Consolidating, Trust Region (NeurIPS
 2026), Rank-1 Fisher (ICLR 2026), Deep Taxonomic Networks (NeurIPS 2025), and
 Test-Time Compositional Generalization via Concept Discovery.
 
+The October 27 update adds four U.S. patent applications with the author's
+co-inventor role, filing dates, application numbers, and Georgia Tech Research
+Corporation as applicant. Honors and Awards highlights the Ada Lovelace Award
+for Excellent Paper at ACS 2026. The full bibliography also records that award
+and the ACS 2026 venue for Diffusion Models and Concept Formation. Trust Region
+retains its NeurIPS 2026 venue and now links to the hosted final manuscript.
+
 Research Focus is one paragraph introducing continual learning for deployment-time
 adaptation and generalization in foundation models and AI agents. Keep specific
 papers, methods, and numerical results in Selected Publications rather
@@ -37,6 +44,8 @@ posting, rather than mixing first-posting and revision dates.
 | `sections/07-talks.tex` | Talks and guest lectures |
 | `sections/08-service-and-advising.tex` | Workshop organization, academic service, and research mentoring |
 | `sections/09-skills.tex` | Skills |
+| `sections/10-honors.tex` | Honors and awards |
+| `sections/11-patent-applications.tex` | Patent applications, filing dates, application numbers, role, and applicant |
 | `style.tex` | Fonts, measurements, and reusable entry commands |
 | `cv.tex` | Section order; content flows automatically between pages |
 
