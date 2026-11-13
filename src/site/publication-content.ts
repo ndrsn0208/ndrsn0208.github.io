@@ -19,6 +19,7 @@ const articles: Record<string, string> = {
   '2605.07076': '/blog/self-consolidating-language-models/',
   '2602.02417': diffusionArticle,
   '2509.23593': diffusionArticle,
+  '2605.07078': '/blog/test-time-compositional-generalization/',
 }
 
 export function publicationContribution(paper: Publication) {

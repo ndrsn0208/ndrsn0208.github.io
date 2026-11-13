@@ -12,8 +12,23 @@ test('the overview leads with the name over the landscape, then news, papers, an
   await expect(name).toBeVisible()
   expect(parseFloat(await name.evaluate(node => getComputedStyle(node).fontSize))).toBeGreaterThanOrEqual(56)
   await expect(page.locator('#home-question')).toHaveText('How can models keep learning after deployment?')
-  // No caption, hint, or disclaimer sits with the drawing.
-  await expect(page.locator('.home-hero p')).toHaveCount(1)
+  // Beside the name: who this is, what the research is about, and the research interests.
+  // Nothing else is written in the opening, and no caption, hint, or disclaimer sits with the drawing.
+  await expect(page.locator('.home-hero p')).toHaveCount(4)
+  // It is written once for the eye: beside the name on a wide screen, under the drawing on a narrow one.
+  const bio = page.locator('.home-bio:visible')
+  await expect(bio).toHaveCount(1)
+  await expect(bio).toContainText('I’m a third-year PhD student in Computer Science at Georgia Tech')
+  await expect(bio).toContainText('Prior to that, I received my M.S.')
+  await expect(bio.locator('.home-interests')).toContainText('Research interests: continual learning, compositionality')
+  // It begins on the first screen.
+  expect((await bio.boundingBox())!.y).toBeLessThan(page.viewportSize()!.height)
+  // The name stays on one line, and the drawing keeps the room under the name and the question: the introduction takes none of it.
+  const nameBox = (await name.boundingBox())!
+  expect(nameBox.height).toBeLessThan(parseFloat(await name.evaluate(node => getComputedStyle(node).fontSize)) * 1.2)
+  const leadBottom = await page.locator('.home-lead').evaluate(node => node.getBoundingClientRect().bottom)
+  const heroBottom = await page.locator('.home-hero').evaluate(node => node.getBoundingClientRect().bottom)
+  expect(heroBottom - leadBottom).toBeGreaterThan(page.viewportSize()!.height * .42)
   // The header repeats the name only after the large one has scrolled away.
   const headerName = page.getByRole('banner').locator('.site-name')
   await expect(headerName).toBeHidden()
@@ -31,11 +46,11 @@ test('the overview leads with the name over the landscape, then news, papers, an
   })).toBeGreaterThan(60)
 
   const news = page.getByRole('region', { name: 'News', exact: true })
-  await expect(news.getByRole('listitem')).toHaveCount(6)
+  await expect(news.getByRole('listitem')).toHaveCount(7)
   await expect(news).toContainText('was accepted to NeurIPS 2026')
   await expect(news.getByRole('link', { name: 'TTCL', exact: true })).toHaveAttribute('href', 'https://ttcl-agents.github.io/')
   await expect(page.locator('#selected-publications li')).toHaveCount(6)
-  await expect(page.locator('#writing li')).toHaveCount(2)
+  await expect(page.locator('#writing li')).toHaveCount(3)
   await expect(page.locator('#selected-publications li').first().getByRole('link')).toHaveAttribute('href', /trust-region-continual-learning\.pdf|arxiv\.org/)
   await expect(page.getByRole('contentinfo').getByRole('link', { name: 'zekun@gatech.edu', exact: true })).toHaveAttribute('href', 'mailto:zekun@gatech.edu')
   await fits(page)
@@ -95,12 +110,13 @@ test('a paper opens its summary, links, and citation in place', async ({ page })
   await fits(page)
 })
 
-test('writing lists both essays and each row opens its essay', async ({ page }) => {
+test('writing lists every essay and each row opens its essay', async ({ page }) => {
   await page.goto('/blog/?edition=paper')
-  await expect(page.locator('.essay-row')).toHaveCount(2)
+  await expect(page.locator('.essay-row')).toHaveCount(3)
   // Each row carries the essay's own drawing.
   await expect(page.locator('.essay-row canvas.terrain')).toHaveCount(1)
   await expect(page.locator('.essay-row .essay-figure-layers')).toHaveCount(1)
+  await expect(page.locator('.essay-row .essay-figure-pairs span')).toHaveCount(16)
   await page.getByRole('link', { name: /Self-Consolidating Language Models/ }).click()
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Self-Consolidating Language Models: Writing context into model weights at test time')
 

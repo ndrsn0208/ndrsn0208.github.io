@@ -1,5 +1,17 @@
 [
   {
+    "id": "composition-blog-2026",
+    "date": "2026-11",
+    "content": [
+      { "text": "New blog: " },
+      {
+        "text": "Test-Time Compositional Generalization",
+        "href": "/blog/test-time-compositional-generalization/"
+      },
+      { "text": ". Composing a held-out combination from prototypes discovered at test time." }
+    ]
+  },
+  {
     "id": "leah-preprint-2026",
     "date": "2026-11",
     "content": [

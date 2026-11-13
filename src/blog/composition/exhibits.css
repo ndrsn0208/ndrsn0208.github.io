@@ -1,0 +1,114 @@
+/* One image of a sheet. The ColorMNIST images are 32 by 32 pixels and are shown with their pixels. */
+.tile { display: block; width: 100%; aspect-ratio: 1; background-repeat: no-repeat; }
+.tile[data-pixels] { image-rendering: pixelated; }
+
+/* The grid of pairs: digit color down, background color across. A filled cell is a pair the model is
+   trained on, a dashed cell a pair that training leaves out. Blue is the pair in question. */
+.pairs { --pairs-name: 4.8rem; display: grid; grid-template-columns: var(--pairs-name) repeat(4, minmax(0, 1fr)); gap: 4px; align-items: center; color: var(--site-muted); font-size: var(--site-note); line-height: 1.25; letter-spacing: 0; }
+.pairs-axis[data-axis="column"] { grid-column: 2 / span 4; grid-row: 1; }
+.pairs-axis[data-axis="row"] { grid-column: 1; grid-row: 1 / span 2; align-self: end; padding-bottom: 3px; }
+.pairs-name { transition: color 420ms ease; }
+.pairs-name[data-axis="column"] { grid-row: 2; align-self: end; padding-bottom: 3px; text-align: center; }
+.pairs-name[data-axis="row"] { grid-column: 1; padding-right: 8px; }
+.pairs-name[data-on] { color: var(--site-ink); font-weight: 500; }
+.pair { position: relative; display: grid; place-items: center; aspect-ratio: 1; border: 1px solid var(--essay-track); background: color-mix(in srgb, var(--site-ink) 8%, var(--site-paper)); transition: background-color 420ms ease, border-color 420ms ease; }
+.pair[data-held] { border: 1px dashed var(--essay-quiet); background: none; }
+.pair[data-band]:not([data-held]) { background: color-mix(in srgb, var(--site-accent) 17%, var(--site-paper)); }
+.pair[data-kind="reached"] { border-color: var(--site-ink); }
+.pair[data-kind="query"] { border: 2px dashed var(--site-accent); }
+.pair[data-kind="made"] { border: 2px solid var(--site-accent); }
+.pair > .tile { position: absolute; inset: 0; width: auto; animation: pair-arrive 560ms ease both; }
+.pair-names { display: grid; gap: 1px; color: var(--site-body); text-align: center; line-height: 1.2; white-space: nowrap; }
+.pair-names b { color: var(--site-ink); font-weight: 500; }
+.pairs-arrow { grid-column: 2 / span 4; grid-row: 3 / span 4; z-index: 1; width: 100%; height: 100%; pointer-events: none; }
+.pairs-arrow line { stroke: var(--site-accent); stroke-width: 2px; vector-effect: non-scaling-stroke; }
+.pairs-arrow :is(path, circle) { fill: var(--site-accent); }
+@keyframes pair-arrive { from { opacity: 0; } }
+
+/* Opening figure: the query, the grid, and the samples. */
+.compose { display: grid; grid-template-columns: minmax(0, .17fr) minmax(0, 1fr) minmax(0, .3fr); gap: 0 clamp(18px, 3.4vw, 38px); align-items: start; }
+.compose-side { opacity: 0; transition: opacity 560ms ease; }
+.compose-side[data-there] { opacity: 1; }
+.compose-side .tile, .compose-side .compose-tiles { margin-top: 6px; }
+.compose-side .compose-tiles .tile { margin-top: 0; }
+.compose-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; }
+
+/* A noisy marginal in one dimension at three noise levels. The line is the density, and a point is a mode. */
+.modes { display: grid; gap: 16px; }
+.modes-field { position: relative; height: clamp(88px, 14vw, 124px); margin-top: 2px; border-bottom: 1px solid var(--essay-track); }
+.modes-field svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.modes-field :is(polyline, line) { fill: none; vector-effect: non-scaling-stroke; }
+.modes-curve { stroke: var(--site-ink); stroke-width: 1.25; }
+.modes-start { stroke: var(--essay-quiet); stroke-width: 1; stroke-dasharray: 2 3; }
+.modes-trail { stroke: var(--essay-quiet); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+:is(.modes-start, .modes-trail)[data-ours] { stroke: var(--site-accent); }
+.modes-point { position: absolute; width: 9px; height: 9px; margin: 0 0 -4.5px -4.5px; border-radius: 50%; background: var(--essay-quiet); }
+.modes-point[data-ours] { width: 11px; height: 11px; margin: 0 0 -5.5px -5.5px; background: var(--site-accent); }
+.modes-name { position: absolute; left: 50%; bottom: calc(100% + 4px); transform: translateX(-50%); color: var(--site-ink); font-size: var(--site-note); line-height: 1.2; letter-spacing: 0; white-space: nowrap; }
+.modes-key { display: flex; flex-wrap: wrap; gap: 4px 28px; }
+.modes-key i { display: inline-block; width: 9px; height: 9px; margin-right: 8px; border-radius: 50%; background: var(--essay-quiet); }
+.modes-key i[data-ours] { background: var(--site-accent); }
+
+/* An image and its prototype at seven noise levels: eight equal tiles, with a wider gap after the image. */
+.levels { display: grid; gap: 5px; }
+.levels-line { display: grid; grid-template-columns: minmax(0, 1fr) clamp(2px, 1vw, 10px) repeat(7, minmax(0, 1fr)); gap: 0 4px; align-items: end; }
+.levels-over { grid-column: 3 / -1; }
+.levels-scale { color: var(--site-muted); font-size: var(--site-note); line-height: 1.35; letter-spacing: 0; text-align: center; font-variant-numeric: tabular-nums; }
+
+/* A table of measured values. A darker cell is a higher value. */
+.shades { display: grid; gap: 3px; font-size: var(--site-note); line-height: 1.3; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.shades-title { padding-bottom: 5px; color: var(--site-ink); }
+.shades [role="rowgroup"] { display: grid; gap: 3px; }
+.shades-row { display: grid; grid-template-columns: 12.5rem repeat(var(--columns), minmax(0, 1fr)); gap: 3px; align-items: stretch; }
+.shades-name { align-self: center; padding-right: 12px; color: var(--site-body); }
+.shades-detail { display: block; color: var(--site-muted); }
+.shades-level { color: var(--site-muted); text-align: center; }
+.shades-cell { display: grid; place-items: center; min-height: 34px; background: color-mix(in srgb, var(--site-ink) calc(var(--share) * 100%), var(--site-paper)); color: var(--site-ink); }
+.shades-cell[data-dark] { color: var(--site-paper); }
+
+/* Mode ascent from two images that differ only in their color pair: where the held-out pair ends, and the model's images. */
+.ascent { display: grid; gap: 28px; }
+.ascent-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .92fr); gap: 0 clamp(22px, 5vw, 52px); align-items: center; }
+.ascent-pairs { display: grid; gap: 20px; }
+.ascent-tiles { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr); gap: 0 10px; align-items: end; max-width: 15rem; margin-top: 6px; }
+.ascent-tiles > div { display: grid; gap: 4px; }
+
+/* The selected prototypes, their weights, and the mean of their product of experts. */
+.weights { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .19fr); gap: 0 clamp(16px, 3vw, 32px); align-items: start; }
+.weights-rows { display: grid; gap: 5px; }
+.weights-row { display: grid; grid-template-columns: 5.2rem minmax(0, 1fr); align-items: center; }
+.weights-tiles { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px; }
+.weights-mean { display: grid; gap: 6px; }
+
+/* A query, three of its prototypes, and five samples of each method. On ColorMNIST the grid shows where each method lands. */
+.samples[data-grid] { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1fr); gap: 0 clamp(22px, 4.4vw, 40px); align-items: start; }
+.samples-tiles { max-width: 34rem; }
+.samples-class { color: var(--site-ink); font-size: var(--site-note); line-height: 1.35; letter-spacing: 0; }
+.samples-grid { display: grid; grid-template-columns: minmax(0, 1fr) clamp(4px, 1.6vw, 14px) repeat(4, minmax(0, 1fr)); gap: 0 5px; margin-top: 12px; }
+.samples-grid::before { content: ""; grid-column: 2; grid-row: 1; }
+.samples-column { display: grid; grid-template-columns: minmax(0, 1fr); gap: 5px; align-content: start; min-width: 0; }
+.samples-column > .exhibit-label { white-space: nowrap; }
+.samples-query { grid-column: 1; grid-row: 1; }
+.samples-column[data-ours] > .exhibit-label { color: var(--site-ink); font-weight: 500; }
+
+/* The essay's small picture: the grid of pairs, with one held-out pair made. */
+.essay-figure-pairs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(3px, .5vw, 6px); width: 34%; }
+.essay-figure-pairs span { aspect-ratio: 1; border: 1px solid var(--essay-track); background: color-mix(in srgb, var(--site-ink) 8%, var(--site-paper)); }
+.essay-figure-pairs span[data-held] { border: 1px dashed var(--essay-quiet); background: none; }
+.essay-figure-pairs span[data-made] { border: 1px solid var(--site-accent); background: var(--site-accent); }
+
+@media (max-width: 760px) {
+  .pairs { --pairs-name: 3.7rem; }
+  .compose { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .compose-side:first-child { width: 4.6rem; }
+  .compose-samples .compose-tiles { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  .ascent-top, .samples[data-grid], .weights { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .ascent-pairs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 20px; }
+  .weights-row { grid-template-columns: minmax(0, 1fr); gap: 3px; }
+  .weights-mean .tile { width: 4.6rem; }
+  .shades-row { grid-template-columns: repeat(var(--columns), minmax(0, 1fr)); }
+  .shades-name { grid-column: 1 / -1; padding: 6px 0 0; }
+  .shades-name:has(> .site-hidden:only-child) { padding: 0; }
+  .shades-cell { min-height: 30px; }
+  .shades-detail { display: inline; }
+}

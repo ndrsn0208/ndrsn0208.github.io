@@ -44,7 +44,7 @@ export type EssaySection = {
 export type EssayReference = { id: string, title: string, url: string, detail?: string }
 
 export type Essay = {
-  id: 'diffusion' | 'scol'
+  id: 'diffusion' | 'scol' | 'composition'
   path: string
   /** What the work is called. */
   name: string

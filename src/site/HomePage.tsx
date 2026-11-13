@@ -13,6 +13,12 @@ const month = new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric', t
 
 function HomeContent() {
   const { href } = useSiteTheme()
+  // Who this is, what the research is about, and the research interests. Three short paragraphs and no more.
+  const bio = <>
+    <p className="site-inline">I’m a third-year PhD student in Computer Science at Georgia Tech, advised by <a href={config.advisorUrl} target="_blank" rel="noreferrer">{config.advisor}</a>, and a research intern at Amazon. Prior to that, I received my M.S. from the University of Michigan and my B.S. from Penn State.</p>
+    <p>I study continual learning for adaptation and generalization in foundation models and AI agents.</p>
+    <p className="home-interests"><span>Research interests:</span> {config.researchInterests.join(', ')}.</p>
+  </>
   useBlogMetadata({
     title: 'Zekun Wang · Research & writing',
     description: 'Continual learning for deployment-time adaptation and generalization. Research, publications, and illustrated essays by Zekun Wang, a Computer Science PhD student at Georgia Tech.',
@@ -24,16 +30,18 @@ function HomeContent() {
   return <main id="site-main" className="home-page">
     <section className="home-hero" id="introduction" aria-labelledby="home-name">
       <Landscape />
-      <div className="site-container home-hero-copy" data-landscape-clear>
-        <h1 id="home-name" className="home-name">{config.name}</h1>
-        <p id="home-question" className="home-question">How can models keep learning after deployment?</p>
+      <div className="site-container home-hero-copy">
+        {/* The drawing leaves room for the name and the question only, so the introduction never makes it smaller. */}
+        <div className="home-lead" data-landscape-clear>
+          <h1 id="home-name" className="home-name">{config.name}</h1>
+          <p id="home-question" className="home-question">How can models keep learning after deployment?</p>
+        </div>
+        <div className="home-bio" data-place="beside">{bio}</div>
       </div>
     </section>
 
-    <section className="site-container home-intro" aria-label="Research and current positions">
-      <p className="site-title home-statement">I study continual learning for adaptation and generalization. My work asks how foundation models and AI agents can learn from new experience while preserving what they already know.</p>
-      <p className="home-now site-inline">PhD student in Computer Science at Georgia Tech, advised by <a href={config.advisorUrl} target="_blank" rel="noreferrer">{config.advisor}</a>. Research intern at Amazon.</p>
-    </section>
+    {/* On a screen too narrow to hold it beside the name, the introduction follows the drawing. */}
+    <section className="site-container home-bio" data-place="below" aria-label="Introduction">{bio}</section>
 
     <section className="site-container site-section" id="news" aria-labelledby="news-heading">
       <div className="site-section-heading">

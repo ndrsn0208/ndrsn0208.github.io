@@ -48,9 +48,13 @@ canvas. The pointer moves a new task and the model follows it without leaving a
 trust region. The owner's two corrections to the first version are binding: a
 visitor must see at first glance whose page it is, so the name is never reduced
 to the header alone, and the drawing carries no caption, hint, or disclaimer.
-Below the drawing are one statement, the current positions, News (from
-`src/data/news.json`, which the owner wants on the homepage), six selected
-papers, and the two essays. Do not add small explanatory text anywhere on the
+Beside the name is a short introduction the owner asked for on 2026-11-13: a
+first-person bio ("I'm a third-year PhD student ... Prior to that, ..."), one
+sentence on the research, and the research interests. It must not make the
+drawing smaller or wrap the name: beside the name from 1240px, under the
+drawing below that. Keep it that short. Below the drawing are News (from `src/data/news.json`,
+which the owner wants on the homepage), six selected papers, and the three
+essays. Do not add small explanatory text anywhere on the
 site's own pages.
 
 Navigation is the name (home) and four words: Papers, Writing, About, CV. The

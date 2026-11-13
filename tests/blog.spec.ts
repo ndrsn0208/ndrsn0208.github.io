@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-/* Both essays are laid out by one component and every figure sits in one frame.
+/* Every essay is laid out by one component and every figure sits in one frame.
    These tests hold that system to its rules, then check what each figure shows. */
 
 const essays = [
@@ -17,6 +17,13 @@ const essays = [
     name: 'Self-Consolidating Language Models',
     headline: 'Writing context into model weights at test time',
     figures: ['writing', 'interference', 'loop', 'results', 'additional', 'fisher'],
+    papers: 1,
+  },
+  {
+    path: '/blog/test-time-compositional-generalization/',
+    name: 'Test-Time Compositional Generalization',
+    headline: 'Composing a held-out combination from prototypes discovered at test time',
+    figures: ['compose', 'modes', 'levels', 'sharing', 'ascent', 'weights', 'samples', 'results', 'number'],
     papers: 1,
   },
 ] as const
@@ -219,6 +226,89 @@ test('measured figures carry the numbers from the papers', async ({ page }) => {
   await fisher.getByRole('button', { name: 'Harvard University', exact: true }).click()
   await expect(fisher.locator('.layer-row').nth(1).locator('[data-state="on"]')).toHaveCount(8)
   await expect(fisher.getByRole('img', { name: /^SCoL selected layers 2, 7, 14, 22, 23, 26, 27, 28\./ })).toBeVisible()
+})
+
+test('the composition essay is drawn on the grid of pairs and carries the numbers of its paper', async ({ page }) => {
+  await page.goto(`${essays[2].path}?edition=paper`)
+  // The opening figure rests on the outcome: the held-out pair is made from prototypes of seen pairs, and the samples are there.
+  const compose = figure(page, 'compose')
+  await expect(station(page, 'compose', 'Samples')).toHaveAttribute('aria-current', 'step')
+  await expect(compose.locator('.pair')).toHaveCount(16)
+  await expect(compose.locator('.pair[data-held]')).toHaveCount(4)
+  await expect(compose.locator('.pair[data-held][data-kind="made"] .tile')).toHaveCount(1)
+  await expect(compose.locator('.pair[data-kind="reached"]:not([data-held]) .tile')).toHaveCount(5)
+  await expect(compose.locator('.compose-samples[data-there] .tile')).toHaveCount(8)
+  // At its first station the grid shows training only. Then the query marks a held-out pair, and nothing is in it yet.
+  await station(page, 'compose', 'Training').click()
+  await expect(compose.locator('.pair[data-kind]')).toHaveCount(0)
+  await expect(compose.getByRole('img', { name: /^The model is trained on 12 of the 16 pairs/ })).toBeVisible()
+  await station(page, 'compose', 'Query').click()
+  await expect(compose.locator('.pair[data-held][data-kind="query"]')).toHaveCount(1)
+  await expect(compose.locator('.pair .tile')).toHaveCount(0)
+  // Every tile is cut from a sheet of images that exists.
+  const sheets = await page.locator('.essay .tile').evaluateAll(tiles => [...new Set(tiles.map(tile => getComputedStyle(tile).backgroundImage.replace(/^url\("?|"?\)$/g, '')))])
+  expect(sheets.length).toBeGreaterThanOrEqual(4)
+  for (const sheet of sheets) expect((await page.request.get(sheet)).ok()).toBe(true)
+
+  // The diagram of a noisy marginal: two images have their own prototypes at the low level and share one above it.
+  const modes = figure(page, 'modes')
+  await modes.scrollIntoViewIfNeeded()
+  await expect(modes.locator('.modes-name')).toHaveText(['Prototype', 'Shared prototype', 'Shared prototype'])
+  await expect(modes.locator('.modes-point')).toHaveCount(4)
+
+  const levels = figure(page, 'levels')
+  await levels.scrollIntoViewIfNeeded()
+  await expect(levels.locator('.tile')).toHaveCount(16)
+  await expect(levels.locator('.levels-scale')).toHaveText('70140220290370440520')
+  await levels.getByRole('button', { name: 'Text-to-image LDM', exact: true }).click()
+  await expect(levels.locator('.levels-scale')).toHaveText('80170270360450550640')
+
+  const sharing = figure(page, 'sharing')
+  await sharing.scrollIntoViewIfNeeded()
+  await expect(sharing.getByRole('row', { name: /^CIFAR-10 DDPM/ }).getByRole('cell')).toHaveText(['508', '321', '139', '14', '1', '1', '1', '1', '1'])
+  await expect(sharing.getByRole('row', { name: /^Text-to-image LDM/ }).getByRole('cell').nth(4)).toHaveText('140')
+
+  // On the grid, the ascent from the held-out pair ends on a seen pair: it keeps one color and replaces the other.
+  const ascent = figure(page, 'ascent')
+  await ascent.scrollIntoViewIfNeeded()
+  await expect(station(page, 'ascent', '40 steps')).toHaveAttribute('aria-current', 'step')
+  await expect(ascent.getByRole('img', { name: /ends on a seen pair, yellow on deep red\. It keeps the background/ })).toBeVisible()
+  await expect(ascent.locator('.pair[data-kind="reached"]:not([data-held]) .tile')).toHaveCount(1)
+  await ascent.getByRole('button', { name: 't = 400', exact: true }).click()
+  await expect(ascent.getByRole('img', { name: /ends on a seen pair, green on dark brown\. It keeps the digit color/ })).toBeVisible()
+  await expect(ascent.getByRole('row', { name: /^Held-out color pair/ }).getByRole('cell')).toHaveText(['60.0%', '22.3%', '9.7%', '9.8%'])
+  await expect(ascent.getByRole('row', { name: /^Seen color pair, same background/ }).getByRole('cell').nth(2)).toHaveText('89.8%')
+
+  const weights = figure(page, 'weights')
+  await weights.scrollIntoViewIfNeeded()
+  await expect(weights.locator('.tile')).toHaveCount(17)
+
+  // On ColorMNIST the grid places each method by the pair its samples show. Ours is in the held-out cell.
+  const samples = figure(page, 'samples')
+  await samples.scrollIntoViewIfNeeded()
+  await expect(samples.locator('.samples-column')).toHaveCount(5)
+  await expect(samples.locator('.tile')).toHaveCount(24)
+  await expect(samples.locator('.pair[data-held][data-kind="made"]')).toHaveText('OursSDEdit')
+  await expect(samples.locator('.pair[data-kind="reached"]:not([data-held])')).toHaveText(['Comp. 3', 'Comp. 1'])
+  await samples.getByRole('button', { name: 'CelebA', exact: true }).click()
+  await expect(samples.locator('.pair')).toHaveCount(0)
+  await expect(samples.locator('.tile')).toHaveCount(24)
+
+  const results = figure(page, 'results')
+  await results.scrollIntoViewIfNeeded()
+  await expect(results.getByRole('row', { name: /^Ours Attribute/ })).toContainText('92.5%')
+  await expect(results.getByRole('row', { name: /^Ours Attribute/ })).toContainText('0.079')
+  await expect(results.getByRole('row', { name: /^SDEdit, t0 = 200/ })).toContainText('0.082')
+  await results.getByRole('button', { name: 'CelebA', exact: true }).click()
+  await expect(results.getByRole('row', { name: /^Ours Attribute/ })).toContainText('77.0%')
+  await expect(results.getByRole('row', { name: /^Ours Attribute/ })).toContainText('0.166')
+
+  const number = figure(page, 'number')
+  await number.scrollIntoViewIfNeeded()
+  await expect(number.getByRole('row', { name: /^Pool with ascents from the query, K = 8/ })).toContainText('Number of prototypes K: 8')
+  await expect(number.getByRole('row', { name: /^Pool with ascents from the query, K = 8/ })).toContainText('92.5%')
+  await expect(number.getByRole('row', { name: /^No ascent from the query, K = 1 / })).toContainText('51.2%')
+  await expect(number.getByRole('row', { name: /^Comp\. 1/ })).toContainText('37.7%')
 })
 
 test('three contexts are consolidated, the prompt is cleared, and the question is answered from the weights', async ({ page }) => {

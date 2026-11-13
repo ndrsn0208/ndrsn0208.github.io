@@ -1,4 +1,4 @@
-// Renders the share images for both essays: one per figure, and one for the essay itself.
+// Renders the share images for every essay: one per figure, and one for the essay itself.
 //
 //   npm run blog:figure-cards
 //
@@ -23,19 +23,25 @@ async function loadSource(relativePath) {
   return import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`)
 }
 
-const [{ essayCard, essayType }, { diffusionEssay }, { scolEssay }] = await Promise.all([
+const [{ essayCard, essayType }, { diffusionEssay }, { scolEssay }, { compositionEssay }] = await Promise.all([
   loadSource('src/blog/essay/format.ts'),
   loadSource('src/blog/diffusion/article.ts'),
   loadSource('src/blog/scol/article.ts'),
+  loadSource('src/blog/composition/article.ts'),
 ])
 
 // The width a figure is photographed at. A tall figure is given less than a chart or a grid.
 // A key with an essay's id applies to that essay's figure only.
-const widths = { forgetting: 1040, region: 860, methods: 520, 'scol/results': 560, 'scol/additional': 560 }
+const widths = {
+  forgetting: 1040, region: 860, methods: 520, 'scol/results': 560, 'scol/additional': 560,
+  'composition/compose': 640, 'composition/modes': 760, 'composition/ascent': 560, 'composition/weights': 900, 'composition/samples': 700, 'composition/results': 560, 'composition/number': 560,
+}
 // The comparison of methods is three strips. The essay's own card shows the last one, Trust Region.
 const strips = { methods: { count: 3, ratio: 1000 / 800 } }
 // The figure that stands for the whole essay.
-const face = { diffusion: 'methods', scol: 'writing' }
+const face = { diffusion: 'methods', scol: 'writing', composition: 'compose' }
+// The width of that figure on the essay's own card, where the headline takes more room.
+const faceWidths = { composition: 520 }
 
 const server = await createServer({ root, logLevel: 'error', server: { host: '127.0.0.1', port: 0 } })
 await server.listen()
@@ -45,7 +51,7 @@ const browser = await chromium.launch({ channel: 'chrome' })
 let count = 0
 
 try {
-  for (const essay of [diffusionEssay, scolEssay]) {
+  for (const essay of [diffusionEssay, scolEssay, compositionEssay]) {
     const cards = [
       ...Object.keys(essay.exhibits).map(id => ({ id, figure: id, small: essay.name, large: essayType(essay.exhibits[id].title), size: 40 })),
       { id: 'essay', figure: face[essay.id], small: essay.name, large: essayType(essay.headline), size: 60 },
@@ -82,7 +88,7 @@ try {
         sheet.append(name, title, room)
         shell.append(sheet)
         document.querySelector('.adapt-launcher')?.remove()
-      }, { ...card, width: card.id === 'essay' ? 1088 : widths[`${essay.id}/${card.figure}`] ?? widths[card.figure] ?? 1088, strip: card.id === 'essay' ? strips[card.figure] : undefined })
+      }, { ...card, width: card.id === 'essay' ? faceWidths[essay.id] ?? 1088 : widths[`${essay.id}/${card.figure}`] ?? widths[card.figure] ?? 1088, strip: card.id === 'essay' ? strips[card.figure] : undefined })
       await page.waitForTimeout(700)
       const file = path.join(root, 'public', essayCard(essay.id, card.id))
       await fs.mkdir(path.dirname(file), { recursive: true })

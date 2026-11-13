@@ -1,7 +1,7 @@
 // After the site is built, writes a real page for the Writing index, for each
 // essay, and for each figure. Every page carries its own title, description and
 // share image for crawlers, and the complete text for readers without JavaScript.
-// Both essays come from the same shape, so they are written by the same code.
+// Every essay comes from the same shape, so they are written by the same code.
 
 import fs from 'node:fs/promises'
 import path from 'node:path'
@@ -19,14 +19,15 @@ async function loadSource(relativePath) {
   }).outputText
   return import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`)
 }
-const [{ essayParts, essayCard }, { diffusionEssay }, { scolEssay }, { recording }, record] = await Promise.all([
+const [{ essayParts, essayCard }, { diffusionEssay }, { scolEssay }, { compositionEssay }, { recording }, record] = await Promise.all([
   loadSource('src/blog/essay/format.ts'),
   loadSource('src/blog/diffusion/article.ts'),
   loadSource('src/blog/scol/article.ts'),
+  loadSource('src/blog/composition/article.ts'),
   loadSource('src/blog/diffusion/media.ts'),
   fs.readFile(path.join(root, 'src/data/publications.json'), 'utf8').then(JSON.parse),
 ])
-const essays = [diffusionEssay, scolEssay]
+const essays = [compositionEssay, diffusionEssay, scolEssay]
 const origin = 'https://ndrsn0208.github.io'
 const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
@@ -77,7 +78,7 @@ const pages = [
   {
     route: '/blog/',
     title: 'Writing · Zekun Wang',
-    description: 'Research essays on continual learning in diffusion models and continual context consolidation in language models.',
+    description: 'Research essays on compositional generalization and continual learning in diffusion models, and on continual context consolidation in language models.',
     image: diffusionEssay.image,
     imageAlt: diffusionEssay.imageAlt,
     body: `<h1>Writing</h1>${essays.map(essay => `<h2><a href="${essay.path}">${escapeHtml(essay.name)}</a></h2><p>${escapeHtml(essay.headline)}.</p>`).join('')}`,

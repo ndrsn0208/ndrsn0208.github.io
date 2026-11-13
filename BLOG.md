@@ -292,6 +292,82 @@ Scientific contracts:
   no measurements. The candidates in `loop` are an example, scored with λ = 2
   as in the SQuAD experiments.
 
+## Test-Time Compositional Generalization
+
+`src/blog/composition/`, added on 2026-11-13. The headline, "Composing a
+held-out combination from prototypes discovered at test time", is built from
+the paper's terms. The author has not approved it yet.
+
+**The story.** The author rejected the first version on 2026-11-13: its figures
+were grids of images, unlike the other essays, and it never showed that
+training has not seen the combination and that prototypes found at test time
+compose it. The essay therefore does not follow the paper's section order. It
+states the setting first (every attribute value is seen, not every
+combination), then what a prototype is, then that mode ascent from a held-out
+query ends on seen combinations that each keep part of the query, then that
+the product of experts composes the held-out combination from them, then the
+results. Keep that order and keep those three statements explicit.
+
+**The drawing** is `Pairs.tsx`: the 16 pairs of digit color and background
+color in ColorMNIST. A filled cell is a pair seen in training, a dashed cell a
+held-out pair (the four pairs are listed in the paper's appendix on the
+benchmarks), blue is the pair in question. What the model produces is placed in
+the cell of the pair it shows. Every figure about composition is drawn on this
+grid, and `EssayFigure.tsx` shows it small wherever the essay is listed.
+
+Terms, from the paper.
+
+| Concept | Term | Not |
+| --- | --- | --- |
+| Attribute values together | combination. A class on a benchmark. A color pair for digit color and background color | composition, slot |
+| In training or not | seen, held-out | unseen, OOD, novel |
+| What is discovered | prototype: a mode of a noisy marginal, with its local Gaussian | concept, cluster, centroid |
+| The distribution at one noise level | noisy marginal | smoothed density |
+| t | noise level. Fine levels, coarse levels | timestep, scale |
+| Finding a mode | mode ascent, ascent step | score ascent, gradient ascent |
+| The test image | query. Out-of-distribution query when the setting is named | prompt, example |
+| The pool | candidate prototypes, selected prototypes (K = 8) | experts |
+| Combining | compose, product of experts, per-dimension weights | PoE, mix, blend |
+| Sampling | composable diffusion sampler, samples | generations |
+| Baselines | Comp. 1, Comp. 3, SDEdit, Ours | Composable (1 class) |
+| Metrics | attribute correctness, KID, diversity | accuracy, FID |
+| Models | CIFAR-10 DDPM, CelebA-HQ DDPM, DiT-XL/2, text-to-image LDM | |
+
+| Figure | What it shows |
+| --- | --- |
+| `compose` | On the grid: training, the query's held-out pair, prototypes in the cells of seen pairs, the query's digit color and background meeting at its cell, the samples. |
+| `modes` | A one-dimensional noisy marginal at three noise levels, with the modes that two images reach. |
+| `levels` | The prototypes of two images per model at seven noise levels, on four models. |
+| `sharing` | The number of distinct prototypes by noise level, as shaded cells. |
+| `ascent` | On the grid: where mode ascent from the held-out pair ends at t = 300 and at t = 400. Beside it the model's images step by step, and under it the share of ascents that keep their pair. |
+| `weights` | The eight selected prototypes, their per-dimension weights, and the mean of their product of experts. |
+| `samples` | The query, three prototypes, and five samples of each method. On ColorMNIST the grid places each method by the pair its samples show. |
+| `results` | Attribute correctness against KID: SDEdit over t0, our method over the scale S. |
+| `number` | Attribute correctness against the number of selected prototypes. |
+
+Scientific contracts:
+
+- Every picture is an output of a model, cut from a figure of the paper and
+  never redrawn. `composition_assets.py` (in the author's `papers-2026-11/tools`
+  folder, outside this repository) cuts the tiles from `overview.pdf`,
+  `evolution.pdf`, `main_dual_dataset.pdf` and `val_modes.pdf` into the sheets
+  under `public/blog-assets/composition/`. `tiles.tsx` says what each sheet
+  holds.
+- A tile sits in the cell of the pair it shows. The cells were read from the
+  images: in `compose`, prototypes 1, 2, 6, 7 and 5 of the overview figure are
+  cyan on deep red, green on dark brown, yellow on dark brown, cyan on dark
+  purple, and pink on dark purple. In `ascent`, the held-out query ends on
+  yellow on deep red at t = 300 and on green on dark brown at t = 400. In
+  `samples`, Comp. 1 shows cyan on deep red and Comp. 3 green on dark purple.
+- `evidence.ts` holds every number, transcribed from the paper's LaTeX. The
+  points of our method over S in `results` are printed in no table: they are
+  the class means of the result tables behind the paper's figure, on the
+  author's H200 machine under `research/ttcg-rebuttal/results/`. Recomputing
+  Table 1 from those tables reproduces it exactly.
+- `modes` is a diagram of a one-dimensional mixture. It carries no measurement.
+- Do not write that the model has no mode at a held-out pair. At t = 300, 9.7%
+  of the ascents from a held-out pair keep it.
+
 ## Paper assets
 
 Three preprints are served from `/papers/`, each with its BibTeX and version
@@ -342,6 +418,6 @@ LinkedIn, Bluesky, and Copy link in place. Sharing uses no embedded scripts.
 
 - `npm run typecheck` and `npm run build`.
 - `npx playwright test tests/blog.spec.ts tests/site.spec.ts`. The essay tests
-  hold both essays to the shared shape, check every figure's frame, the
+  hold every essay to the shared shape, check every figure's frame, the
   smallest type size, accessibility in both appearances, and the numbers the
   measured figures show.

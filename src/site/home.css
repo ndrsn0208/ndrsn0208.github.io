@@ -14,30 +14,35 @@
   -webkit-mask-image: linear-gradient(to bottom, #000 84%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 84%, transparent 100%);
 }
-.home-hero-copy { position: relative; padding-top: clamp(20px, 4.4vw, 64px); pointer-events: none; }
+.home-hero-copy { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 29rem); align-items: start; gap: 0 clamp(24px, 2.6vw, 40px); padding-top: clamp(20px, 4.4vw, 64px); pointer-events: none; }
 .home-hero-copy > * { pointer-events: auto; }
-.home-name { font-size: clamp(3.75rem, 1.6rem + 8vw, 9.5rem); font-weight: 360; line-height: .95; letter-spacing: -.055em; }
+.home-name { font-size: clamp(3.75rem, 1.6rem + 8vw, 9.5rem); font-weight: 360; line-height: .95; letter-spacing: -.055em; white-space: nowrap; }
 .home-question { max-width: 24em; margin-top: clamp(12px, 1.5vw, 24px); font-size: clamp(1.5rem, 1rem + 2.1vw, 2.75rem); font-weight: 360; line-height: 1.12; letter-spacing: -.036em; color: var(--site-muted); text-wrap: balance; }
 
-.home-intro {
-  display: grid;
-  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
-  align-items: start;
-  gap: 28px clamp(32px, 7vw, 120px);
-  padding-top: clamp(40px, 6vw, 88px);
-}
-.home-statement { max-width: 26em; }
-.home-now { max-width: 22rem; color: var(--site-muted); }
-.home-now a { color: var(--site-ink); }
+/* Who this is and what the research is about. Beside the name it is level with its capitals and takes no room
+   from the drawing. On a narrower screen it follows the drawing. */
+.home-bio { display: grid; gap: .7em; color: var(--site-body); font-size: 1.0625rem; line-height: 1.45; letter-spacing: -.008em; text-wrap: pretty; }
+.home-bio a { color: var(--site-ink); }
+.home-bio[data-place="beside"] { padding-top: clamp(8px, 1.1vw, 16px); }
+.home-bio[data-place="below"] { display: none; }
+.home-interests { color: var(--site-muted); }
+.home-interests span { color: var(--site-ink); }
 .home-anchor { position: absolute; }
 
 /* News items are sentences, so they read at text size. The date sits where every row keeps its one fact. */
 .home-news-row { padding-block: clamp(14px, 1.5vw, 19px); }
 .home-news-text { max-width: 58rem; text-wrap: pretty; }
 
-@media (max-width: 900px) {
-  .home-intro { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 1239px) {
+  .home-hero-copy { grid-template-columns: minmax(0, 1fr); }
+  /* The drawing gives up a little height, so that the introduction under it begins on the first screen. */
+  .home-hero { height: clamp(460px, calc(100svh - var(--site-header-height) - 9.5rem), 760px); }
+  .home-bio[data-place="beside"] { display: none; }
+  .home-bio[data-place="below"] { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: start; gap: .7em clamp(28px, 6vw, 72px); padding-top: clamp(8px, 2vw, 20px); }
+  .home-bio[data-place="below"] > :first-child { grid-row: span 2; }
 }
 @media (max-width: 760px) {
-  .home-hero { height: clamp(520px, calc(100svh - var(--site-header-height)), 700px); }
+  .home-hero { height: clamp(440px, calc(100svh - var(--site-header-height) - 9.5rem), 700px); }
+  .home-bio[data-place="below"] { grid-template-columns: minmax(0, 1fr); }
+  .home-bio[data-place="below"] > :first-child { grid-row: auto; }
 }

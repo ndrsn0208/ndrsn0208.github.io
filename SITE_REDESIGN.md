@@ -91,8 +91,21 @@ in gray, both over `Landscape.tsx`. A visitor must see at first glance whose
 page this is, so the name is the largest thing on the site and is never
 reduced to the header alone. While that name is in view the header does not
 repeat it. The header's name appears once the large one has scrolled away
-(`nameAnchor` on `SiteFrame`). Below the drawing are one statement and the
-current positions, then News, six selected papers, and the two essays. The
+(`nameAnchor` on `SiteFrame`). Beside the name, level with its capitals, sits
+a short introduction (`.home-bio`): a bio in the first person ("I'm a
+third-year PhD student ... Prior to that, ...", the form the owner asked
+for), one sentence on the research, and the research interests from
+`config.researchInterests`. The
+owner asked for it on 2026-11-13: an academic site should say who this is and
+what the research is about as soon as it opens, without losing the clean
+opening. The owner's correction to my first try is binding: the name must stay on
+one line and the drawing must not get smaller. So the drawing's room is
+computed from the name and question alone (`data-landscape-clear` is on
+`.home-lead`), the name does not wrap, and the introduction is three short
+paragraphs at 17px and no more. From 1240px it sits beside the name. Below
+that it follows the drawing, and the drawing gives up 9.5rem of height so
+that the introduction begins on the first screen. Below the drawing are News, six
+selected papers, and the three essays. The
 owner wants News on the homepage. It renders `src/data/news.json` as rows: a
 sentence at text size and its month. Home does not restate About.
 
