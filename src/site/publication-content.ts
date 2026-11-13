@@ -7,9 +7,10 @@ const diffusionArticle = '/blog/continual-learning-diffusion-models/'
 
 // These short introductions describe the authored homepage selection.
 const contributions: Record<string, string> = {
+  'leah-generalizing-test-time-agent-harness-adaptation-2026': 'Meta-trains a proposer across agent benchmarks to adapt an agent’s harness to an unseen benchmark with one edit.',
   '2605.07076': 'Trains a language model to select which of its own layers to update when it consolidates a new context into its weights.',
   '2602.02417': 'Shows that generative replay with a Fisher-metric trust region takes the form of one-step MAML under local approximations.',
-  '2605.07078': 'Discovers and combines concepts in a pretrained diffusion model at test time.',
+  '2605.07078': 'Discovers prototypes in a pretrained diffusion model and composes them at test time for a single out-of-distribution query.',
   '2509.23593': 'Shows that diffusion models admit an approximately rank-1 Fisher and uses it in EWC with generative replay to reduce catastrophic forgetting.',
   '2405.13828': 'Studies interactive language learning through trials and demonstrations.',
 }
@@ -21,7 +22,7 @@ const articles: Record<string, string> = {
 }
 
 export function publicationContribution(paper: Publication) {
-  return contributions[paper.arxivId ?? '']
+  return contributions[paper.arxivId ?? ''] ?? contributions[paper.id]
 }
 
 export function safePublicationHref(value: string | undefined): string | undefined {

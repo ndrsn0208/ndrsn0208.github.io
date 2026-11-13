@@ -16,7 +16,7 @@
     "mobile:screenshots": "node scripts/capture_mobile.mjs",
     "cv:build": "python3 scripts/build_cv.py",
     "cv:publish": "python3 scripts/build_cv.py --publish",
-    "blog:paper": "node scripts/sync-scol-paper.mjs",
+    "paper:sync": "node scripts/sync-paper.mjs",
     "blog:figure-cards": "node scripts/render-essay-cards.mjs"
   },
   "dependencies": {

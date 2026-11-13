@@ -7,8 +7,8 @@ summary, Amazon research experience, workshop organization, and audited publicat
 The October 2026 update records Trust Region's acceptance at NeurIPS 2026 and
 links Self-Consolidating Language Models to the current PDF on the personal website.
 Selected Publications form one chronological list: Trust Region (NeurIPS
-2026), Self-Consolidating Language Models, Test-Time Compositional
-Generalization via Concept Discovery, Rank-1 Fisher (ICLR 2026), and Deep
+2026), LeAH, Self-Consolidating Language Models, Test-Time Compositional
+Generalization via Prototype Discovery, Rank-1 Fisher (ICLR 2026), and Deep
 Taxonomic Networks (NeurIPS 2025).
 
 The October 27 update adds four U.S. patent applications with the author's
@@ -28,7 +28,18 @@ List. Use formal venue year and conference timing or journal publication date
 for published/accepted work, and first posting date for preprints, newest first.
 Retain the prior order for the two papers first posted on May 8, 2026.
 
-Within 2026, the order is NeurIPS (December), ACS (October 6--9), VERSE
+The November 13, 2026 update adds LeAH: Generalizing Test-Time Agent Harness
+Adaptation to Unseen Environments, a preprint from the Amazon internship, to
+Selected Publications (now six works) and to the full list (now 20 works), and
+links it from the first Industry Experience project. The compositional-diffusion
+preprint takes its current title, Test-Time Compositional Generalization in
+Diffusion Models via Prototype Discovery. LeAH, Self-Consolidating Language
+Models, and the compositional-diffusion preprint link to the PDFs hosted on the
+personal website (`/papers/`), because arXiv does not carry their current
+versions yet. Change those links back only when the author says arXiv is updated.
+
+Within 2026, the order is NeurIPS (December), LeAH (first posted November 13),
+ACS (October 6--9), VERSE
 (October 2), CogSci (July 22--25), ICML workshops (July 10--11), ACL
 (July 2--7), the SCoL and compositional-diffusion preprints (May 8),
 ICLR (April 23--27), and AAAI. Within 2025, it is NeurIPS (December),
@@ -46,7 +57,7 @@ records Amazon, August 2026 to present, with WA, USA below the company and two
 projects: one-shot harness adaptation and self-improving agent harnesses.
 Academic Leadership and Service includes the upcoming NeurIPS 2026 TTCL
 workshop. Selected Publications links to Google Scholar for the complete record;
-the 19-entry Full Publication List appears at the end of the CV. Publication
+the 20-entry Full Publication List appears at the end of the CV. Publication
 years follow the published venue or first preprint
 posting, rather than mixing first-posting and revision dates.
 
@@ -58,8 +69,8 @@ posting, rather than mixing first-posting and revision dates.
 | `sections/01-research.tex` | One paragraph describing the broad research direction |
 | `sections/02-education.tex` | Degrees, dates, advisor, major/minor |
 | `sections/industry-experience.tex` | Amazon research internship, location, and research focus |
-| `sections/03-selected-publications.tex` | Five selected works in one chronological list, with contribution summaries and the Google Scholar link |
-| `sections/04-all-publications.tex` | Full Publication List: nineteen works interleaved by venue timing or first preprint posting |
+| `sections/03-selected-publications.tex` | Six selected works in one chronological list, with contribution summaries and the Google Scholar link |
+| `sections/04-all-publications.tex` | Full Publication List: twenty works interleaved by venue timing or first preprint posting |
 | `sections/05-research-experiences.tex` | Research positions |
 | `sections/06-teaching.tex` | Teaching positions |
 | `sections/07-talks.tex` | Talks and guest lectures |

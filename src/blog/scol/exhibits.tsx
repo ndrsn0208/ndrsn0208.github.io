@@ -3,7 +3,7 @@ import { motion } from 'motion/react'
 import Exhibit from '../essay/Exhibit'
 import { Bars, PairedBars } from '../essay/Bars'
 import { scolEssay } from './article'
-import { lengthResults, retentionResults } from './evidence'
+import { budgetResults, lengthResults, llamaResults, mmluResults, qwen27Results, shiftResults, squadResults, type StreamResult } from './evidence'
 import { fisherPassages, fisherResults } from './fisher-evidence'
 import Layers, { LayerValues, fill, say, written, type Cell } from './Layers'
 import { storyExample } from './story-example'
@@ -88,18 +88,20 @@ function Interference() {
 
 /* One training step: ten candidate layer selections, one committed. The candidates are an example. */
 
+/** The weight of the forgetting term in the SQuAD experiments. */
+const lambda = 2
 const candidates = [
-  { layers: [1, 4, 8, 13, 19, 24, 26], acquisition: .58, forgetting: .31 },
-  { layers: [0, 6, 10, 15, 21, 27], acquisition: .49, forgetting: .12 },
-  { layers: [3, 5, 9, 12, 18, 22, 25, 27], acquisition: .71, forgetting: .40 },
-  { layers: [2, 7, 11, 16, 20, 23, 26], acquisition: .74, forgetting: .11 },
-  { layers: [1, 2, 3, 14, 15, 16], acquisition: .41, forgetting: .22 },
-  { layers: [5, 10, 17, 20, 24, 27], acquisition: .55, forgetting: .09 },
-  { layers: [0, 8, 9, 13, 21, 22, 25], acquisition: .63, forgetting: .27 },
-  { layers: [4, 6, 12, 18, 19, 23], acquisition: .52, forgetting: .33 },
-  { layers: [2, 11, 14, 17, 24, 26, 27], acquisition: .66, forgetting: .19 },
-  { layers: [3, 7, 10, 15, 20, 25], acquisition: .60, forgetting: .24 },
-].map((candidate, index) => ({ ...candidate, id: index, reward: candidate.acquisition - candidate.forgetting }))
+  { layers: [1, 4, 8, 13, 19, 24, 26], acquisition: .58, forgetting: .155 },
+  { layers: [0, 6, 10, 15, 21, 27], acquisition: .49, forgetting: .06 },
+  { layers: [3, 5, 9, 12, 18, 22, 25, 27], acquisition: .71, forgetting: .20 },
+  { layers: [2, 7, 11, 16, 20, 23, 26], acquisition: .74, forgetting: .055 },
+  { layers: [1, 2, 3, 14, 15, 16], acquisition: .41, forgetting: .11 },
+  { layers: [5, 10, 17, 20, 24, 27], acquisition: .55, forgetting: .045 },
+  { layers: [0, 8, 9, 13, 21, 22, 25], acquisition: .63, forgetting: .135 },
+  { layers: [4, 6, 12, 18, 19, 23], acquisition: .52, forgetting: .165 },
+  { layers: [2, 11, 14, 17, 24, 26, 27], acquisition: .66, forgetting: .095 },
+  { layers: [3, 7, 10, 15, 20, 25], acquisition: .60, forgetting: .12 },
+].map((candidate, index) => ({ ...candidate, id: index, reward: candidate.acquisition - lambda * candidate.forgetting }))
 const best = candidates.reduce((top, candidate) => candidate.reward > top.reward ? candidate : top)
 const ranked = [...candidates].sort((a, b) => b.reward - a.reward)
 
@@ -136,19 +138,42 @@ function Loop() {
   )
 }
 
-/* Results: acquisition and retention on SQuAD, and accuracy by context length on LongBench v2. */
+/* Results: immediate accuracy and retention on SQuAD, and accuracy by context length on LongBench v2. */
+
+const streamRows = (results: readonly StreamResult[]) => results.map(result => ({
+  label: result.method, first: result.immediate, firstError: result.immediateError,
+  second: result.retention, secondError: result.retentionError, ours: result.ours,
+}))
+
+function StreamBars({ title, results, max }: { title: string, results: readonly StreamResult[], max: number }) {
+  return <PairedBars title={title} first="Immediate accuracy" second="Retention" max={max} rows={streamRows(results)} />
+}
 
 function Results() {
   return (
     <Exhibit id="results" spec={specs.results} essay={essay}>
       {({ tab }) => tab === 0
-        ? <PairedBars title="Accuracy on a stream of 100 SQuAD passages" first="Acquisition" second="Retention" max={46}
-          rows={retentionResults.map(result => ({ label: result.method, first: result.acquisition, second: result.retention, ours: result.id === 'scol' }))} />
+        ? <StreamBars title="Qwen2.5-7B-Instruct on a stream of 100 SQuAD passages" results={squadResults} max={46} />
         : <PairedBars title="Accuracy on LongBench v2" first="Short contexts, 16k to 32k tokens" second="Long contexts, 32k to 64k tokens" max={52}
           rows={lengthResults.map(result => ({
             label: result.method, first: result.short.mean, firstError: result.short.standardError,
             second: result.long.mean, secondError: result.long.standardError, ours: result.id === 'scol',
           }))} />}
+    </Exhibit>
+  )
+}
+
+/* Additional results: other models, update budgets, an out-of-distribution stream, and general ability. */
+
+function Additional() {
+  return (
+    <Exhibit id="additional" spec={specs.additional} essay={essay}>
+      {({ tab }) => tab === 0 ? <StreamBars title="Llama-3.1-8B-Instruct on a stream of 100 SQuAD passages" results={llamaResults} max={62} />
+        : tab === 1 ? <StreamBars title="Qwen3.8-27B on a stream of 100 SQuAD passages" results={qwen27Results} max={62} />
+        : tab === 2 ? <StreamBars title="Qwen3.8-27B at update budgets of 5, 10, and 20 layers" results={budgetResults} max={62} />
+        : tab === 3 ? <StreamBars title="Qwen2.5-7B-Instruct on a stream of 100 New York Times paragraphs" results={shiftResults} max={34} />
+        : <Bars title="5-shot MMLU accuracy of Qwen2.5-7B-Instruct after the stream of 100 SQuAD passages" max={84} unit="%"
+          rows={mmluResults.map(result => ({ label: result.model, value: result.accuracy, error: result.error, ours: result.ours }))} />}
     </Exhibit>
   )
 }
@@ -189,6 +214,7 @@ export function drawScol(id: string, lead: boolean): ReactNode {
   if (id === 'interference') return <Interference />
   if (id === 'loop') return <Loop />
   if (id === 'results') return <Results />
+  if (id === 'additional') return <Additional />
   if (id === 'fisher') return <Fisher />
   return null
 }

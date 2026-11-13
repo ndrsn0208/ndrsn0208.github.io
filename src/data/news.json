@@ -1,5 +1,17 @@
 [
   {
+    "id": "leah-preprint-2026",
+    "date": "2026-11",
+    "content": [
+      { "text": "New preprint: " },
+      {
+        "text": "LeAH: Generalizing Test-Time Agent Harness Adaptation to Unseen Environments",
+        "href": "https://ndrsn0208.github.io/papers/learning-to-adapt-harnesses.pdf"
+      },
+      { "text": ". Work from my internship at Amazon." }
+    ]
+  },
+  {
     "id": "continual-diffusion-blog-2026",
     "date": "2026-10",
     "content": [

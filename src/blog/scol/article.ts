@@ -29,7 +29,7 @@ export const scolEssay = {
   summary: [
     'Language models increasingly receive information as streams of passages, conversations, and long-context workflows. A longer context window exposes more evidence, but it does not ensure that the information is preserved and reused. We study **continual context consolidation**: writing each incoming context into the model weights while limiting forgetting of previously consolidated contexts.',
     'In **SCoL**, the model generates a layer selection for each context, which names the Transformer layers that receive a LoRA update. We train the model with meta-reinforcement learning on a reward of acquisition minus forgetting.',
-    'On a stream of 100 SQuAD passages with Qwen2.5-7B-Instruct, SCoL reaches **35.4%** acquisition and **20.5%** retention. SEAL (continual), which applies SEAL to the same stream, retains 1.3%. On LongBench v2, SCoL is trained on short contexts only and reaches **42.3%** on short contexts and **37.0%** on long contexts.',
+    'On a stream of 100 SQuAD passages with Qwen2.5-7B-Instruct, SCoL reaches **40.7%** immediate accuracy and **31.0%** retention and outperforms every evaluated baseline on both metrics. The same holds on Llama-3.1-8B-Instruct, on Qwen3.8-27B, and on an out-of-distribution stream of New York Times paragraphs. On LongBench v2, SCoL is meta-trained on short contexts only and reaches **41.9%** on short contexts and **38.0%** on long contexts.',
   ],
   lead: 'writing',
 
@@ -64,7 +64,7 @@ export const scolEssay = {
       blocks: [
         { p: 'Sequential updates to a neural network are prone to catastrophic interference. An update for a new context changes weights that store previously consolidated contexts.[^ewc]' },
         { exhibit: 'interference' },
-        { p: 'We measure two quantities on a stream. **Acquisition** is the accuracy on the questions of a context right after it is consolidated. **Retention** is the accuracy on the questions of past contexts after the whole stream is consolidated.' },
+        { p: 'We measure two quantities on a stream. **Immediate accuracy** is the accuracy on the questions of a context right after it is consolidated. **Retention** is the accuracy on the questions of past contexts after the whole stream is consolidated.' },
         { p: 'Classical continual learning methods reduce interference by estimating parameter importance, for example with Fisher-based regularization.[^ewc][^si] Reliable Fisher estimation is costly at the scale of a language model.[^fisher] We ask whether the model itself can determine where the update should occur.' },
       ],
     },
@@ -73,7 +73,7 @@ export const scolEssay = {
       label: 'Layer selection',
       heading: 'The model selects the layers to update',
       blocks: [
-        { p: 'For each context, SCoL prompts the current model to generate a layer selection, a list of Transformer layer indices. In our experiments a layer selection contains **up to 10 of the 28 layers**.' },
+        { p: 'For each context, SCoL prompts the current model to generate a layer selection, a list of Transformer layer indices. The update budget limits its length. In the main experiments the model is Qwen2.5-7B-Instruct and a layer selection contains **up to 10 of its 28 layers**.' },
         {
           math: String.raw`a_t\sim\pi_{\theta_{t-1}}(\,\cdot\mid c_t)`,
           label: 'The layer selection a t is sampled from the current model, given the context c t.',
@@ -103,10 +103,23 @@ export const scolEssay = {
       label: 'Results',
       heading: 'Results on SQuAD and LongBench v2',
       blocks: [
-        { p: 'On a stream of 100 SQuAD passages with Qwen2.5-7B-Instruct, SCoL reaches **35.40%** acquisition and **20.46%** retention. SCoL (λ = 0), which removes the forgetting term from the reward, reaches 34.30% and 14.64%. SEAL (continual) reaches 13.70% and 1.30%.' },
+        { p: 'On a stream of 100 SQuAD passages with Qwen2.5-7B-Instruct, SCoL reaches **40.66%** immediate accuracy and **31.00%** retention. SCoL (λ = 0), which removes the forgetting term from the reward, reaches 39.53% and 25.14%. SEAL (continual), which applies SEAL to the same stream, reaches 28.41% and 21.36%.' },
         { exhibit: 'results' },
-        { p: 'A fixed selection of the last 10 layers reaches 28.78% acquisition and 20.10% retention. Under the same 10-layer budget, SCoL has higher acquisition at comparable retention.' },
-        { p: 'On LongBench v2, each example is a long context with a question. The model consolidates the long context as a stream of 2,048-token segments and answers the question after the last segment. We train on short contexts of 16k to 32k tokens and evaluate on short contexts and on long contexts of 32k to 64k tokens. SCoL reaches **42.3%** on short contexts and **37.0%** on long contexts. Sequential FT reaches 36.5% and 23.0%. Batch TTT, which trains one LoRA adapter on the full context, reaches the highest accuracy on long contexts, 41.5%.' },
+        { p: 'Last-10, Middle-10, and Random-10 update the last 10 layers, the middle 10 layers, or 10 random layers. Under the same update budget, all three stay below SCoL on both metrics. Last-10 reaches 35.07% and 26.98%, and Random-10 reaches 37.83% and 23.81%. **SCoL outperforms every evaluated baseline on both metrics.** It is also the only method whose retention exceeds the accuracy of Prompting-only, 28.17%.' },
+        { p: 'On LongBench v2, each example is a long context with a question. The model consolidates the long context as a stream of 2,048-token segments and answers the question after the last segment. We meta-train on short contexts of 16k to 32k tokens and evaluate on short contexts and on long contexts of 32k to 64k tokens. SCoL reaches **41.9%** on short contexts, the highest accuracy, and **38.0%** on long contexts. Sequential FT reaches 34.2% and 27.2%. On long contexts SCoL outperforms Full Context (35.5%) and Summarization (36.3%), which keep the context or its summary in the prompt. Batch TTT, which trains one LoRA adapter on the full context, reaches the highest accuracy on long contexts, 39.5%.' },
+      ],
+    },
+    {
+      id: 'additional',
+      label: 'Additional results',
+      heading: 'SCoL outperforms the baselines on other models, update budgets, and an out-of-distribution stream',
+      blocks: [
+        { p: 'We repeat the SQuAD experiment on Llama-3.1-8B-Instruct, which has 32 layers, and on Qwen3.8-27B, which has 64. On both models SCoL outperforms every evaluated baseline on both metrics. It reaches **54.47%** immediate accuracy and **34.57%** retention on Llama-3.1-8B-Instruct, and **50.16%** and **43.94%** on Qwen3.8-27B.' },
+        { exhibit: 'additional' },
+        { p: 'On Qwen3.8-27B we also meta-train SCoL at update budgets of 5, 10, and 20 layers and compare it with updating the last layers or random layers under the same budget. SCoL outperforms both on both metrics at every update budget.' },
+        { p: 'For an out-of-distribution stream, we take the Qwen2.5-7B-Instruct meta-trained on SQuAD and, without retraining, consolidate 100 New York Times paragraphs from SQuADShifts.[^squadshifts] SCoL reaches **29.65%** immediate accuracy and **20.47%** retention and outperforms every baseline on both metrics.' },
+        { p: 'We also test whether consolidation degrades general ability. On 5-shot MMLU, Qwen2.5-7B-Instruct scores 74.19% before any update.[^mmlu] After the stream of 100 SQuAD passages, SCoL scores **73.56%**, SCoL (λ = 0) scores 70.67%, and the baselines score between 70.61% and 71.75%.' },
+        { p: 'Every method updates on passage text and is evaluated on questions. To test whether supplying the question format changes the comparison, we add QA replay to Batch TTT, SEAL (continual), and SCoL: question and answer examples from held-out passages, given in the prompt or through a separate adapter that is applied only at evaluation. With the adapter, the retention of SEAL (continual) rises from 21.36% to 28.13%. SCoL retains 31.00% without replay and 32.56% with the same replay.' },
       ],
     },
     {
@@ -120,7 +133,7 @@ export const scolEssay = {
           label: 'Recall at k of a context c is the number of selected layers S of c that are among the k layers with the highest Fisher information, divided by k, where k is the number of selected layers.',
         },
         { exhibit: 'fisher' },
-        { p: 'Over 100 SQuAD passages, recall@k is **45.1%** for SCoL, 41.0% for SCoL (λ = 0), and 35.7% for a random selection of 10 of the 28 layers. The model is trained only on the reward of acquisition and forgetting.' },
+        { p: 'Over 100 SQuAD passages, recall@k is **42.9%** for SCoL, 37.6% for SCoL (λ = 0), and 35.7% for a random selection of 10 of the 28 layers. The two variants differ only in the forgetting term of the reward, so the alignment with Fisher information is learned from this term. Fisher information is never given to the model.' },
         { p: 'SCoL updates the layers that are most sensitive to the current passage and leaves most layers unchanged. This selective plasticity matches continual learning methods that reduce interference by restricting updates to sparse, task-specific parameters.[^si]' },
       ],
     },
@@ -129,7 +142,7 @@ export const scolEssay = {
       label: 'Limitations',
       heading: 'Limitations and future work',
       blocks: [
-        { p: 'Over additional rounds of IPO training, SCoL can concentrate on repeated layer selections, which reduces the context-dependent diversity of the updates. Future work should study training algorithms with diversity regularization, such as KL control or batch-level entropy penalties.' },
+        { p: 'SCoL learns where to update at the granularity of Transformer layers. Selecting individual projection matrices underperforms layer selection, because the model must generate long structured outputs. The finest granularity is individual weights, and recent work has a language model edit a network at this level, though not for continual learning.[^weight-space] Future work could study stronger models that select updates at the level of individual weights.' },
         { p: 'Meta-training on longer streams, or adapting the weight λ of the forgetting term to the context length, could further improve the consolidation of long contexts.' },
       ],
     },
@@ -168,24 +181,39 @@ export const scolEssay = {
       ],
       notes: [
         'During training, past contexts or their question sets are kept to evaluate forgetting. At evaluation, the model generates one layer selection per context and the update is committed.',
+        'Meta-training on SQuAD runs 2 rounds, each on a stream of 50 passages.',
       ],
       sources: [{ label: 'Paper', href: paper }],
     },
     results: {
-      title: 'Acquisition and retention on SQuAD, and accuracy on LongBench v2',
-      description: 'On a stream of 100 SQuAD passages, SCoL reaches 35.4% acquisition and 20.5% retention. On LongBench v2, SCoL reaches 42.3% on short contexts and 37.0% on long contexts, where Batch TTT reaches 41.5%.',
+      title: 'Immediate accuracy and retention on SQuAD, and accuracy on LongBench v2',
+      description: 'On a stream of 100 SQuAD passages, SCoL reaches 40.7% immediate accuracy and 31.0% retention, above every evaluated baseline on both metrics. On LongBench v2, SCoL reaches 41.9% on short contexts and 38.0% on long contexts, where Batch TTT reaches 39.5%.',
       tabs: ['SQuAD', 'LongBench v2'],
       tabsLabel: 'Benchmark',
       notes: [
-        'Qwen2.5-7B-Instruct. SQuAD: 100 passages consolidated in sequence and evaluated on held-out questions. Prompting only and Batch TTT do not consolidate a stream, so they have no retention value.',
-        'LongBench v2: 40 short and 20 long contexts. Whiskers are one standard error over 10 sampled answers per question.',
+        'Qwen2.5-7B-Instruct. Whiskers are one standard error over 3 seed runs.',
+        'SQuAD: 100 passages consolidated in sequence and evaluated on held-out questions. SCoL uses λ = 2. Prompting-only makes no update and Batch TTT trains once on all passages, so their retention equals their immediate accuracy.',
+        'LongBench v2: 40 short and 20 long contexts, with 10 sampled answers per question.',
+      ],
+      sources: [{ label: 'Paper', href: paper }],
+    },
+    additional: {
+      title: 'SCoL on other models, update budgets, an out-of-distribution stream, and MMLU',
+      description: 'On Llama-3.1-8B-Instruct, SCoL reaches 54.5% immediate accuracy and 34.6% retention. On Qwen3.8-27B it reaches 50.2% and 43.9%, and at update budgets of 5, 10, and 20 layers it outperforms updating the last layers or random layers. On 100 New York Times paragraphs it reaches 29.7% and 20.5%. After the stream of 100 SQuAD passages its 5-shot MMLU accuracy is 73.6%, against 74.2% before any update.',
+      tabs: ['Llama-3.1-8B-Instruct', 'Qwen3.8-27B', 'Update budget', 'Out-of-distribution stream', 'General ability'],
+      tabsLabel: 'Experiment',
+      notes: [
+        'Whiskers are one standard error over 3 seed runs.',
+        'Llama-3.1-8B-Instruct is meta-trained for 4 rounds. Qwen3.8-27B is meta-trained for 2 rounds and samples 8 candidates per passage.',
+        'Out-of-distribution stream: 100 New York Times paragraphs with 478 questions.',
+        'General ability: 5-shot MMLU on all 14,042 questions.',
       ],
       sources: [{ label: 'Paper', href: paper }],
     },
     fisher: {
       title: 'Layerwise Fisher information and the selected layers',
-      description: 'For three SQuAD passages, the layerwise Fisher information and the layers that SCoL selected. Over 100 SQuAD passages, recall@k is 45.1% for SCoL, 41.0% for SCoL (λ = 0), and 35.7% for a random selection.',
-      tabs: ['American Broadcasting Company', 'Nikola Tesla', 'Normans'],
+      description: 'For three SQuAD passages, the layerwise Fisher information and the layers that SCoL selected. Over 100 SQuAD passages, recall@k is 42.9% for SCoL, 37.6% for SCoL (λ = 0), and 35.7% for a random selection.',
+      tabs: ['American Broadcasting Company', 'Harvard University', 'Computational complexity theory'],
       tabsLabel: 'SQuAD passage',
       notes: [
         'Fisher information is the squared gradient of the passage loss on the base projection weights of each layer, measured before a new adapter is attached.',
@@ -210,5 +238,8 @@ export const scolEssay = {
     { id: 'ipo', title: 'A General Theoretical Paradigm to Understand Learning from Human Preferences', url: 'https://arxiv.org/abs/2310.12036' },
     { id: 'squad', title: 'SQuAD: 100,000+ Questions for Machine Comprehension of Text', url: 'https://aclanthology.org/D16-1264/' },
     { id: 'longbench', title: 'LongBench v2: Towards Deeper Understanding and Reasoning on Realistic Long-context Multitasks', url: 'https://aclanthology.org/2025.acl-long.183/' },
+    { id: 'squadshifts', title: 'The Effect of Natural Distribution Shift on Question Answering Models', url: 'https://proceedings.mlr.press/v119/miller20a.html' },
+    { id: 'mmlu', title: 'Measuring Massive Multitask Language Understanding', url: 'https://arxiv.org/abs/2009.03300' },
+    { id: 'weight-space', title: 'Sparks of Weight-Space Programming: LLMs Can Natively Read & Write Neural Network Weights', url: 'https://rikiyat.github.io/blog/weight-space-programming/' },
   ],
 } as const satisfies Essay

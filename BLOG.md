@@ -235,10 +235,11 @@ Terms, from the paper.
 | Which layers are updated | layer selection, selected layers, select | choice, list, pick, where to write |
 | The K samples | candidate | proposal, option |
 | Reward terms | acquisition, forgetting | learned, lost |
-| Metrics | acquisition, retention | right after reading, after more reading |
+| Metrics | immediate accuracy, retention | acquisition (that is the reward term), right after reading, after more reading |
+| How many layers a layer selection may name | update budget | |
 | The LLM | the model. The round-start model in training | policy, chooser |
-| Training | meta-reinforcement learning, IPO, preference pairs | |
-| Baselines | Prompting only, Batch TTT, SEAL (continual), Fixed last 10 layers, SCoL (λ = 0), SCoL. On LongBench v2: Base, Full Context, Summarization, Batch TTT, Sequential FT, SCoL | |
+| Training | meta-reinforcement learning, meta-train, IPO, preference pairs | |
+| Baselines | Prompting-only, Batch TTT, SEAL (continual), Last-10, Middle-10, Random-10, SCoL (λ = 0), SCoL. On LongBench v2: Base, Full Context, Summarization, Batch TTT, Sequential FT, Last-10, SCoL | Fixed last 10 layers |
 | Fisher analysis | Fisher information, recall@k, random selection | Fisher score, overlap |
 | Why updates conflict | interference | |
 
@@ -250,7 +251,8 @@ is a layer that received an update.
 | `writing` | Three contexts consolidated into the weights, the prompt cleared, a question answered. |
 | `interference` | A second update in the same layers overwrites the first. In different layers it does not. |
 | `loop` | One training step: ten candidates, the reward, the committed candidate, the ranking used by IPO. |
-| `results` | Acquisition and retention on SQuAD, and accuracy by context length on LongBench v2. |
+| `results` | Immediate accuracy and retention on SQuAD, and accuracy by context length on LongBench v2. |
+| `additional` | The SQuAD experiment on Llama-3.1-8B-Instruct and on Qwen3.8-27B, Qwen3.8-27B at update budgets of 5, 10 and 20 layers, a stream of New York Times paragraphs, and 5-shot MMLU after the stream. |
 | `fisher` | Layerwise Fisher information and the selected layers of three SQuAD passages, and recall@k over 100 passages. |
 
 Scientific contracts:
@@ -260,22 +262,45 @@ Scientific contracts:
   selected layers. The candidate with the highest reward is committed.
 - Preference pairs are collected across the stream. IPO trains the round-start
   model, not the model at the end of the stream.
-- `results` and the bars in `fisher` use `evidence.ts` and `fisher-evidence.ts`.
-- The three passages in `fisher` are the ones in the paper's layer-selection
-  figure (`aligned_passages_forget_compact.pdf`). Their selected layers are the
-  figure's star markers and their Fisher values are read from its heatmap
-  colours. Do not replace them with invented examples.
+- `results`, `additional` and the bars in `fisher` use `evidence.ts` and
+  `fisher-evidence.ts`. Every number there is transcribed from the LaTeX of the
+  November 2026 preprint, and every ± is one standard error over 3 seed runs.
+  Files that the paper's main file no longer inputs still sit in its source
+  folder with the earlier numbers (`app-fixed-layer-controls.tex`,
+  `tab_accuracy_variance_lcs.tex`, `aligned_passages_forget_compact.pdf`). Do
+  not read numbers from them.
+- The three passages in `fisher` are the ones in the lower right panel of the
+  paper's Figure 3 (`figure3_pareto_selection_fisher.pdf`). Their selected
+  layers are the figure's star markers. Their Fisher values are read from its
+  heatmap colours: each cell is one entry of the 256-step magma colour map, and
+  the value is that entry's index over 255. Do not replace them with invented
+  examples.
 - `writing`, `interference`, and `loop` are diagrams of the method. They carry
-  no numbers.
+  no measurements. The candidates in `loop` are an example, scored with λ = 2
+  as in the SQuAD experiments.
 
 ## Paper assets
 
-The current Folio PDF is served at `/papers/self-consolidating-language-models.pdf`,
-with its BibTeX and version metadata next to it. The local editable paper is
-under the Git-ignored directory
-`writing/self-consolidating-language-models/frontier-studies/folio/`. After
-compiling and checking an updated paper, run `npm run blog:paper` to copy its
-PDF and cover into the website. Do not edit the original ICLR workspace.
+Three preprints are served from `/papers/`, each with its BibTeX and version
+metadata next to it:
+
+- `self-consolidating-language-models.pdf`: the ICLR 2027 version of the paper,
+  signed and set in the template of the LeAH paper (2026-11-13). It replaced the
+  earlier Folio edition.
+- `test-time-compositional-generalization.pdf`: the ICLR 2027 version of the
+  compositional diffusion paper, signed, in the same template.
+- `learning-to-adapt-harnesses.pdf`: the LeAH manuscript. The same file stays at
+  its earlier address under `/unlisted/`, which has been shared and must keep
+  working.
+
+The author supplies the LaTeX sources. The signed PDFs are built outside this
+repository, in the author's workspace (`papers-2026-11/tools/retemplate.py`
+applies the LeAH style file, Palatino, the running title, and the author block
+from arXiv, and leaves the text of the paper alone). Copy a new PDF in with
+`npm run paper:sync -- <slug> <pdf> <pages> "<edition>" "<title>"` and put the
+printed address, with its checksum prefix, in `src/data/publications.json`.
+arXiv does not carry these versions yet, so the site and the CV link to these
+PDFs.
 
 The trust region paper is the author-supplied NeurIPS camera-ready PDF at
 `/papers/trust-region-continual-learning.pdf`. Links carry its checksum prefix.

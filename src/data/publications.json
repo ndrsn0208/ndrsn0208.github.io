@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-28T04:55:56+00:00",
+  "lastUpdated": "2026-11-13T20:40:00+00:00",
   "publications": [
     {
       "id": "trust-region-continual-learning-as-implicit-meta-2026",
@@ -61,6 +61,33 @@
       ],
       "publicationDate": "2026-12",
       "url": "https://ndrsn0208.github.io/papers/trust-region-continual-learning.pdf?v=f24a30d7db6c"
+    },
+    {
+      "id": "leah-generalizing-test-time-agent-harness-adaptation-2026",
+      "title": "LeAH: Generalizing Test-Time Agent Harness Adaptation to Unseen Environments",
+      "authors": [
+        "Zekun Wang",
+        "Yingqiang Ge",
+        "Hai Wang",
+        "Yuhui Xu",
+        "Joshua Frandsen",
+        "Eric Yang",
+        "Shancong Fu",
+        "Christopher J. MacLellan",
+        "Chandan K. Reddy"
+      ],
+      "venue": "Preprint 2026",
+      "year": 2026,
+      "pdfUrl": "https://ndrsn0208.github.io/papers/learning-to-adapt-harnesses.pdf?v=24f48b6bb3d7",
+      "summary": "A language model agent acts through a harness of prompts and code, and a harness that works in one environment can fail in another. LeAH meta-trains a generalist proposer across agent benchmarks: it reads a few failures of an unseen benchmark and writes one edit that improves the agent’s harness there, without search or weight updates. On six unseen benchmarks, LeAH raises the average benchmark score from 51.4 under the initial harness to 57.9. Work done during an internship at Amazon.",
+      "tldr": "A proposer meta-trained across agent benchmarks reads a few failures of an unseen benchmark and writes one harness edit that improves the agent there.",
+      "tags": [
+        "continual learning",
+        "language models"
+      ],
+      "addedAt": "2026-11-13T20:40:00+00:00",
+      "publicationDate": "2026-11-13",
+      "url": "https://ndrsn0208.github.io/papers/learning-to-adapt-harnesses.pdf?v=24f48b6bb3d7"
     },
     {
       "id": "diffusion-models-concept-formation-2026",
@@ -424,8 +451,8 @@
       "arxivUrl": "https://arxiv.org/abs/2605.07076",
       "arxivHtmlUrl": "https://arxiv.org/html/2605.07076",
       "arxivHtmlAvailable": true,
-      "pdfUrl": "https://arxiv.org/pdf/2605.07076",
-      "summary": "SCoL uses meta-reinforcement learning to decide which layers of a language model should consolidate streaming context into their weights. On SQuAD, it improves knowledge acquisition and retention over sequential SEAL. On LongBench v2, learned consolidation improves accuracy over sequential fine-tuning and transfers to longer streams.",
+      "pdfUrl": "https://ndrsn0208.github.io/papers/self-consolidating-language-models.pdf?v=f1a0ae9a9212",
+      "summary": "SCoL is a post-training framework in which a language model learns to generate textual update instructions that specify which of its own Transformer layers to update for the current context. It is trained with meta-reinforcement learning over an evolving model state. On SQuAD, SCoL improves both acquisition and retention over every evaluated baseline. On LongBench v2, it is meta-trained only on short contexts, outperforms the evaluated baselines on short contexts, and generalizes to longer contexts, where it outperforms in-context methods.",
       "tldr": "SCoL post-trains an LLM via meta-RL to emit textual instructions selecting which Transformer layers to LoRA-update from streaming context, balancing acquisition against forgetting.",
       "tags": [
         "continual learning",
@@ -473,11 +500,12 @@
         "Zekun Wang",
         "Anant Gupta"
       ],
-      "publicationDate": "2026-05-08"
+      "publicationDate": "2026-05-08",
+      "url": "https://ndrsn0208.github.io/papers/self-consolidating-language-models.pdf?v=f1a0ae9a9212"
     },
     {
       "id": "test-time-compositional-generalization-diffusion-2026",
-      "title": "Test-Time Compositional Generalization in Diffusion Models via Concept Discovery",
+      "title": "Test-Time Compositional Generalization in Diffusion Models via Prototype Discovery",
       "authors": [
         "Zekun Wang",
         "Anant Gupta",
@@ -490,9 +518,9 @@
       "arxivUrl": "https://arxiv.org/abs/2605.07078",
       "arxivHtmlUrl": "https://arxiv.org/html/2605.07078",
       "arxivHtmlAvailable": true,
-      "pdfUrl": "https://arxiv.org/pdf/2605.07078",
-      "summary": "Prior compositional diffusion methods assume the relevant concepts or conditioning signals are already supplied by labels or a predefined library. The authors perform gradient ascent on the score at multiple noise levels to find density modes, map them to clean-space Gaussians, greedily select prototypes via a submodular objective, and combine them into a product-of-experts teacher with an analytic score. On ColorMNIST and CelebA composition benchmarks, the PoE sampler and a low-rank distilled variant beat query-only and nearest-class baselines.",
-      "tldr": "Recovers query-specific concepts from a pretrained diffusion model's time-indexed scores via gradient ascent, then composes them as a product-of-experts teacher for test-time generalization.",
+      "pdfUrl": "https://ndrsn0208.github.io/papers/test-time-compositional-generalization.pdf?v=ea849edaed27",
+      "summary": "Diffusion methods for compositional generalization typically assume that the reusable concepts are known in advance. This paper recovers prototypes from a pretrained diffusion model without labels: gradient ascent on the learned score from a datum reaches a mode of a noisy marginal, and the noise level sets the level of abstraction. At test time, the prototypes that explain a single out-of-distribution query are composed into a product of experts whose closed-form score guides the composable diffusion sampler. On held-out compositions of ColorMNIST and CelebA, the generated samples generalize to other instances of the unseen class.",
+      "tldr": "Recovers prototypes from a pretrained diffusion model by score ascent at several noise levels, and composes those that explain a single out-of-distribution query into a product of experts at test time.",
       "tags": [
         "compositionality",
         "diffusion models",
@@ -527,7 +555,8 @@
         "noiseOpacity": 0.52448
       },
       "addedAt": "2026-05-11T02:44:07+00:00",
-      "publicationDate": "2026-05-08"
+      "publicationDate": "2026-05-08",
+      "url": "https://ndrsn0208.github.io/papers/test-time-compositional-generalization.pdf?v=ea849edaed27"
     },
     {
       "id": "avoid-catastrophic-forgetting-rank-1-fisher-from-2026",

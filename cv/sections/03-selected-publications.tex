@@ -22,6 +22,23 @@ For the full publication list, see \href{\CVScholarURL}{Google Scholar}.
 
 \begin{samepage}
 \CVPaperHeading
+  {LeAH: Generalizing Test-Time Agent Harness Adaptation to Unseen Environments}
+  {Preprint}
+  {https://ndrsn0208.github.io/papers/learning-to-adapt-harnesses.pdf}
+  {\CVNameInAuthors, Yingqiang Ge, Hai Wang, Yuhui Xu, Joshua Frandsen, Eric Yang,
+   Shancong Fu, Christopher J. MacLellan, Chandan K. Reddy}
+\begin{CVHighlights}
+  \item Formulated harness adaptation that generalizes to new benchmarks as a joint
+    objective and meta-trained a 9B proposer that reads a few failures of an unseen
+    benchmark and writes one harness edit, \textbf{without search or weight updates}.
+  \item Raised the average score on six unseen benchmarks from 51.4 under the initial
+    harness to 57.9 with a frozen agent. Work done during an internship at Amazon.
+\end{CVHighlights}
+\end{samepage}
+\CVProjectGap
+
+\begin{samepage}
+\CVPaperHeading
   {Self-Consolidating Language Models}
   {Preprint}
   {https://ndrsn0208.github.io/papers/self-consolidating-language-models.pdf}
@@ -30,25 +47,27 @@ For the full publication list, see \href{\CVScholarURL}{Google Scholar}.
   \item Developed a meta-RL post-training framework in which an LLM learns which
     layers to update as new context arrives, balancing knowledge acquisition
     against forgetting.
-  \item Improved SQuAD acquisition and retention over sequential SEAL, and
-    LongBench v2 accuracy over sequential fine-tuning; learned update policies
-    transferred to longer context streams.
+  \item Improved both acquisition and retention on SQuAD over every evaluated
+    baseline; meta-trained only on short LongBench v2 contexts, it generalized to
+    longer contexts and outperformed in-context methods there.
 \end{CVHighlights}
 \end{samepage}
 \CVProjectGap
 
 \begin{samepage}
 \CVPaperHeading
-  {Test-Time Compositional Generalization in Diffusion Models via Concept Discovery}
+  {Test-Time Compositional Generalization in Diffusion Models via Prototype Discovery}
   {Preprint}
-  {https://arxiv.org/abs/2605.07078}
+  {https://ndrsn0208.github.io/papers/test-time-compositional-generalization.pdf}
   {\CVNameInAuthors, Anant Gupta, Tianyi Zhu, Christopher J. MacLellan}
 \begin{CVHighlights}
-  \item Developed test-time concept discovery and composition from a pretrained
-    diffusion model's scores, enabling novel combinations \textbf{without
-    retraining the base model}.
-  \item Outperformed query-only and nearest-class baselines on ColorMNIST and
-    CelebA composition using a product-of-experts sampler and a distilled variant.
+  \item Developed test-time prototype discovery in pretrained diffusion models: score
+    ascent at several noise levels recovers prototypes \textbf{without labels, a
+    concept library, or additional training}.
+  \item Composed the prototypes that explain a single out-of-distribution query into
+    a product of experts; on held-out ColorMNIST and CelebA compositions, samples
+    generalized to the unseen class, where sampling from trained concept tokens
+    landed on neighboring classes.
 \end{CVHighlights}
 \end{samepage}
 \CVProjectGap

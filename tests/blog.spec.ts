@@ -16,7 +16,7 @@ const essays = [
     path: '/blog/self-consolidating-language-models/',
     name: 'Self-Consolidating Language Models',
     headline: 'Writing context into model weights at test time',
-    figures: ['writing', 'interference', 'loop', 'results', 'fisher'],
+    figures: ['writing', 'interference', 'loop', 'results', 'additional', 'fisher'],
     papers: 1,
   },
 ] as const
@@ -192,21 +192,33 @@ test('measured figures carry the numbers from the papers', async ({ page }) => {
   await page.goto(`${essays[1].path}?edition=paper`)
   const scol = figure(page, 'results')
   await scol.scrollIntoViewIfNeeded()
-  await expect(scol.getByRole('row', { name: /^SCoL Acquisition/ })).toContainText('35.4%')
-  await expect(scol.getByRole('row', { name: /^SCoL Acquisition/ })).toContainText('20.5%')
-  await expect(scol.getByRole('row', { name: /^SEAL \(continual\)/ })).toContainText('1.3%')
+  await expect(scol.getByRole('row', { name: /^SCoL Immediate accuracy/ })).toContainText('40.7%')
+  await expect(scol.getByRole('row', { name: /^SCoL Immediate accuracy/ })).toContainText('31.0%')
+  await expect(scol.getByRole('row', { name: /^SEAL \(continual\)/ })).toContainText('21.4%')
+  await expect(scol.getByRole('row', { name: /^Random-10/ })).toContainText('23.8%')
   await scol.getByRole('button', { name: 'LongBench v2', exact: true }).click()
-  await expect(scol.getByRole('row', { name: /^Batch TTT/ })).toContainText('41.5%')
-  await expect(scol.getByRole('row', { name: /^SCoL Short contexts/ })).toContainText('37.0%')
+  await expect(scol.getByRole('row', { name: /^Batch TTT/ })).toContainText('39.5%')
+  await expect(scol.getByRole('row', { name: /^SCoL Short contexts/ })).toContainText('38.0%')
+  // The additional results: another model, another stream, and general ability.
+  const additional = figure(page, 'additional')
+  await additional.scrollIntoViewIfNeeded()
+  await expect(additional.getByRole('row', { name: /^SCoL Immediate accuracy/ })).toContainText('54.5%')
+  await additional.getByRole('button', { name: 'Update budget', exact: true }).click()
+  await expect(additional.getByRole('row', { name: /^SCoL, 20 layers/ })).toContainText('55.2%')
+  await additional.getByRole('button', { name: 'Out-of-distribution stream', exact: true }).click()
+  await expect(additional.getByRole('row', { name: /^SCoL Immediate accuracy/ })).toContainText('20.5%')
+  await additional.getByRole('button', { name: 'General ability', exact: true }).click()
+  await expect(additional.getByRole('row', { name: /^SCoL 73/ })).toContainText('73.6%')
+  await expect(additional.getByRole('row', { name: /^Before any update/ })).toContainText('74.2%')
   const fisher = figure(page, 'fisher')
   await fisher.scrollIntoViewIfNeeded()
-  await expect(fisher.getByRole('row', { name: /^SCoL 45/ })).toContainText('45.1%')
+  await expect(fisher.getByRole('row', { name: /^SCoL 42/ })).toContainText('42.9%')
   // The passages are the ones in the paper's figure: measured Fisher information, and the layers SCoL selected.
   await expect(fisher.locator('.layers-values span')).toHaveCount(28)
-  await expect(fisher.locator('.layer-row').nth(1).locator('[data-state="on"]')).toHaveCount(5)
-  await fisher.getByRole('button', { name: 'Nikola Tesla', exact: true }).click()
+  await expect(fisher.locator('.layer-row').nth(1).locator('[data-state="on"]')).toHaveCount(2)
+  await fisher.getByRole('button', { name: 'Harvard University', exact: true }).click()
   await expect(fisher.locator('.layer-row').nth(1).locator('[data-state="on"]')).toHaveCount(8)
-  await expect(fisher.getByRole('img', { name: /^SCoL selected layers 8, 11, 19, 21, 23, 25, 27, 28\./ })).toBeVisible()
+  await expect(fisher.getByRole('img', { name: /^SCoL selected layers 2, 7, 14, 22, 23, 26, 27, 28\./ })).toBeVisible()
 })
 
 test('three contexts are consolidated, the prompt is cleared, and the question is answered from the weights', async ({ page }) => {

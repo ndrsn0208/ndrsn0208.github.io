@@ -1,9 +1,10 @@
-/* Fisher alignment, from the paper.
+/* Fisher alignment, from the paper (November 2026 preprint).
 
    Aggregate: inputs/figures/fisher.tex, recall@k over 100 SQuAD passages.
-   Passages: inputs/figures/aligned_passages_forget_compact.pdf, the lower right
-   panel of the paper's layer-selection figure. `selectedLayers` are its star
-   markers. `fisher` is read from its heatmap colours, which run from 0 to 1. */
+   Passages: inputs/figures/figure3_pareto_selection_fisher.pdf, the lower right
+   panel of the paper's Figure 3. `selectedLayers` are its star markers.
+   `fisher` is read from its heatmap colours: every cell matches one entry of
+   the 256-step magma colour map, and the value is that entry's index over 255. */
 
 export const fisherLayerCount = 28
 export const fisherPassageCount = 100
@@ -17,8 +18,8 @@ export type FisherResult = {
 }
 
 export const fisherResults: readonly FisherResult[] = [
-  { id: 'scol', label: 'SCoL', recallPercent: 45.1, reportedUncertainty: 1.6 },
-  { id: 'scol-lambda-zero', label: 'SCoL (λ = 0)', recallPercent: 41.0, reportedUncertainty: 1.3 },
+  { id: 'scol', label: 'SCoL', recallPercent: 42.9, reportedUncertainty: 1.5 },
+  { id: 'scol-lambda-zero', label: 'SCoL (λ = 0)', recallPercent: 37.6, reportedUncertainty: 1.1 },
   { id: 'random', label: 'Random selection', recallPercent: 35.7 },
 ]
 
@@ -35,28 +36,28 @@ export const fisherPassages: readonly FisherPassage[] = [
   {
     id: 'american-broadcasting-company',
     title: 'American Broadcasting Company',
-    selectedLayers: [0, 1, 2, 3, 27],
+    selectedLayers: [0, 27],
     fisher: [
-      .89, .89, 1, .35, .35, .17, .32, .25, .14, .34, .27, .29, .26, .41,
-      .42, .51, .56, .57, .76, .90, .65, .63, .58, .53, .55, .51, .54, .87,
+      .65, .59, .55, .11, .08, .11, .35, .28, .21, .38, .33, .34, .36, .47,
+      .45, .54, .53, .54, .67, .76, .61, .55, .49, .47, .51, .42, .69, 1,
     ],
   },
   {
-    id: 'nikola-tesla',
-    title: 'Nikola Tesla',
-    selectedLayers: [7, 10, 18, 20, 22, 24, 26, 27],
+    id: 'harvard-university',
+    title: 'Harvard University',
+    selectedLayers: [1, 6, 13, 21, 22, 25, 26, 27],
     fisher: [
-      .04, 0, 0, .04, 0, 0, .21, .22, .15, .28, .27, .29, .32, .47,
-      .46, .57, .60, .62, .75, .83, .80, .82, .76, .70, .70, .69, .73, 1,
+      .56, 0, .12, .05, 0, 0, .21, .17, .03, .25, .20, .16, .18, .33,
+      .30, .35, .34, .38, .53, .62, .60, .61, .57, .51, .51, .54, .90, 1,
     ],
   },
   {
-    id: 'normans',
-    title: 'Normans',
-    selectedLayers: [0, 2, 5, 11, 18, 21, 24, 25, 26, 27],
+    id: 'computational-complexity-theory',
+    title: 'Computational complexity theory',
+    selectedLayers: [1, 6, 7, 15, 20, 21, 22, 25, 26, 27],
     fisher: [
-      .69, .50, .39, .23, .12, .03, .25, .10, 0, .18, .10, .08, .06, .12,
-      .13, .22, .18, .20, .34, .37, .32, .27, .32, .27, .43, .43, 1, .91,
+      0, 0, 0, .03, 0, 0, .17, .14, .02, .29, .24, .23, .20, .28,
+      .29, .36, .35, .36, .51, .53, .45, .42, .40, .32, .32, .41, .61, 1,
     ],
   },
 ]

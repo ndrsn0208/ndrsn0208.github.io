@@ -92,7 +92,7 @@ page this is, so the name is the largest thing on the site and is never
 reduced to the header alone. While that name is in view the header does not
 repeat it. The header's name appears once the large one has scrolled away
 (`nameAnchor` on `SiteFrame`). Below the drawing are one statement and the
-current positions, then News, five selected papers, and the two essays. The
+current positions, then News, six selected papers, and the two essays. The
 owner wants News on the homepage. It renders `src/data/news.json` as rows: a
 sentence at text size and its month. Home does not restate About.
 

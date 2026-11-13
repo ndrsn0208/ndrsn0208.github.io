@@ -49,7 +49,7 @@ trust region. The owner's two corrections to the first version are binding: a
 visitor must see at first glance whose page it is, so the name is never reduced
 to the header alone, and the drawing carries no caption, hint, or disclaimer.
 Below the drawing are one statement, the current positions, News (from
-`src/data/news.json`, which the owner wants on the homepage), five selected
+`src/data/news.json`, which the owner wants on the homepage), six selected
 papers, and the two essays. Do not add small explanatory text anywhere on the
 site's own pages.
 
