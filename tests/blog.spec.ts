@@ -282,8 +282,8 @@ test('changing appearance keeps the section and the reading position', async ({ 
   await expect(page.locator('html')).toHaveAttribute('data-site-edition', 'black')
   await expect(page).toHaveURL(/edition=black#results$/)
   expect(Math.abs(await page.evaluate(() => window.scrollY) - before)).toBeLessThan(4)
-  // Figures follow the appearance: bars for other methods stay grey, ours stays blue.
-  await expect(figure(page, 'results').locator('tr[data-ours] .bar[data-kind="second"]')).toHaveCSS('background-color', 'rgb(94, 172, 255)')
+  // Figures follow the appearance: other methods stay grey, ours stays blue.
+  await expect(figure(page, 'results').locator('.frontier-point[data-ours]')).toHaveCSS('background-color', 'rgb(94, 172, 255)')
 })
 
 test('a figure has its own address, and earlier addresses still open it', async ({ page }) => {

@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { motion } from 'motion/react'
 import Exhibit from '../essay/Exhibit'
 import { Bars, PairedBars } from '../essay/Bars'
+import { Frontier, type FrontierAxis, type FrontierPlace } from '../essay/Frontier'
 import { scolEssay } from './article'
 import { budgetResults, lengthResults, llamaResults, mmluResults, qwen27Results, shiftResults, squadResults, type StreamResult } from './evidence'
 import { fisherPassages, fisherResults } from './fisher-evidence'
@@ -138,22 +139,48 @@ function Loop() {
   )
 }
 
-/* Results: immediate accuracy and retention on SQuAD, and accuracy by context length on LongBench v2. */
+/* Results: immediate accuracy against retention, as in the paper's Figure 3, and accuracy by context length on LongBench v2. */
 
-const streamRows = (results: readonly StreamResult[]) => results.map(result => ({
-  label: result.method, first: result.immediate, firstError: result.immediateError,
-  second: result.retention, secondError: result.retentionError, ours: result.ours,
+const axis = (name: string, min: number, max: number, ticks: readonly number[]): FrontierAxis => ({ name, min, max, ticks })
+type Places = Readonly<Record<string, FrontierPlace>>
+
+/** Methods as points. A method without a retention value is listed and not drawn. With `diagonal` it is
+    drawn where its retention equals its immediate accuracy, as the paper's Figure 3 draws
+    Prompting-only and Batch TTT, which make no sequential updates. */
+const streamPoints = (results: readonly StreamResult[], places: Places, diagonal = false) => results.map(result => ({
+  label: result.method,
+  x: result.immediate,
+  xError: result.immediateError,
+  y: result.retention ?? (diagonal ? result.immediate : null),
+  yError: result.retentionError ?? (diagonal ? result.immediateError : undefined),
+  ours: result.ours,
+  place: places[result.id],
 }))
 
-function StreamBars({ title, results, max }: { title: string, results: readonly StreamResult[], max: number }) {
-  return <PairedBars title={title} first="Immediate accuracy" second="Retention" max={max} rows={streamRows(results)} />
-}
+/** One path per method across update budgets. The last point carries the method's name, the others their budget. */
+const budgetPoints = (places: Places) => budgetResults.map(result => {
+  const [method, budget] = result.id.split('-')
+  return {
+    label: result.method,
+    name: budget === '20' ? result.method : budget,
+    x: result.immediate,
+    y: result.retention,
+    ours: result.ours,
+    place: places[result.id],
+    path: method,
+  }
+})
 
 function Results() {
   return (
     <Exhibit id="results" spec={specs.results} essay={essay}>
       {({ tab }) => tab === 0
-        ? <StreamBars title="Qwen2.5-7B-Instruct on a stream of 100 SQuAD passages" results={squadResults} max={46} />
+        ? <Frontier title="Qwen2.5-7B-Instruct on a stream of 100 SQuAD passages"
+          x={axis('Immediate accuracy', 25, 43.5, [28, 32, 36, 40])} y={axis('Retention', 18.5, 33.5, [20, 24, 28, 32])}
+          points={streamPoints(squadResults, {
+            prompting: 'ne', 'batch-ttt': 'se', 'seal-continual': 'ne', 'middle-10': 'se',
+            'last-10': 'nw', 'random-10': 's', 'scol-lambda-zero': 'nw', scol: 'nw',
+          }, true)} />
         : <PairedBars title="Accuracy on LongBench v2" first="Short contexts, 16k to 32k tokens" second="Long contexts, 32k to 64k tokens" max={52}
           rows={lengthResults.map(result => ({
             label: result.method, first: result.short.mean, firstError: result.short.standardError,
@@ -168,10 +195,27 @@ function Results() {
 function Additional() {
   return (
     <Exhibit id="additional" spec={specs.additional} essay={essay}>
-      {({ tab }) => tab === 0 ? <StreamBars title="Llama-3.1-8B-Instruct on a stream of 100 SQuAD passages" results={llamaResults} max={62} />
-        : tab === 1 ? <StreamBars title="Qwen3.8-27B on a stream of 100 SQuAD passages" results={qwen27Results} max={62} />
-        : tab === 2 ? <StreamBars title="Qwen3.8-27B at update budgets of 5, 10, and 20 layers" results={budgetResults} max={62} />
-        : tab === 3 ? <StreamBars title="Qwen2.5-7B-Instruct on a stream of 100 New York Times paragraphs" results={shiftResults} max={34} />
+      {({ tab }) => tab === 0 ? <Frontier title="Llama-3.1-8B-Instruct on a stream of 100 SQuAD passages"
+        x={axis('Immediate accuracy', 38.5, 58, [40, 45, 50, 55])} y={axis('Retention', 16, 37.5, [20, 25, 30, 35])}
+        points={streamPoints(llamaResults, {
+          'seal-continual': 'ne', 'last-10': 'nw', 'middle-10': 'ne', 'random-10': 'nw', 'scol-lambda-zero': 'sw', scol: 'nw',
+        })} />
+        : tab === 1 ? <Frontier title="Qwen3.8-27B on a stream of 100 SQuAD passages"
+          x={axis('Immediate accuracy', 43, 52, [44, 46, 48, 50])} y={axis('Retention', 32, 46, [34, 38, 42])}
+          points={streamPoints(qwen27Results, {
+            'seal-continual': 'se', 'last-10': 's', 'middle-10': 'e', 'random-10': 'nw', scol: 'nw',
+          })} />
+        : tab === 2 ? <Frontier title="Qwen3.8-27B at update budgets of 5, 10, and 20 layers" frontier={false}
+          x={axis('Immediate accuracy', 42, 57.5, [44, 48, 52, 56])} y={axis('Retention', 36.5, 46, [38, 40, 42, 44])}
+          points={budgetPoints({
+            'random-5': 's', 'random-10': 'sw', 'random-20': 'se', 'last-5': 'n', 'last-10': 's', 'last-20': 'e',
+            'scol-5': 'n', 'scol-10': 's', 'scol-20': 'nw',
+          })} />
+        : tab === 3 ? <Frontier title="Qwen2.5-7B-Instruct on a stream of 100 New York Times paragraphs"
+          x={axis('Immediate accuracy', 17, 32, [18, 22, 26, 30])} y={axis('Retention', 10.5, 22.5, [12, 16, 20])}
+          points={streamPoints(shiftResults, {
+            'seal-continual': 'n', 'last-10': 'e', 'middle-10': 'se', 'random-10': 's', 'scol-lambda-zero': 'n', scol: 'nw',
+          })} />
         : <Bars title="5-shot MMLU accuracy of Qwen2.5-7B-Instruct after the stream of 100 SQuAD passages" max={84} unit="%"
           rows={mmluResults.map(result => ({ label: result.model, value: result.accuracy, error: result.error, ours: result.ours }))} />}
     </Exhibit>

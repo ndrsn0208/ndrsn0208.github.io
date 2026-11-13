@@ -105,7 +105,7 @@ export const scolEssay = {
       blocks: [
         { p: 'On a stream of 100 SQuAD passages with Qwen2.5-7B-Instruct, SCoL reaches **40.66%** immediate accuracy and **31.00%** retention. SCoL (λ = 0), which removes the forgetting term from the reward, reaches 39.53% and 25.14%. SEAL (continual), which applies SEAL to the same stream, reaches 28.41% and 21.36%.' },
         { exhibit: 'results' },
-        { p: 'Last-10, Middle-10, and Random-10 update the last 10 layers, the middle 10 layers, or 10 random layers. Under the same update budget, all three stay below SCoL on both metrics. Last-10 reaches 35.07% and 26.98%, and Random-10 reaches 37.83% and 23.81%. **SCoL outperforms every evaluated baseline on both metrics.** It is also the only method whose retention exceeds the accuracy of Prompting-only, 28.17%.' },
+        { p: 'Last-10, Middle-10, and Random-10 update the last 10 layers, the middle 10 layers, or 10 random layers. Under the same update budget, all three stay below SCoL on both metrics. Last-10 reaches 35.07% and 26.98%, and Random-10 reaches 37.83% and 23.81%. **SCoL outperforms every evaluated baseline on both metrics, so it alone forms the Pareto frontier between immediate accuracy and retention.** It is also the only method whose retention exceeds the accuracy of Prompting-only, 28.17%.' },
         { p: 'On LongBench v2, each example is a long context with a question. The model consolidates the long context as a stream of 2,048-token segments and answers the question after the last segment. We meta-train on short contexts of 16k to 32k tokens and evaluate on short contexts and on long contexts of 32k to 64k tokens. SCoL reaches **41.9%** on short contexts, the highest accuracy, and **38.0%** on long contexts. Sequential FT reaches 34.2% and 27.2%. On long contexts SCoL outperforms Full Context (35.5%) and Summarization (36.3%), which keep the context or its summary in the prompt. Batch TTT, which trains one LoRA adapter on the full context, reaches the highest accuracy on long contexts, 39.5%.' },
       ],
     },
@@ -187,7 +187,7 @@ export const scolEssay = {
     },
     results: {
       title: 'Immediate accuracy and retention on SQuAD, and accuracy on LongBench v2',
-      description: 'On a stream of 100 SQuAD passages, SCoL reaches 40.7% immediate accuracy and 31.0% retention, above every evaluated baseline on both metrics. On LongBench v2, SCoL reaches 41.9% on short contexts and 38.0% on long contexts, where Batch TTT reaches 39.5%.',
+      description: 'On a stream of 100 SQuAD passages, SCoL reaches 40.7% immediate accuracy and 31.0% retention and alone forms the Pareto frontier between the two. On LongBench v2, SCoL reaches 41.9% on short contexts and 38.0% on long contexts, where Batch TTT reaches 39.5%.',
       tabs: ['SQuAD', 'LongBench v2'],
       tabsLabel: 'Benchmark',
       notes: [
@@ -203,7 +203,8 @@ export const scolEssay = {
       tabs: ['Llama-3.1-8B-Instruct', 'Qwen3.8-27B', 'Update budget', 'Out-of-distribution stream', 'General ability'],
       tabsLabel: 'Experiment',
       notes: [
-        'Whiskers are one standard error over 3 seed runs.',
+        'Whiskers are one standard error over 3 seed runs. Under Update budget, each line joins one method at 5, 10, and 20 layers.',
+        'Prompting-only and Batch TTT make no sequential updates and have no retention value, so they are not drawn. Their immediate accuracy is 28.4% and 37.2% on Llama-3.1-8B-Instruct, and 17.9% and 18.8% on the out-of-distribution stream.',
         'Llama-3.1-8B-Instruct is meta-trained for 4 rounds. Qwen3.8-27B is meta-trained for 2 rounds and samples 8 candidates per passage.',
         'Out-of-distribution stream: 100 New York Times paragraphs with 478 questions.',
         'General ability: 5-shot MMLU on all 14,042 questions.',

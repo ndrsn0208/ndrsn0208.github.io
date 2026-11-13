@@ -146,6 +146,40 @@ html[data-blog-edition] { scroll-behavior: smooth; }
 .bar-swatch { display: inline-block; width: 20px; height: 8px; margin-right: 7px; background: var(--essay-quiet); }
 .bar-swatch[data-kind="first"] { background: none; box-shadow: inset 0 0 0 1px var(--essay-quiet); }
 
+/* Two measurements of each method as one point. Up and to the right is better. Ours is blue,
+   and the dashed line is the Pareto frontier. */
+.frontier { font-size: var(--site-note); line-height: 1.3; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.frontier-title { color: var(--site-ink); }
+.frontier-plot { position: relative; margin-top: 10px; padding: 1.75rem 0 3.6rem 2.1rem; }
+.frontier-field { position: relative; aspect-ratio: 16 / 9; border-left: 1px solid var(--essay-track); border-bottom: 1px solid var(--essay-track); }
+.frontier-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.frontier-lines :is(line, polyline) { fill: none; vector-effect: non-scaling-stroke; }
+.frontier-grid { stroke: var(--site-rule); stroke-width: 1; }
+.frontier-region { fill: color-mix(in srgb, var(--site-accent) 7%, var(--site-paper)); stroke: none; }
+.frontier-edge { stroke: var(--site-accent); stroke-width: 1.25; stroke-dasharray: 5 4; }
+.frontier-path { stroke: var(--essay-quiet); stroke-width: 1.25; }
+.frontier-path[data-ours] { stroke: var(--site-accent); }
+.frontier-whisker line { stroke: var(--essay-track); stroke-width: 1; }
+.frontier-whisker[data-ours] line { stroke: color-mix(in srgb, var(--site-accent) 55%, var(--site-paper)); }
+.frontier-axis, .frontier-tick { position: absolute; color: var(--site-muted); white-space: nowrap; }
+.frontier-axis[data-axis="y"] { left: 0; top: 0; }
+.frontier-axis[data-axis="x"] { right: 0; bottom: .55rem; }
+.frontier-tick[data-axis="x"] { top: calc(100% + 7px); transform: translateX(-50%); }
+.frontier-tick[data-axis="y"] { right: calc(100% + 8px); transform: translateY(50%); }
+.frontier-edge-name { position: absolute; left: 8px; margin-bottom: 5px; color: var(--site-accent); white-space: nowrap; }
+.frontier-point { position: absolute; width: 9px; height: 9px; margin: 0 0 -4.5px -4.5px; border-radius: 50%; background: var(--essay-quiet); }
+.frontier-point[data-ours] { width: 11px; height: 11px; margin: 0 0 -5.5px -5.5px; background: var(--site-accent); }
+.frontier-name { position: absolute; color: var(--site-body); white-space: nowrap; text-shadow: 0 0 3px var(--site-paper), 0 0 3px var(--site-paper), 0 0 3px var(--site-paper); }
+.frontier-point[data-ours] .frontier-name { color: var(--site-ink); font-weight: 500; }
+.frontier-name[data-place="e"] { left: calc(100% + 6px); top: 50%; transform: translateY(-50%); }
+.frontier-name[data-place="w"] { right: calc(100% + 6px); top: 50%; transform: translateY(-50%); }
+.frontier-name[data-place="n"] { left: 50%; bottom: calc(100% + 5px); transform: translateX(-50%); }
+.frontier-name[data-place="s"] { left: 50%; top: calc(100% + 5px); transform: translateX(-50%); }
+.frontier-name[data-place="ne"] { left: calc(100% + 2px); bottom: calc(100% + 1px); }
+.frontier-name[data-place="nw"] { right: calc(100% + 2px); bottom: calc(100% + 1px); }
+.frontier-name[data-place="se"] { left: calc(100% + 2px); top: calc(100% + 1px); }
+.frontier-name[data-place="sw"] { right: calc(100% + 2px); top: calc(100% + 1px); }
+
 /* Closing: the papers as the Papers page lists them, then the references. */
 .essay-papers .site-list { max-width: var(--essay-wide); margin-top: 18px; }
 .essay-references ol { max-width: var(--essay-column); margin: 12px 0 0; padding-left: 1.7em; list-style: decimal; color: var(--site-body); font-size: 1rem; line-height: 1.5; letter-spacing: 0; }
@@ -177,6 +211,7 @@ html[data-blog-edition] { scroll-behavior: smooth; }
   .exhibit-pair { grid-template-columns: minmax(0, 1fr); }
   .bars th { width: 7.6rem; padding-right: 10px; }
   .bars-hint, .bars-key { display: block; margin-left: 0; margin-top: 2px; }
+  .frontier-field { aspect-ratio: 4 / 5; }
 }
 
 /* On a phone only the current station is named. */

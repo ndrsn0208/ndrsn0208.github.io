@@ -30,7 +30,8 @@ const [{ essayCard, essayType }, { diffusionEssay }, { scolEssay }] = await Prom
 ])
 
 // The width a figure is photographed at. A tall figure is given less than a chart or a grid.
-const widths = { forgetting: 1040, region: 860, methods: 520 }
+// A key with an essay's id applies to that essay's figure only.
+const widths = { forgetting: 1040, region: 860, methods: 520, 'scol/results': 560, 'scol/additional': 560 }
 // The comparison of methods is three strips. The essay's own card shows the last one, Trust Region.
 const strips = { methods: { count: 3, ratio: 1000 / 800 } }
 // The figure that stands for the whole essay.
@@ -81,7 +82,7 @@ try {
         sheet.append(name, title, room)
         shell.append(sheet)
         document.querySelector('.adapt-launcher')?.remove()
-      }, { ...card, width: card.id === 'essay' ? 1088 : widths[card.figure] ?? 1088, strip: card.id === 'essay' ? strips[card.figure] : undefined })
+      }, { ...card, width: card.id === 'essay' ? 1088 : widths[`${essay.id}/${card.figure}`] ?? widths[card.figure] ?? 1088, strip: card.id === 'essay' ? strips[card.figure] : undefined })
       await page.waitForTimeout(700)
       const file = path.join(root, 'public', essayCard(essay.id, card.id))
       await fs.mkdir(path.dirname(file), { recursive: true })

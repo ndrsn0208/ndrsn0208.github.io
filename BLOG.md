@@ -25,6 +25,7 @@ thirty research blogs. Their text was rewritten on 2026-11-12 to the rules in
 | `Essay.tsx` | The page: opening, summary, figures, sections, papers, references. |
 | `Exhibit.tsx` | The frame every figure sits in, and its controls. |
 | `Bars.tsx` | Measured values as bars. |
+| `Frontier.tsx` | Two measurements of each method as one point, with the Pareto frontier, or one path per method. The same numbers sit in a table for assistive technology. |
 | `MathBlock.tsx` | A displayed equation. |
 | `format.ts` | Inline marks, share-image addresses, and `essayType`. No imports, because the static build reads it. |
 | `essay.css` | All essay and figure styles. |
@@ -92,6 +93,11 @@ Rules that keep the figures one family:
 - **A measured figure shows every reported value** from zero, with its number
   on it. A value the source does not report is shown as a dash, as in the
   paper's table, and is never drawn as zero.
+- **Two measurements of the same methods are drawn against each other**
+  (`Frontier.tsx`): one point per method, named on the drawing, ours in blue,
+  the Pareto frontier dashed. Its axes carry their ticks and need not start at
+  zero. The author asked for this form for immediate accuracy and retention
+  (2026-11-13), because it reads faster than paired bars.
 
 ## Writing
 
@@ -251,8 +257,8 @@ is a layer that received an update.
 | `writing` | Three contexts consolidated into the weights, the prompt cleared, a question answered. |
 | `interference` | A second update in the same layers overwrites the first. In different layers it does not. |
 | `loop` | One training step: ten candidates, the reward, the committed candidate, the ranking used by IPO. |
-| `results` | Immediate accuracy and retention on SQuAD, and accuracy by context length on LongBench v2. |
-| `additional` | The SQuAD experiment on Llama-3.1-8B-Instruct and on Qwen3.8-27B, Qwen3.8-27B at update budgets of 5, 10 and 20 layers, a stream of New York Times paragraphs, and 5-shot MMLU after the stream. |
+| `results` | Immediate accuracy against retention on SQuAD with the Pareto frontier, after the left panel of the paper's Figure 3, and accuracy by context length on LongBench v2. |
+| `additional` | The SQuAD experiment on Llama-3.1-8B-Instruct and on Qwen3.8-27B, Qwen3.8-27B at update budgets of 5, 10 and 20 layers (one path per method), and a stream of New York Times paragraphs, each as immediate accuracy against retention. Then 5-shot MMLU after the stream, as bars. |
 | `fisher` | Layerwise Fisher information and the selected layers of three SQuAD passages, and recall@k over 100 passages. |
 
 Scientific contracts:
@@ -275,6 +281,13 @@ Scientific contracts:
   heatmap colours: each cell is one entry of the 256-step magma colour map, and
   the value is that entry's index over 255. Do not replace them with invented
   examples.
+- In `results`, Prompting-only and Batch TTT sit where their retention equals
+  their immediate accuracy, as the paper's Figure 3 draws them. In `additional`
+  the paper's tables give them no retention value, so they are listed in the
+  note and not drawn. On Llama-3.1-8B-Instruct the immediate accuracy of Batch
+  TTT (37.23%) is above the retention of SCoL (34.57%), so drawing it on the
+  diagonal there would contradict the paper's statement. Ask the author before
+  changing this.
 - `writing`, `interference`, and `loop` are diagrams of the method. They carry
   no measurements. The candidates in `loop` are an example, scored with λ = 2
   as in the SQuAD experiments.
