@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate, useNavigationType, useSearchParams } fr
 import { motion, useReducedMotion } from 'motion/react'
 import { getStillEdition, stillEditionStorageKey } from '../designs/still/editions'
 import config from '../data/config.json'
+// The adaptation playground offers these faces in its Edit tool. They load only when used.
 import '../designs/typography/fonts.css'
 import './site.css'
 
@@ -18,11 +19,55 @@ const SiteTheme = createContext<{
 export const useSiteTheme = () => useContext(SiteTheme)
 const positions = new Map<string, number>()
 
-export default function SiteFrame({ children, page, mainId = 'site-main', initialAnchor }: {
+/* The document root carries the appearance. A page hands it to the next one,
+   or to the loading frame, in the same commit, so the root never falls back to
+   the archived studies' black default between two site pages. */
+let appearanceHolders = 0
+function holdAppearance(edition: SiteEdition) {
+  const root = document.documentElement
+  const color = edition === 'black' ? '#000000' : '#ffffff'
+  appearanceHolders += 1
+  root.dataset.siteEdition = edition
+  root.style.setProperty('--paper', color)
+  root.style.backgroundColor = color
+  root.style.colorScheme = edition === 'black' ? 'dark' : 'light'
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', color)
+  return () => {
+    appearanceHolders -= 1
+    setTimeout(() => {
+      if (appearanceHolders > 0) return
+      delete root.dataset.siteEdition
+      root.style.removeProperty('--paper')
+      root.style.removeProperty('background-color')
+      root.style.removeProperty('color-scheme')
+    }, 0)
+  }
+}
+
+const links: { page: SitePage, label: string, path: string }[] = [
+  { page: 'publications', label: 'Papers', path: '/publications' },
+  { page: 'blog', label: 'Writing', path: '/blog/' },
+  { page: 'about', label: 'About', path: '/about' },
+  { page: 'cv', label: 'CV', path: '/cv' },
+]
+
+export function sitePageForPath(pathname: string): SitePage {
+  if (pathname.startsWith('/publications')) return 'publications'
+  if (pathname.startsWith('/blog')) return 'blog'
+  if (pathname.startsWith('/about') || pathname.startsWith('/photography')) return 'about'
+  if (pathname.startsWith('/cv')) return 'cv'
+  return 'home'
+}
+
+export default function SiteFrame({ children, page, mainId = 'site-main', initialAnchor, loading = false, nameAnchor }: {
   children: ReactNode
   page: SitePage
   mainId?: string
   initialAnchor?: string
+  /** The id of a large name on the page. The header shows its own name only after that one scrolls away. */
+  nameAnchor?: string
+  /** The frame shown while a page's code loads. It leaves scrolling to the page that follows. */
+  loading?: boolean
 }) {
   const location = useLocation()
   const navigate = useNavigate()
@@ -38,38 +83,34 @@ export default function SiteFrame({ children, page, mainId = 'site-main', initia
   const scrollPosition = useRef(0)
   const previousHash = useRef(location.hash)
   const [scrolled, setScrolled] = useState(false)
+  const [nameAway, setNameAway] = useState(!nameAnchor)
 
   useEffect(() => {
     const requested = getStillEdition(params.get('edition'))
     if (requested) setEdition(requested.id)
   }, [params])
 
-  useLayoutEffect(() => {
-    const root = document.documentElement
-    root.dataset.siteEdition = edition
-    root.style.setProperty('--paper', edition === 'black' ? '#000000' : '#f5f1e8')
-    root.style.backgroundColor = edition === 'black' ? '#000000' : '#f5f1e8'
-    root.style.colorScheme = edition === 'black' ? 'dark' : 'light'
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', edition === 'black' ? '#000000' : '#f5f1e8')
-    return () => {
-      delete root.dataset.siteEdition
-      root.style.removeProperty('--paper')
-      root.style.removeProperty('background-color')
-      root.style.removeProperty('color-scheme')
-    }
-  }, [edition])
+  useLayoutEffect(() => holdAppearance(edition), [edition])
 
   useEffect(() => {
     const update = () => {
       scrollPosition.current = window.scrollY
-      setScrolled(window.scrollY > 16)
+      setScrolled(window.scrollY > 8)
+      const name = nameAnchor ? document.getElementById(nameAnchor) : null
+      const header = document.querySelector('.site-header')?.getBoundingClientRect().bottom ?? 0
+      setNameAway(!name || name.getBoundingClientRect().bottom < header)
     }
     update()
     window.addEventListener('scroll', update, { passive: true })
-    return () => window.removeEventListener('scroll', update)
-  }, [])
+    window.addEventListener('resize', update)
+    return () => {
+      window.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+    }
+  }, [nameAnchor])
 
   useEffect(() => {
+    if (loading) return
     const path = location.pathname
     let cancelled = false
     let target = initialAnchor
@@ -101,12 +142,12 @@ export default function SiteFrame({ children, page, mainId = 'site-main', initia
       window.removeEventListener('keydown', stop)
     }
     // Search/appearance changes keep the current reading position.
-  }, [location.pathname, initialAnchor])
+  }, [location.pathname, initialAnchor, loading])
 
   useEffect(() => {
     if (previousHash.current === location.hash) return
     previousHash.current = location.hash
-    if (!location.hash) return
+    if (!location.hash || loading) return
     let id: string
     try { id = decodeURIComponent(location.hash.slice(1)) }
     catch { id = location.hash.slice(1) }
@@ -114,7 +155,7 @@ export default function SiteFrame({ children, page, mainId = 'site-main', initia
     if (page === 'home' && id === 'blog') id = 'writing'
     const frame = requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth', block: 'start' }))
     return () => cancelAnimationFrame(frame)
-  }, [location.hash, page, reduced])
+  }, [location.hash, page, reduced, loading])
 
   const href = useCallback((path: string) => {
     const target = new URL(path, 'https://ndrsn0208.github.io')
@@ -131,47 +172,45 @@ export default function SiteFrame({ children, page, mainId = 'site-main', initia
     navigate({ pathname: location.pathname, search: `?${search}`, hash: location.hash }, { replace: true, preventScrollReset: true })
   }
 
-  const links: { page: SitePage, label: string, path: string }[] = [
-    { page: 'home', label: 'Overview', path: '/' },
-    { page: 'publications', label: 'Publications', path: '/publications' },
-    { page: 'blog', label: 'Blog', path: '/blog/' },
-    { page: 'about', label: 'About', path: '/about' },
-    { page: 'cv', label: 'CV', path: '/cv' },
-  ]
-
   return <SiteTheme.Provider value={{ edition, toggleEdition, href }}>
     <div className="site-shell" data-edition={edition} data-page={page}>
       <a className="site-skip" href={`#${mainId}`}>Skip to content</a>
       <header className="site-header" data-scrolled={scrolled || undefined}>
         <div className="site-header-inner site-container">
-          <nav aria-label="Main navigation" className="site-nav">
-            {links.map(link => <Link key={link.page} to={href(link.path)} aria-current={page === link.page ? 'page' : undefined}>
-              {link.label}
-              {page === link.page && <motion.span className="site-nav-line" layoutId="site-navigation" transition={{ duration: reduced ? 0 : .28 }} />}
-            </Link>)}
-          </nav>
+          <Link className="site-name" data-away={nameAway ? undefined : 'false'} to={href('/')} aria-label={config.name} aria-current={page === 'home' && location.pathname === '/' ? 'page' : undefined}>
+            {config.name.split(' ')[0]}<span className="site-name-rest"> {config.name.split(' ').slice(1).join(' ')}</span>
+          </Link>
           <div className="site-header-actions">
-            <button className="site-appearance" data-adapt-key="appearance" onClick={toggleEdition} type="button" aria-label={`Switch to ${edition === 'paper' ? 'Black' : 'Paper'} appearance`} title={`Switch to ${edition === 'paper' ? 'Black' : 'Paper'} appearance`}>
-              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" strokeWidth="1.25" /><path d="M12 4a8 8 0 0 1 0 16Z" fill="currentColor" /></svg>
+            <nav aria-label="Main navigation" className="site-nav">
+              {links.map(link => <Link key={link.page} to={href(link.path)} aria-current={page === link.page ? 'page' : undefined}>
+                {page === link.page && <motion.span className="site-nav-point" layoutId="site-navigation" transition={{ duration: reduced ? 0 : .32, ease: [.2, .7, .2, 1] }} />}
+                {link.label}
+              </Link>)}
+            </nav>
+            <button className="site-appearance" data-adapt-key="appearance" onClick={toggleEdition} type="button" aria-label={`Switch to ${edition === 'paper' ? 'Black' : 'White'} appearance`} title={`Switch to ${edition === 'paper' ? 'Black' : 'White'} appearance`}>
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.4" fill="none" stroke="currentColor" strokeWidth="1.5" /><path d="M12 3.6a8.4 8.4 0 0 1 0 16.8Z" fill="currentColor" /></svg>
             </button>
           </div>
         </div>
       </header>
       {children}
       <footer className="site-footer site-container" id="site-contact">
-        <div className="site-footer-top">
-          <a className="site-footer-email" href={`mailto:${config.contacts.email}`}>{config.contacts.email}</a>
-        </div>
-        <div className="site-footer-bottom">
-          <Link to={href('/')} className="site-footer-name">Zekun Wang</Link>
-          <nav aria-label="Professional profiles">
-            <a href={config.contacts.googleScholar} target="_blank" rel="noreferrer">Google Scholar</a>
-            <a href={config.contacts.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-            <a href="https://github.com/ndrsn0208" target="_blank" rel="noreferrer">GitHub</a>
-          </nav>
-          <span className="site-footer-year">© {new Date().getFullYear()}</span>
-        </div>
+        <a className="site-footer-email" href={`mailto:${config.contacts.email}`}>{config.contacts.email}</a>
+        <nav aria-label="Professional profiles">
+          <a href={config.contacts.googleScholar} target="_blank" rel="noreferrer">Google Scholar</a>
+          <a href={config.contacts.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+          <a href="https://github.com/ndrsn0208" target="_blank" rel="noreferrer">GitHub</a>
+        </nav>
       </footer>
     </div>
   </SiteTheme.Provider>
+}
+
+/** Shown while a page's code loads. The header stays in place and the paper keeps its color. */
+export function SiteLoading() {
+  const { pathname } = useLocation()
+  const page = sitePageForPath(pathname)
+  return <SiteFrame page={page} mainId="site-loading" loading>
+    <main id="site-loading" className="site-loading" aria-busy="true" />
+  </SiteFrame>
 }

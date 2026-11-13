@@ -83,7 +83,7 @@ function hex(value: string): string {
   const rgb = value.match(/[\d.]+/g)
   return rgb && rgb.length >= 3
     ? `#${rgb.slice(0, 3).map(n => clamp(Math.round(Number(n)), 0, 255).toString(16).padStart(2, '0')).join('')}`
-    : '#484d46'
+    : '#48484c'
 }
 
 function mixColor(a: string, b: string, amount: number): string {
@@ -481,7 +481,7 @@ export class PlaygroundEngine {
           dy: clamp((base.dy ?? 0) + (this.motion.matches ? 0 : noise(seed + 23, t) * strength * vertical), -6000, 6000),
           rotation: clamp((base.rotation ?? 0) + (this.motion.matches ? 0 : noise(seed + 37, t) * strength * (character ? 28 : 16)), -180, 180),
           weight: Math.round(clamp((base.weight ?? 500) + noise(seed + 73, t) * strength * 280, 200, 900)),
-          color: mixColor(base.color ?? '#484d46', this.settings.color, strength * (.55 + noise(seed + 111, t) * .35)),
+          color: mixColor(base.color ?? '#48484c', this.settings.color, strength * (.55 + noise(seed + 111, t) * .35)),
         }
         if (character) {
           patch.scale = clamp((base.scale ?? 1) * (1 + (this.motion.matches ? 0 : noise(seed + 53, t) * strength * .28)), .55, 2.4)
@@ -520,7 +520,7 @@ export class PlaygroundEngine {
         })
       } else {
         this.patchTarget(gesture, target, {
-          color: mixColor(base.color ?? '#484d46', '#d4793c', progress),
+          color: mixColor(base.color ?? '#48484c', '#d4793c', progress),
           damage, hidden: damage >= 1,
         })
       }

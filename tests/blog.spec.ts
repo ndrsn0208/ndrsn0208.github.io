@@ -1,290 +1,290 @@
 import AxeBuilder from '@axe-core/playwright'
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
 
-const post = '/blog/self-consolidating-language-models?edition=paper'
+/* Both essays are laid out by one component and every figure sits in one frame.
+   These tests hold that system to its rules, then check what each figure shows. */
 
-test('the homepage leads to the blog and the article serves the reviewed paper', async ({ page, request }) => {
-  const errors: string[] = []
-  page.on('pageerror', error => errors.push(error.message))
-  await page.goto('/?edition=paper')
-  await page.getByRole('navigation', { name: 'Main navigation', exact: true }).getByRole('link', { name: 'Blog', exact: true }).click()
-  await expect(page.getByRole('heading', { name: 'Research notes', exact: true })).toBeVisible()
-  await expect(page.locator('.scol-blog')).toHaveAttribute('data-edition', 'paper')
-  await page.getByRole('link', { name: 'Read the story', exact: true }).click()
-  await expect(page.locator('.scol-subtitle')).toHaveText('Writing context into model weights at test time')
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Self-Consolidating')
-  await expect(page).toHaveTitle('Self-Consolidating Language Models · Zekun Wang')
-  await expect(page.locator('.scol-author-row a')).toHaveAttribute('href', '/papers/self-consolidating-language-models.pdf')
-  const pdf = await request.get('/papers/self-consolidating-language-models.pdf')
-  expect(pdf.ok()).toBe(true)
-  expect(pdf.headers()['content-type']).toContain('application/pdf')
-  expect((await pdf.body()).subarray(0, 5).toString()).toBe('%PDF-')
-  expect(errors).toEqual([])
-})
+const essays = [
+  {
+    path: '/blog/continual-learning-diffusion-models/',
+    name: 'Continual Learning Diffusion Models',
+    headline: 'Generative replay with a rank-1 Fisher trust region',
+    figures: ['return', 'forgetting', 'region', 'methods', 'recovery', 'results'],
+    papers: 2,
+  },
+  {
+    path: '/blog/self-consolidating-language-models/',
+    name: 'Self-Consolidating Language Models',
+    headline: 'Writing context into model weights at test time',
+    figures: ['writing', 'interference', 'loop', 'results', 'fisher'],
+    papers: 1,
+  },
+] as const
 
-test('changing appearance preserves the chapter and reading position', async ({ page }) => {
-  await page.goto(post)
-  await page.getByRole('navigation', { name: 'Article chapters', exact: true }).getByRole('link', { name: /Evidence/ }).click()
-  await expect(page).toHaveURL(/#results$/)
-  const before = await page.evaluate(() => window.scrollY)
-  await page.getByRole('button', { name: 'Switch to Black appearance', exact: true }).click()
-  await expect(page.locator('.scol-blog')).toHaveCSS('background-color', 'rgb(0, 0, 0)')
-  await expect(page).toHaveURL(/edition=black#results$/)
-  expect(Math.abs(await page.evaluate(() => window.scrollY) - before)).toBeLessThan(3)
-  await page.getByRole('button', { name: 'Switch to Paper appearance', exact: true }).click()
-  await expect(page).toHaveURL(/edition=paper#results$/)
-  await expect(page.locator('.scol-blog')).toHaveCSS('background-color', 'rgb(245, 241, 232)')
-})
+const fits = async (page: Page) => expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize()!.width)
+const figure = (page: Page, id: string) => page.locator(`#figure-${id}`)
+const station = (page: Page, id: string, name: string) => figure(page, id).locator('.exhibit-path').getByRole('button', { name, exact: true })
 
-test('the length comparison updates its data and correctly identifies the leading baseline', async ({ page }) => {
-  await page.goto(post)
-  const figure = page.locator('.scol-results--length')
-  await expect(figure.locator('.scol-results__leader')).toContainText('SCoL, 42.3%')
-  await figure.getByRole('radio', { name: /Long \(generalization\) 32k to 64k/ }).check()
-  await expect(figure.locator('.scol-results__leader')).toContainText('Batch TTT, 41.5%')
-  const rows = figure.getByRole('list', { name: 'Long-context results', exact: true })
-  await expect(rows.locator('li').filter({ has: page.locator('.scol-results__method[data-highlight="true"]') }).locator('data')).toHaveText('37.0%')
-  await figure.getByRole('radio', { name: /Short 16k to 32k/ }).check()
-  await expect(figure.locator('.scol-results__leader')).toContainText('SCoL, 42.3%')
-  const retention = page.locator('.scol-results--retention')
-  await retention.locator('summary').click()
-  await expect(retention.getByRole('row', { name: /Prompting only/ })).toContainText('Not reported')
-  await expect(retention.getByRole('row', { name: /Batch TTT/ })).toContainText('Not reported')
-})
+for (const essay of essays) {
+  test(`${essay.name}: a headline, a figure, a summary, then sections that state their point`, async ({ page }) => {
+    const errors: string[] = []
+    page.on('pageerror', error => errors.push(error.message))
+    await page.goto(`${essay.path}?edition=paper`)
 
-test('the article remains readable on its viewport and exposes accessible controls', async ({ page }) => {
-  await page.goto(post)
-  await page.evaluate(() => document.fonts.ready)
-  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize()!.width)
-  if (page.viewportSize()!.width > 720) {
-    const title = await page.locator('.scol-hero h1').evaluate(node => {
-      const range = document.createRange()
-      range.selectNodeContents(node)
-      return {
-        lines: range.getClientRects().length,
-        width: range.getBoundingClientRect().width,
-        available: node.getBoundingClientRect().width,
-      }
-    })
-    expect(title.lines).toBe(1)
-    expect(title.width).toBeLessThanOrEqual(title.available)
-  }
-  const accessibility = await new AxeBuilder({ page }).include('.scol-post').withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()
-  expect(accessibility.violations.map(({ id, nodes }) => ({ id, nodes: nodes.map(node => node.target) }))).toEqual([])
-  await page.getByRole('button', { name: 'Preview here', exact: true }).click()
-  await expect(page.getByTitle('Self-Consolidating Language Models PDF, 26 pages')).toBeVisible()
-  await page.getByRole('button', { name: 'Close preview', exact: true }).click()
-  await expect(page.getByTitle('Self-Consolidating Language Models PDF, 26 pages')).toHaveCount(0)
-})
+    // On the page a term such as rank-1 is set with a hyphen that does not break.
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(`${essay.name}: ${essay.headline}`.replace(/([A-Za-z0-9])-(\d)/g, '$1\u2011$2'))
+    await expect(page.locator('.essay-summary p')).toHaveCount(3)
+    // The opening figure comes first, and the summary follows it directly.
+    await expect(page.locator('.essay-flow > :first-child')).toHaveAttribute('id', `figure-${essay.figures[0]}`)
+    await expect(page.locator(`#figure-${essay.figures[0]} + .essay-summary`)).toHaveCount(1)
 
-test('the forgetting penalty changes the committed update and preferences return to the saved start', async ({ page }) => {
-  await page.goto(post)
-  const figure = page.locator('.scol-meta')
-  const compare = figure.getByRole('button', { name: 'Step 3. Compare what is learned and what is lost', exact: true })
-  const commit = figure.getByRole('button', { name: 'Step 4. Keep the chosen update', exact: true })
-  await expect(figure).toBeVisible()
-  const inspectB = figure.getByRole('button', { name: 'Inspect candidate B', exact: true })
-  if (await inspectB.isVisible()) await inspectB.click()
-  await expect(figure.getByRole('article', { name: 'Illustrative candidate B', exact: true }).locator('.scol-meta-layer-list')).toHaveText('[8, 18, 25]')
-  await compare.click()
-  const penalty = figure.getByRole('slider', { name: 'Penalty for forgetting', exact: true })
-  await penalty.press('Home')
-  await expect(penalty).toHaveValue('0')
-  await expect(figure.getByRole('article', { name: 'Illustrative candidate A', exact: true })).toHaveAttribute('data-best', 'true')
-  await commit.click()
-  await expect(figure.locator('.scol-meta-choice')).toContainText('Keep candidate A')
-  await expect(figure.locator('.scol-meta-kept-state .scol-meta-model')).toHaveAttribute('data-selected-layers', '4,12,20')
-  await expect(figure.locator('.scol-meta-pairs')).toContainText('A')
-  await compare.click()
-  await penalty.press('End')
-  await expect(penalty).toHaveValue('1')
-  await expect(figure.getByRole('article', { name: 'Illustrative candidate B', exact: true })).toHaveAttribute('data-best', 'true')
-  await page.getByRole('button', { name: 'Switch to Black appearance', exact: true }).click()
-  await expect(page.locator('.scol-blog')).toHaveCSS('background-color', 'rgb(0, 0, 0)')
-  const accessibility = await new AxeBuilder({ page }).include('.scol-meta').withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()
-  expect(accessibility.violations.map(({ id, nodes }) => ({ id, nodes: nodes.map(node => node.target) }))).toEqual([])
-  await commit.click()
-  await expect(figure.locator('.scol-meta-choice')).toContainText('Keep candidate B')
-  await expect(figure.locator('.scol-meta-winning-update .scol-meta-layer-list')).toHaveText('[8, 18, 25]')
-  await expect(figure.locator('.scol-meta-kept-state .scol-meta-layer-list')).toHaveText('[8, 18, 25]')
-  await expect(figure.locator('.scol-meta-kept-state .scol-meta-model')).toHaveAttribute('data-selected-layers', '8,18,25')
-  expect(await figure.locator('.scol-meta-kept-state rect[data-selected="true"]').evaluateAll(nodes => nodes.map(node => node.getAttribute('data-layer')))).toEqual(['8', '18', '25'])
-  await expect(figure.locator('.scol-meta-commit .scol-meta-fresh-proposals')).toHaveCount(0)
-  await figure.getByRole('button', { name: 'Step 5. Let the updated model read the next chunk', exact: true }).click()
-  await expect(figure.locator('.scol-meta-commit-reminder')).toContainText('Candidate B [8, 18, 25]')
-  await expect(figure.locator('.scol-meta-continue .scol-meta-model')).toHaveAttribute('data-selected-layers', '8,18,25')
-  await expect(figure.locator('.scol-meta-fresh-proposals')).toContainText('Sample 10 layer lists')
-  await expect(figure.locator('.scol-meta-repeat-stream')).toContainText('remaining chunks')
-  await expect(figure).not.toContainText('[4, 17, 26]')
-  await figure.getByRole('button', { name: 'Step 6. Train the model that began the round', exact: true }).click()
-  await expect(figure.getByText('Saved round-start model', { exact: true })).toBeVisible()
-  await expect(figure.getByText('Next round-start model', { exact: true })).toBeVisible()
-  await expect(figure.locator('.scol-meta-buffer-label')).toContainText('comparison for chunk cₜ')
-  await expect(figure.locator('.scol-meta-stream-complete')).toContainText('All chunks have been processed')
-  await expect(figure.locator('.scol-meta-outer').getByRole('listitem', { name: 'Selection B preferred to selection A', exact: true })).toBeVisible()
-  await figure.getByRole('button', { name: 'Step 7. A new starting point for the next round', exact: true }).click()
-  await expect(figure.getByText('Improved starting model', { exact: true })).toBeVisible()
-})
+    // A heading states what its section shows. None is a question.
+    const headings = await page.locator('.essay-section:not(.essay-papers):not(.essay-references) > h2').allTextContents()
+    expect(headings.length).toBeGreaterThanOrEqual(6)
+    for (const heading of headings) expect(heading).not.toMatch(/\?/)
 
-test('the training animation plays and its controls remain reachable beside the scene', async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: 'no-preference' })
-  await page.goto(post)
-  const figure = page.locator('.scol-meta')
-  const scene = figure.locator('.scol-meta-scene')
-  const play = figure.getByRole('button', { name: 'Play the explanation', exact: true })
-  await play.click()
-  await expect(figure.locator('.scol-meta-play-progress span')).not.toHaveCSS('transform', 'matrix(0, 0, 0, 1, 0, 0)')
-  await expect(figure.getByRole('button', { name: 'Step 2. Try each selection from the same starting state', exact: true })).toHaveAttribute('aria-current', 'step', { timeout: 12000 })
-  await figure.getByRole('button', { name: 'Pause the explanation', exact: true }).click()
-  await expect(play).toBeVisible()
-  await scene.scrollIntoViewIfNeeded()
-  const controls = await figure.locator('.scol-meta-controls').boundingBox()
-  expect(controls).not.toBeNull()
-  expect(controls!.y).toBeGreaterThanOrEqual(100)
-  expect(controls!.y + controls!.height).toBeLessThan(page.viewportSize()!.height)
-})
+    // The essay ends with its papers, listed the way the Papers page lists them, and its references.
+    await expect(page.locator('#papers .paper')).toHaveCount(essay.papers)
+    await expect(page.locator('#papers .paper').first().getByRole('button', { name: /^Show summary and links/ })).toBeVisible()
+    expect(await page.locator('#references li').count()).toBeGreaterThanOrEqual(12)
+    const cited = await page.locator('.essay-cite a').evaluateAll(links => links.map(link => link.getAttribute('href')!))
+    for (const href of new Set(cited)) await expect(page.locator(href)).toHaveCount(1)
 
-test('explicit playback works with reduced motion, and citations return to their paragraph', async ({ page }) => {
-  await page.goto(post)
-  const inspiration = page.locator('#scol-text-history-2')
-  await expect(inspiration).toContainText('human memory consolidation')
-  await inspiration.getByRole('link', { name: /Reference 2:/ }).click()
-  await expect(page).toHaveURL(/#reference-2$/)
-  await expect(page.locator('#reference-2')).toContainText('The Consolidation and Transformation of Memory')
-  await page.getByRole('link', { name: 'Back to the text citing reference 2', exact: true }).click()
-  await expect(page).toHaveURL(/#scol-text-history-2$/)
-  const figure = page.locator('.scol-meta')
-  const play = figure.getByRole('button', { name: 'Play the explanation', exact: true })
-  await expect(play).toBeEnabled()
-  await play.click()
-  await expect(figure.getByRole('button', { name: 'Step 2. Try each selection from the same starting state', exact: true })).toHaveAttribute('aria-current', 'step', { timeout: 8000 })
-  await figure.getByRole('button', { name: 'Pause the explanation', exact: true }).click()
-})
-
-test('the story, annotations, and evidence stay readable within the reading column', async ({ page }) => {
-  await page.goto(post)
-  await page.evaluate(() => document.fonts.ready)
-  await expect(page.locator('#history')).toContainText('Lina puts the key in a blue box')
-  await expect(page.locator('.scol-post')).not.toContainText('seed 42')
-  const text = await page.locator('.scol-evidence > .scol-prose').first().boundingBox()
-  for (const figure of await page.locator('.scol-results').all()) {
-    const bounds = await figure.boundingBox()
-    expect(bounds!.width).toBeLessThanOrEqual(text!.width + 1)
-    expect(Math.abs(bounds!.x - text!.x)).toBeLessThanOrEqual(1)
-  }
-  const annotationSizes = await page.locator('.scol-affiliation, .scol-section-label, .scol-equation-key, .scol-meta-scene-note').evaluateAll(elements =>
-    elements.map(element => parseFloat(getComputedStyle(element).fontSize)),
-  )
-  expect(Math.min(...annotationSizes)).toBeGreaterThanOrEqual(15)
-  await expect(page.getByRole('heading', { name: 'The learned selections align with Fisher importance', exact: true })).toBeVisible()
-  await expect(page.locator('.scol-fisher')).toContainText('45.1%')
-  await expect(page.locator('.scol-fisher')).toContainText('35.7%')
-})
-
-test('the opening sequence keeps its weight changes after the context is cleared', async ({ page }) => {
-  await page.goto(post)
-  const hero = page.locator('.scol-deployment')
-  await expect(hero).toHaveAttribute('data-phase', 'overview')
-  await expect(hero.getByText('At deployment time', { exact: true })).toBeVisible()
-  await hero.getByRole('button', { name: 'Play the deployment sequence', exact: true }).click()
-  await expect(hero).toHaveAttribute('data-playing', 'true')
-  await expect(hero).toHaveAttribute('data-phase', 'arrive')
-  await expect(hero.locator('.scol-deployment-weight[data-changed="true"]')).toHaveCount(3, { timeout: 5000 })
-  await expect(hero).toHaveAttribute('data-phase', 'clear', { timeout: 12000 })
-  await expect(hero.locator('.scol-deployment-weight[data-changed="true"]')).toHaveCount(9)
-  await expect(hero.getByText('Original prompt empty', { exact: true })).toBeVisible()
-  await expect(hero).toHaveAttribute('data-phase', 'answer', { timeout: 6000 })
-  await expect(hero.locator('.scol-deployment-answer-word')).toHaveText('Upstairs.')
-  await expect(hero.locator('.scol-deployment-chunks')).toHaveAttribute('aria-hidden', 'true')
-  await expect(hero).toHaveAttribute('data-playing', 'false')
-  await expect(hero.locator('.scol-deployment-weight[data-changed="true"]')).toHaveCount(9)
-  const connection = await hero.locator('.scol-deployment-wire-query').evaluate(node => {
-    const path = node as SVGPathElement
-    const matrix = path.getScreenCTM()!
-    const start = path.getPointAtLength(0).matrixTransform(matrix)
-    const end = path.getPointAtLength(path.getTotalLength()).matrixTransform(matrix)
-    const figure = path.closest('.scol-deployment')!
-    const source = figure.querySelector('.scol-deployment-question-port')!.getBoundingClientRect()
-    const target = figure.querySelector('.scol-deployment-model-query-port')!.getBoundingClientRect()
-    return {
-      dash: getComputedStyle(path).strokeDasharray,
-      startError: Math.hypot(start.x - source.x, start.y - source.y),
-      endError: Math.hypot(end.x - target.x, end.y - target.y),
+    // The outline marks the section being read.
+    if (page.viewportSize()!.width >= 1240) {
+      await expect(page.getByRole('navigation', { name: 'On this page', exact: true }).locator('[aria-current="location"]')).toHaveCount(1)
+    } else {
+      await expect(page.getByRole('combobox', { name: 'On this page' })).toBeVisible()
     }
+    await fits(page)
+    expect(errors).toEqual([])
   })
-  expect(connection.dash).toBe('5px, 7px')
-  expect(connection.startError).toBeLessThan(2)
-  expect(connection.endError).toBeLessThan(2)
-})
 
-test('stream consolidation reveals notes in order and retains the model after clearing the prompt', async ({ page }) => {
-  await page.goto(`${post}#consolidation`)
-  const figure = page.locator('.scol-journey[data-scene="consolidation"]')
-  await expect(figure).toHaveAttribute('data-step', '7')
-  for (let step = 7; step > 0; step--) {
-    await figure.getByRole('button', { name: 'Previous step', exact: true }).click()
-  }
-  await expect(figure).toHaveAttribute('data-step', '0')
-  await expect(figure.locator('[data-node="c2"] .scol-journey-relation')).toHaveText('Note 2 · upcoming')
-  await expect(figure.locator('[data-node="c3"] .scol-journey-relation')).toHaveText('Note 3 · upcoming')
-  await expect(figure.getByRole('img', { name: /same language model at theta 0/ })).toBeVisible()
-  const next = figure.getByRole('button', { name: 'Next step', exact: true })
-  for (let step = 1; step <= 5; step++) {
-    await next.click()
-    await expect(figure).toHaveAttribute('data-step', String(step))
-  }
-  await expect(figure.getByRole('img', { name: /same language model at theta 3/ })).toBeVisible()
-  await next.click()
-  await expect(figure).toHaveAttribute('data-phase', 'clear')
-  for (const id of ['c1', 'c2', 'c3']) {
-    await expect(figure.locator(`[data-node="${id}"]`)).toHaveAttribute('aria-hidden', 'true')
-  }
-  await expect(figure.getByRole('img', { name: /same language model at theta 3/ })).toBeVisible()
-  await next.click()
-  await expect(figure).toHaveAttribute('data-phase', 'question')
-  await expect(figure.locator('[data-node="question"]')).toHaveAttribute('aria-hidden', 'false')
-  await expect(figure.locator('path[data-route="question-input"]')).toHaveCSS('stroke-dasharray', '8px, 7px')
-  await expect(next).toBeDisabled()
-})
-
-test('Fisher playback reveals the diagnostic without changing the selected layers', async ({ page }) => {
-  await page.goto(post)
-  const figure = page.locator('.scol-fisher')
-  const selections = figure.locator('.scol-fisher__selection[data-selected="true"]')
-  const readSelection = () => selections.evaluateAll(nodes => nodes.map(node => node.parentElement!.getAttribute('data-layer')))
-  await expect(selections).toHaveCount(10)
-  await expect(figure.locator('.scol-fisher__profile')).toHaveCount(1)
-  const layerPositions = await figure.locator('.scol-fisher__profile g[data-layer]').evaluateAll(nodes => nodes.map(node => {
-    const dot = node.querySelector('circle.scol-fisher__selection') as SVGCircleElement
-    return { layer: Number(node.getAttribute('data-layer')), x: dot.cx.baseVal.value, y: dot.cy.baseVal.value }
-  }))
-  expect(layerPositions.map(point => point.layer)).toEqual(Array.from({ length: 28 }, (_, layer) => layer))
-  expect(new Set(layerPositions.map(point => point.y)).size).toBe(1)
-  expect(layerPositions.every((point, index) => index === 0 || point.x > layerPositions[index - 1].x)).toBe(true)
-  const selectedBefore = await readSelection()
-  expect(selectedBefore).toHaveLength(10)
-  await expect(figure.locator('.scol-fisher__stage')).toHaveAttribute('data-step', '2')
-  await expect(figure.locator('g[data-overlap="true"]')).toHaveCount(5)
-  await expect(figure.locator('.scol-fisher__description')).toContainText('5 of 10 layers overlap')
-  await figure.getByRole('button', { name: 'Play Fisher explanation', exact: true }).click()
-  await expect(figure.locator('.scol-fisher__stage')).toHaveAttribute('data-step', '0')
-  await expect(figure.locator('.scol-fisher__stage')).toHaveAttribute('data-step', '2', { timeout: 5000 })
-  expect(await readSelection()).toEqual(selectedBefore)
-  await expect(figure.locator('g[data-overlap="true"]')).toHaveCount(5)
-  await expect(figure.locator('.scol-fisher__description')).toContainText('5 of 10 layers overlap')
-  await figure.getByRole('button', { name: 'Next passage', exact: true }).click()
-  expect(await readSelection()).not.toEqual(selectedBefore)
-  await expect(figure.locator('g[data-overlap="true"]')).toHaveCount(4)
-  await expect(figure.locator('.scol-fisher__description')).toContainText('4 of 10 layers overlap')
-  await expect(figure.locator('.scol-fisher__schematic')).toContainText('illustrative')
-  await expect(figure.locator('.scol-fisher__results')).toContainText('45.1%')
-  for (const edition of ['black', 'paper'] as const) {
-    await page.getByRole('button', { name: `Switch to ${edition === 'black' ? 'Black' : 'Paper'} appearance`, exact: true }).click()
-    const background = edition === 'black' ? 'rgb(0, 0, 0)' : 'rgb(245, 241, 232)'
-    await expect(page.locator('.scol-blog')).toHaveCSS('background-color', background)
-    await expect(figure).toHaveCSS('background-color', background)
-    for (const result of await page.locator('.scol-results').all()) {
-      await expect(result).toHaveCSS('background-color', background)
+  test(`${essay.name}: every figure sits in the same frame`, async ({ page }) => {
+    await page.goto(`${essay.path}?edition=paper`)
+    await expect(page.locator('figure.exhibit')).toHaveCount(essay.figures.length)
+    for (const id of essay.figures) {
+      const frame = figure(page, id)
+      await frame.scrollIntoViewIfNeeded()
+      await expect(frame.locator('.exhibit-stage')).toBeVisible()
+      // The plus opens what lies behind the figure, in place, and closes it again.
+      const more = frame.getByRole('button', { name: /^Show notes and links for/ })
+      await expect(more).toHaveAttribute('aria-expanded', 'false')
+      await more.click()
+      await expect(frame.getByRole('button', { name: 'Copy link', exact: true })).toBeVisible()
+      await expect(frame.getByRole('link', { name: 'Image', exact: true })).toHaveAttribute('href', new RegExp(`/share/${id}\\.png$`))
+      await frame.getByRole('button', { name: /^Hide notes and links for/ }).click()
+      await expect(frame.getByRole('button', { name: 'Copy link', exact: true })).toHaveCount(0)
+      // A figure with an argument has stations. Exactly one is current, and its sentence is shown.
+      if (await frame.locator('.exhibit-path').count()) {
+        await expect(frame.locator('.exhibit-path [aria-current="step"]')).toHaveCount(1)
+        await expect(frame.locator('.exhibit-say')).not.toBeEmpty()
+        await expect(frame.getByRole('button', { name: /^Play / })).toBeVisible()
+      }
     }
-  }
+
+    // Nothing in an essay is set smaller than the site's smallest size. Mathematics and superscript marks keep their own.
+    const small = await page.evaluate(() => {
+      const found: string[] = []
+      const walker = document.createTreeWalker(document.querySelector('.essay')!, NodeFilter.SHOW_TEXT)
+      while (walker.nextNode()) {
+        const node = walker.currentNode
+        const parent = node.parentElement!
+        if (!node.textContent!.trim() || parent.closest('.katex, .site-hidden, sup')) continue
+        const style = getComputedStyle(parent)
+        const box = parent.getBoundingClientRect()
+        if (style.visibility === 'hidden' || !box.width || !box.height) continue
+        if (parseFloat(style.fontSize) < 15) found.push(`${node.textContent!.trim().slice(0, 30)} (${style.fontSize})`)
+      }
+      return found
+    })
+    expect(small).toEqual([])
+    await fits(page)
+  })
+
+  test(`${essay.name}: has no accessibility violations`, async ({ page }) => {
+    await page.goto(`${essay.path}?edition=paper`)
+    await expect(page.locator('figure.exhibit')).toHaveCount(essay.figures.length)
+    const paper = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze()
+    expect(paper.violations.map(violation => `${violation.id}: ${violation.nodes.map(node => node.target.join(' ')).join(' | ')}`)).toEqual([])
+    await page.getByRole('banner').getByRole('button', { name: 'Switch to Black appearance', exact: true }).click()
+    await expect(page.locator('.site-shell')).toHaveCSS('background-color', 'rgb(0, 0, 0)')
+    const black = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze()
+    expect(black.violations.map(violation => `${violation.id}: ${violation.nodes.map(node => node.target.join(' ')).join(' | ')}`)).toEqual([])
+  })
+}
+
+test('the path moves a landscape figure through its argument', async ({ page }) => {
+  await page.goto(`${essays[0].path}?edition=paper`)
+  const frame = figure(page, 'methods')
+  await frame.scrollIntoViewIfNeeded()
+  // It rests on the last station, where the whole argument is drawn.
+  await expect(station(page, 'methods', 'Trust Region')).toHaveAttribute('aria-current', 'step')
+  await expect(frame.locator('.exhibit-say')).toContainText('in the shared basin inside the trust region')
+
+  await station(page, 'methods', 'EWC').click()
+  await expect(station(page, 'methods', 'EWC')).toHaveAttribute('aria-current', 'step')
+  await expect(frame.locator('.exhibit-say')).toContainText('stops at its boundary')
+  await expect(frame.getByRole('img')).toHaveAttribute('aria-label', /stops at its boundary/)
+
+  // Arrow keys walk the path, and focus follows the point.
+  await page.keyboard.press('ArrowRight')
+  await expect(station(page, 'methods', 'Replay')).toHaveAttribute('aria-current', 'step')
+  await expect(station(page, 'methods', 'Replay')).toBeFocused()
+  await expect(frame.locator('.exhibit-say')).toContainText('drift to a different shared basin far from the old-task optimum')
+
+  // The drawing carries the parameters, their path, and the trust region in blue.
+  await expect.poll(() => frame.locator('canvas.terrain').evaluate((canvas: HTMLCanvasElement) => {
+    const pixels = canvas.getContext('2d')!.getImageData(0, 0, canvas.width, canvas.height).data
+    let blue = 0
+    for (let index = 0; index < pixels.length; index += 4) if (pixels[index + 3] > 200 && pixels[index + 2] > 180 && pixels[index] < 70) blue += 1
+    return blue
+  })).toBeGreaterThan(80)
+
+  // Play starts from where the path stands and can be paused.
+  await frame.getByRole('button', { name: /^Play / }).click()
+  await expect(frame.getByRole('button', { name: /^Pause / })).toBeVisible()
+  await frame.getByRole('button', { name: /^Pause / }).click()
+  await expect(frame.getByRole('button', { name: /^Play / })).toBeVisible()
+})
+
+test('the recording shows four policies after Task 1 and after Task 10', async ({ page }) => {
+  await page.goto(`${essays[0].path}?edition=paper`)
+  const frame = figure(page, 'return')
+  await expect(frame.locator('canvas')).toHaveCount(8)
+  await expect(frame.getByRole('img', { name: 'Trust Region, after Task 10: succeeds' })).toBeVisible()
+  await expect(frame.getByRole('img', { name: 'Replay, after Task 10: fails' })).toBeVisible()
+  const drawn = () => frame.locator('canvas').last().evaluate((canvas: HTMLCanvasElement) => {
+    const pixels = canvas.getContext('2d')!.getImageData(0, 0, canvas.width, canvas.height).data
+    const seen = new Set<number>()
+    for (let index = 0; index < pixels.length; index += 4 * 97) seen.add(pixels[index] >> 4)
+    return seen.size
+  })
+  // Before it plays, each view shows the last frame of the recording.
+  await expect.poll(drawn).toBeGreaterThan(3)
+  await frame.getByRole('button', { name: /^Play / }).click()
+  await expect(frame.getByRole('button', { name: /^Pause / })).toBeVisible()
+  await expect.poll(() => frame.getByRole('slider').evaluate((input: HTMLInputElement) => Number(input.value))).toBeLessThan(1000)
+  await frame.getByRole('button', { name: /^Pause / }).click()
+  await expect(frame.getByRole('button', { name: /^Play / })).toBeVisible()
+})
+
+test('measured figures carry the numbers from the papers', async ({ page }) => {
+  await page.goto(`${essays[0].path}?edition=paper`)
+  const results = figure(page, 'results')
+  await results.scrollIntoViewIfNeeded()
+  await expect(results.getByRole('row', { name: /^Trust Region/ }).first()).toContainText('48.5')
+  await results.getByRole('button', { name: 'CW10', exact: true }).click()
+  await expect(results.getByRole('button', { name: 'CW10', exact: true })).toHaveAttribute('aria-pressed', 'true')
+  await expect(results.getByRole('row', { name: /^Trust Region/ }).first()).toContainText('88.3%')
+  await expect(results.getByRole('row', { name: /^Trust Region/ }).last()).toContainText('4.4')
+  await expect(results.getByRole('row', { name: /^Replay/ }).first()).toContainText('85.3%')
+  await results.getByRole('button', { name: 'ImageNet-1k', exact: true }).click()
+  // A value the source does not report is never drawn as zero.
+  await expect(results.getByRole('row', { name: /^Non-continual/ }).last()).toContainText('not reported')
+
+  const recovery = figure(page, 'recovery')
+  await recovery.scrollIntoViewIfNeeded()
+  await expect(recovery.getByRole('img', { name: /^90% of initial success rate/ })).toHaveAttribute('aria-label', /Task 10: Trust Region 2 gradient updates, Replay 8,000 gradient updates\./)
+  await recovery.getByRole('button', { name: 'ImageNet-500', exact: true }).click()
+  await expect(recovery.getByRole('img', { name: /^FID within \+10% of initial/ })).toHaveAttribute('aria-label', /Task 4: Trust Region not re-converged, Replay not re-converged\./)
+
+  await page.goto(`${essays[1].path}?edition=paper`)
+  const scol = figure(page, 'results')
+  await scol.scrollIntoViewIfNeeded()
+  await expect(scol.getByRole('row', { name: /^SCoL Acquisition/ })).toContainText('35.4%')
+  await expect(scol.getByRole('row', { name: /^SCoL Acquisition/ })).toContainText('20.5%')
+  await expect(scol.getByRole('row', { name: /^SEAL \(continual\)/ })).toContainText('1.3%')
+  await scol.getByRole('button', { name: 'LongBench v2', exact: true }).click()
+  await expect(scol.getByRole('row', { name: /^Batch TTT/ })).toContainText('41.5%')
+  await expect(scol.getByRole('row', { name: /^SCoL Short contexts/ })).toContainText('37.0%')
+  const fisher = figure(page, 'fisher')
+  await fisher.scrollIntoViewIfNeeded()
+  await expect(fisher.getByRole('row', { name: /^SCoL 45/ })).toContainText('45.1%')
+  // The passages are the ones in the paper's figure: measured Fisher information, and the layers SCoL selected.
+  await expect(fisher.locator('.layers-values span')).toHaveCount(28)
+  await expect(fisher.locator('.layer-row').nth(1).locator('[data-state="on"]')).toHaveCount(5)
+  await fisher.getByRole('button', { name: 'Nikola Tesla', exact: true }).click()
+  await expect(fisher.locator('.layer-row').nth(1).locator('[data-state="on"]')).toHaveCount(8)
+  await expect(fisher.getByRole('img', { name: /^SCoL selected layers 8, 11, 19, 21, 23, 25, 27, 28\./ })).toBeVisible()
+})
+
+test('three contexts are consolidated, the prompt is cleared, and the question is answered from the weights', async ({ page }) => {
+  await page.goto(`${essays[1].path}?edition=paper`)
+  const frame = figure(page, 'writing')
+  const written = (row: number) => frame.locator('.layer-row').nth(row).locator('[data-state]')
+  // With motion reduced it rests on the outcome.
+  await expect(station(page, 'writing', 'Question')).toHaveAttribute('aria-current', 'step')
+  await expect(frame.locator('.writing-reply')).toHaveText('Upstairs.')
+
+  await station(page, 'writing', 'Context 1').click()
+  await expect(frame.locator('.writing-prompt')).toHaveText('Lina puts the key in a blue box.')
+  await expect(written(0)).toHaveCount(6)
+  await expect(written(1)).toHaveCount(0)
+  await expect(frame.locator('.writing-answer')).toHaveCSS('opacity', '0')
+
+  await station(page, 'writing', 'Context 3').click()
+  await expect(frame.locator('.writing-prompt')).toHaveText('The study is upstairs.')
+  for (const row of [0, 1, 2]) await expect(written(row)).toHaveCount(6)
+
+  // The contexts are removed from the prompt. The updates stay in the weights.
+  await station(page, 'writing', 'Prompt cleared').click()
+  await expect(frame.locator('.writing-prompt')).toHaveText('The prompt is empty.')
+  for (const row of [0, 1, 2]) await expect(written(row)).toHaveCount(6)
+
+  await station(page, 'writing', 'Question').click()
+  await expect(frame.locator('.writing-prompt')).toHaveText('Is the key upstairs or downstairs?')
+  await expect(frame.locator('.writing-answer')).toHaveCSS('opacity', '1')
+})
+
+test('an update in the same layers overwrites, and the training step commits the candidate with the highest reward', async ({ page }) => {
+  await page.goto(`${essays[1].path}?edition=paper`)
+  const interference = figure(page, 'interference')
+  await interference.scrollIntoViewIfNeeded()
+  await station(page, 'interference', 'Same layers').click()
+  await expect(interference.locator('.layer-row').first().locator('[data-state="lost"]')).toHaveCount(2)
+  await station(page, 'interference', 'Different layers').click()
+  await expect(interference.locator('.layer-row').first().locator('[data-state="lost"]')).toHaveCount(0)
+  await expect(interference.locator('.layer-row').first().locator('[data-state="kept"]')).toHaveCount(3)
+
+  const loop = figure(page, 'loop')
+  await loop.scrollIntoViewIfNeeded()
+  await expect(loop.locator('.loop-row')).toHaveCount(10)
+  await station(page, 'loop', 'Sample').click()
+  await expect(loop.locator('.loop-score[data-shown]')).toHaveCount(0)
+  await station(page, 'loop', 'Commit').click()
+  await expect(loop.locator('.loop-row[data-winner]')).toHaveCount(1)
+  await expect(loop.locator('.loop-row[data-faded]')).toHaveCount(9)
+  // After the stream the candidates are ranked by reward.
+  await station(page, 'loop', 'IPO').click()
+  await expect(loop.locator('.loop-row').first()).toHaveAttribute('data-winner', 'true')
+})
+
+test('changing appearance keeps the section and the reading position', async ({ page }) => {
+  await page.goto(`${essays[1].path}?edition=paper#results`)
+  await expect(page.locator('#results')).toBeInViewport()
+  await page.evaluate(() => document.fonts.ready)
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(400)
+  const before = await page.evaluate(() => window.scrollY)
+  await page.getByRole('banner').getByRole('button', { name: 'Switch to Black appearance', exact: true }).click()
+  await expect(page.locator('html')).toHaveAttribute('data-site-edition', 'black')
+  await expect(page).toHaveURL(/edition=black#results$/)
+  expect(Math.abs(await page.evaluate(() => window.scrollY) - before)).toBeLessThan(4)
+  // Figures follow the appearance: bars for other methods stay grey, ours stays blue.
+  await expect(figure(page, 'results').locator('tr[data-ours] .bar[data-kind="second"]')).toHaveCSS('background-color', 'rgb(94, 172, 255)')
+})
+
+test('a figure has its own address, and earlier addresses still open it', async ({ page }) => {
+  await page.goto(`${essays[0].path}figures/methods/?edition=paper`)
+  await expect(figure(page, 'methods')).toBeInViewport()
+  await expect(page).toHaveTitle('Parameter updates for a new task under EWC, Replay, and Trust Region · Continual Learning Diffusion Models')
+  // The address the figure had before the essay was rebuilt.
+  await page.goto(`${essays[0].path}figures/parameter-sharing/?edition=paper`)
+  await expect(figure(page, 'methods')).toBeInViewport()
+  await page.goto(`${essays[0].path}figures/measured-results/?edition=paper`)
+  await expect(figure(page, 'results')).toBeInViewport()
+  await page.goto(`${essays[1].path}figures/loop/?edition=paper`)
+  await expect(figure(page, 'loop')).toBeInViewport()
+  await page.goto(`${essays[0].path}figures/no-such-figure/?edition=paper`)
+  await expect(page).toHaveURL(new RegExp(`${essays[0].path}$`))
 })

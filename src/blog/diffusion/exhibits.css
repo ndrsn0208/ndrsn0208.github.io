@@ -1,0 +1,49 @@
+/* The landscape. Its height follows its width, taller on a phone. The comparison of methods is three strips. */
+.terrain { display: block; width: 100%; aspect-ratio: 1000 / 470; }
+.terrain[data-mode="forgetting"] { aspect-ratio: 1000 / 380; }
+.terrain[data-mode="methods"] { aspect-ratio: 1000 / 800; }
+
+/* The recording: four policies across, two moments down. */
+.robots { display: grid; gap: 10px 0; }
+.robots-head, .robots-row { display: grid; grid-template-columns: minmax(7.5rem, 1fr) repeat(4, minmax(0, 1.42fr)); gap: 0 12px; align-items: start; }
+.robots-head span { position: relative; color: var(--site-muted); font-size: var(--site-note); line-height: 1.35; letter-spacing: 0; }
+.robots-head span[data-ours] { color: var(--site-ink); }
+.robots-moment { padding-top: 2px; color: var(--site-ink); font-size: var(--site-note); line-height: 1.35; letter-spacing: 0; text-wrap: balance; }
+.robots-cell canvas { display: block; width: 100%; height: auto; aspect-ratio: 222 / 178; background: var(--site-surface); }
+.robots-cell p { margin-top: 6px; color: var(--site-ink); font-size: var(--site-note); line-height: 1.35; letter-spacing: 0; }
+.robots-cell p[data-outcome="Fails"] { color: var(--site-muted); }
+.robots-cell[data-ours] p { color: var(--site-accent); }
+.robots-name { display: none; }
+
+/* Recovery: one small chart per target, on one scale. */
+.recovery-key { display: flex; flex-wrap: wrap; gap: 4px 26px; color: var(--site-ink); font-size: var(--site-note); line-height: 1.35; letter-spacing: 0; }
+.recovery-key span { display: inline-flex; align-items: center; gap: 8px; }
+.recovery-key-ours { fill: var(--site-accent); }
+.recovery-key-other { fill: none; stroke: var(--essay-quiet); stroke-width: 1.25; }
+.recovery-key-lost { fill: none; stroke: var(--essay-quiet); stroke-width: 1.25; }
+.recovery-panels { display: grid; grid-template-columns: 1.1fr 1fr 1fr; gap: 6px 14px; margin-top: 12px; }
+.recovery-panel { min-width: 0; }
+.recovery-panel svg { display: block; overflow: visible; }
+.recovery-title { color: var(--site-ink); font-size: var(--site-note); line-height: 1.35; letter-spacing: 0; }
+.recovery-panel:first-child .recovery-title { padding-left: 42px; }
+.recovery-panel:not(:first-child) .recovery-title { padding-left: 12px; }
+.recovery-grid { stroke: var(--site-rule); stroke-width: 1; }
+.recovery-tick { fill: var(--site-muted); font-size: 15px; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.recovery-series path { fill: none; stroke: var(--essay-quiet); stroke-width: 1.25; }
+.recovery-series circle { fill: var(--site-paper); stroke: var(--essay-quiet); stroke-width: 1.25; }
+.recovery-series[data-ours] path { stroke: var(--site-accent); stroke-width: 1.5; }
+.recovery-series[data-ours] circle { fill: var(--site-accent); stroke: none; }
+.recovery-axis { margin-top: 6px; color: var(--site-muted); font-size: var(--site-note); line-height: 1.35; letter-spacing: 0; }
+
+@media (max-width: 760px) {
+  .terrain { aspect-ratio: 1 / .92; }
+  .terrain[data-mode="forgetting"] { aspect-ratio: 1 / .62; }
+  .terrain[data-mode="methods"] { aspect-ratio: 1 / 1.56; }
+  .robots-head { display: none; }
+  .robots-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 10px; }
+  .robots-row + .robots-row { margin-top: 10px; }
+  .robots-moment { grid-column: 1 / -1; }
+  .robots-name { display: inline; margin-right: .5em; color: var(--site-ink); }
+  .recovery-panels { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .recovery-panel:not(:first-child) .recovery-title { padding-left: 42px; }
+}

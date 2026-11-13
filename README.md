@@ -3,7 +3,8 @@
 Personal academic website — Vite + React + TypeScript + Tailwind, deployed to GitHub Pages at the apex of `https://ndrsn0208.github.io`. Publication metadata is hand-curated in [`papers.toml`](papers.toml). A local script merges verified metadata and cached records, fetching arxiv and summarizing via the **local Claude Code CLI** when needed, then writes [`src/data/publications.json`](src/data/publications.json). The deployed site runs zero AI calls in production.
 
 The homepage at `/` uses **Book** typography and the **Chapters** mobile layout,
-with a minimal, humanist design and pure **Black** and warm **Paper** appearances.
+with a minimal, humanist design and pure **Black** and pure white light appearances
+(the light edition keeps the stored key `paper`).
 Upright EB Garamond and Source Sans 3 give the text a book-like rhythm.
 Education and industry sit side by side.
 Education's **More** control smoothly expands the earlier Michigan and Penn State

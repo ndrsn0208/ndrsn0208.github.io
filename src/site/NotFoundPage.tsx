@@ -13,11 +13,9 @@ function NotFoundContent() {
   })
   return <main id="site-main" className="site-container">
     <header className="site-page-intro">
-      <p className="site-kicker">404</p>
-      <h1>This page has moved.</h1>
-      <p>You can find the research, papers, and writing from the homepage.</p>
+      <h1>This page is not here.</h1>
+      <p className="site-inline"><Link to={href('/')}>Back to the overview</Link></p>
     </header>
-    <Link to={href('/')} className="site-text-link" style={{ marginTop: 28 }}>Back to the overview</Link>
   </main>
 }
 

@@ -17,13 +17,20 @@ The source recording is preserved without changing labels or experiment frames.
 - `cw10-hammer-manifest.json`: source checksum, frame count, dimensions,
   duration, poster frame, and asset sizes.
 
-## Paper canvas
+## Paper canvas (retired)
+
+Since 2026-11-11 the light appearance is pure white `#ffffff`, and it plays the
+original white-canvas recording listed above. `src/blog/diffusion/media.ts`
+points the `paper` edition at `cw10-hammer.mp4`, `cw10-hammer.gif`, and
+`cw10-hammer-poster.png`.
 
 `cw10-hammer-paper.mp4`, `cw10-hammer-paper.gif`, and
-`cw10-hammer-paper-poster.png` are presentation copies for the Paper theme.
-The canvas matches the page's `#f5f1e8`. Near-white pixels in the margins are
+`cw10-hammer-paper-poster.png` are the earlier presentation copies for the
+former cream Paper theme. No page references them any more. They stay in place
+only so that older direct links keep resolving.
+Their canvas is the former page color `#f5f1e8`. Near-white pixels in the margins are
 normalized to that color, including the rounded timeline's outer corners.
-Text antialiasing is composited against the Paper matte.
+Text antialiasing is composited against that matte.
 
 The eight robot views, nine task thumbnails, and blue method label retain their
 source pixels before ordinary delivery encoding. The GIF uses a fixed palette

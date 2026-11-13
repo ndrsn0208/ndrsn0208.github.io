@@ -12,7 +12,7 @@
   max-height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 24px);
   max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 24px);
   margin-inline: auto;
-  color: var(--site-ink, #242923);
+  color: var(--site-ink, #1d1d1f);
   font: 400 15px/1.35 var(--site-sans, "Source Sans 3", system-ui, sans-serif);
   font-style: normal;
   letter-spacing: normal;
@@ -26,16 +26,16 @@
 .adapt-ui, .adapt-ui *, .adapt-ui *::before, .adapt-ui *::after { box-sizing: border-box; }
 .adapt-ui :is(button, input, select) { font: inherit; letter-spacing: inherit; }
 .adapt-ui :is(button, input, select):focus-visible {
-  outline: 2px solid var(--site-accent, #3c5c45);
+  outline: 2px solid var(--site-accent, #0071e3);
   outline-offset: 2px;
 }
 
 .adapt-ui .adapt-tray,
 .adapt-ui .adapt-dock {
   min-width: 0;
-  border: 1px solid var(--site-rule, #cfcec1);
+  border: 1px solid var(--site-rule, #d2d2d7);
   border-radius: 12px;
-  background: var(--site-paper, #f5f1e8);
+  background: var(--site-paper, #ffffff);
   box-shadow: 0 3px 14px rgb(0 0 0 / 12%);
   pointer-events: auto;
 }
@@ -50,7 +50,7 @@
   overscroll-behavior: contain;
   scroll-padding: 8px;
   scrollbar-width: thin;
-  scrollbar-color: var(--site-body, #484d46) transparent;
+  scrollbar-color: var(--site-body, #48484c) transparent;
 }
 
 .adapt-ui .adapt-dock { flex: 0 0 auto; padding: 5px; }
@@ -66,7 +66,7 @@
   border: 1px solid transparent;
   border-radius: 7px;
   background: transparent;
-  color: var(--site-ink, #242923);
+  color: var(--site-ink, #1d1d1f);
   font-weight: 500;
   line-height: 1.2;
   text-align: center;
@@ -77,13 +77,13 @@
 }
 
 .adapt-ui .adapt-button[aria-pressed="true"] {
-  border-color: var(--site-ink, #242923);
-  background: var(--site-ink, #242923);
-  color: var(--site-paper, #f5f1e8);
+  border-color: var(--site-ink, #1d1d1f);
+  background: var(--site-ink, #1d1d1f);
+  color: var(--site-paper, #ffffff);
 }
 
 .adapt-ui .adapt-button[aria-disabled="true"] {
-  color: var(--site-body, #484d46);
+  color: var(--site-body, #48484c);
   font-weight: 400;
   cursor: default;
   opacity: .55;
@@ -91,7 +91,7 @@
 
 @media (hover: hover) {
   .adapt-ui .adapt-button:not([aria-pressed="true"]):not([aria-disabled="true"]):hover,
-  .adapt-ui .adapt-swatch:hover { background: var(--site-surface, #edeae0); }
+  .adapt-ui .adapt-swatch:hover { background: var(--site-surface, #f5f5f7); }
 }
 
 .adapt-ui .adapt-tools {
@@ -100,7 +100,7 @@
   gap: 3px;
   margin-bottom: 5px;
   padding-bottom: 5px;
-  border-bottom: 1px solid var(--site-rule, #cfcec1);
+  border-bottom: 1px solid var(--site-rule, #d2d2d7);
 }
 
 .adapt-ui .adapt-utilities {
@@ -128,11 +128,11 @@
 .adapt-ui .adapt-exit { margin-left: 4px; }
 .adapt-ui .adapt-save-status {
   padding-inline: 6px;
-  color: var(--site-body, #484d46);
+  color: var(--site-body, #48484c);
   white-space: nowrap;
 }
 .adapt-ui .adapt-save-status[data-save-status="memory"] {
-  color: var(--site-ink, #242923);
+  color: var(--site-ink, #1d1d1f);
   font-weight: 600;
 }
 
@@ -147,7 +147,7 @@
 .adapt-ui .adapt-choices .adapt-button { padding-inline: 14px; }
 .adapt-ui .adapt-instruction {
   margin: 4px 0 0;
-  color: var(--site-body, #484d46);
+  color: var(--site-body, #48484c);
   font-size: 15px;
   line-height: 1.4;
 }
@@ -174,13 +174,13 @@
   cursor: pointer;
   touch-action: manipulation;
 }
-.adapt-ui .adapt-swatch[aria-pressed="true"] { border-color: var(--site-ink, #242923); }
+.adapt-ui .adapt-swatch[aria-pressed="true"] { border-color: var(--site-ink, #1d1d1f); }
 .adapt-ui .adapt-swatch-color {
   display: grid;
   place-items: center;
   width: 25px;
   height: 25px;
-  border: 1px solid var(--site-body, #484d46);
+  border: 1px solid var(--site-body, #48484c);
   border-radius: 50%;
   forced-color-adjust: none;
 }
@@ -193,7 +193,7 @@
   gap: 8px;
 }
 .adapt-ui .adapt-range-heading span {
-  color: var(--site-body, #484d46);
+  color: var(--site-body, #48484c);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
@@ -207,7 +207,7 @@
   border: 0;
   border-radius: 4px;
   background: transparent;
-  accent-color: var(--site-accent, #3c5c45);
+  accent-color: var(--site-accent, #0071e3);
   appearance: none;
   cursor: ew-resize;
   touch-action: pan-y;
@@ -215,29 +215,29 @@
 .adapt-ui input[type="range"]::-webkit-slider-runnable-track {
   height: 4px;
   border-radius: 2px;
-  background: var(--site-body, #484d46);
+  background: var(--site-body, #48484c);
 }
 .adapt-ui input[type="range"]::-moz-range-track {
   height: 4px;
   border-radius: 2px;
-  background: var(--site-body, #484d46);
+  background: var(--site-body, #48484c);
 }
 .adapt-ui input[type="range"]::-webkit-slider-thumb {
   width: 20px;
   height: 20px;
   margin-top: -8px;
-  border: 2px solid var(--site-ink, #242923);
+  border: 2px solid var(--site-ink, #1d1d1f);
   border-radius: 50%;
-  background: var(--site-paper, #f5f1e8);
+  background: var(--site-paper, #ffffff);
   appearance: none;
 }
 .adapt-ui input[type="range"]::-moz-range-thumb {
   box-sizing: border-box;
   width: 20px;
   height: 20px;
-  border: 2px solid var(--site-ink, #242923);
+  border: 2px solid var(--site-ink, #1d1d1f);
   border-radius: 50%;
-  background: var(--site-paper, #f5f1e8);
+  background: var(--site-paper, #ffffff);
 }
 
 .adapt-ui .adapt-selection-summary {
@@ -252,7 +252,7 @@
   min-width: 0;
   margin: 0;
   overflow: hidden;
-  color: var(--site-ink, #242923);
+  color: var(--site-ink, #1d1d1f);
   font: 400 19px/1.25 var(--site-serif, "Newsreader", Georgia, serif);
   font-style: normal;
   text-overflow: ellipsis;
@@ -267,13 +267,13 @@
   min-height: 44px;
   margin: 0;
   padding: 6px 8px;
-  border: 1px solid var(--site-body, #484d46);
+  border: 1px solid var(--site-body, #48484c);
   border-radius: 6px;
-  background: var(--site-surface, #edeae0);
-  color: var(--site-ink, #242923);
+  background: var(--site-surface, #f5f5f7);
+  color: var(--site-ink, #1d1d1f);
   font-size: 16px;
 }
-.adapt-ui .adapt-italic { flex: 0 0 auto; border-color: var(--site-body, #484d46); }
+.adapt-ui .adapt-italic { flex: 0 0 auto; border-color: var(--site-body, #48484c); }
 .adapt-ui .adapt-edit-ranges {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

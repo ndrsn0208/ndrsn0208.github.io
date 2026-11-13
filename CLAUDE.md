@@ -22,54 +22,58 @@ obvious from the code alone.
 - **Markdown / math:** `react-markdown` + `remark-math` + `rehype-katex` +
   `katex` for paper detail rendering.
 
-## Approved homepage
+## The live site
 
-The approved homepage at `/` is **Book + Chapters**, built on Lens. Keep its
-centered introduction and left-aligned text, parallel education/industry records,
-and upright EB Garamond/Source Sans 3 typography. The photographer phrase uses
-upright Newsreader with a subtle difference in weight. Black is exactly
-`#000000`; Paper is `#f5f1e8`. The current direction is minimal and humanist:
-flat surfaces, serif reading copy, an ink drawing, and text navigation with a
-moving underline. Lens has no glass blur, highlights, gradients, or raised controls.
+The live site was redesigned from the ground up on 2026-11-11 at the owner's
+request: minimal, conceptual, forward-looking, and clean, with one visual
+language and logical interaction on every page. **`SITE_REDESIGN.md` is the
+contract. Read it before changing anything under `src/site/` or `src/blog/`.**
 
-On desktop (1024px and above), selecting any of the three destinations moves
-the introduction to the left with a Motion layout animation and reveals an
-independently scrolling right pane. The introduction's width stays constant.
-About is an inline reading pane; CV previews the real PDF. Keep each
-pane mounted to preserve reading position and paper state. Close/Escape returns
-to the centered introduction and restores focus. Destination hashes support
-browser history; appearance changes must preserve the hash.
-`SplitPane.tsx` and `split-layout.css` define the desktop composition.
-`BackgroundInfo.tsx` adds a reversible, animated **More / Less** disclosure inside
-the Education record. Both earlier degrees, Michigan and Penn State, stay stacked
-in that column beneath the PhD; never place either beneath Industry experience.
-The industry record stays aligned to the top of its own column. `InfoCopy.tsx`
-renders the short biography, broad research focus, academic service, and personal
-note from `config.json`; `profile-content.css` supplies their shared reading styles.
+In short: one concept, "one space, one path". The paper is pure white
+`#ffffff` and the ink is pure black `#000000`, with one gray for secondary text
+`#666666`, hairlines `#e5e5e5`, and one blue `#0071e3`. Blue means position or
+path and nothing else: the point before the current navigation item, the active
+filter, the chapter being read, an open record, a link about to be taken, and the
+model in the homepage drawing. Orange and other data colors appear only inside
+scientific figures. The black appearance inverts the same tokens. The stored
+edition key is still `paper`. `src/site/site.css` owns the tokens.
 
-`HomeContacts.tsx` places the email, Scholar, LinkedIn, and GitHub links directly
-beneath the name. Lens has no separate Contact destination; older `#contact`
-links focus these homepage details. The overview keeps the introduction at its
-original measure, followed by page-width News and Selected Publications.
-`HomeNews.tsx` renders a longer, bounded news list with keyboard access and smooth
-arrow controls. `HomeSelectedPublications.tsx` reads `featuredPaperIds` in the
-configured order: SCoL, Trust Region, compositional diffusion, rank-1 Fisher, Babysit.
-`home-overview.css` owns the shared width and responsive layout. The overview
-and news keep their scroll positions across panel and appearance changes.
-Opening a desktop destination hides the feed and moves the same introduction
-left. On mobile, the whole overview gives way to the active chapter.
-Edit `src/data/news.json` for dated announcements and links. Do not add news for
-arXiv-only preprint uploads. Blog announcements use the same data format.
-The implemented research blog is documented in `BLOG.md`.
-The second illustrated article at `/blog/continual-learning-diffusion-models/`
-joins the ICLR 2026 rank-1 Fisher and NeurIPS 2026 trust-region papers. Its sources
-and interactive figures live under `src/blog/diffusion/`. The title is
-“Continual Learning Diffusion Models”. The author-supplied CW10 hammer recording
-is the hero and index preview, configured in `media.ts`. Low-resolution generated
-image samples are retired. Link cards use a static robot poster; the GIF or MP4
-can be attached natively to social posts for animation.
-`home-updates.css` keeps the first news items visible on shorter displays by
-reducing decorative space while preserving the Book type sizes.
+One typeface, self-hosted **Geist**, in four sizes: Display, Title, Text, and
+Note. Nothing is set below 15px. There is no serif, no monospace for labels
+(BibTeX is the one exception), no all-caps label, and no decorative arrow.
+
+The homepage opens with the name, very large, and the research question under
+it, both over `src/site/Landscape.tsx`, a hairline loss surface drawn on a
+canvas. The pointer moves a new task and the model follows it without leaving a
+trust region. The owner's two corrections to the first version are binding: a
+visitor must see at first glance whose page it is, so the name is never reduced
+to the header alone, and the drawing carries no caption, hint, or disclaimer.
+Below the drawing are one statement, the current positions, News (from
+`src/data/news.json`, which the owner wants on the homepage), five selected
+papers, and the two essays. Do not add small explanatory text anywhere on the
+site's own pages.
+
+Navigation is the name (home) and four words: Papers, Writing, About, CV. The
+appearance switch stays in the header, in reach from any reading position.
+Every list is rows between hairlines. A
+title opens its target, and a plus opens details in place. Nothing appears only
+on hover.
+
+Do not reintroduce cream, warm off-white, serif reading text, per-row link
+clusters, always-visible share links, reading times, or update dates. The archived studies at
+`/still`, `/typography`, `/mobile`, and `/designs` keep their original look and
+are not part of the live site.
+
+`/blog/continual-learning-diffusion-models/` joins the ICLR 2026 rank-1 Fisher
+and NeurIPS 2026 trust-region papers, and `/blog/self-consolidating-language-models/`
+is the SCoL essay. Both are laid out by one system in `src/blog/essay/`: a name
+and a headline, an opening figure, a short summary, and sections whose headings
+state what they show. Every figure sits in the same frame, and each essay has
+one drawing that all its figures share. Read `BLOG.md` before changing an essay
+or a figure. It holds the writing rules and a term table per essay: write as the
+papers do, one term per concept, no slogans, no defensive writing.
+Run `npm run blog:figure-cards` after a figure or a title changes.
+Edit `src/data/config.json` for biography, education, and service.
 
 ## Local blog manuscript
 
@@ -103,7 +107,10 @@ only. An early Google-class trial was replaced with the original Essay layout.
 The paper's scientific text and all results remain unchanged during layout
 selection; expansion and blog writing follow the user's choice.
 
-## Homepage layouts
+## Archived homepage studies
+
+The rest of this section describes the archived studies and their routes, not
+the live homepage.
 
 Phones use **Chapters**: a centered cover and three full-height reading panes,
 with a persistent three-option navigation at the bottom. Publications, About,
@@ -143,7 +150,7 @@ the 18-entry Full Publication List is last. The website PDF is now synchronized
 with the reviewed September CV. Update factual content only from confirmed
 changes. See `cv/README.md`.
 
-The styling notes below describe the legacy detail routes, not the approved Book homepage.
+The styling notes below describe the legacy detail routes, not the live site.
 
 ## Legacy site appearance
 
@@ -161,6 +168,9 @@ Mono-heavy typography (`JetBrains Mono` for labels), Geist for display,
 Inter for body.
 
 ## Things to avoid (from the build spec — do not drift)
+
+This list was written for the legacy Liquid Glass routes. It does not apply to
+the live site, whose palette and type are fixed in `SITE_REDESIGN.md`.
 
 1. Pure gray-on-white minimalism with no personality.
 2. Default Tailwind blue anywhere.

@@ -1,21 +1,12 @@
-/** Author-supplied CW10 recording. The video preserves the GIF's 151 frames and timing. */
-export const diffusionRobot = {
+/** The author's recording of four diffusion policies on the first Continual World task.
+    One video holds eight views: four policies across, just after the task and after all ten.
+    The page and the static build both read this, so it has no imports. */
+export const recording = {
   src: '/blog-assets/diffusion/cw10-hammer.mp4',
-  gif: '/blog-assets/diffusion/cw10-hammer.gif',
-  poster: '/blog-assets/diffusion/cw10-hammer-poster.png',
-  paper: {
-    src: '/blog-assets/diffusion/cw10-hammer-paper.mp4?v=paper1',
-    gif: '/blog-assets/diffusion/cw10-hammer-paper.gif?v=paper1',
-    poster: '/blog-assets/diffusion/cw10-hammer-paper-poster.png?v=paper1',
-  },
-  black: {
-    src: '/blog-assets/diffusion/cw10-hammer-black.mp4?v=black1',
-    gif: '/blog-assets/diffusion/cw10-hammer.gif',
-    poster: '/blog-assets/diffusion/cw10-hammer-black-poster.png?v=black1',
-  },
+  still: '/blog-assets/diffusion/cw10-hammer-poster.png',
+  seconds: 7.55,
   width: 1200,
   height: 756,
-  durationSeconds: 7.55,
-  alt: 'Four diffusion policies perform the CW10 hammer task. The top row shows each policy just after learning task 1. The bottom row shows the same task after learning all ten tasks, comparing Trust Region, Replay, EWC, and Fine-tuning.',
-  caption: 'CW10 task 1, hammer, before and after learning nine more tasks.',
+  name: 'The first Continual World task, before and after nine more',
+  description: 'Four diffusion policies perform the hammer task just after learning it and again after learning all ten tasks. Trust Region still succeeds. Replay, EWC, and fine-tuning fail.',
 } as const

@@ -127,7 +127,7 @@ function paletteFor(color: string): Palette {
   ).join(', ')
   return {
     ink: `rgb(${rgb.join(', ')})`,
-    light: `rgb(${mix([255, 248, 232], 0.68)})`,
+    light: `rgb(${mix([255, 255, 255], 0.68)})`,
     dark: `rgb(${mix([18, 24, 32], 0.65)})`,
   }
 }
@@ -351,7 +351,7 @@ function paintCursor(ctx: CanvasRenderingContext2D, cursor: EffectsCursor, scene
   ctx.strokeStyle = 'rgba(20, 25, 32, 0.65)'
   ctx.lineWidth = 3
   ctx.stroke()
-  ctx.strokeStyle = 'rgba(255, 249, 237, 0.95)'
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)'
   ctx.lineWidth = 1
   ctx.stroke()
   ctx.restore()

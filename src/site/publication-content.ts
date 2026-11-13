@@ -7,10 +7,10 @@ const diffusionArticle = '/blog/continual-learning-diffusion-models/'
 
 // These short introductions describe the authored homepage selection.
 const contributions: Record<string, string> = {
-  '2605.07076': 'Learns where to update a language model as new context arrives.',
-  '2602.02417': 'Connects replay and Fisher trust regions to a local form of meta-learning.',
+  '2605.07076': 'Trains a language model to select which of its own layers to update when it consolidates a new context into its weights.',
+  '2602.02417': 'Shows that generative replay with a Fisher-metric trust region takes the form of one-step MAML under local approximations.',
   '2605.07078': 'Discovers and combines concepts in a pretrained diffusion model at test time.',
-  '2509.23593': 'Uses a compact Fisher approximation with replay to reduce forgetting in diffusion models.',
+  '2509.23593': 'Shows that diffusion models admit an approximately rank-1 Fisher and uses it in EWC with generative replay to reduce catastrophic forgetting.',
   '2405.13828': 'Studies interactive language learning through trials and demonstrations.',
 }
 

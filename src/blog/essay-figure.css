@@ -1,0 +1,22 @@
+/* An essay as a row: its picture, its title, its date. The whole row opens it. */
+.essay-row { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 5fr) 9.5rem; align-items: start; gap: 16px clamp(24px, 4vw, 64px); padding-block: clamp(24px, 3vw, 44px); }
+.essay-row-copy :is(h2, h3) { transition: color 160ms ease; }
+.essay-row:hover .essay-row-copy :is(h2, h3) { color: var(--site-accent); }
+.essay-row-deck { max-width: 24rem; margin-top: 10px; color: var(--site-muted); text-wrap: pretty; }
+.essay-row .site-row-meta { padding-top: .5em; text-align: right; }
+
+/* The picture: the essay's own drawing on a plate inside a hairline frame. */
+.essay-figure {
+  --essay-quiet: color-mix(in srgb, var(--site-ink) 46%, var(--site-paper));
+  --essay-track: color-mix(in srgb, var(--site-ink) 24%, var(--site-paper));
+  display: grid; place-items: center; aspect-ratio: 16 / 9; overflow: hidden; border: 1px solid var(--site-rule); background: var(--site-paper);
+}
+.essay-figure .terrain { width: 100%; height: 100%; aspect-ratio: auto; }
+.essay-figure-layers { display: grid; gap: clamp(8px, 1.4vw, 16px); width: 86%; }
+.essay-figure-layers .layers { gap: clamp(2px, .35vw, 4px); }
+.essay-figure-layers .layers span { height: auto; aspect-ratio: 1 / 2.3; }
+
+@media (max-width: 760px) {
+  .essay-row { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .essay-row .site-row-meta { padding-top: 0; text-align: left; }
+}

@@ -40,10 +40,10 @@ const FONTS: { value: AdaptFont; label: string }[] = [
 ]
 
 const PALETTE = [
-  { name: 'Ink', value: '#242923', mark: '#ffffff' },
-  { name: 'Paper', value: '#f5f1e8', mark: '#242923' },
+  { name: 'Ink', value: '#1d1d1f', mark: '#ffffff' },
+  { name: 'Paper', value: '#ffffff', mark: '#1d1d1f' },
   { name: 'Clay', value: '#ad4938', mark: '#ffffff' },
-  { name: 'Ochre', value: '#b68a32', mark: '#242923' },
+  { name: 'Ochre', value: '#b68a32', mark: '#1d1d1f' },
   { name: 'Moss', value: '#52735a', mark: '#ffffff' },
   { name: 'Violet', value: '#8261c2', mark: '#ffffff' },
 ]

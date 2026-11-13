@@ -23,7 +23,7 @@ export default function ArticleOutline({ items }: { items: readonly ArticleChapt
         if ((document.getElementById(item.id)?.getBoundingClientRect().top ?? Infinity) <= threshold) next = item.id
       }
       setActive(previous => previous === next ? previous : next)
-      const reading = document.querySelector('.article-reading-content')?.getBoundingClientRect()
+      const reading = document.querySelector('[data-essay-flow]')?.getBoundingClientRect()
       if (reading) {
         const distance = Math.max(1, reading.height - window.innerHeight + threshold)
         setProgress(Math.round(Math.max(0, Math.min(1, (threshold - reading.top) / distance)) * 100))
@@ -33,7 +33,7 @@ export default function ArticleOutline({ items }: { items: readonly ArticleChapt
     window.addEventListener('scroll', schedule, { passive: true })
     window.addEventListener('resize', schedule)
     const observer = new ResizeObserver(schedule)
-    const reading = document.querySelector('.article-reading-content')
+    const reading = document.querySelector('[data-essay-flow]')
     if (reading) observer.observe(reading)
     update()
     return () => {

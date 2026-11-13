@@ -1,19 +1,10 @@
-import { Link } from 'react-router-dom'
 import { useBlogMetadata } from '../blog/BlogLayout'
 import config from '../data/config.json'
 import publicationData from '../data/publications.json'
-import SiteFrame, { useSiteTheme } from './SiteFrame'
+import SiteFrame from './SiteFrame'
 import './about.css'
 
 export const PHOTOGRAPHY_ANCHOR = 'photography'
-
-const sections = [
-  { id: 'research-vision', label: 'Research vision' },
-  { id: 'education', label: 'Education' },
-  { id: 'industry', label: 'Industry experience' },
-  { id: 'academic-service', label: 'Academic service' },
-  { id: PHOTOGRAPHY_ANCHOR, label: 'Photography' },
-]
 
 const recognizedPaper = publicationData.publications.find(
   paper => paper.id === 'diffusion-models-concept-formation-2026',
@@ -25,139 +16,116 @@ function ApprovedBio() {
 
   return <>
     {config.bio.slice(0, advisorPosition)}
-    <a className="about-advisor-link" href={config.advisorUrl} target="_blank" rel="noopener noreferrer">
-      {config.advisor}
-    </a>
+    <a href={config.advisorUrl} target="_blank" rel="noopener noreferrer">{config.advisor}</a>
     {config.bio.slice(advisorPosition + config.advisor.length)}
   </>
 }
 
 function AboutContent() {
-  const { href } = useSiteTheme()
-
   return (
-    <main id="site-main" className="site-container site-page-enter about-page" tabIndex={-1}>
-      <header className="site-page-intro about-intro">
-        <div className="about-intro-copy">
-          <h1>{config.name}</h1>
-          <p className="about-intro-bio"><ApprovedBio /></p>
-        </div>
-        <nav className="about-index" aria-label="On this page">
-          <ul>
-            {sections.map(section => (
-              <li key={section.id}><a href={`#${section.id}`}>{section.label}</a></li>
-            ))}
-          </ul>
-          <Link className="site-text-link" to={href('/cv')}>View CV</Link>
-        </nav>
+    <main id="site-main" className="site-container about-page" tabIndex={-1}>
+      <header className="about-lead">
+        <h1 className="site-hidden">About {config.name}</h1>
+        <p className="about-bio site-inline"><ApprovedBio /></p>
       </header>
 
-      <section id="research-vision" className="about-section about-research" aria-labelledby="about-research-heading">
-        <div className="about-section-content">
-          <h2 id="about-research-heading" className="about-research-question">{config.researchQuestion}</h2>
-          <div className="site-prose">
-            {config.researchVision.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
-          </div>
-          <div className="about-research-links">
-            <Link className="site-text-link" to={href('/publications')}>Explore the research</Link>
-            <Link className="site-text-link" to={href('/blog/')}>Read the blog</Link>
-          </div>
-          {recognizedPaper?.award && (
-            <p className="about-research-note">
-              Our paper{' '}
-              <a href={recognizedPaper.arxivUrl} target="_blank" rel="noopener noreferrer">{recognizedPaper.title}</a>
-              {' '}received the {recognizedPaper.award.replace(/^🏆\s*/, '')} at {recognizedPaper.venue}.
-            </p>
-          )}
-        </div>
+      <section id="research-vision" className="site-prose about-vision" aria-label="Research vision">
+        {config.researchVision.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
       </section>
 
-      <section id="education" className="about-section" aria-labelledby="about-education-heading">
-        <div className="about-section-content">
-          <h2 id="about-education-heading">Education</h2>
-          <ol className="about-education-list">
-            <li className="about-education-entry">
-              <p className="about-entry-date">
-                {config.education.startYear}–{config.education.endYear}
-                {config.education.expected && <span>Expected completion</span>}
-              </p>
+      <dl className="about-record">
+        <div className="about-group" id="education">
+          <dt>Education</dt>
+          <dd>
+            <div className="about-entry">
               <div>
-                <h3>{config.affiliation}</h3>
-                <p>{config.education.degree} in {config.education.field}</p>
-                <p className="about-advisor">
-                  Advised by{' '}
+                <p className="about-entry-title">{config.affiliation}</p>
+                <p className="about-entry-detail site-inline">
+                  {config.education.degree} in {config.education.field}, advised by{' '}
                   <a href={config.advisorUrl} target="_blank" rel="noopener noreferrer">{config.advisor}</a>
                 </p>
               </div>
-            </li>
-            {config.previousEducation.map(education => (
-              <li className="about-education-entry" key={education.institution}>
-                <p className="about-entry-date">{education.startYear}–{education.endYear}</p>
-                <div>
-                  <h3>{education.institution}</h3>
-                  <p>{education.degree} in {education.field}</p>
-                  {education.detail && <p className="about-entry-detail">{education.detail}</p>}
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section id="industry" className="about-section" aria-labelledby="about-industry-heading">
-        <div className="about-section-content">
-          <h2 id="about-industry-heading">Industry experience</h2>
-          {config.industryExperience.map(experience => (
-            <div className="about-industry-entry" key={`${experience.organization}-${experience.role}`}>
-              <div className="about-industry-heading">
-                <div>
-                  <h3>{experience.organization}</h3>
-                  <p>{experience.role} <span aria-hidden="true">·</span> {experience.location}</p>
-                </div>
-                <p className="about-entry-date">{experience.dates}</p>
-              </div>
-              {experience.organization === 'Amazon' && (
-                <p className="about-industry-description">
-                  I work on deployment-time agent adaptation and self-improving harnesses.
-                  This includes developing methods for an agent to adapt to an unfamiliar
-                  task through a single update to its harness.
-                </p>
-              )}
+              <p className="site-row-meta">{config.education.startYear}–{config.education.endYear}{config.education.expected ? ', expected' : ''}</p>
             </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="academic-service" className="about-section" aria-labelledby="about-service-heading">
-        <div className="about-section-content">
-          <h2 id="about-service-heading">Academic service</h2>
-          <ul className="about-service-list">
-            {config.academicService.map(service => (
-              <li key={`${service.role}-${service.title}`}>
-                <p className="about-service-role">{service.role}</p>
+            {config.previousEducation.map(education => (
+              <div className="about-entry" key={education.institution}>
                 <div>
-                  <p className="about-service-title">
-                    {service.url
-                      ? <a href={service.url} target="_blank" rel="noopener noreferrer">{service.title}</a>
-                      : service.title}
+                  <p className="about-entry-title">{education.institution}</p>
+                  <p className="about-entry-detail">
+                    {education.degree} in {education.field}{education.detail ? `. ${education.detail}` : ''}
                   </p>
-                  {service.note && <p className="about-service-note">{service.note}</p>}
                 </div>
-              </li>
+                <p className="site-row-meta">{education.startYear}–{education.endYear}</p>
+              </div>
             ))}
-          </ul>
+          </dd>
         </div>
-      </section>
 
-      <section id={PHOTOGRAPHY_ANCHOR} className="about-section about-photography" aria-labelledby="about-photography-heading">
-        <div className="about-section-content">
-          <h2 id="about-photography-heading">Photography</h2>
-          <p className="site-prose">{config.personalNote}</p>
-          <a className="site-text-link" href={config.contacts.instagram} target="_blank" rel="noopener noreferrer">
-            Photography on Instagram
-          </a>
+        <div className="about-group" id="industry">
+          <dt>Experience</dt>
+          <dd>
+            {config.industryExperience.map(experience => (
+              <div className="about-entry" key={`${experience.organization}-${experience.role}`}>
+                <div>
+                  <p className="about-entry-title">{experience.organization}</p>
+                  <p className="about-entry-detail">
+                    {experience.role}, {experience.location}
+                    {experience.organization === 'Amazon' && '. Methods for an agent to adapt to an unfamiliar task through a single update to its harness.'}
+                  </p>
+                </div>
+                <p className="site-row-meta">{experience.dates}</p>
+              </div>
+            ))}
+          </dd>
         </div>
-      </section>
+
+        <div className="about-group" id="academic-service">
+          <dt>Service</dt>
+          <dd>
+            {config.academicService.map(service => (
+              <div className="about-entry" key={`${service.role}-${service.title}`}>
+                <div>
+                  <p className="about-entry-title site-inline">
+                    {service.url
+                      ? <a href={service.url} target="_blank" rel="noopener noreferrer">{service.title.replace(/\.$/, '')}</a>
+                      : service.title.replace(/\.$/, '')}
+                  </p>
+                  <p className="about-entry-detail">{[service.role, ...(service.note?.split(' · ') ?? [])].join(', ')}</p>
+                </div>
+              </div>
+            ))}
+          </dd>
+        </div>
+
+        {recognizedPaper?.award && <div className="about-group" id="recognition">
+          <dt>Recognition</dt>
+          <dd>
+            <div className="about-entry">
+              <div>
+                <p className="about-entry-title">{recognizedPaper.award.replace(/^🏆\s*/, '')}</p>
+                <p className="about-entry-detail site-inline">
+                  {recognizedPaper.venue}, for{' '}
+                  <a href={recognizedPaper.arxivUrl} target="_blank" rel="noopener noreferrer">{recognizedPaper.title}</a>
+                </p>
+              </div>
+            </div>
+          </dd>
+        </div>}
+
+        <div className="about-group" id={PHOTOGRAPHY_ANCHOR}>
+          <dt>Photography</dt>
+          <dd>
+            <div className="about-entry">
+              <div>
+                <p className="about-entry-title">{config.personalNote}</p>
+                <p className="about-entry-detail site-inline">
+                  <a href={config.contacts.instagram} target="_blank" rel="noopener noreferrer">Photographs on Instagram</a>
+                </p>
+              </div>
+            </div>
+          </dd>
+        </div>
+      </dl>
     </main>
   )
 }

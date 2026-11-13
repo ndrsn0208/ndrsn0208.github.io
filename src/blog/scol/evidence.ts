@@ -35,14 +35,22 @@ export const retentionResults: readonly RetentionResult[] = [
   },
   {
     id: 'seal-continual',
-    method: 'SEAL continual',
+    method: 'SEAL (continual)',
     acquisition: 13.70,
     retention: 1.30,
     note: 'Continual updates',
   },
   {
+    // inputs/appendix/app-fixed-layer-controls.tex, also quoted in inputs/04-exp-itc.tex
+    id: 'last-ten',
+    method: 'Fixed last 10 layers',
+    acquisition: 28.78,
+    retention: 20.10,
+    note: 'The same layers for every passage',
+  },
+  {
     id: 'scol-no-forgetting',
-    method: 'SCoL λ = 0',
+    method: 'SCoL (λ = 0)',
     acquisition: 34.30,
     retention: 14.64,
     note: 'Forgetting term off',

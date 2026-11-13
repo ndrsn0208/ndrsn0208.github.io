@@ -11,7 +11,7 @@ test('semantic identities reject React client, server, and stripped useId values
   ]) {
     assert.equal(semanticAdaptId(id), null, id)
   }
-  for (const id of ['home-name', 'publication-paper-2026', 'diff-heading-problem', 'site-main']) {
+  for (const id of ['home-name', 'publication-paper-2026', 'forgetting-heading', 'site-main']) {
     assert.equal(semanticAdaptId(id), id)
   }
 })

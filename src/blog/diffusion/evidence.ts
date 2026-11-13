@@ -189,7 +189,7 @@ export const diffusionBenchmarks: readonly DiffusionBenchmark[] = [
       },
       {
         id: 'diagonal-only',
-        method: 'Diagonal EWC only',
+        method: 'EWC (diagonal)',
         sourceLabel: 'Diag w/o GD',
         detail: 'Without generative distillation',
         role: 'baseline',
@@ -198,7 +198,7 @@ export const diffusionBenchmarks: readonly DiffusionBenchmark[] = [
       },
       {
         id: 'rank-one-only',
-        method: 'Rank-1 EWC only',
+        method: 'EWC (rank-1)',
         sourceLabel: 'Rank-1 w/o GD',
         detail: 'Without generative distillation',
         role: 'baseline',
@@ -207,7 +207,7 @@ export const diffusionBenchmarks: readonly DiffusionBenchmark[] = [
       },
       {
         id: 'gd',
-        method: 'Replay (GD)',
+        method: 'Replay',
         sourceLabel: 'GD',
         detail: 'GD alone',
         role: 'baseline',
@@ -216,7 +216,7 @@ export const diffusionBenchmarks: readonly DiffusionBenchmark[] = [
       },
       {
         id: 'diagonal-gd',
-        method: 'Diagonal EWC + replay',
+        method: 'Replay + EWC (diagonal)',
         sourceLabel: 'Diag',
         detail: 'Diagonal Fisher with distillation',
         role: 'baseline',
@@ -300,7 +300,7 @@ export const diffusionBenchmarks: readonly DiffusionBenchmark[] = [
     results: [
       {
         id: 'finetuning',
-        method: 'Fine-tuning',
+        method: 'Finetuning',
         sourceLabel: 'Finetuning',
         detail: 'Sequential updates',
         role: 'baseline',
@@ -309,7 +309,7 @@ export const diffusionBenchmarks: readonly DiffusionBenchmark[] = [
       },
       {
         id: 'ewc',
-        method: 'Rank-1 EWC only',
+        method: 'EWC (rank-1)',
         sourceLabel: 'EWC',
         detail: 'Rank-1 Fisher, without replay',
         role: 'baseline',
@@ -427,7 +427,7 @@ export const diffusionBenchmarks: readonly DiffusionBenchmark[] = [
     results: [
       {
         id: 'finetuning',
-        method: 'Fine-tuning',
+        method: 'Finetuning',
         sourceLabel: 'Finetuning',
         detail: 'Sequential updates',
         role: 'baseline',
@@ -436,7 +436,7 @@ export const diffusionBenchmarks: readonly DiffusionBenchmark[] = [
       },
       {
         id: 'ewc',
-        method: 'Rank-1 EWC only',
+        method: 'EWC (rank-1)',
         sourceLabel: 'EWC',
         detail: 'Rank-1 Fisher, without replay',
         role: 'baseline',

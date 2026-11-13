@@ -1,7 +1,5 @@
 import { createContext, useContext, useEffect, useLayoutEffect, type ReactNode } from 'react'
 import SiteFrame, { useSiteTheme } from '../site/SiteFrame'
-import './blog.css'
-import './article-layout.css'
 
 type Edition = 'black' | 'paper'
 const BlogTheme = createContext<Edition>('paper')
@@ -75,7 +73,7 @@ function BlogThemeAdapter({ children }: { children: ReactNode }) {
 
   return (
     <BlogTheme.Provider value={edition}>
-      <div className="scol-blog article-system" data-edition={edition}>{children}</div>
+      <div className="essay-system" data-edition={edition}>{children}</div>
     </BlogTheme.Provider>
   )
 }

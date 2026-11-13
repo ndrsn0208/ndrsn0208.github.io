@@ -1,6 +1,6 @@
 import { useId, useRef } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import { config, lastUpdated, publications } from '@/lib/publications'
+import { config, publications } from '@/lib/publications'
 import type { Publication } from '@/types'
 import { useBlogMetadata } from '@/blog/BlogLayout'
 import SiteFrame, { useSiteTheme } from './SiteFrame'
@@ -24,9 +24,7 @@ function PublicationsContent() {
     group.push(paper)
     groups.set(paper.year, group)
   }
-  const updated = new Date(lastUpdated)
-  const updatedLabel = Number.isNaN(updated.getTime()) ? null
-    : new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: 'numeric' }).format(updated)
+  const sharedCredit = filtered.some(paper => paper.equalContribution?.length)
 
   useBlogMetadata({
     title: `Publications · ${config.name}`,
@@ -52,66 +50,45 @@ function PublicationsContent() {
   }
 
   return (
-    <main id="site-main" className="publications-page site-container site-page-enter" tabIndex={-1}>
-      <header className="site-page-intro">
-        <h1>Publications</h1>
-        <p>Work on continual learning, adaptation, and reusable knowledge.</p>
+    <main id="site-main" className="papers-page site-container" tabIndex={-1}>
+      <header className="site-page-intro papers-intro">
+        <h1>Papers</h1>
+        <form className="papers-search" role="search" onSubmit={event => event.preventDefault()}>
+          <label className="site-hidden" htmlFor={`${id}-search`}>Search papers</label>
+          <input ref={searchField} id={`${id}-search`} type="search" autoComplete="off" value={query}
+            placeholder="Search" aria-controls="publication-results"
+            onChange={event => updateFilters({ q: event.target.value })} />
+        </form>
       </header>
 
-      <section className="publications-tools" aria-label="Filter publications">
-        <form className="publications-search" role="search" onSubmit={event => event.preventDefault()}>
-          <label htmlFor={`${id}-search`}>Search publications</label>
-          <div className="publications-search-field">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
-              <circle cx="10.5" cy="10.5" r="6.5" /><path d="m15.5 15.5 5 5" />
-            </svg>
-            <input ref={searchField} id={`${id}-search`} type="search" autoComplete="off" value={query}
-              placeholder="Title, author, venue, or idea" aria-controls="publication-results"
-              onChange={event => updateFilters({ q: event.target.value })} />
-            {query && <button type="button" aria-label="Clear search" onClick={() => {
-              updateFilters({ q: '' })
-              searchField.current?.focus({ preventScroll: true })
-            }}>Clear</button>}
-          </div>
-        </form>
-        <fieldset className="publications-topics" aria-labelledby={`${id}-topics-label`}>
-          <legend>
-            <span id={`${id}-topics-label`}>Research topics</span>
-            <button className="publications-topic-all" type="button" aria-pressed={!topic}
-              aria-controls="publication-results" onClick={() => updateFilters({ tag: '' }, false)}>All topics</button>
-          </legend>
-          <div className="publications-topic-options">
-            {config.researchInterests.map(tag => <button key={tag} type="button" aria-pressed={topic === tag}
-              aria-controls="publication-results" onClick={() => updateFilters({ tag: topic === tag ? '' : tag }, false)}>{tag}</button>)}
-          </div>
-        </fieldset>
+      <section className="papers-tools" aria-label="Filter papers">
+        <div className="papers-topics" role="group" aria-label="Research topics">
+          <button type="button" aria-pressed={!topic} aria-controls="publication-results" onClick={() => updateFilters({ tag: '' }, false)}>All</button>
+          {config.researchInterests.map(tag => <button key={tag} type="button" aria-pressed={topic === tag}
+            aria-controls="publication-results" onClick={() => updateFilters({ tag: topic === tag ? '' : tag }, false)}>{tag}</button>)}
+        </div>
       </section>
 
-      <div className="publications-result-heading">
-        <p role="status" aria-live="polite" aria-atomic="true">
-          <span>{filtered.length} {filtered.length === 1 ? 'publication' : 'publications'}</span>
-          {hasFilters && <> of {publications.length}</>}
-          {topic && <> in {topic}</>}
-        </p>
-        {hasFilters && filtered.length > 0 && <button type="button" onClick={clearFilters}>Clear filters</button>}
-      </div>
+      <p className={hasFilters ? 'site-note papers-count' : 'site-hidden'} role="status" aria-live="polite" aria-atomic="true">
+        {filtered.length} {hasFilters ? `of ${publications.length} ` : ''}{filtered.length === 1 && !hasFilters ? 'paper' : 'papers'}{topic ? ` in ${topic}` : ''}
+        {hasFilters && <button className="site-link" type="button" onClick={clearFilters}>Clear</button>}
+      </p>
 
-      <div id="publication-results" className="publications-record">
+      <div id="publication-results" className="papers-record">
         {[...groups].map(([year, papers]) => (
-          <section className="publications-year" key={year} aria-labelledby={`publication-year-${year}`}>
-            <h2 id={`publication-year-${year}`} className="publications-year-heading">{year}</h2>
-            <ol className="publications-year-list" role="list">
+          <section className="papers-year" key={year} aria-labelledby={`publication-year-${year}`}>
+            <h2 id={`publication-year-${year}`} className="site-row-title papers-year-heading">{year}</h2>
+            <ol className="site-list" role="list">
               {papers.map(paper => <li key={paper.id} id={`publication-${paper.id}`}><PublicationEntry paper={paper} /></li>)}
             </ol>
           </section>
         ))}
-        {filtered.length === 0 && <section className="publications-empty" aria-labelledby={`${id}-empty`}>
-          <h2 id={`${id}-empty`}>No publications found</h2>
-          <p>Try another title, author, or topic.</p>
-          {hasFilters && <button type="button" onClick={clearFilters}>Clear filters</button>}
+        {filtered.length === 0 && <section className="papers-empty" aria-labelledby={`${id}-empty`}>
+          <h2 id={`${id}-empty`} className="site-title">No papers match.</h2>
+          <button className="site-link" type="button" onClick={clearFilters}>Show all papers</button>
         </section>}
       </div>
-      {updatedLabel && <p className="publications-updated">Last updated <time dateTime={lastUpdated}>{updatedLabel}</time></p>}
+      {sharedCredit && <p className="site-note papers-footnote">* Equal contribution</p>}
     </main>
   )
 }

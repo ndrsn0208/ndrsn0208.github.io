@@ -17,7 +17,7 @@
     "cv:build": "python3 scripts/build_cv.py",
     "cv:publish": "python3 scripts/build_cv.py --publish",
     "blog:paper": "node scripts/sync-scol-paper.mjs",
-    "blog:figure-cards": "node scripts/render-diffusion-evidence-cards.mjs && node scripts/render-diffusion-concept-cards.mjs"
+    "blog:figure-cards": "node scripts/render-essay-cards.mjs"
   },
   "dependencies": {
     "fuse.js": "7.0.0",

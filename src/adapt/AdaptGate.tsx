@@ -29,6 +29,27 @@ export default function AdaptGate() {
   const [enabled, setEnabled] = useState(enabledHere)
   const pageKey = adaptationPageKey(pathname)
   const supported = !/^\/(still|typography|mobile|designs)(\/|$)/.test(pathname)
+  // The invitation is spelled out where a page begins and ends. While reading, only its mark remains.
+  const [reading, setReading] = useState(false)
+
+  useEffect(() => {
+    if (enabled || !supported) return
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const end = document.documentElement.scrollHeight - window.innerHeight
+      setReading(window.scrollY > 96 && window.scrollY < end - 96)
+    }
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update) }
+    update()
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+    }
+  }, [enabled, supported, pathname])
 
   useEffect(() => {
     const sync = (event: StorageEvent) => {
@@ -45,10 +66,10 @@ export default function AdaptGate() {
 
   if (!supported) return null
   if (!enabled) {
-    return <div className="adapt-launcher" data-adapt-ui>
+    return <div className="adapt-launcher" data-adapt-ui data-reading={reading || undefined}>
       <button type="button" onClick={() => changeEnabled(true)} aria-label="Continually adapt this website">
         <span className="adapt-launcher-mark" aria-hidden="true">a<span>′</span></span>
-        Adapt this website
+        <span className="adapt-launcher-label">Adapt this website</span>
       </button>
     </div>
   }

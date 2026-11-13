@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 
+/** One word, Share, opens the ways to share the article in place. */
 export default function ArticleShare({ title, subtitle, url }: {
   title: string
   subtitle: string
   url: string
 }) {
+  const [open, setOpen] = useState(false)
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'manual'>('idle')
   const timer = useRef<ReturnType<typeof setTimeout>>()
   const input = useRef<HTMLInputElement>(null)
@@ -36,19 +38,21 @@ export default function ArticleShare({ title, subtitle, url }: {
   }
 
   return (
-    <div className="scol-share" role="group" aria-label="Share this article">
-      <span className="scol-share-label">Share</span>
-      {links.map(link => (
-        <a key={link.name} href={link.href} target="_blank" rel="noopener noreferrer" aria-label={`Share on ${link.name}`}>
-          {link.name}
-        </a>
-      ))}
-      <button className="scol-share-copy" type="button" onClick={copyLink}>
-        {copyState === 'copied' ? 'Link copied' : 'Copy link'}
-      </button>
-      <span className="sr-only" role="status">{copyState === 'copied' ? 'Article link copied to clipboard.' : ''}</span>
-      {copyState === 'manual' && (
-        <label className="scol-share-fallback">
+    <div className="essay-share" role="group" aria-label="Share this article">
+      <button className="essay-share-toggle" type="button" aria-expanded={open} onClick={() => setOpen(value => !value)}>Share</button>
+      {open && <>
+        {links.map(link => (
+          <a key={link.name} href={link.href} target="_blank" rel="noopener noreferrer" aria-label={`Share on ${link.name}`}>
+            {link.name}
+          </a>
+        ))}
+        <button className="essay-share-copy" type="button" onClick={copyLink}>
+          {copyState === 'copied' ? 'Link copied' : 'Copy link'}
+        </button>
+      </>}
+      <span className="site-hidden" role="status">{copyState === 'copied' ? 'Article link copied to clipboard.' : ''}</span>
+      {open && copyState === 'manual' && (
+        <label className="essay-share-field">
           Select and copy this link
           <input ref={input} type="url" value={url} readOnly onFocus={event => event.currentTarget.select()} />
         </label>
