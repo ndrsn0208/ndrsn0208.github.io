@@ -70,7 +70,6 @@ function AboutContent() {
                   <p className="about-entry-title">{experience.organization}</p>
                   <p className="about-entry-detail">
                     {experience.role}, {experience.location}
-                    {experience.organization === 'Amazon' && '. Methods for an agent to adapt to an unfamiliar task through a single update to its harness.'}
                   </p>
                 </div>
                 <p className="site-row-meta">{experience.dates}</p>

@@ -66,9 +66,9 @@ The same rules hold on every page.
   understood, redesign it. Essay figures have no captions either: names sit on
   the drawing and conditions go behind the plus.
 - **Motion answers the visitor.** The only unprompted motion is the homepage
-  drawing, which draws itself once and then drifts slowly, and an essay's
-  opening figure, which plays once when it comes into view. Reduced motion
-  shows both still.
+  drawing, which draws itself once and then plays the research directions in
+  turn until the visitor chooses one, and an essay's opening figure, which
+  plays once when it comes into view. Reduced motion shows both still.
 
 ## Layout
 
@@ -87,7 +87,13 @@ The same rules hold on every page.
 ## Pages
 
 **Home** opens with the name, very large, and the research question under it
-in gray, both over `Landscape.tsx`. A visitor must see at first glance whose
+in gray, both over `Landscape.tsx`. The question is `config.researchQuestion`:
+"How can foundation models keep learning from a few samples and a few
+interactions?". The owner's correction of 2026-11-16 is binding wherever the
+research is described (home, About, the CV's Research Focus): it names
+foundation models, not AI agents, and it says few samples and few
+interactions. Under the question are the three research directions
+(`.home-directions`), and each is a scene of the drawing (see below). A visitor must see at first glance whose
 page this is, so the name is the largest thing on the site and is never
 reduced to the header alone. While that name is in view the header does not
 repeat it. The header's name appears once the large one has scrolled away
@@ -130,29 +136,65 @@ in `BLOG.md`: the papers' terms, one term per concept, no slogans, no
 defensive writing.
 
 **About** is the biography in large type, the research vision, and the record
-in rows: education, experience, service, recognition, photography.
+in rows: education, experience, service, recognition, photography. The internship is one
+line in each place ("I'm also a Research Intern at Amazon", and role and
+place in the record). The owner cut the description of the internship work on
+2026-11-16: it made the page read as agent-harness research.
 
 **CV** is the title, two actions, and the PDF. Phones get the two actions.
 All CV links carry the current PDF content hash.
 
 ## The homepage drawing
 
-`src/site/Landscape.tsx` draws a loss surface as evenly spaced ridges on a
-canvas. Nearer ridges hide what is behind them. A hollow ring is the earlier
-solution, the blue boundary is a trust region, the cross is a new task under
-the pointer, and the blue point is the model. Descent toward the task follows
-a straight line until the boundary and then slides along it. The dashed line
-is the part of the way the model does not take. With no pointer the task
-drifts on its own.
+`src/site/Landscape.tsx` draws a surface as evenly spaced ridges on a canvas.
+Nearer ridges hide what is behind them. The owner asked on 2026-11-16 for
+more animations that show the research directions, so the drawing has three
+scenes, one per direction, in `src/site/scenes.ts`. The marks mean the same in
+every scene: the blue point is the model and blue lines are its paths, a
+hollow ring is a place the model already knows, a cross is what is new, and a
+dashed line is what is not there or not taken. In every scene the pointer
+moves what is new.
 
-The drawing has no caption. The owner removed it on 2026-11-11 as small,
-defensive text: the hero is the question and the drawing, and the drawing
-explains itself when the pointer moves. Do not add a caption, a legend, a hint,
-or a disclaimer to it. Its accessible name still describes it as an
-illustration for people who cannot see it.
+- **Continual learning.** The ring is where the model stood after the old
+  tasks and the blue boundary is a trust region. Descent toward the new task
+  follows a straight line until the boundary and then slides along it. The
+  dashed line is the part of the way the model does not take.
+- **Test-time adaptation.** A new task appears. Three samples arrive, the
+  task's low-loss region forms on the surface, and the model reaches the task
+  in three steps. The next task gives no samples: the model takes three
+  steps of its own, and the name counts three interactions. This is the scene
+  for "a few samples and a few interactions" in the question.
+- **Compositional generalization.** The surface has a mode for every
+  combination seen in training, on a three-by-three grid. A row shares one
+  attribute value and a column the other. Three combinations are held out
+  (dashed circles, nothing there). From the held-out query the model ascends
+  to a prototype in its row and to one in its column and composes them: a
+  mode forms at the query. The pointer chooses the held-out combination.
+
+The directions are named under the question as three buttons
+(`.home-directions`, `aria-pressed`). The point marks the one on the drawing,
+as it marks the current page. The drawing moves to the next direction once a
+scene has shown what it shows (about ten seconds each) and stops doing so
+when the visitor chooses one. Pointing at the drawing holds the scene. When
+the direction changes, the surface turns into the next scene's surface while
+the marks of one scene leave and those of the other arrive.
+
+The directions row lies over the far edge of the surface, where the ridges
+are faintest, and takes no room from the drawing: `data-landscape-clear`
+stays on the name and the question alone. Beside the introduction the
+question's size follows its column so that it stays on two lines.
+
+The marks are named on the drawing in the papers' terms ("old tasks", "new
+task", "new task, 3 samples", "prototype", "held-out combination"), at 15px
+in the muted color. A name takes the side its mark has free. These names
+are the only words on the drawing. It has no caption: the owner removed one
+on 2026-11-11 as small, defensive text. Do not add a caption, a legend, a
+hint, or a disclaimer to it. Its accessible name describes the scene on it
+as an illustration for people who cannot see it.
 
 The drawing reads its colors from the tokens, pauses when it is off screen or
-the tab is hidden, and plays its opening once per visit.
+the tab is hidden, and plays its opening once per visit. With reduced motion
+it shows the finished state of the chosen scene and does not move on.
 
 ## Shared implementation contract
 

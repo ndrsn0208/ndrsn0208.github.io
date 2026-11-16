@@ -4,12 +4,12 @@
   "affiliation": "Georgia Institute of Technology",
   "advisor": "Christopher MacLellan",
   "advisorUrl": "https://chrismaclellan.com/",
-  "bio": "I'm a third-year PhD student in Computer Science at Georgia Tech, advised by Christopher MacLellan. I'm also a Research Intern at Amazon in Washington, working on deployment-time agent adaptation and self-improving harnesses.",
+  "bio": "I'm a third-year PhD student in Computer Science at Georgia Tech, advised by Christopher MacLellan. I'm also a Research Intern at Amazon.",
   "shortBio": "CS PhD student at Georgia Tech and Research Intern at Amazon.",
-  "researchStatement": "I study continual learning for deployment-time adaptation and generalization.",
-  "researchQuestion": "How can deployed AI keep adapting and generalize to what comes next?",
+  "researchStatement": "I study continual learning for deployment-time adaptation and generalization in foundation models.",
+  "researchQuestion": "How can foundation models keep learning from a few samples and a few interactions?",
   "researchVision": [
-    "I study continual learning for deployment-time adaptation and generalization in foundation models and AI agents. I investigate how these systems can learn from ongoing experience, adapt to unfamiliar tasks and environments, and improve over time while preserving prior knowledge and capabilities.",
+    "I study continual learning for deployment-time adaptation and generalization in foundation models. I investigate how these models can keep learning from a few samples and a few interactions, adapt to unfamiliar tasks and environments, and improve over time while preserving prior knowledge and capabilities.",
     "I'm inspired by how people, especially children, learn so much from so little. My broader goal is to understand how AI can build reusable knowledge from experience and combine familiar ideas to solve new problems."
   ],
   "academicService": [

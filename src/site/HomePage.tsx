@@ -1,9 +1,11 @@
+import { useState } from 'react'
 import { Link, Navigate, useLocation } from 'react-router-dom'
 import { config, featuredPublications } from '../lib/publications'
 import news from '../data/news.json'
 import { useBlogMetadata } from '../blog/BlogLayout'
 import SiteFrame, { useSiteTheme } from './SiteFrame'
 import Landscape from './Landscape'
+import { directions, type DirectionId } from './scenes'
 import { publicationResources } from './publication-content'
 import { essays } from './essays'
 import './home.css'
@@ -13,10 +15,13 @@ const month = new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric', t
 
 function HomeContent() {
   const { href } = useSiteTheme()
+  // The research direction on the drawing. The drawing moves through the directions on its own until the visitor chooses one.
+  const [direction, setDirection] = useState<DirectionId>(directions[0].id)
+  const [chosen, setChosen] = useState(false)
   // Who this is, what the research is about, and the research interests. Three short paragraphs and no more.
   const bio = <>
     <p className="site-inline">I’m a third-year PhD student in Computer Science at Georgia Tech, advised by <a href={config.advisorUrl} target="_blank" rel="noreferrer">{config.advisor}</a>, and a research intern at Amazon. Prior to that, I received my M.S. from the University of Michigan and my B.S. from Penn State.</p>
-    <p>I study continual learning for adaptation and generalization in foundation models and AI agents.</p>
+    <p>I study continual learning for adaptation and generalization in foundation models.</p>
     <p className="home-interests"><span>Research interests:</span> {config.researchInterests.join(', ')}.</p>
   </>
   useBlogMetadata({
@@ -29,14 +34,19 @@ function HomeContent() {
 
   return <main id="site-main" className="home-page">
     <section className="home-hero" id="introduction" aria-labelledby="home-name">
-      <Landscape />
+      <Landscape direction={direction} auto={!chosen} onAdvance={setDirection} />
       <div className="site-container home-hero-copy">
         {/* The drawing leaves room for the name and the question only, so the introduction never makes it smaller. */}
         <div className="home-lead" data-landscape-clear>
           <h1 id="home-name" className="home-name">{config.name}</h1>
-          <p id="home-question" className="home-question">How can models keep learning after deployment?</p>
+          <p id="home-question" className="home-question">{config.researchQuestion}</p>
         </div>
         <div className="home-bio" data-place="beside">{bio}</div>
+        {/* The research directions. Each is a scene of the drawing, and the point marks the one that is on it. */}
+        <div className="home-directions" role="group" aria-label="Research directions">
+          {directions.map(item => <button key={item.id} type="button" aria-pressed={item.id === direction} aria-controls="home-landscape"
+            onClick={() => { setDirection(item.id); setChosen(true) }}>{item.name}</button>)}
+        </div>
       </div>
     </section>
 

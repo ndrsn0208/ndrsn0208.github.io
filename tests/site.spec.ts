@@ -1,6 +1,7 @@
 import { expect, test, type Page } from '@playwright/test'
 
 const navigation = (page: Page) => page.getByRole('navigation', { name: 'Main navigation', exact: true })
+const directionNames = ['Continual learning', 'Test-time adaptation', 'Compositional generalization']
 const fits = async (page: Page) => expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize()!.width)
 
 test('the overview leads with the name over the landscape, then news, papers, and essays', async ({ page }) => {
@@ -11,7 +12,7 @@ test('the overview leads with the name over the landscape, then news, papers, an
   const name = page.getByRole('heading', { level: 1, name: 'Zekun Wang', exact: true })
   await expect(name).toBeVisible()
   expect(parseFloat(await name.evaluate(node => getComputedStyle(node).fontSize))).toBeGreaterThanOrEqual(56)
-  await expect(page.locator('#home-question')).toHaveText('How can models keep learning after deployment?')
+  await expect(page.locator('#home-question')).toHaveText('How can foundation models keep learning from a few samples and a few interactions?')
   // Beside the name: who this is, what the research is about, and the research interests.
   // Nothing else is written in the opening, and no caption, hint, or disclaimer sits with the drawing.
   await expect(page.locator('.home-hero p')).toHaveCount(4)
@@ -56,6 +57,42 @@ test('the overview leads with the name over the landscape, then news, papers, an
   await fits(page)
   await news.scrollIntoViewIfNeeded()
   await expect(headerName).toBeVisible()
+  expect(errors).toEqual([])
+})
+
+test('the drawing shows the three research directions, and the point marks the one on it', async ({ page }) => {
+  const errors: string[] = []
+  page.on('pageerror', error => errors.push(error.message))
+  await page.goto('/?edition=paper')
+  const directions = page.getByRole('group', { name: 'Research directions', exact: true }).getByRole('button')
+  await expect(directions).toHaveText(['Continual learning', 'Test-time adaptation', 'Compositional generalization'])
+  const field = page.locator('canvas.site-landscape')
+  const picture = () => field.evaluate((canvas: HTMLCanvasElement) => {
+    const pixels = canvas.getContext('2d')!.getImageData(0, 0, canvas.width, canvas.height).data
+    let blue = 0
+    let sum = 0
+    for (let index = 0; index < pixels.length; index += 4) {
+      if (pixels[index + 3] > 200 && pixels[index + 2] > 180 && pixels[index] < 70) { blue += 1; sum += index }
+    }
+    return { blue, sum }
+  })
+  // They lie over the far edge of the drawing and take no room from it.
+  const questionBottom = await page.locator('#home-question').evaluate(node => node.getBoundingClientRect().bottom)
+  const leadBottom = await page.locator('.home-lead').evaluate(node => node.getBoundingClientRect().bottom)
+  expect(leadBottom - questionBottom).toBeLessThan(2)
+  expect((await directions.first().boundingBox())!.y).toBeGreaterThanOrEqual(questionBottom)
+
+  let before = { blue: 0, sum: 0 }
+  for (const [index, words] of [[0, /trust region/], [1, /three samples or from three interactions/], [2, /held-out combination/]] as const) {
+    await directions.nth(index).click()
+    await expect(page.locator('.home-directions button[aria-pressed="true"]')).toHaveText(directionNames[index])
+    await expect(field).toHaveAttribute('aria-label', words)
+    // Each direction is its own scene: the model, in blue, is drawn somewhere else.
+    await expect.poll(async () => (await picture()).blue).toBeGreaterThan(60)
+    await expect.poll(async () => (await picture()).sum).not.toBe(before.sum)
+    before = await picture()
+  }
+  await fits(page)
   expect(errors).toEqual([])
 })
 

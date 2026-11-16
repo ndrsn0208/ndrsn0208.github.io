@@ -44,8 +44,13 @@ Note. Nothing is set below 15px. There is no serif, no monospace for labels
 
 The homepage opens with the name, very large, and the research question under
 it, both over `src/site/Landscape.tsx`, a hairline loss surface drawn on a
-canvas. The pointer moves a new task and the model follows it without leaving a
-trust region. The owner's two corrections to the first version are binding: a
+canvas. The drawing has three scenes, one per research direction (continual
+learning, test-time adaptation, compositional generalization, in
+`src/site/scenes.ts`), named under the question with the point on the current
+one. In each the pointer moves what is new and the blue point is the model. The
+question and every description of the research name foundation models, not AI
+agents, and say "a few samples and a few interactions" (the owner's correction
+of 2026-11-16). The owner's two corrections to the first version are binding: a
 visitor must see at first glance whose page it is, so the name is never reduced
 to the header alone, and the drawing carries no caption, hint, or disclaimer.
 Beside the name is a short introduction the owner asked for on 2026-11-13: a
