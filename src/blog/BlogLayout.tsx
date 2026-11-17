@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useLayoutEffect, type ReactNode } from 'react'
 import SiteFrame, { useSiteTheme } from '../site/SiteFrame'
+import { countPage } from '../lib/analytics'
 
 type Edition = 'black' | 'paper'
 const BlogTheme = createContext<Edition>('paper')
@@ -55,6 +56,8 @@ export function useBlogMetadata({
     canonical.rel = 'canonical'
     canonical.href = url
     if (!previousCanonical) document.head.append(canonical)
+    // Every page of the site passes through here once it has its title, so this is where it is counted.
+    countPage()
     return () => {
       document.title = oldTitle
       changes.forEach(restore => restore())

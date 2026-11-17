@@ -4,12 +4,17 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { spawn } from 'node:child_process'
 
-const tests = (await readdir('src/adapt')).filter(name => name.endsWith('.test.ts'))
-if (!tests.length) throw new Error('No adaptation tests found')
+// The adaptation playground's tests, and the tests of the small libraries beside it.
+const tests = []
+for (const folder of ['src/adapt', 'src/lib']) {
+  for (const name of await readdir(folder)) if (name.endsWith('.test.ts')) tests.push(`${folder}/${name}`)
+}
+if (!tests.length) throw new Error('No tests found')
 const output = await mkdtemp(join(tmpdir(), 'ndrsn-adaptation-'))
 try {
   await build({
-    entryPoints: tests.map(name => `src/adapt/${name}`),
+    entryPoints: tests,
+    outbase: 'src',
     bundle: true,
     platform: 'node',
     format: 'esm',
@@ -18,7 +23,7 @@ try {
     target: 'node20',
     logLevel: 'warning',
   })
-  const files = tests.map(name => join(output, name.replace(/\.ts$/, '.mjs')))
+  const files = tests.map(name => join(output, name.replace(/^src\//, '').replace(/\.ts$/, '.mjs')))
   const code = await new Promise((resolve, reject) => {
     const child = spawn(process.execPath, ['--test', ...files], { stdio: 'inherit' })
     child.on('error', reject)

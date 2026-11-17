@@ -231,6 +231,23 @@ Do not publish private `writing/` sources, local research evidence, screenshots,
 or test artifacts. The latest hosted PDFs and current CV must not be replaced
 with earlier versions.
 
+## Traffic
+
+The owner asked on 2026-11-17 for traffic counts, at no charge.
+`src/lib/analytics.ts` counts with GoatCounter (hosted, free for a personal
+site, no cookie, a script of about 3.5 KB). It counts every page once the page
+has its title (`useBlogMetadata` calls `countPage`), under its path without
+the query, and it counts the clicks that leave a page: a PDF (`pdf <file>`), a
+link to another site (`out <host><path>`), the email address (`email`), and a
+research direction chosen on the homepage (`direction <name>`, from
+`data-count`). A link to another page of the site is not a click. It is the
+next page.
+
+The account's code is `analytics.goatcounter` in `src/data/config.json`. With
+no code, nothing is loaded and nothing is sent. The script does not count
+localhost. The site shows no counter and no consent notice. A browser is left
+out of the counts by opening the site once with `#toggle-goatcounter`.
+
 ## Optional adaptation playground
 
 The normal website remains the default. `Adapt this website` opens a local

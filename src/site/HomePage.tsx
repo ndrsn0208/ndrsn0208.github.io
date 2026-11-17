@@ -45,7 +45,7 @@ function HomeContent() {
         {/* The research directions. Each is a scene of the drawing, and the point marks the one that is on it. */}
         <div className="home-directions" role="group" aria-label="Research directions">
           {directions.map(item => <button key={item.id} type="button" aria-pressed={item.id === direction} aria-controls="home-landscape"
-            onClick={() => { setDirection(item.id); setChosen(true) }}>{item.name}</button>)}
+            data-count={`direction ${item.name}`} onClick={() => { setDirection(item.id); setChosen(true) }}>{item.name}</button>)}
         </div>
       </div>
     </section>

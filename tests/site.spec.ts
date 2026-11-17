@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import { expect, test, type Page } from '@playwright/test'
 
 const navigation = (page: Page) => page.getByRole('navigation', { name: 'Main navigation', exact: true })
@@ -94,6 +95,45 @@ test('the drawing shows the three research directions, and the point marks the o
   }
   await fits(page)
   expect(errors).toEqual([])
+})
+
+test('pages and the clicks that leave them are counted, with no cookie', async ({ page }) => {
+  const code: string = JSON.parse(readFileSync('src/data/config.json', 'utf8')).analytics?.goatcounter ?? ''
+  // The counting script is replaced by one that keeps what it is asked to count, so nothing leaves the test.
+  const asked: string[] = []
+  await page.route(/gc\.zgo\.at|goatcounter\.com/, async route => {
+    asked.push(route.request().url())
+    await route.fulfill({ contentType: 'text/javascript', body: 'window.goatcounter.count = vars => (window.counted = window.counted || []).push(vars)' })
+  })
+  const counted = () => page.evaluate(() => (window as unknown as { counted?: unknown[] }).counted ?? [])
+  await page.goto('/?edition=paper')
+  await expect(page.getByRole('heading', { level: 1, name: 'Zekun Wang', exact: true })).toBeVisible()
+  const directions = page.locator('.home-directions button')
+  if (!code) {
+    // With no account set, nothing is loaded and nothing is sent.
+    await directions.nth(1).click()
+    await navigation(page).getByRole('link', { name: 'About', exact: true }).click()
+    await expect(page.locator('.about-bio')).toBeVisible()
+    expect(asked).toEqual([])
+    return
+  }
+  // The page, by its path without the appearance, and under its title.
+  await expect.poll(counted).toContainEqual({ path: '/', title: 'Zekun Wang · Research & writing' })
+  expect(asked).toEqual(['https://gc.zgo.at/count.js'])
+  expect(await page.locator('script[src="https://gc.zgo.at/count.js"]').getAttribute('data-goatcounter')).toBe(`https://${code}.goatcounter.com/count`)
+  // A research direction the visitor chooses.
+  await directions.nth(1).click()
+  await expect.poll(counted).toContainEqual({ path: 'direction Test-time adaptation', title: 'Test-time adaptation', event: true })
+  // A paper that is opened.
+  const paper = page.locator('#selected-publications li a').first()
+  const [opened] = await Promise.all([page.context().waitForEvent('page'), paper.click()])
+  await opened.close()
+  await expect.poll(async () => (await counted() as { path: string, event?: boolean }[]).filter(item => item.event && /^(pdf|out) /.test(item.path)).length).toBe(1)
+  // Another page of the site is a page, not a click, and is counted once.
+  await navigation(page).getByRole('link', { name: 'About', exact: true }).click()
+  await expect.poll(counted).toContainEqual({ path: '/about', title: 'About · Zekun Wang' })
+  expect((await counted() as { path: string }[]).filter(item => item.path === '/about')).toHaveLength(1)
+  expect(await page.context().cookies()).toEqual([])
 })
 
 test('the blue point marks the current page', async ({ page }) => {

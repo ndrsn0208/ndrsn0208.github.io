@@ -106,4 +106,6 @@ export interface SiteConfig {
   }
   googleScholarId?: string
   featuredPaperIds?: string[]
+  /** Traffic counting. `goatcounter` is the account's code at goatcounter.com. With no code, nothing is counted. */
+  analytics?: { goatcounter?: string }
 }
