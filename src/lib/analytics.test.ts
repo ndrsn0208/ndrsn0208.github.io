@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { clickName, pagePath } from './analytics'
+import { clickName, originName, pagePath } from './analytics'
 
 test('a page is counted under one path', () => {
   assert.equal(pagePath('/'), '/')
@@ -20,4 +20,15 @@ test('a click that leaves the page has a name, and a link to another page of the
   assert.equal(clickName('/about?edition=paper', here), null)
   assert.equal(clickName('#news', here), null)
   assert.equal(clickName('javascript:void(0)', here), null)
+})
+
+test('where a visit comes from is the owner of its network, then the place', () => {
+  assert.equal(originName({ organization: 'Amazon.com, Inc.', city: 'Boardman', region: 'Oregon', country: 'US' }), 'Amazon.com, Inc. · Boardman, Oregon, US')
+  // One service puts the network's number before its owner.
+  assert.equal(originName({ organization: 'AS2637 Georgia Institute of Technology', city: 'Atlanta', region: 'Georgia', country: 'US' }), 'Georgia Institute of Technology · Atlanta, Georgia, US')
+  // A city that is its own region is said once.
+  assert.equal(originName({ organization: 'China Unicom', city: 'Beijing', region: 'Beijing', country: 'CN' }), 'China Unicom · Beijing, CN')
+  assert.equal(originName({ city: 'Atlanta', region: 'Georgia', country: 'US' }), 'Atlanta, Georgia, US')
+  assert.equal(originName({ organization: 'Comcast Cable Communications, LLC' }), 'Comcast Cable Communications, LLC')
+  assert.equal(originName({}), null)
 })

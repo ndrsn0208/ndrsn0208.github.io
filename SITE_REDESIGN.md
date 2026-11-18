@@ -243,6 +243,20 @@ research direction chosen on the homepage (`direction <name>`, from
 `data-count`). A link to another page of the site is not a click. It is the
 next page.
 
+GoatCounter places a visitor by country and state only. The owner found that
+too coarse on 2026-11-18 ("能不能看到访问人来自于哪"), so every counted page is
+also counted as an event named after where the visit comes from: the owner of
+the visitor's network, then city, region and country, then the page, as in
+`from Georgia Institute of Technology · Atlanta, Georgia, US → /cv`. A free
+lookup service (GeoJS, then ipinfo if it does not answer) derives these from
+the visitor's address, once per load and only for a visit that is counted.
+The address is not kept. The owner of the network is a university or a company
+only when the visitor is on its network. At home it is the internet provider.
+
+The site that led a visitor here is passed on with the first page only. The
+pages opened after it were opened from this site, so one visitor from another
+site is one referral, not one per page.
+
 The account's code is `analytics.goatcounter` in `src/data/config.json`. With
 no code, nothing is loaded and nothing is sent. The script does not count
 localhost. The site shows no counter and no consent notice. A browser is left
