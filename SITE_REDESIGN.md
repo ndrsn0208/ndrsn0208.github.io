@@ -246,7 +246,10 @@ next page.
 The account's code is `analytics.goatcounter` in `src/data/config.json`. With
 no code, nothing is loaded and nothing is sent. The script does not count
 localhost. The site shows no counter and no consent notice. A browser is left
-out of the counts by opening the site once with `#toggle-goatcounter`.
+out of the counts by opening the site once with `#toggle-goatcounter`. Every
+load of that address switches the state, so the site takes the fragment out of
+the address once the script has switched (the owner asked for this on
+2026-11-18, after a tab left on that address).
 
 ## Optional adaptation playground
 

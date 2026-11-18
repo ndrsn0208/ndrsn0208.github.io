@@ -134,6 +134,11 @@ test('pages and the clicks that leave them are counted, with no cookie', async (
   await expect.poll(counted).toContainEqual({ path: '/about', title: 'About · Zekun Wang' })
   expect((await counted() as { path: string }[]).filter(item => item.path === '/about')).toHaveLength(1)
   expect(await page.context().cookies()).toEqual([])
+  // The address that switches counting off in a browser has done its work once the script has run.
+  // It leaves the address bar, so that a reload does not switch counting back on.
+  await page.goto('/?edition=paper#toggle-goatcounter')
+  await expect(page.getByRole('heading', { level: 1, name: 'Zekun Wang', exact: true })).toBeVisible()
+  await expect(page).toHaveURL(/\/\?edition=paper$/)
 })
 
 test('the blue point marks the current page', async ({ page }) => {

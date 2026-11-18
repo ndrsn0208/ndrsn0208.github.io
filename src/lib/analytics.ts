@@ -56,7 +56,14 @@ function start() {
   script.async = true
   script.src = 'https://gc.zgo.at/count.js'
   script.dataset.goatcounter = `https://${code}.goatcounter.com/count`
-  script.addEventListener('load', () => { for (const vars of waiting.splice(0)) window.goatcounter?.count?.(vars) })
+  script.addEventListener('load', () => {
+    // Opening the site with #toggle-goatcounter switches counting off or on in that browser, and the script has
+    // just done so. The fragment leaves the address, so that a reload or a restored tab does not switch it back.
+    if (window.location.hash === '#toggle-goatcounter') {
+      window.history.replaceState(window.history.state, '', window.location.pathname + window.location.search)
+    }
+    for (const vars of waiting.splice(0)) window.goatcounter?.count?.(vars)
+  })
   document.head.append(script)
   document.addEventListener('click', onClick, true)
   // A link opened in a new tab with the middle button.
