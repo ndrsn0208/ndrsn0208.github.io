@@ -43,7 +43,8 @@ function onClick(event: MouseEvent) {
   const element = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-count], a[href]') : null
   if (!element) return
   const name = element.dataset.count ?? (element instanceof HTMLAnchorElement ? clickName(element.href, window.location.href) : null)
-  if (name) send({ path: name, title: (element.textContent ?? '').trim().replace(/\s+/g, ' ').slice(0, 120) || name, event: true })
+  // The words as they are laid out, so that a row's title and its venue stay apart.
+  if (name) send({ path: name, title: (element.innerText || element.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 120) || name, event: true })
 }
 
 function start() {
