@@ -12,7 +12,12 @@ test('the overview leads with the name over the landscape, then news, papers, an
   // The first thing on the page is whose page it is.
   const name = page.getByRole('heading', { level: 1, name: 'Zekun Wang', exact: true })
   await expect(name).toBeVisible()
-  expect(parseFloat(await name.evaluate(node => getComputedStyle(node).fontSize))).toBeGreaterThanOrEqual(56)
+  await expect(page).toHaveTitle('Zekun Wang')
+  // The name is a heading and not a banner: larger than the question under it, and no more than 72px.
+  const nameSize = parseFloat(await name.evaluate(node => getComputedStyle(node).fontSize))
+  expect(nameSize).toBeGreaterThanOrEqual(40)
+  expect(nameSize).toBeLessThanOrEqual(72)
+  expect(nameSize).toBeGreaterThan(parseFloat(await page.locator('#home-question').evaluate(node => getComputedStyle(node).fontSize)) * 1.4)
   await expect(page.locator('#home-question')).toHaveText('How can foundation models keep learning from a few samples and a few interactions?')
   // Beside the name: who this is, what the research is about, and the research interests.
   // Nothing else is written in the opening, and no caption, hint, or disclaimer sits with the drawing.
@@ -31,8 +36,9 @@ test('the overview leads with the name over the landscape, then news, papers, an
   const leadBottom = await page.locator('.home-lead').evaluate(node => node.getBoundingClientRect().bottom)
   const heroBottom = await page.locator('.home-hero').evaluate(node => node.getBoundingClientRect().bottom)
   expect(heroBottom - leadBottom).toBeGreaterThan(page.viewportSize()!.height * .42)
-  // The header repeats the name only after the large one has scrolled away.
+  // The header repeats the name only after the page's own has scrolled away. A phone's header has no room for it.
   const headerName = page.getByRole('banner').locator('.site-name')
+  const roomForName = page.viewportSize()!.width > 480
   await expect(headerName).toBeHidden()
 
   // The drawing is there and carries the blue region, path, and point.
@@ -52,12 +58,14 @@ test('the overview leads with the name over the landscape, then news, papers, an
   await expect(news).toContainText('was accepted to NeurIPS 2026')
   await expect(news.getByRole('link', { name: 'TTCL', exact: true })).toHaveAttribute('href', 'https://ttcl-agents.github.io/')
   await expect(page.locator('#selected-publications li')).toHaveCount(6)
-  await expect(page.locator('#writing li')).toHaveCount(3)
+  await expect(page.locator('#blogs li')).toHaveCount(3)
+  await expect(page.locator('#blogs h2')).toHaveText('Blogs')
   await expect(page.locator('#selected-publications li').first().getByRole('link')).toHaveAttribute('href', /trust-region-continual-learning\.pdf|arxiv\.org/)
   await expect(page.getByRole('contentinfo').getByRole('link', { name: 'zekun@gatech.edu', exact: true })).toHaveAttribute('href', 'mailto:zekun@gatech.edu')
   await fits(page)
   await news.scrollIntoViewIfNeeded()
-  await expect(headerName).toBeVisible()
+  if (roomForName) await expect(headerName).toBeVisible()
+  else await expect(headerName).toBeHidden()
   expect(errors).toEqual([])
 })
 
@@ -128,20 +136,20 @@ test('Google Analytics is told each page under its own title, and nothing withou
   // The tag counts a page when the address changes, before the page is drawn. Each page's title is given ahead,
   // and it is the title the page then gives itself.
   for (const [link, title] of [
-    ['Papers', 'Publications · Zekun Wang'], ['Writing', 'Writing · Zekun Wang'], ['About', 'About · Zekun Wang'], ['CV', 'Curriculum vitae · Zekun Wang'],
+    ['Papers', 'Publications · Zekun Wang'], ['Blogs', 'Blogs · Zekun Wang'], ['About', 'About · Zekun Wang'], ['CV', 'Curriculum vitae · Zekun Wang'],
   ] as const) {
     await navigation(page).getByRole('link', { name: link, exact: true }).click()
     await expect(page).toHaveTitle(title)
     const titles = (await commands()).filter(command => command[0] === 'set').map(command => (command[1] as { page_title: string }).page_title)
     expect(titles[titles.length - 1]).toBe(title)
   }
-  await navigation(page).getByRole('link', { name: 'Writing', exact: true }).click()
+  await navigation(page).getByRole('link', { name: 'Blogs', exact: true }).click()
   await page.locator('.essay-row').first().click()
   await expect(page).toHaveTitle('Test-Time Compositional Generalization · Zekun Wang')
   const told = (await commands()).filter(command => command[0] === 'set').map(command => (command[1] as { page_title: string }).page_title)
   expect(told).toContain('Test-Time Compositional Generalization · Zekun Wang')
   // No title was given that a page did not then take.
-  expect(new Set(told)).toEqual(new Set(['Publications · Zekun Wang', 'Writing · Zekun Wang', 'About · Zekun Wang', 'Curriculum vitae · Zekun Wang', 'Test-Time Compositional Generalization · Zekun Wang']))
+  expect(new Set(told)).toEqual(new Set(['Publications · Zekun Wang', 'Blogs · Zekun Wang', 'About · Zekun Wang', 'Curriculum vitae · Zekun Wang', 'Test-Time Compositional Generalization · Zekun Wang']))
   // A developer's machine that does not ask to be counted is left out: the tag is not loaded there.
   const own = await page.context().newPage()
   const ownAsked: string[] = []
@@ -159,10 +167,12 @@ test('Google Analytics is told each page under its own title, and nothing withou
 
 test('the blue point marks the current page', async ({ page }) => {
   await page.goto('/?edition=paper')
-  await expect(navigation(page).getByRole('link')).toHaveText(['Papers', 'Writing', 'About', 'CV'])
-  await expect(navigation(page).locator('[aria-current="page"]')).toHaveCount(0)
+  // Home is one of the destinations, so that no one has to know that the name leads there.
+  await expect(navigation(page).getByRole('link')).toHaveText(['Home', 'Papers', 'Blogs', 'About', 'CV'])
+  await expect(navigation(page).locator('[aria-current="page"]')).toHaveText('Home')
+  await fits(page)
   for (const [label, heading, path] of [
-    ['Papers', 'Papers', '/publications'], ['Writing', 'Writing', '/blog'], ['CV', 'Curriculum vitae', '/cv'],
+    ['Papers', 'Papers', '/publications'], ['Blogs', 'Blogs', '/blog'], ['CV', 'Curriculum vitae', '/cv'],
   ] as const) {
     await navigation(page).getByRole('link', { name: label, exact: true }).click()
     await expect(page.getByRole('heading', { level: 1, name: heading, exact: true })).toBeVisible()
@@ -172,8 +182,21 @@ test('the blue point marks the current page', async ({ page }) => {
     await expect(current.locator('.site-nav-point')).toBeVisible()
     await fits(page)
   }
-  await page.getByRole('banner').getByRole('link', { name: 'Zekun Wang', exact: true }).click()
+  await navigation(page).getByRole('link', { name: 'Home', exact: true }).click()
   await expect(page.getByRole('heading', { level: 1, name: 'Zekun Wang', exact: true })).toBeVisible()
+  await expect(page).toHaveURL(/\/\?edition=paper$/)
+  await expect(navigation(page).locator('[aria-current="page"]')).toHaveText('Home')
+  // Where the header has room for the name, the name leads home too.
+  if (page.viewportSize()!.width > 480) {
+    await navigation(page).getByRole('link', { name: 'About', exact: true }).click()
+    await expect(page.locator('.about-bio')).toBeVisible()
+    await page.getByRole('banner').getByRole('link', { name: 'Zekun Wang', exact: true }).click()
+    await expect(page.getByRole('heading', { level: 1, name: 'Zekun Wang', exact: true })).toBeVisible()
+  }
+  // The page that is not found is no one's current page.
+  await page.goto('/nowhere?edition=paper')
+  await expect(page.getByRole('heading', { level: 1, name: 'This page is not here.', exact: true })).toBeVisible()
+  await expect(navigation(page).locator('[aria-current="page"]')).toHaveCount(0)
 })
 
 test('a paper opens its summary, links, and citation in place', async ({ page }) => {
@@ -208,8 +231,10 @@ test('a paper opens its summary, links, and citation in place', async ({ page })
   await fits(page)
 })
 
-test('writing lists every essay and each row opens its essay', async ({ page }) => {
+test('Blogs lists every essay and each row opens its essay', async ({ page }) => {
   await page.goto('/blog/?edition=paper')
+  await expect(page.getByRole('heading', { level: 1, name: 'Blogs', exact: true })).toBeVisible()
+  await expect(page).toHaveTitle('Blogs · Zekun Wang')
   await expect(page.locator('.essay-row')).toHaveCount(3)
   // Each row carries the essay's own drawing.
   await expect(page.locator('.essay-row canvas.terrain')).toHaveCount(1)
@@ -274,6 +299,11 @@ test('earlier addresses still lead somewhere useful', async ({ page }) => {
   await page.goto('/photography?edition=paper')
   await expect(page).toHaveURL(/\/about\?edition=paper#photography$/)
   await expect(page.locator('#photography')).toBeInViewport()
+  // The essays on the overview were once under Writing. Both of its earlier anchors lead to them.
+  for (const anchor of ['writing', 'blog', 'blogs']) {
+    await page.goto(`/?edition=paper&from=${anchor}#${anchor}`)
+    await expect(page.locator('#blogs')).toBeInViewport()
+  }
   await page.goto('/this-page-does-not-exist?edition=paper')
   await expect(page.getByRole('heading', { level: 1, name: 'This page is not here.', exact: true })).toBeVisible()
 })

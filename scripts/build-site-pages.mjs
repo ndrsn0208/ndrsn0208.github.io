@@ -21,13 +21,13 @@ const paperRow = paper => `<article><h3>${link(paperHref(paper), paper.title)}</
 // The catalog is already chronological. Featured ids choose membership, not a separate order.
 const selectedIds = new Set(config.featuredPaperIds)
 const selected = record.publications.filter(paper => selectedIds.has(paper.id) || selectedIds.has(paper.arxivId))
-const title = 'Zekun Wang · Research & writing'
+const title = config.name
 const researchDescription = 'Continual learning for deployment-time adaptation and generalization. Research, publications, and illustrated essays by Zekun Wang, a Computer Science PhD student at Georgia Tech.'
 const education = [config.education, ...config.previousEducation].map(item => `<article><h3>${escape(item.institution)}</h3><p>${escape(item.degree)}, ${escape(item.field)} · ${item.startYear}–${item.endYear}${item.expected ? ' expected' : ''}</p>${item === config.education ? `<p>Advised by ${link(config.advisorUrl, config.advisor)}.</p>` : ''}${item.detail ? `<p>${escape(item.detail)}</p>` : ''}</article>`).join('')
 const pages = [
   {
     route: '/', title, description: researchDescription, schema: 'Person',
-    body: `<h1>Zekun Wang</h1><p class="lead">${escape(config.researchQuestion)}</p><p>${escape(config.bio)}</p><p>${escape(config.researchStatement)}</p><p>${link(`mailto:${config.contacts.email}`, config.contacts.email)} · ${link(config.contacts.googleScholar, 'Google Scholar')} · ${link('/about/', 'About me')}</p><section id="news"><h2>News</h2>${news.map(item => `<p>${item.content.map(part => part.href ? link(part.href, part.text) : escape(part.text)).join('')} <time>${escape(item.date)}</time></p>`).join('')}</section><section id="selected-publications"><h2>Selected papers</h2>${selected.map(paperRow).join('')}<p>${link('/publications/', 'All papers')}</p></section><section id="writing"><h2>Writing</h2><article><h3>${link('/blog/continual-learning-diffusion-models/', 'Continual Learning Diffusion Models')}</h3><p>Generative replay with a rank-1 Fisher trust region.</p></article><article><h3>${link('/blog/self-consolidating-language-models/', 'Self-Consolidating Language Models')}</h3><p>Writing context into model weights at test time.</p></article></section>`,
+    body: `<h1>Zekun Wang</h1><p class="lead">${escape(config.researchQuestion)}</p><p>${escape(config.bio)}</p><p>${escape(config.researchStatement)}</p><p>${link(`mailto:${config.contacts.email}`, config.contacts.email)} · ${link(config.contacts.googleScholar, 'Google Scholar')} · ${link('/about/', 'About me')}</p><section id="news"><h2>News</h2>${news.map(item => `<p>${item.content.map(part => part.href ? link(part.href, part.text) : escape(part.text)).join('')} <time>${escape(item.date)}</time></p>`).join('')}</section><section id="selected-publications"><h2>Selected papers</h2>${selected.map(paperRow).join('')}<p>${link('/publications/', 'All papers')}</p></section><section id="blogs"><h2>Blogs</h2><article><h3>${link('/blog/continual-learning-diffusion-models/', 'Continual Learning Diffusion Models')}</h3><p>Generative replay with a rank-1 Fisher trust region.</p></article><article><h3>${link('/blog/self-consolidating-language-models/', 'Self-Consolidating Language Models')}</h3><p>Writing context into model weights at test time.</p></article></section>`,
   },
   {
     route: '/publications/', title: 'Publications · Zekun Wang', schema: 'CollectionPage',
@@ -45,7 +45,7 @@ const pages = [
     body: `<h1>Curriculum vitae</h1><p>${escape(config.bio)}</p><p class="lead">${link(cv, 'Read the current CV (PDF)')}</p><section><h2>Research focus</h2><p>${escape(config.researchStatement)}</p></section><section><h2>Education</h2>${education}</section>`,
   },
 ]
-const navigation = `<nav>${link('/', config.name)}<span>${link('/publications/', 'Papers')} ${link('/blog/', 'Writing')} ${link('/about/', 'About')} ${link('/cv/', 'CV')}</span></nav>`
+const navigation = `<nav>${link('/', config.name)}<span>${link('/', 'Home')} ${link('/publications/', 'Papers')} ${link('/blog/', 'Blogs')} ${link('/about/', 'About')} ${link('/cv/', 'CV')}</span></nav>`
 for (const page of pages) {
   let html = template.replace(/<title>[^<]*<\/title>/, `<title>${escape(page.title)}</title>`)
   for (const [attribute, name, content] of [
@@ -56,7 +56,7 @@ for (const page of pages) {
   html = html.replace('</head>', `<link rel="canonical" href="${origin}${page.route}" />
     <meta property="og:url" content="${origin}${page.route}" />
     <meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Zekun Wang. Continual learning for adaptation and generalization." />
+    <meta property="og:image:alt" content="${escape(`${config.name}. ${config.researchQuestion}`)}" />
     <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="${escape(page.title)}" />
     <meta name="twitter:description" content="${escape(page.description)}" /><meta name="twitter:image" content="${origin}/site-card.png" />
     <script type="application/ld+json">${JSON.stringify(structured).replace(/</g, '\\u003c')}</script></head>`)

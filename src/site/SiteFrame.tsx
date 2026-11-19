@@ -45,8 +45,9 @@ function holdAppearance(edition: SiteEdition) {
 }
 
 const links: { page: SitePage, label: string, path: string }[] = [
+  { page: 'home', label: 'Home', path: '/' },
   { page: 'publications', label: 'Papers', path: '/publications' },
-  { page: 'blog', label: 'Writing', path: '/blog/' },
+  { page: 'blog', label: 'Blogs', path: '/blog/' },
   { page: 'about', label: 'About', path: '/about' },
   { page: 'cv', label: 'CV', path: '/cv' },
 ]
@@ -119,7 +120,7 @@ export default function SiteFrame({ children, page, mainId = 'site-main', initia
       catch { target = location.hash.slice(1) }
     }
     if (page === 'home' && target === 'contact') target = 'site-contact'
-    if (page === 'home' && target === 'blog') target = 'writing'
+    if (page === 'home' && (target === 'blog' || target === 'writing')) target = 'blogs'
     const apply = () => {
       if (cancelled) return
       if (target) document.getElementById(target)?.scrollIntoView({ behavior: 'instant', block: 'start' })
@@ -152,7 +153,7 @@ export default function SiteFrame({ children, page, mainId = 'site-main', initia
     try { id = decodeURIComponent(location.hash.slice(1)) }
     catch { id = location.hash.slice(1) }
     if (page === 'home' && id === 'contact') id = 'site-contact'
-    if (page === 'home' && id === 'blog') id = 'writing'
+    if (page === 'home' && (id === 'blog' || id === 'writing')) id = 'blogs'
     const frame = requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth', block: 'start' }))
     return () => cancelAnimationFrame(frame)
   }, [location.hash, page, reduced, loading])
@@ -162,6 +163,10 @@ export default function SiteFrame({ children, page, mainId = 'site-main', initia
     target.searchParams.set('edition', edition)
     return `${target.pathname}${target.search}${target.hash}`
   }, [edition])
+
+  // The overview is the current page only at its own address. The page that is not found borrows its frame.
+  const atHome = page === 'home' && location.pathname === '/'
+  const isCurrent = (link: SitePage) => link === 'home' ? atHome : page === link
 
   const toggleEdition = () => {
     const next = edition === 'paper' ? 'black' : 'paper'
@@ -177,13 +182,11 @@ export default function SiteFrame({ children, page, mainId = 'site-main', initia
       <a className="site-skip" href={`#${mainId}`}>Skip to content</a>
       <header className="site-header" data-scrolled={scrolled || undefined}>
         <div className="site-header-inner site-container">
-          <Link className="site-name" data-away={nameAway ? undefined : 'false'} to={href('/')} aria-label={config.name} aria-current={page === 'home' && location.pathname === '/' ? 'page' : undefined}>
-            {config.name.split(' ')[0]}<span className="site-name-rest"> {config.name.split(' ').slice(1).join(' ')}</span>
-          </Link>
+          <Link className="site-name" data-away={nameAway ? undefined : 'false'} to={href('/')} aria-current={atHome ? 'page' : undefined}>{config.name}</Link>
           <div className="site-header-actions">
             <nav aria-label="Main navigation" className="site-nav">
-              {links.map(link => <Link key={link.page} to={href(link.path)} aria-current={page === link.page ? 'page' : undefined}>
-                {page === link.page && <motion.span className="site-nav-point" layoutId="site-navigation" transition={{ duration: reduced ? 0 : .32, ease: [.2, .7, .2, 1] }} />}
+              {links.map(link => <Link key={link.page} to={href(link.path)} aria-current={isCurrent(link.page) ? 'page' : undefined}>
+                {isCurrent(link.page) && <motion.span className="site-nav-point" layoutId="site-navigation" transition={{ duration: reduced ? 0 : .32, ease: [.2, .7, .2, 1] }} />}
                 {link.label}
               </Link>)}
             </nav>

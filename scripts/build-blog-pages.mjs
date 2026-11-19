@@ -1,4 +1,4 @@
-// After the site is built, writes a real page for the Writing index, for each
+// After the site is built, writes a real page for the Blogs index, for each
 // essay, and for each figure. Every page carries its own title, description and
 // share image for crawlers, and the complete text for readers without JavaScript.
 // Every essay comes from the same shape, so they are written by the same code.
@@ -77,11 +77,11 @@ function figureBody(essay, id) {
 const pages = [
   {
     route: '/blog/',
-    title: 'Writing · Zekun Wang',
+    title: 'Blogs · Zekun Wang',
     description: 'Research essays on compositional generalization and continual learning in diffusion models, and on continual context consolidation in language models.',
     image: diffusionEssay.image,
     imageAlt: diffusionEssay.imageAlt,
-    body: `<h1>Writing</h1>${essays.map(essay => `<h2><a href="${essay.path}">${escapeHtml(essay.name)}</a></h2><p>${escapeHtml(essay.headline)}.</p>`).join('')}`,
+    body: `<h1>Blogs</h1>${essays.map(essay => `<h2><a href="${essay.path}">${escapeHtml(essay.name)}</a></h2><p>${escapeHtml(essay.headline)}.</p>`).join('')}`,
   },
   ...essays.flatMap(essay => [
     {
@@ -130,7 +130,7 @@ for (const page of pages) {
   const structured = {
     '@context': 'https://schema.org',
     '@type': page.essay ? 'Article' : 'CollectionPage',
-    headline: page.figure ? page.figure.title : page.essay ? `${page.essay.name}: ${page.essay.headline}` : 'Writing',
+    headline: page.figure ? page.figure.title : page.essay ? `${page.essay.name}: ${page.essay.headline}` : 'Blogs',
     description: page.description,
     url: address,
     image: `${origin}${page.image}`,
@@ -177,4 +177,4 @@ for (const page of pages) {
   await fs.writeFile(path.join(directory, 'index.html'), html)
 }
 const figures = pages.filter(page => page.figure).length
-console.log(`Built the Writing index, ${essays.length} essays, and ${figures} figure pages, each with its own share image and static text.`)
+console.log(`Built the Blogs index, ${essays.length} essays, and ${figures} figure pages, each with its own share image and static text.`)

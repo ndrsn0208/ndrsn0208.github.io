@@ -42,7 +42,7 @@ One typeface, self-hosted **Geist**, in four sizes: Display, Title, Text, and
 Note. Nothing is set below 15px. There is no serif, no monospace for labels
 (BibTeX is the one exception), no all-caps label, and no decorative arrow.
 
-The homepage opens with the name, very large, and the research question under
+The homepage opens with the name and the research question under
 it, both over `src/site/Landscape.tsx`, a hairline loss surface drawn on a
 canvas. The drawing has three scenes, one per research direction (continual
 learning, test-time adaptation, compositional generalization, in
@@ -67,8 +67,13 @@ Traffic is counted with Google Analytics through `src/lib/analytics.ts`
 The tag counts pages itself. The module gives it each page's title ahead of the
 address change. See "Traffic" in `SITE_REDESIGN.md`.
 
-Navigation is the name (home) and four words: Papers, Writing, About, CV. The
+Navigation is the name (home) and five words: Home, Papers, Blogs, About, CV. The
 appearance switch stays in the header, in reach from any reading position.
+Three corrections by the owner of 2026-11-19 are binding. The name on the
+homepage is a heading, 40px to 72px (`--home-name`), not the very large banner
+it was. Home is one of the words, and the essays as a group are called Blogs,
+not Writing. The homepage's title is the name alone, with nothing after it. A
+phone's header has no room for the name and holds the five words.
 Every list is rows between hairlines. A
 title opens its target, and a plus opens details in place. Nothing appears only
 on hover.

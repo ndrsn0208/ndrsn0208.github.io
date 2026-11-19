@@ -149,9 +149,11 @@ a.site-row:hover .site-row-meta { color: inherit; }
   .site-row { grid-template-columns: minmax(0, 1fr); }
   .site-row-meta { white-space: normal; }
 }
-@media (max-width: 365px) {
-  /* The narrowest phones keep every destination and shorten the name. Its full form is still announced. */
-  .site-name-rest { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 480px) {
+  /* A phone has no room for the name beside five destinations. It keeps every destination, and Home leads to the name.
+     The destinations begin at the page's left edge and the switch stays at the right. */
+  .site-name { display: none; }
+  .site-header-actions { flex: 1; justify-content: space-between; }
 }
 @media (prefers-reduced-motion: reduce) {
   html[data-site-edition] { scroll-behavior: auto; }

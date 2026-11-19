@@ -1,4 +1,6 @@
-/* The overview: the name and the question over one drawing, then news, papers, and essays. */
+/* The overview: the name and the question over one drawing, then news, papers, and essays.
+   The name is a heading, not a banner: the owner found the first, very large one too big (2026-11-19).
+   `--home-name` is its size, and the introduction beside it is placed from the same length. */
 .home-hero {
   position: relative;
   height: clamp(540px, calc(100svh - var(--site-header-height)), 900px);
@@ -14,17 +16,18 @@
   -webkit-mask-image: linear-gradient(to bottom, #000 84%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 84%, transparent 100%);
 }
-.home-hero-copy { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 29rem); align-items: start; gap: 0 clamp(24px, 2.6vw, 40px); padding-top: clamp(20px, 4.4vw, 64px); pointer-events: none; }
+.home-hero-copy { --home-name: clamp(2.5rem, 1.5rem + 3.2vw, 4.5rem); position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 29rem); align-items: start; gap: 0 clamp(24px, 2.6vw, 40px); padding-top: clamp(20px, 4.4vw, 64px); pointer-events: none; }
 .home-hero-copy > * { pointer-events: auto; }
 .home-lead { grid-column: 1; grid-row: 1; }
-.home-name { font-size: clamp(3.75rem, 1.6rem + 8vw, 9.5rem); font-weight: 360; line-height: .95; letter-spacing: -.055em; white-space: nowrap; }
+.home-name { font-size: var(--home-name); font-weight: 360; line-height: 1; letter-spacing: -.045em; white-space: nowrap; }
 .home-question { max-width: 24em; margin-top: clamp(12px, 1.5vw, 24px); font-size: clamp(1.5rem, 1rem + 2.1vw, 2.75rem); font-weight: 360; line-height: 1.12; letter-spacing: -.036em; color: var(--site-muted); text-wrap: balance; }
 
 /* Who this is and what the research is about. Beside the name it is level with its capitals and takes no room
-   from the drawing. On a narrower screen it follows the drawing. */
+   from the drawing: its last lines lie over the far edge of the surface, as the research directions do, with a
+   little paper around the letters. On a narrower screen it follows the drawing. */
 .home-bio { display: grid; gap: .7em; color: var(--site-body); font-size: 1.0625rem; line-height: 1.45; letter-spacing: -.008em; text-wrap: pretty; }
 .home-bio a { color: var(--site-ink); }
-.home-bio[data-place="beside"] { grid-column: 2; grid-row: 1 / span 2; padding-top: clamp(8px, 1.1vw, 16px); }
+.home-bio[data-place="beside"] { grid-column: 2; grid-row: 1 / span 2; padding-top: calc(var(--home-name) * .135 - 5.9px); text-shadow: 0 0 3px var(--site-paper), 0 0 3px var(--site-paper), 0 0 6px var(--site-paper); }
 .home-bio[data-place="below"] { display: none; }
 .home-interests { color: var(--site-muted); }
 .home-interests span { color: var(--site-ink); }

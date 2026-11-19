@@ -10,9 +10,9 @@ test('a page has one name, with or without a slash at the end', () => {
 })
 
 test('the title of a page is known before the page is drawn', () => {
-  assert.equal(titleOf('/'), 'Zekun Wang · Research & writing')
+  assert.equal(titleOf('/'), 'Zekun Wang')
   assert.equal(titleOf('/publications'), 'Publications · Zekun Wang')
-  assert.equal(titleOf('/blog/'), 'Writing · Zekun Wang')
+  assert.equal(titleOf('/blog/'), 'Blogs · Zekun Wang')
   assert.equal(titleOf('/about'), 'About · Zekun Wang')
   assert.equal(titleOf('/cv'), 'Curriculum vitae · Zekun Wang')
   assert.equal(titleOf('/blog/self-consolidating-language-models/'), 'Self-Consolidating Language Models · Zekun Wang')

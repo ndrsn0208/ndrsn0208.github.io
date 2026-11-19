@@ -37,9 +37,9 @@ export const pagePath = (pathname: string) => pathname.replace(/\/+$/, '') || '/
 export function titleOf(pathname: string): string | null {
   const path = pagePath(pathname)
   const pages: Record<string, string> = {
-    '/': 'Zekun Wang · Research & writing',
+    '/': settings.name,
     '/publications': `Publications · ${settings.name}`,
-    '/blog': 'Writing · Zekun Wang',
+    '/blog': 'Blogs · Zekun Wang',
     '/about': `About · ${settings.name}`,
     '/cv': `Curriculum vitae · ${settings.name}`,
   }

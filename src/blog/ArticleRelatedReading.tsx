@@ -3,7 +3,7 @@ import { useSiteTheme } from '../site/SiteFrame'
 import { essays } from '../site/essays'
 import EssayFigure from './EssayFigure'
 
-/** The other essay, listed the way the Writing page lists it. */
+/** The other essay, listed the way the Blogs page lists it. */
 export default function ArticleRelatedReading({ current }: { current: 'scol' | 'diffusion' | 'composition' }) {
   const { href } = useSiteTheme()
   const next = essays.find(essay => essay.id !== current)!

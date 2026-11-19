@@ -1,15 +1,16 @@
 import { Link } from 'react-router-dom'
 import SiteFrame, { useSiteTheme } from './SiteFrame'
 import { useBlogMetadata } from '../blog/BlogLayout'
+import config from '../data/config.json'
 
 function NotFoundContent() {
   const { href } = useSiteTheme()
   useBlogMetadata({
     title: 'Page not found · Zekun Wang',
-    description: 'Research, publications, and writing by Zekun Wang.',
+    description: 'Research, publications, and blogs by Zekun Wang.',
     path: '/',
     image: '/site-card.png',
-    imageAlt: 'Zekun Wang. Research and writing.',
+    imageAlt: `${config.name}. ${config.researchQuestion}`,
   })
   return <main id="site-main" className="site-container">
     <header className="site-page-intro">

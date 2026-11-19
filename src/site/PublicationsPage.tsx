@@ -31,7 +31,7 @@ function PublicationsContent() {
     description: 'Work on continual learning, adaptation, and reusable knowledge.',
     path: '/publications/',
     image: '/site-card.png',
-    imageAlt: 'Zekun Wang. Continual learning for adaptation and generalization.',
+    imageAlt: `${config.name}. ${config.researchQuestion}`,
   })
 
   function updateFilters(changes: { q?: string, tag?: string }, replace = true) {

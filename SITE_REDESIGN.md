@@ -78,26 +78,36 @@ The same rules hold on every page.
   metadata, such as a venue or a date.
 - Every list is `.site-list`: rows between hairlines. `.site-row` is a title
   and one piece of metadata.
-- The header stays in view. It holds the name, which leads home, four words
-  (Papers, Writing, About, CV), and the appearance switch, so the appearance can
-  change without leaving the reading position. The footer holds the email and
+- The header stays in view. It holds the name, which leads home, five words
+  (Home, Papers, Blogs, About, CV), and the appearance switch, so the appearance can
+  change without leaving the reading position. Home is one of the words because
+  the owner found on 2026-11-19 that a visitor on Papers had to know that the
+  name leads back. The owner also asked for Blogs in place of Writing, here and
+  wherever the essays are named as a group. A phone (480px and narrower) has no
+  room for the name beside five words: its header holds the words, from the
+  page's left edge, and the switch. The footer holds the email and
   three profiles. The band under the footer is left free for the playground
   launcher.
 
 ## Pages
 
-**Home** opens with the name, very large, and the research question under it
-in gray, both over `Landscape.tsx`. The question is `config.researchQuestion`:
+**Home** opens with the name and the research question under it
+in gray, both over `Landscape.tsx`. Its page title is the name alone. The
+owner asked on 2026-11-19 for "Research & writing" to be taken off it, having
+seen it in Google's results. The question is `config.researchQuestion`:
 "How can foundation models keep learning from a few samples and a few
 interactions?". The owner's correction of 2026-11-16 is binding wherever the
 research is described (home, About, the CV's Research Focus): it names
 foundation models, not AI agents, and it says few samples and few
 interactions. Under the question are the three research directions
 (`.home-directions`), and each is a scene of the drawing (see below). A visitor must see at first glance whose
-page this is, so the name is the largest thing on the site and is never
-reduced to the header alone. While that name is in view the header does not
+page this is, so the name opens the page as its heading and is never
+reduced to the header alone. It is a heading and not a banner: the first one
+ran to 152px, and the owner found it too big on 2026-11-19. Its size is
+`--home-name`, 40px on a phone and 72px at most, about 1.6 times the question. While that name is in view the header does not
 repeat it. The header's name appears once the large one has scrolled away
-(`nameAnchor` on `SiteFrame`). Beside the name, level with its capitals, sits
+(`nameAnchor` on `SiteFrame`). Beside the name, level with its capitals
+(placed from `--home-name`), sits
 a short introduction (`.home-bio`): a bio in the first person ("I'm a
 third-year PhD student ... Prior to that, ...", the form the owner asked
 for), one sentence on the research, and the research interests from
@@ -121,7 +131,7 @@ search field filter the list, and the address keeps both. Use the generated
 catalog. Published work, accepted papers, and preprints share one timeline
 ordered by `publicationDate`.
 
-**Writing** (`/blog`) lists the essays as rows defined in
+**Blogs** (`/blog`) lists the essays as rows defined in
 `src/blog/essay-figure.css`: the essay's own drawing, its name, its headline,
 the date. "Keep reading" at the end of an essay uses the same row. Names and
 headlines in `src/site/essays.ts` repeat `article.ts`. Change both together.
@@ -221,9 +231,13 @@ Keep `/`, `/publications`, `/blog`, `/about`, `/cv`, `/photography`, both
 essay slugs, every figure page under `/blog/<essay>/figures/`, and the earlier
 figure addresses listed as `aliases` in the essays. Preserve the GitHub
 Pages deep-link handoff. Older homepage hashes resolve to useful sections or
-pages: `#cv`, `#about`, `#education`, `#contact`, `#writing`,
-`#selected-publications`. Figure pages keep their own HTML metadata and PNG
-cards. `scripts/build-site-pages.mjs` and
+pages: `#cv`, `#about`, `#education`, `#contact`, `#blog` and `#writing`
+(both lead to `#blogs`), `#selected-publications`. Figure pages keep their own HTML metadata and PNG
+cards. The overview, Papers, About, and CV share one card, `public/site-card.png`:
+the opening of the homepage (the name, the question, the drawing) photographed
+by `npm run site:card`. Run it when any of the three changes. The card it
+replaced on 2026-11-19 was left from the October design and carried a
+"Research & writing" label and an earlier question. `scripts/build-site-pages.mjs` and
 `scripts/build-blog-pages.mjs` write the no-JavaScript fallbacks, which follow
 the same palette and labels.
 

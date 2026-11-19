@@ -25,11 +25,11 @@ function HomeContent() {
     <p className="home-interests"><span>Research interests:</span> {config.researchInterests.join(', ')}.</p>
   </>
   useBlogMetadata({
-    title: 'Zekun Wang · Research & writing',
+    title: config.name,
     description: 'Continual learning for deployment-time adaptation and generalization. Research, publications, and illustrated essays by Zekun Wang, a Computer Science PhD student at Georgia Tech.',
     path: '/',
     image: 'https://ndrsn0208.github.io/site-card.png',
-    imageAlt: 'Zekun Wang. Continual learning for adaptation and generalization.',
+    imageAlt: `${config.name}. ${config.researchQuestion}`,
   })
 
   return <main id="site-main" className="home-page">
@@ -92,9 +92,9 @@ function HomeContent() {
       </ol>
     </section>
 
-    <section className="site-container site-section" id="writing" aria-labelledby="writing-heading">
+    <section className="site-container site-section" id="blogs" aria-labelledby="blogs-heading">
       <div className="site-section-heading">
-        <h2 id="writing-heading">Writing</h2>
+        <h2 id="blogs-heading">Blogs</h2>
       </div>
       <ol className="site-list">
         {essays.map(essay => <li key={essay.path} data-adapt-key={`essay:${essay.id}`}>

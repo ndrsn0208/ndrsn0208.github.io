@@ -9,7 +9,7 @@ function BlogIndexContent() {
   const { href } = useSiteTheme()
 
   useBlogMetadata({
-    title: 'Writing · Zekun Wang',
+    title: 'Blogs · Zekun Wang',
     description: 'Research essays on continual learning in diffusion models and continual context consolidation in language models.',
     path: '/blog/',
     image: essayCard('diffusion', 'essay'),
@@ -17,9 +17,9 @@ function BlogIndexContent() {
   })
 
   return (
-    <main id="blog-main" className="writing-page site-container">
+    <main id="blog-main" className="blogs-page site-container">
       <header className="site-page-intro">
-        <h1>Writing</h1>
+        <h1>Blogs</h1>
       </header>
 
       <ol className="site-list">
