@@ -169,6 +169,67 @@ test('pages and the clicks that leave them are counted, with no cookie', async (
   await expect(page).toHaveURL(/\/\?edition=paper$/)
 })
 
+test('Google Analytics is told each page under its own title, and nothing without an account', async ({ page }) => {
+  const id: string = JSON.parse(readFileSync('src/data/config.json', 'utf8')).analytics?.google ?? ''
+  // The tests run on a developer's machine, which is otherwise left out.
+  await page.addInitScript(() => { (window as unknown as { countHere: boolean }).countHere = true })
+  // Google's tag is replaced by an empty script, so nothing leaves the test. The commands it would read stay in `dataLayer`.
+  const asked: string[] = []
+  await page.route(/googletagmanager\.com|google-analytics\.com/, async route => {
+    asked.push(route.request().url())
+    await route.fulfill({ contentType: 'text/javascript', body: '' })
+  })
+  await page.route(/gc\.zgo\.at|goatcounter\.com|get\.geojs\.io|ipinfo\.io/, route => route.fulfill({ contentType: 'text/javascript', body: '' }))
+  const commands = () => page.evaluate(() => ((window as unknown as { dataLayer?: ArrayLike<unknown>[] }).dataLayer ?? []).map(command => Array.from(command).map(part => part instanceof Date ? 'a date' : part)))
+  await page.goto('/?edition=paper')
+  await expect(page.getByRole('heading', { level: 1, name: 'Zekun Wang', exact: true })).toBeVisible()
+  if (!id) {
+    await navigation(page).getByRole('link', { name: 'About', exact: true }).click()
+    await expect(page.locator('.about-bio')).toBeVisible()
+    expect(asked).toEqual([])
+    expect(await commands()).toEqual([])
+    return
+  }
+  // The tag is loaded once and counts the page that is open.
+  // Google gave this site a tag that knows its own property, so it is loaded as it is and not named in a command.
+  const container = id.startsWith('GTM-')
+  await expect.poll(commands).toEqual(container ? [['js', 'a date']] : [['js', 'a date'], ['config', id]])
+  expect(asked).toEqual([`https://www.googletagmanager.com/${container ? 'gtm.js' : 'gtag/js'}?id=${id}`])
+  // A research direction the visitor chooses.
+  await page.locator('.home-directions button').nth(1).click()
+  await expect.poll(commands).toContainEqual(['event', 'select_content', { content_type: 'direction', content_id: 'Test-time adaptation' }])
+  // The tag counts a page when the address changes, before the page is drawn. Each page's title is given ahead,
+  // and it is the title the page then gives itself.
+  for (const [link, title] of [
+    ['Papers', 'Publications · Zekun Wang'], ['Writing', 'Writing · Zekun Wang'], ['About', 'About · Zekun Wang'], ['CV', 'Curriculum vitae · Zekun Wang'],
+  ] as const) {
+    await navigation(page).getByRole('link', { name: link, exact: true }).click()
+    await expect(page).toHaveTitle(title)
+    const titles = (await commands()).filter(command => command[0] === 'set').map(command => (command[1] as { page_title: string }).page_title)
+    expect(titles[titles.length - 1]).toBe(title)
+  }
+  await navigation(page).getByRole('link', { name: 'Writing', exact: true }).click()
+  await page.locator('.essay-row').first().click()
+  await expect(page).toHaveTitle('Test-Time Compositional Generalization · Zekun Wang')
+  const told = (await commands()).filter(command => command[0] === 'set').map(command => (command[1] as { page_title: string }).page_title)
+  expect(told).toContain('Test-Time Compositional Generalization · Zekun Wang')
+  // No title was given that a page did not then take.
+  expect(new Set(told)).toEqual(new Set(['Publications · Zekun Wang', 'Writing · Zekun Wang', 'About · Zekun Wang', 'Curriculum vitae · Zekun Wang', 'Test-Time Compositional Generalization · Zekun Wang']))
+  // A developer's machine that does not ask to be counted is left out: the tag is not loaded there.
+  const own = await page.context().newPage()
+  const ownAsked: string[] = []
+  await own.route(/googletagmanager\.com|google-analytics\.com/, async route => {
+    ownAsked.push(route.request().url())
+    await route.fulfill({ contentType: 'text/javascript', body: '' })
+  })
+  await own.goto('/?edition=paper')
+  await expect(own.getByRole('heading', { level: 1, name: 'Zekun Wang', exact: true })).toBeVisible()
+  await navigation(own).getByRole('link', { name: 'About', exact: true }).click()
+  await expect(own.locator('.about-bio')).toBeVisible()
+  expect(ownAsked).toEqual([])
+  await own.close()
+})
+
 test('the blue point marks the current page', async ({ page }) => {
   await page.goto('/?edition=paper')
   await expect(navigation(page).getByRole('link')).toHaveText(['Papers', 'Writing', 'About', 'CV'])

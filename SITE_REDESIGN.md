@@ -257,6 +257,24 @@ The site that led a visitor here is passed on with the first page only. The
 pages opened after it were opened from this site, so one visitor from another
 site is one referral, not one per page.
 
+On 2026-11-19 the owner found GoatCounter too coarse ("全是unknown") and asked
+for what Google Analytics shows: visitors down to the city, on a map, at no
+charge. `analytics.google` in `src/data/config.json` takes a Google Analytics
+the ID in the snippet Google gives for the site. Google gave this one a tag
+whose ID begins with `GTM-` (`GTM-T65XQ6H5`, which reports to the property
+`G-2N0YBZGE8M`): the script is `gtm.js` and no `config` command is needed. A
+`G-…` ID is loaded as `gtag/js` with one. With an ID, Google's tag is loaded on
+the first page and counts that page. It counts every later page itself when the address changes,
+which is before the page is drawn, so `analytics.ts` gives it the title of the
+page that is about to open (`titleOf`, a list of the pages' titles that a test
+keeps equal to the titles the pages give themselves). The tag also counts
+clicks that leave the site and downloads on its own. A research direction
+chosen on the homepage is sent as `select_content`. The tag is not loaded on a
+developer's machine. It counts every other visit, the owner's own included:
+the owner expects counting to be on for everyone, and a browser left out of
+the counts had confused them. It sets Google's cookies. A visitor behind a proxy or VPN is placed where the proxy is,
+in this and in every other service.
+
 The account's code is `analytics.goatcounter` in `src/data/config.json`. With
 no code, nothing is loaded and nothing is sent. The script does not count
 localhost. The site shows no counter and no consent notice. A browser is left

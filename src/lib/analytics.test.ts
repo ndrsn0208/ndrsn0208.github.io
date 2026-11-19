@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { clickName, originName, pagePath } from './analytics'
+import { clickName, originName, pagePath, titleOf } from './analytics'
 
 test('a page is counted under one path', () => {
   assert.equal(pagePath('/'), '/')
@@ -31,4 +31,16 @@ test('where a visit comes from is the owner of its network, then the place', () 
   assert.equal(originName({ city: 'Atlanta', region: 'Georgia', country: 'US' }), 'Atlanta, Georgia, US')
   assert.equal(originName({ organization: 'Comcast Cable Communications, LLC' }), 'Comcast Cable Communications, LLC')
   assert.equal(originName({}), null)
+})
+
+test('the title of a page is known before the page is drawn', () => {
+  assert.equal(titleOf('/'), 'Zekun Wang · Research & writing')
+  assert.equal(titleOf('/publications'), 'Publications · Zekun Wang')
+  assert.equal(titleOf('/blog/'), 'Writing · Zekun Wang')
+  assert.equal(titleOf('/about'), 'About · Zekun Wang')
+  assert.equal(titleOf('/cv'), 'Curriculum vitae · Zekun Wang')
+  assert.equal(titleOf('/blog/self-consolidating-language-models/'), 'Self-Consolidating Language Models · Zekun Wang')
+  // A figure's page is known by its essay until the page says more.
+  assert.equal(titleOf('/blog/continual-learning-diffusion-models/figures/forgetting'), 'Continual Learning Diffusion Models · Zekun Wang')
+  assert.equal(titleOf('/nowhere'), null)
 })
