@@ -97,78 +97,6 @@ test('the drawing shows the three research directions, and the point marks the o
   expect(errors).toEqual([])
 })
 
-test('pages and the clicks that leave them are counted, with no cookie', async ({ page }) => {
-  const code: string = JSON.parse(readFileSync('src/data/config.json', 'utf8')).analytics?.goatcounter ?? ''
-  // The counting script is replaced by one that keeps what it is asked to count, so nothing leaves the test.
-  const asked: string[] = []
-  await page.route(/gc\.zgo\.at|goatcounter\.com/, async route => {
-    asked.push(route.request().url())
-    await route.fulfill({
-      contentType: 'text/javascript',
-      // It counts every visit, and it notes for each count whether the site that led here is passed on or left out.
-      body: `window.goatcounter.filter = () => false
-        window.goatcounter.count = vars => (window.counted = window.counted || []).push({ ...vars, referrer: vars.referrer ? vars.referrer('https://elsewhere.example/') : 'passed on' })`,
-    })
-  })
-  // The service that says where a visit comes from is answered here.
-  const lookedUp: string[] = []
-  await page.route(/get\.geojs\.io|ipinfo\.io/, async route => {
-    lookedUp.push(route.request().url())
-    await route.fulfill({
-      contentType: 'application/json',
-      headers: { 'access-control-allow-origin': '*' },
-      body: JSON.stringify({ organization_name: 'Georgia Institute of Technology', city: 'Atlanta', region: 'Georgia', country_code: 'US' }),
-    })
-  })
-  const counted = () => page.evaluate(() => (window as unknown as { counted?: unknown[] }).counted ?? [])
-  await page.goto('/?edition=paper')
-  await expect(page.getByRole('heading', { level: 1, name: 'Zekun Wang', exact: true })).toBeVisible()
-  const directions = page.locator('.home-directions button')
-  if (!code) {
-    // With no account set, nothing is loaded and nothing is sent.
-    await directions.nth(1).click()
-    await navigation(page).getByRole('link', { name: 'About', exact: true }).click()
-    await expect(page.locator('.about-bio')).toBeVisible()
-    expect(asked).toEqual([])
-    return
-  }
-  // The page, by its path without the appearance, and under its title.
-  await expect.poll(counted).toContainEqual({ path: '/', title: 'Zekun Wang · Research & writing', referrer: '' })
-  // And once more as an event that says where the visit comes from: the owner of the network, the place, the page.
-  const from = 'from Georgia Institute of Technology · Atlanta, Georgia, US'
-  await expect.poll(counted).toContainEqual({ path: `${from} → /`, title: 'Zekun Wang · Research & writing', event: true, referrer: '' })
-  expect(lookedUp).toEqual(['https://get.geojs.io/v1/ip/geo.json'])
-  expect(asked).toEqual(['https://gc.zgo.at/count.js'])
-  expect(await page.locator('script[src="https://gc.zgo.at/count.js"]').getAttribute('data-goatcounter')).toBe(`https://${code}.goatcounter.com/count`)
-  // A research direction the visitor chooses.
-  await directions.nth(1).click()
-  await expect.poll(counted).toContainEqual({ path: 'direction Test-time adaptation', title: 'Test-time adaptation', event: true, referrer: '' })
-  // A paper that is opened.
-  const paper = page.locator('#selected-publications li a').first()
-  const [opened] = await Promise.all([page.context().waitForEvent('page'), paper.click()])
-  await opened.close()
-  await expect.poll(async () => (await counted() as { path: string, event?: boolean }[]).filter(item => item.event && /^(pdf|out) /.test(item.path)).length).toBe(1)
-  // Another page of the site is a page, not a click, and is counted once.
-  await navigation(page).getByRole('link', { name: 'About', exact: true }).click()
-  await expect.poll(counted).toContainEqual({ path: '/about', title: 'About · Zekun Wang', referrer: '' })
-  await expect.poll(counted).toContainEqual({ path: `${from} → /about`, title: 'About · Zekun Wang', event: true, referrer: '' })
-  expect((await counted() as { path: string }[]).filter(item => item.path === '/about')).toHaveLength(1)
-  // Where the visit comes from is asked once, not once per page.
-  expect(lookedUp).toHaveLength(1)
-  expect(await page.context().cookies()).toEqual([])
-  // A visitor who arrives from another site: that site is passed on with the first page only.
-  // The pages opened after it were opened from this site, so one visitor is one referral.
-  await page.goto('/?edition=paper', { referer: 'https://ttcl-agents.github.io/' })
-  await expect.poll(counted).toContainEqual({ path: '/', title: 'Zekun Wang · Research & writing', referrer: 'passed on' })
-  await navigation(page).getByRole('link', { name: 'CV', exact: true }).click()
-  await expect.poll(counted).toContainEqual({ path: '/cv', title: 'Curriculum vitae · Zekun Wang', referrer: '' })
-  // The address that switches counting off in a browser has done its work once the script has run.
-  // It leaves the address bar, so that a reload does not switch counting back on.
-  await page.goto('/?edition=paper#toggle-goatcounter')
-  await expect(page.getByRole('heading', { level: 1, name: 'Zekun Wang', exact: true })).toBeVisible()
-  await expect(page).toHaveURL(/\/\?edition=paper$/)
-})
-
 test('Google Analytics is told each page under its own title, and nothing without an account', async ({ page }) => {
   const id: string = JSON.parse(readFileSync('src/data/config.json', 'utf8')).analytics?.google ?? ''
   // The tests run on a developer's machine, which is otherwise left out.
@@ -179,7 +107,6 @@ test('Google Analytics is told each page under its own title, and nothing withou
     asked.push(route.request().url())
     await route.fulfill({ contentType: 'text/javascript', body: '' })
   })
-  await page.route(/gc\.zgo\.at|goatcounter\.com|get\.geojs\.io|ipinfo\.io/, route => route.fulfill({ contentType: 'text/javascript', body: '' }))
   const commands = () => page.evaluate(() => ((window as unknown as { dataLayer?: ArrayLike<unknown>[] }).dataLayer ?? []).map(command => Array.from(command).map(part => part instanceof Date ? 'a date' : part)))
   await page.goto('/?edition=paper')
   await expect(page.getByRole('heading', { level: 1, name: 'Zekun Wang', exact: true })).toBeVisible()

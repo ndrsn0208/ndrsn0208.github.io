@@ -62,10 +62,10 @@ which the owner wants on the homepage), six selected papers, and the three
 essays. Do not add small explanatory text anywhere on the
 site's own pages.
 
-Traffic is counted with GoatCounter through `src/lib/analytics.ts` (pages, and
-clicks on PDFs, outside links, the email and the research directions). It is
-off until `analytics.goatcounter` in `src/data/config.json` holds the account's
-code. See "Traffic" in `SITE_REDESIGN.md`.
+Traffic is counted with Google Analytics through `src/lib/analytics.ts`
+(`analytics.google` in `src/data/config.json`, the ID from Google's snippet).
+The tag counts pages itself. The module gives it each page's title ahead of the
+address change. See "Traffic" in `SITE_REDESIGN.md`.
 
 Navigation is the name (home) and four words: Papers, Writing, About, CV. The
 appearance switch stays in the header, in reach from any reading position.

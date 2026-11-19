@@ -233,55 +233,33 @@ with earlier versions.
 
 ## Traffic
 
-The owner asked on 2026-11-17 for traffic counts, at no charge.
-`src/lib/analytics.ts` counts with GoatCounter (hosted, free for a personal
-site, no cookie, a script of about 3.5 KB). It counts every page once the page
-has its title (`useBlogMetadata` calls `countPage`), under its path without
-the query, and it counts the clicks that leave a page: a PDF (`pdf <file>`), a
-link to another site (`out <host><path>`), the email address (`email`), and a
-research direction chosen on the homepage (`direction <name>`, from
-`data-count`). A link to another page of the site is not a click. It is the
-next page.
+The owner asked on 2026-11-17 for traffic counts, at no charge. GoatCounter
+was tried first and taken out on 2026-11-19: it placed visitors by country and
+state only, and the owner wanted them down to the city, on a map. That is what
+Google Analytics shows, and it is what the site uses now.
 
-GoatCounter places a visitor by country and state only. The owner found that
-too coarse on 2026-11-18 ("能不能看到访问人来自于哪"), so every counted page is
-also counted as an event named after where the visit comes from: the owner of
-the visitor's network, then city, region and country, then the page, as in
-`from Georgia Institute of Technology · Atlanta, Georgia, US → /cv`. A free
-lookup service (GeoJS, then ipinfo if it does not answer) derives these from
-the visitor's address, once per load and only for a visit that is counted.
-The address is not kept. The owner of the network is a university or a company
-only when the visitor is on its network. At home it is the internet provider.
+`src/lib/analytics.ts` loads Google's tag. `analytics.google` in
+`src/data/config.json` is the ID in the snippet Google gives for the site.
+Google gave this one a tag whose ID begins with `GTM-` (`GTM-T65XQ6H5`, which
+reports to the property `G-2N0YBZGE8M`): the script is `gtm.js` and no
+`config` command is needed. A `G-…` ID is loaded as `gtag/js` with one. With no
+ID, nothing is loaded.
 
-The site that led a visitor here is passed on with the first page only. The
-pages opened after it were opened from this site, so one visitor from another
-site is one referral, not one per page.
+The tag is loaded on the first page, once the page has its title
+(`useBlogMetadata` calls `countPage`), and counts that page. It counts every
+later page itself when the address changes, about a second after the change.
+That can be before the page is drawn, so `analytics.ts` gives the tag the title
+of the page that is about to open (`titleOf`, a list of the pages' titles that
+a test keeps equal to the titles the pages give themselves). The tag also
+counts clicks that leave the site and downloads on its own. A research
+direction chosen on the homepage is sent as `select_content` (from
+`data-count`).
 
-On 2026-11-19 the owner found GoatCounter too coarse ("全是unknown") and asked
-for what Google Analytics shows: visitors down to the city, on a map, at no
-charge. `analytics.google` in `src/data/config.json` takes a Google Analytics
-the ID in the snippet Google gives for the site. Google gave this one a tag
-whose ID begins with `GTM-` (`GTM-T65XQ6H5`, which reports to the property
-`G-2N0YBZGE8M`): the script is `gtm.js` and no `config` command is needed. A
-`G-…` ID is loaded as `gtag/js` with one. With an ID, Google's tag is loaded on
-the first page and counts that page. It counts every later page itself when the address changes,
-which is before the page is drawn, so `analytics.ts` gives it the title of the
-page that is about to open (`titleOf`, a list of the pages' titles that a test
-keeps equal to the titles the pages give themselves). The tag also counts
-clicks that leave the site and downloads on its own. A research direction
-chosen on the homepage is sent as `select_content`. The tag is not loaded on a
-developer's machine. It counts every other visit, the owner's own included:
-the owner expects counting to be on for everyone, and a browser left out of
-the counts had confused them. It sets Google's cookies. A visitor behind a proxy or VPN is placed where the proxy is,
-in this and in every other service.
-
-The account's code is `analytics.goatcounter` in `src/data/config.json`. With
-no code, nothing is loaded and nothing is sent. The script does not count
-localhost. The site shows no counter and no consent notice. A browser is left
-out of the counts by opening the site once with `#toggle-goatcounter`. Every
-load of that address switches the state, so the site takes the fragment out of
-the address once the script has switched (the owner asked for this on
-2026-11-18, after a tab left on that address).
+The tag is not loaded on a developer's machine. It counts every other visit,
+the owner's own included: the owner expects counting to be on for everyone,
+and a browser left out of the counts had confused them. It sets Google's
+cookies. The site shows no counter and no notice. A visitor behind a proxy or
+VPN is placed where the proxy is, in this and in every other service.
 
 ## Optional adaptation playground
 
