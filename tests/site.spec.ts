@@ -58,7 +58,7 @@ test('the overview leads with the name over the landscape, then news, papers, an
   await expect(news).toContainText('was accepted to NeurIPS 2026')
   await expect(news.getByRole('link', { name: 'TTCL', exact: true })).toHaveAttribute('href', 'https://ttcl-agents.github.io/')
   await expect(page.locator('#selected-publications li')).toHaveCount(6)
-  await expect(page.locator('#blogs li')).toHaveCount(3)
+  await expect(page.locator('#blogs li')).toHaveCount(4)
   await expect(page.locator('#blogs h2')).toHaveText('Blogs')
   await expect(page.locator('#selected-publications li').first().getByRole('link')).toHaveAttribute('href', /trust-region-continual-learning\.pdf|arxiv\.org/)
   await expect(page.getByRole('contentinfo').getByRole('link', { name: 'zekun@gatech.edu', exact: true })).toHaveAttribute('href', 'mailto:zekun@gatech.edu')
@@ -145,11 +145,11 @@ test('Google Analytics is told each page under its own title, and nothing withou
   }
   await navigation(page).getByRole('link', { name: 'Blogs', exact: true }).click()
   await page.locator('.essay-row').first().click()
-  await expect(page).toHaveTitle('Test-Time Compositional Generalization · Zekun Wang')
+  await expect(page).toHaveTitle('TEASE · Zekun Wang')
   const told = (await commands()).filter(command => command[0] === 'set').map(command => (command[1] as { page_title: string }).page_title)
-  expect(told).toContain('Test-Time Compositional Generalization · Zekun Wang')
+  expect(told).toContain('TEASE · Zekun Wang')
   // No title was given that a page did not then take.
-  expect(new Set(told)).toEqual(new Set(['Publications · Zekun Wang', 'Blogs · Zekun Wang', 'About · Zekun Wang', 'Curriculum vitae · Zekun Wang', 'Test-Time Compositional Generalization · Zekun Wang']))
+  expect(new Set(told)).toEqual(new Set(['Publications · Zekun Wang', 'Blogs · Zekun Wang', 'About · Zekun Wang', 'Curriculum vitae · Zekun Wang', 'TEASE · Zekun Wang']))
   // A developer's machine that does not ask to be counted is left out: the tag is not loaded there.
   const own = await page.context().newPage()
   const ownAsked: string[] = []
@@ -235,7 +235,8 @@ test('Blogs lists every essay and each row opens its essay', async ({ page }) =>
   await page.goto('/blog/?edition=paper')
   await expect(page.getByRole('heading', { level: 1, name: 'Blogs', exact: true })).toBeVisible()
   await expect(page).toHaveTitle('Blogs · Zekun Wang')
-  await expect(page.locator('.essay-row')).toHaveCount(3)
+  await expect(page.locator('.essay-row')).toHaveCount(4)
+  await expect(page.locator('.essay-row .essay-figure-moves span')).toHaveCount(10)
   // Each row carries the essay's own drawing.
   await expect(page.locator('.essay-row canvas.terrain')).toHaveCount(1)
   await expect(page.locator('.essay-row .essay-figure-layers')).toHaveCount(1)

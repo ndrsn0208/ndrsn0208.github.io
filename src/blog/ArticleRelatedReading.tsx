@@ -4,14 +4,14 @@ import { essays } from '../site/essays'
 import EssayFigure from './EssayFigure'
 
 /** The other essay, listed the way the Blogs page lists it. */
-export default function ArticleRelatedReading({ current }: { current: 'scol' | 'diffusion' | 'composition' }) {
+export default function ArticleRelatedReading({ current }: { current: 'scol' | 'diffusion' | 'composition' | 'tease' }) {
   const { href } = useSiteTheme()
   const next = essays.find(essay => essay.id !== current)!
   return (
     <section className="article-related" aria-labelledby="article-related-title">
       <div className="article-related-heading">
         <h2 id="article-related-title">Keep reading</h2>
-        <Link className="site-text-link" to={href('/blog/')}>All writing</Link>
+        <Link className="site-text-link" to={href('/blog/')}>All blogs</Link>
       </div>
       <Link className="essay-row" to={href(next.path)}>
         <EssayFigure id={next.id} />

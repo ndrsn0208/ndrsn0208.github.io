@@ -65,7 +65,7 @@ for (const page of pages) {
   await fs.mkdir(directory, { recursive: true })
   await fs.writeFile(path.join(directory, 'index.html'), html)
 }
-const sitemapPaths = [...pages.map(page => page.route), '/blog/', '/blog/self-consolidating-language-models/', '/blog/continual-learning-diffusion-models/']
+const sitemapPaths = [...pages.map(page => page.route), '/blog/', '/blog/tease/', '/blog/test-time-compositional-generalization/', '/blog/self-consolidating-language-models/', '/blog/continual-learning-diffusion-models/']
 await fs.writeFile(path.join(dist, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${sitemapPaths.map(route => `<url><loc>${origin}${route}</loc></url>`).join('')}</urlset>\n`)
 await fs.writeFile(path.join(dist, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /unlisted/\nSitemap: ${origin}/sitemap.xml\n`)
 console.log('Built overview, publications, about, and CV pages with metadata and static reading fallbacks.')

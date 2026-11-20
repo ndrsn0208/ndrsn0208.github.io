@@ -121,7 +121,8 @@ computed from the name and question alone (`data-landscape-clear` is on
 paragraphs at 17px and no more. From 1240px it sits beside the name. Below
 that it follows the drawing, and the drawing gives up 9.5rem of height so
 that the introduction begins on the first screen. Below the drawing are News, six
-selected papers, and the three essays. The
+selected papers, and the essays with the TEASE project page (added to Blogs on
+2026-11-20, and at the owner's word not to News). The
 owner wants News on the homepage. It renders `src/data/news.json` as rows: a
 sentence at text size and its month. Home does not restate About.
 

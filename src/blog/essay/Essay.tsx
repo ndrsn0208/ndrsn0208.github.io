@@ -54,10 +54,11 @@ function EssayContent({ essay, draw, figure }: {
     imageAlt: shared?.description ?? essay.imageAlt,
   })
   const papers = essay.papers.map(getPublication).filter(paper => paper !== undefined)
+  // A page whose work has no public paper yet, or that cites nothing, leaves that section out.
   const chapters = [
     ...essay.sections.map(section => ({ id: section.id, label: section.label })),
-    { id: 'papers', label: papers.length > 1 ? 'The papers' : 'The paper' },
-    { id: 'references', label: 'References' },
+    ...(papers.length ? [{ id: 'papers', label: papers.length > 1 ? 'The papers' : 'The paper' }] : []),
+    ...(essay.references.length ? [{ id: 'references', label: 'References' }] : []),
   ]
 
   return (
@@ -84,7 +85,7 @@ function EssayContent({ essay, draw, figure }: {
           </p>
         </div>
         <div className="essay-actions">
-          <nav className="essay-links" aria-label="The work behind this essay">
+          <nav className="essay-links" aria-label="The work behind this essay" hidden={essay.links.length === 0 || undefined}>
             {essay.links.map(link => (
               <a className="site-text-link" key={link.href} href={link.href}
                 target={link.href.startsWith('#') ? undefined : '_blank'} rel={link.href.startsWith('#') ? undefined : 'noreferrer'}>{link.label}</a>
@@ -113,14 +114,14 @@ function EssayContent({ essay, draw, figure }: {
             </section>
           ))}
 
-          <section className="essay-section essay-papers" id="papers" aria-labelledby="papers-heading">
+          {papers.length > 0 && <section className="essay-section essay-papers" id="papers" aria-labelledby="papers-heading">
             <h2 id="papers-heading">{papers.length > 1 ? 'The papers' : 'The paper'}</h2>
             <ol className="site-list">
               {papers.map(paper => <li key={paper.id}><PublicationEntry paper={paper} inEssay /></li>)}
             </ol>
-          </section>
+          </section>}
 
-          <section className="essay-section essay-references" id="references" aria-labelledby="references-heading">
+          {essay.references.length > 0 && <section className="essay-section essay-references" id="references" aria-labelledby="references-heading">
             <h2 id="references-heading">References</h2>
             <ol>
               {essay.references.map(reference => (
@@ -130,7 +131,7 @@ function EssayContent({ essay, draw, figure }: {
                 </li>
               ))}
             </ol>
-          </section>
+          </section>}
 
           <ArticleRelatedReading current={essay.id} />
         </article>

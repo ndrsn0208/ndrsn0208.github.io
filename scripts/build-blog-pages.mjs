@@ -19,15 +19,16 @@ async function loadSource(relativePath) {
   }).outputText
   return import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`)
 }
-const [{ essayParts, essayCard }, { diffusionEssay }, { scolEssay }, { compositionEssay }, { recording }, record] = await Promise.all([
+const [{ essayParts, essayCard }, { diffusionEssay }, { scolEssay }, { compositionEssay }, { teaseEssay }, { recording }, record] = await Promise.all([
   loadSource('src/blog/essay/format.ts'),
   loadSource('src/blog/diffusion/article.ts'),
   loadSource('src/blog/scol/article.ts'),
   loadSource('src/blog/composition/article.ts'),
+  loadSource('src/blog/tease/article.ts'),
   loadSource('src/blog/diffusion/media.ts'),
   fs.readFile(path.join(root, 'src/data/publications.json'), 'utf8').then(JSON.parse),
 ])
-const essays = [compositionEssay, diffusionEssay, scolEssay]
+const essays = [teaseEssay, compositionEssay, diffusionEssay, scolEssay]
 const origin = 'https://ndrsn0208.github.io'
 const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
@@ -65,8 +66,9 @@ function essayBody(essay) {
     if ('math' in block) return math(block.math, block.label)
     return figure(essay, block.exhibit)
   }).join('\n')}</section>`).join('\n')
-  const references = `<section id="references"><h2>References</h2><ol>${essay.references.map(reference => `<li id="ref-${escapeHtml(reference.id)}"><a href="${escapeHtml(reference.url)}">${escapeHtml(reference.title)}</a>${reference.detail ? `<br />${escapeHtml(reference.detail)}` : ''}</li>`).join('\n')}</ol></section>`
-  return `<h1>${escapeHtml(essay.name)}<br />${escapeHtml(essay.headline)}</h1><p>${escapeHtml(authorLine(essay))}. ${escapeHtml(essay.affiliation)}.</p>${figure(essay, essay.lead)}${essay.summary.map(paragraph => `<p>${words(essay, paragraph)}</p>`).join('\n')}${sections}<section id="papers"><h2>${essay.papers.length > 1 ? 'The papers' : 'The paper'}</h2>${essay.papers.map(paper).join('\n')}</section>${references}`
+  // A page whose work has no public paper yet, or that cites nothing, leaves that section out, as the page itself does.
+  const references = !essay.references.length ? '' : `<section id="references"><h2>References</h2><ol>${essay.references.map(reference => `<li id="ref-${escapeHtml(reference.id)}"><a href="${escapeHtml(reference.url)}">${escapeHtml(reference.title)}</a>${reference.detail ? `<br />${escapeHtml(reference.detail)}` : ''}</li>`).join('\n')}</ol></section>`
+  return `<h1>${escapeHtml(essay.name)}<br />${escapeHtml(essay.headline)}</h1><p>${escapeHtml(authorLine(essay))}. ${escapeHtml(essay.affiliation)}.</p>${figure(essay, essay.lead)}${essay.summary.map(paragraph => `<p>${words(essay, paragraph)}</p>`).join('\n')}${sections}${essay.papers.length ? `<section id="papers"><h2>${essay.papers.length > 1 ? 'The papers' : 'The paper'}</h2>${essay.papers.map(paper).join('\n')}</section>` : ''}${references}`
 }
 function figureBody(essay, id) {
   const spec = essay.exhibits[id]
@@ -78,7 +80,7 @@ const pages = [
   {
     route: '/blog/',
     title: 'Blogs · Zekun Wang',
-    description: 'Research essays on compositional generalization and continual learning in diffusion models, and on continual context consolidation in language models.',
+    description: 'A benchmark for test-time systematic generalization in embodied agents, and research essays on compositional generalization and continual learning in diffusion models and on continual context consolidation in language models.',
     image: diffusionEssay.image,
     imageAlt: diffusionEssay.imageAlt,
     body: `<h1>Blogs</h1>${essays.map(essay => `<h2><a href="${essay.path}">${escapeHtml(essay.name)}</a></h2><p>${escapeHtml(essay.headline)}.</p>`).join('')}`,

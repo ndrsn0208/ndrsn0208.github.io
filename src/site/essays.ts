@@ -3,6 +3,14 @@
    does not load the full text. Change them in both places. */
 export const essays = [
   {
+    id: 'tease',
+    title: 'TEASE',
+    subtitle: 'A benchmark for test-time systematic generalization in embodied agents',
+    path: '/blog/tease/',
+    date: '2026-11-20',
+    month: 'November 2026',
+  },
+  {
     id: 'composition',
     title: 'Test-Time Compositional Generalization',
     subtitle: 'Composing a held-out combination from prototypes discovered at test time',

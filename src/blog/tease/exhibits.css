@@ -1,0 +1,161 @@
+/* TEASE. The pictures are the renders the agent receives on a table. In a picture, blue marks the
+   object in question: the tool and the target of a move, the one object in which two tables differ.
+   In a chart the four models keep the colours they have in the paper's figures (its palette "dusk":
+   GPT-6.2 Astra, Claude Fable 5.2, GPT-6.2 Sol, Claude Opus 5.5). On black each is lighter, in the same hue.
+   The colours are set here, on the frame of every essay page, so that a figure lifted out for its share
+   image keeps them. */
+.essay-system { --tease-astra: #2B5480; --tease-fable: #7A68A6; --tease-sol: #CF6F87; --tease-opus: #F0A860; }
+html[data-site-edition="black"] .essay-system { --tease-astra: #6F9BD1; --tease-fable: #A493D6; --tease-sol: #E58DA3; --tease-opus: #F3B36F; }
+.tease-cell { display: block; width: 100%; aspect-ratio: 1; background-repeat: no-repeat; }
+.tease-line { color: var(--site-ink); font-size: 1.0625rem; line-height: 1.4; letter-spacing: -.006em; font-variant-numeric: tabular-nums; }
+.tease-named { display: grid; gap: 6px; align-content: start; min-width: 0; }
+.tease-named .exhibit-label { text-wrap: balance; }
+.tease-named .exhibit-label b { color: var(--site-ink); font-weight: 500; }
+.tease-named[data-has] .tease-cell { outline: 2px solid var(--site-accent); outline-offset: -2px; }
+.tease-chart { display: grid; }
+
+/* Pictures of one place at several moments lie on one another, and the one in question shows. */
+.tease-frame, .tease-picture { position: relative; overflow: hidden; background: var(--site-surface); }
+.tease-frame img, .tease-picture img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 520ms ease; }
+.tease-frame img[data-shown], .tease-picture img[data-shown] { opacity: 1; }
+
+/* Opening figure: the main results, one drawing per level, side by side. Each stands under a rule, and the blue
+   rule is the level the path stands at. The three share their rows, so that the drawings start on one line and
+   their zero lines meet. Names at the ends of lines and under columns are the short ones: the full names are
+   the words that choose the model, directly above. */
+.tease-results { --tease-plot: clamp(168px, 15vw, 208px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.42fr); grid-template-rows: repeat(3, auto); gap: 0 clamp(22px, 2.8vw, 36px); }
+.tease-result { grid-row: 1 / span 3; display: grid; grid-template-rows: subgrid; align-content: start; min-width: 0; padding-top: 12px; border-top: 2px solid var(--site-rule); transition: border-color 320ms ease; }
+.tease-result[data-focus] { border-top-color: var(--site-accent); }
+.tease-result-name { color: var(--site-ink); font-size: 1.25rem; line-height: 1.2; letter-spacing: -.02em; text-wrap: balance; }
+.tease-results .readout { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 4px 18px; margin: 12px 0 18px; }
+.tease-results .readout > div:only-child { grid-column: 1 / -1; }
+.tease-results .readout dd { font-size: clamp(1.75rem, 1.05rem + 1.55vw, 2.5rem); }
+.tease-results .readout dt { text-wrap: balance; }
+.tease-results .columns-plot { padding: 2.5rem 0 0 2.3rem; }
+.tease-results .curves-plot { padding: 2.5rem 3.9rem 3.5rem 2.3rem; }
+.tease-results :is(.columns-field, .curves-field) { height: var(--tease-plot); aspect-ratio: auto; }
+.tease-results :is(.columns-groups, .columns-names) { padding-inline: 4px; }
+.tease-results .columns[data-single] .columns-group { gap: 0 clamp(8px, 1vw, 14px); }
+.tease-results .columns[data-single] .column-value { font-size: 1.0625rem; letter-spacing: -.01em; }
+.tease-results :is(.curves-name-full, .columns-name-full) { display: none; }
+.tease-results :is(.curves-name-short, .columns-name-short) { display: inline; }
+.tease-results .curves-name { margin-left: 12px; }
+
+/* The table from above before a move of its plan, and beside it the move with its tool and its target. */
+.tease-table { display: grid; grid-template-columns: minmax(0, 1.72fr) minmax(0, 1fr); align-items: start; gap: 16px clamp(20px, 3vw, 40px); }
+.tease-picture { aspect-ratio: 1320 / 1078; }
+.tease-ring { position: absolute; width: 10%; aspect-ratio: 1; margin: -5% 0 0 -5%; border: 2.5px solid var(--site-accent); border-radius: 50%; box-shadow: 0 0 0 1.5px rgba(255, 255, 255, .85), inset 0 0 0 1.5px rgba(255, 255, 255, .85); animation: tease-arrive 520ms var(--site-ease) both; }
+@keyframes tease-arrive { from { opacity: 0; transform: scale(1.6); } }
+.tease-side { display: grid; align-content: start; gap: clamp(14px, 1.8vw, 22px); }
+.tease-side .exhibit-label { margin-bottom: 2px; }
+.tease-move { font-size: var(--site-title); line-height: 1.2; letter-spacing: -.024em; }
+.tease-uses { display: flex; flex-wrap: wrap; align-items: start; gap: 12px; }
+.tease-uses .tease-named { width: clamp(84px, 10.4vw, 148px); animation: tease-arrive-tile 420ms ease both; }
+.tease-uses .tease-named .exhibit-label { margin: 0; }
+@keyframes tease-arrive-tile { from { opacity: 0; } }
+.tease-on { align-self: start; padding-top: clamp(30px, 4.4vw, 62px); color: var(--site-muted); font-size: var(--site-note); letter-spacing: 0; }
+
+/* The eight atoms: a function, its attribute, an object that has the attribute and one that lacks it. */
+/* The two halves share their rows, so that a name on two lines in one half does not move the pictures of the other. */
+.tease-atoms { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(5, auto); gap: 8px clamp(8px, 1.2vw, 14px); }
+.tease-atoms-block { grid-row: 1 / span 5; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: subgrid; gap: 8px clamp(8px, 1.2vw, 14px); }
+.tease-atom-name { color: var(--site-ink); font-size: 1.25rem; line-height: 1.2; letter-spacing: -.02em; }
+.tease-atom-head .exhibit-label { margin-top: 2px; text-wrap: balance; }
+.tease-atoms-row { grid-column: 1 / -1; margin-top: 6px; padding-top: 8px; border-top: 1px solid var(--site-rule); }
+/* On a wide screen the two halves stand side by side, and the second does not repeat what its rows are. */
+@media (min-width: 761px) { .tease-atoms-block + .tease-atoms-block .tease-atoms-row span { visibility: hidden; } }
+
+/* What the agent receives, and one turn. */
+.tease-turn { display: grid; grid-template-columns: minmax(0, 1.07fr) minmax(0, 1fr); gap: 16px clamp(16px, 2.4vw, 28px); }
+.tease-turn > div > .exhibit-label { margin-bottom: 6px; }
+.tease-turn-text { grid-column: 1 / -1; min-height: 8.2em; padding-top: 12px; border-top: 1px solid var(--site-rule); }
+.tease-line[data-move] { font-size: var(--site-title); line-height: 1.2; letter-spacing: -.024em; }
+
+/* A pair of tables that differ in one object. */
+.tease-pair { display: grid; gap: 12px; }
+.tease-pair > .tease-line .exhibit-label { margin-right: 10px; }
+.tease-pair-row { display: grid; gap: 8px; padding-top: 12px; border-top: 1px solid var(--site-rule); }
+.tease-pair-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; color: var(--site-ink); font-size: 1.0625rem; line-height: 1.4; }
+.tease-pair-objects { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px clamp(6px, 1vw, 10px); }
+.tease-pair-objects .tease-cell { transition: opacity 320ms ease; }
+.tease-pair-row[data-quiet] .tease-cell { opacity: .3; }
+.tease-pair-row[data-quiet] .tease-pair-head, .tease-pair-row[data-quiet] .tease-line { color: var(--site-muted); }
+
+/* One play as a row of moves. The blue line is the budget. */
+.tease-play { display: grid; gap: 14px; }
+.tease-play-result { min-height: 1.2em; color: var(--site-ink); font-size: var(--site-title); line-height: 1.2; letter-spacing: -.024em; }
+.tease-moves { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 16px 0; margin: 0; padding: 0; list-style: none; }
+.tease-moves li { display: grid; align-content: start; justify-items: center; gap: 8px; padding-top: 14px; border-top: 2px solid var(--site-rule); text-align: center; transition: border-color 320ms ease; }
+.tease-moves li[data-budget] { border-top-color: var(--site-accent); }
+.tease-moves .exhibit-label { min-height: 1.35em; font-variant-numeric: tabular-nums; }
+.tease-square { display: inline-block; width: clamp(26px, 4.2vw, 40px); aspect-ratio: 1; border: 1.5px solid var(--essay-quiet); transition: opacity 320ms ease; }
+.tease-square[data-kind="step"] { border-color: var(--site-ink); background: var(--site-ink); }
+.tease-square[data-kind="goal"] { border-color: var(--site-accent); background: var(--site-accent); }
+.tease-square[data-kind="none"] { border-style: dashed; border-color: var(--essay-track); }
+.tease-moves li:not([data-in]) .tease-square { opacity: .28; }
+.tease-play-key { display: flex; flex-wrap: wrap; gap: 6px 26px; }
+.tease-play-key > span { white-space: nowrap; }
+.tease-play-key .tease-square { width: 13px; margin-right: 8px; vertical-align: -1px; }
+
+/* Test-time continual learning: eight stages in a row, the notes between them, and the same tables alone. */
+.tease-stages { --stage: clamp(34px, 5.4vw, 48px); display: grid; gap: 18px; }
+.tease-lane { display: grid; grid-template-columns: 7rem minmax(0, 1fr); align-items: start; gap: 8px 12px; }
+.tease-lane > .exhibit-label { padding-top: calc(var(--stage) / 2 - .7em); color: var(--site-ink); }
+.tease-lane[data-quiet] > .exhibit-label { color: var(--site-muted); }
+.tease-lane ol { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 14px 0; margin: 0; padding: 0; list-style: none; }
+.tease-lane li { position: relative; display: grid; align-content: start; justify-items: center; gap: 6px; text-align: center; }
+.tease-stage { position: relative; z-index: 1; display: grid; place-items: center; width: var(--stage); aspect-ratio: 1; border: 1.5px solid var(--essay-track); background: var(--site-paper); color: var(--site-muted); font-size: 1.0625rem; font-variant-numeric: tabular-nums; transition: border-color 320ms ease, color 320ms ease; }
+.tease-lane li[data-on] .tease-stage { border-color: var(--site-ink); color: var(--site-ink); }
+.tease-lane[data-alone] .tease-stage { border-style: dashed; }
+/* With notes a line joins a stage to the one before it, and the blue point on it is where the notes are rewritten. */
+.tease-lane:not([data-alone]) li:not(:first-child)::before { content: ""; position: absolute; right: 50%; top: calc(var(--stage) / 2); width: 100%; height: 1px; background: var(--essay-track); }
+.tease-lane li[data-notes]::after, .tease-notes-mark { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--site-accent); }
+.tease-lane li[data-notes]::after { position: absolute; z-index: 1; left: -3.5px; top: calc(var(--stage) / 2 - 3px); }
+.tease-notes-mark { display: inline-block; margin: 0 7px 0 14px; vertical-align: 1px; }
+
+/* The recorded moves of the four models on one pair. */
+.tease-plays { display: grid; gap: 26px; }
+.tease-plays table { width: 100%; border-collapse: collapse; font-size: var(--site-note); line-height: 1.45; letter-spacing: 0; }
+.tease-plays caption { padding-bottom: 10px; text-align: left; }
+.tease-plays-name { margin-right: 14px; color: var(--site-ink); font-size: 1.0625rem; }
+.tease-plays tr { border-top: 1px solid var(--site-rule); }
+.tease-plays th { width: 9.4rem; padding: 10px 14px 10px 0; color: var(--site-body); font-weight: 400; text-align: left; vertical-align: top; white-space: nowrap; }
+.tease-plays td { padding: 10px 0; vertical-align: top; }
+.tease-plays td.tease-line { font-size: var(--site-note); }
+.tease-plays td.tease-line span { display: inline-block; margin-right: 16px; color: var(--site-muted); white-space: nowrap; }
+.tease-plays tr[data-right] td.tease-line span { color: var(--site-ink); font-weight: 500; }
+.tease-plays td:last-child { width: 3.6rem; color: var(--site-muted); text-align: right; }
+.tease-plays tr[data-right] td:last-child { color: var(--site-accent); }
+
+/* The page's drawing, small, on the index pages. */
+.essay-figure-moves { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 2.4%; width: 84%; }
+.essay-figure-moves .tease-square { width: 100%; border-width: 1.25px; }
+
+/* Where three drawings have no room side by side, the level the path stands at is shown alone. */
+@media (max-width: 940px) {
+  .tease-results { --tease-plot: clamp(200px, 32vw, 280px); grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
+  .tease-result { grid-row: auto; grid-template-rows: none; border-top-color: var(--site-accent); }
+  .tease-result:not([data-focus]) { display: none; }
+  .tease-results .readout { grid-template-columns: repeat(2, minmax(0, max-content)); gap: 4px clamp(24px, 6vw, 48px); }
+}
+@media (max-width: 760px) {
+  .tease-table { grid-template-columns: minmax(0, 1fr); }
+  .tease-side { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 20px; }
+  .tease-uses { grid-column: 1 / -1; }
+  .tease-on { padding-top: 30px; }
+  .tease-atoms { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; gap: 30px 0; }
+  .tease-atoms-block { grid-row: auto; grid-template-rows: none; }
+  .tease-turn { grid-template-columns: minmax(0, 1fr); }
+  .tease-turn-text { min-height: 11em; }
+  .tease-pair-objects { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .tease-moves { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .tease-lane { grid-template-columns: minmax(0, 1fr); }
+  .tease-lane > .exhibit-label { padding-top: 0; }
+  .tease-lane ol { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .tease-lane:not([data-alone]) li:nth-child(5)::before { display: none; }
+  .tease-plays th { width: auto; white-space: normal; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tease-frame img, .tease-picture img, .tease-square, .tease-stage, .tease-pair-objects .tease-cell, .tease-moves li, .tease-result { transition: none; }
+  .tease-ring, .tease-uses .tease-named { animation: none; }
+}

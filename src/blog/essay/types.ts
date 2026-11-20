@@ -44,7 +44,7 @@ export type EssaySection = {
 export type EssayReference = { id: string, title: string, url: string, detail?: string }
 
 export type Essay = {
-  id: 'diffusion' | 'scol' | 'composition'
+  id: 'diffusion' | 'scol' | 'composition' | 'tease'
   path: string
   /** What the work is called. */
   name: string
@@ -61,7 +61,7 @@ export type Essay = {
   lead: string
   sections: readonly EssaySection[]
   exhibits: Readonly<Record<string, EssayExhibit>>
-  /** Publication ids, listed the way the Papers page lists them. */
+  /** Publication ids, listed the way the Papers page lists them. None while the work has no public paper. */
   papers: readonly string[]
   references: readonly EssayReference[]
   image: string

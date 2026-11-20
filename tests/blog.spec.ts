@@ -26,6 +26,14 @@ const essays = [
     figures: ['compose', 'modes', 'levels', 'sharing', 'ascent', 'weights', 'samples', 'results', 'number'],
     papers: 1,
   },
+  {
+    // A project page: its work has no public paper yet and it cites nothing, so it ends with its last section.
+    path: '/blog/tease/',
+    name: 'TEASE',
+    headline: 'A benchmark for test-time systematic generalization in embodied agents',
+    figures: ['results', 'table', 'atoms', 'turn', 'pair', 'pairs', 'moves', 'functions', 'play', 'budget', 'steps', 'stages', 'gain', 'first', 'open', 'shown'],
+    papers: 0,
+  },
 ] as const
 
 const fits = async (page: Page) => expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize()!.width)
@@ -52,8 +60,12 @@ for (const essay of essays) {
 
     // The essay ends with its papers, listed the way the Papers page lists them, and its references.
     await expect(page.locator('#papers .paper')).toHaveCount(essay.papers)
-    await expect(page.locator('#papers .paper').first().getByRole('button', { name: /^Show summary and links/ })).toBeVisible()
-    expect(await page.locator('#references li').count()).toBeGreaterThanOrEqual(12)
+    if (essay.papers) {
+      await expect(page.locator('#papers .paper').first().getByRole('button', { name: /^Show summary and links/ })).toBeVisible()
+      expect(await page.locator('#references li').count()).toBeGreaterThanOrEqual(12)
+    } else {
+      await expect(page.locator('#papers, #references')).toHaveCount(0)
+    }
     const cited = await page.locator('.essay-cite a').evaluateAll(links => links.map(link => link.getAttribute('href')!))
     for (const href of new Set(cited)) await expect(page.locator(href)).toHaveCount(1)
 
@@ -389,4 +401,89 @@ test('a figure has its own address, and earlier addresses still open it', async 
   await expect(figure(page, 'loop')).toBeInViewport()
   await page.goto(`${essays[0].path}figures/no-such-figure/?edition=paper`)
   await expect(page).toHaveURL(new RegExp(`${essays[0].path}$`))
+})
+
+test('the benchmark page opens with the main results, shows a table along its plan, and its charts carry the numbers of the paper', async ({ page }) => {
+  await page.goto('/blog/tease/?edition=paper')
+  // The opening figure is the main results of the model chosen above it, one drawing per level. It rests on the atom level.
+  const results = figure(page, 'results')
+  await expect(station(page, 'results', 'Atom level')).toHaveAttribute('aria-current', 'step')
+  await expect(results.locator('.tease-result-name')).toHaveText(['Atom level', 'Composite level', 'Test-time continual learning'])
+  await expect(results.locator('.tease-result[data-focus] .tease-result-name')).toHaveText('Atom level')
+  await expect(results.locator('.readout dd')).toHaveText(['70.9%', '34.3%', '75.2%', '53.8%', '46.9%'])
+  await expect(results.locator('.column-value')).toHaveText(['70.9', '56.6', '38.5', '54.9'])
+  // A model has the colour it has in the paper's figures, on the word that chooses it and in every drawing.
+  await expect(results.locator('.exhibit-tabs[data-keyed] button')).toHaveCount(4)
+  expect(await results.locator('.column .column-bar').evaluateAll(bars => bars.map(bar => getComputedStyle(bar).backgroundColor)))
+    .toEqual(['rgb(43, 84, 128)', 'rgb(122, 104, 166)', 'rgb(207, 111, 135)', 'rgb(240, 168, 96)'])
+  await results.getByRole('button', { name: 'Claude Opus 5.5', exact: true }).click()
+  await expect(results.locator('.readout dd')).toHaveText(['54.9%', '9.1%', '25.8%', '15.0%', '11.3%'])
+  expect(await results.locator('.curves-line[data-ours]').evaluateAll(lines => lines.map(line => getComputedStyle(line).stroke))).toEqual(['rgb(240, 168, 96)', 'rgb(240, 168, 96)'])
+  await expect(results.locator('.curves-series[data-ours] .curves-name-short')).toHaveText(['Opus', 'Opus'])
+  // The path walks the three levels. Where they have no room side by side, the one it stands at is shown.
+  await station(page, 'results', 'Test-time continual learning').click()
+  await expect(results.locator('.tease-result[data-focus] .tease-result-name')).toHaveText('Test-time continual learning')
+  await expect(results.locator('.tease-result[data-focus]')).toBeVisible()
+  await expect(results.locator('.tease-result:visible')).toHaveCount(page.viewportSize()!.width > 940 ? 3 : 1)
+  await expect(results.locator('.exhibit-say')).toContainText('15.0% to 53.8% of these tables with notes and 11.3% to 46.9% of the same tables alone')
+  // The third level is test-time continual learning. Nothing on the page calls it a stream.
+  expect((await page.locator('.essay-summary, .essay-section, figure.exhibit').allTextContents()).join(' ')).not.toMatch(/stream/i)
+  await expect(page.locator('#continual-learning > h2')).toHaveText('Test-time continual learning is measured in stages, against the same tables played alone')
+
+  // The table of five steps rests on the first move of its plan, with its tool and its target named for the reader.
+  const table = figure(page, 'table')
+  await table.scrollIntoViewIfNeeded()
+  await expect(station(page, 'table', 'use(E, A)')).toHaveAttribute('aria-current', 'step')
+  await expect(table.locator('.tease-move')).toHaveText('use(E, A)')
+  await expect(table.locator('.tease-ring')).toHaveCount(2)
+  await station(page, 'table', 'tie(G, H, K)').click()
+  await expect(table.locator('.tease-move')).toHaveText('tie(G, H, K)')
+  await expect(table.locator('.tease-ring')).toHaveCount(3)
+  await expect(table.locator('.exhibit-say')).toContainText('makes a tool that was not on the table')
+  await expect(table.locator('.tease-picture img[data-shown]')).toHaveAttribute('src', /plan-3\.webp$/)
+
+  // The composite level: the model chosen above the drawing is blue, and its two figures stand above it.
+  const budget = figure(page, 'budget')
+  await budget.scrollIntoViewIfNeeded()
+  await expect(budget.locator('.readout dd')).toHaveText(['34.3%', '75.2%'])
+  await expect(budget.locator('.curves-series[data-ours] .curves-name-full')).toHaveText('GPT-6.2 Astra')
+  await budget.getByRole('button', { name: 'Claude Opus 5.5', exact: true }).click()
+  await expect(budget.locator('.readout dd')).toHaveText(['9.1%', '25.8%'])
+  await expect(budget.locator('.curves-series[data-ours] .curves-name-full')).toHaveText('Claude Opus 5.5')
+  // The reference agents enter along the path. All of them are on the drawing where it rests.
+  await expect(budget.locator('.curves-series[data-hidden]')).toHaveCount(0)
+  await station(page, 'budget', 'Four models').click()
+  await expect(budget.locator('.curves-series[data-hidden]')).toHaveCount(3)
+  await expect(budget.getByRole('table')).toContainText('GPT-6.2 Sol')
+
+  // The atom level: positive tables, negative tables, then pairs.
+  const pairs = figure(page, 'pairs')
+  await pairs.scrollIntoViewIfNeeded()
+  await expect(pairs.locator('.column-value')).toHaveText(['70.9', '56.6', '38.5', '54.9'])
+  await station(page, 'pairs', 'Positive tables').click()
+  await expect(pairs.locator('.column-value')).toHaveText(['91.1', '96.4', '87.5', '88.5'])
+  await station(page, 'pairs', 'Negative tables').click()
+  await expect(pairs.locator('.column-value')).toHaveText(['75.3', '56.6', '42.3', '58.2'])
+
+  // Test-time continual learning: with notes, alone, and their paired difference, at each budget.
+  const gain = figure(page, 'gain')
+  await gain.scrollIntoViewIfNeeded()
+  await expect(gain.locator('.readout dd')).toHaveText(['86.9%', '77.5%', '+9.5 ± 2.2'])
+  // Where it rests, GPT-6.2 Astra within twice k moves, stage 8 reads as the text says: 82.5% with notes, 62.5% alone, a gain of 20 points.
+  await expect(page.locator('#notes > h2')).toHaveText('With notes from shorter tables, the models solve more of the same tables')
+  await expect(page.locator('#notes')).toContainText('solves 62.5% of the tables within twice k moves alone and 82.5% of the same tables with notes')
+  await expect(gain.locator('.curves-series[data-ours] .curves-value').last()).toContainText('82.5')
+  await expect(gain.locator('.curves-series:not([data-ours]) .curves-value').last()).toContainText('62.5')
+  await expect(gain.locator('.curves-row-value').last()).toContainText('+20.0')
+  await expect(gain.getByRole('table')).toContainText('Gain (points)')
+  await station(page, 'gain', 'k moves').click()
+  await expect(gain.locator('.readout dd')).toHaveText(['53.8%', '46.9%', '+6.9 ± 2.7'])
+  await gain.getByRole('button', { name: 'Claude Fable 5.2', exact: true }).click()
+  await expect(gain.locator('.readout dd')).toHaveText(['37.1%', '21.5%', '+15.6 ± 2.9'])
+
+  // The recorded moves of the four models on one pair.
+  const moves = figure(page, 'moves')
+  await expect(moves.getByRole('row', { name: /Claude Opus 5\.5/ }).nth(1)).toContainText('use(D, E)use(C, E)use(A, E)none()')
+  await expect(moves.getByRole('row', { name: /GPT-6\.2 Astra/ }).nth(1)).toContainText('right')
+  await fits(page)
 })

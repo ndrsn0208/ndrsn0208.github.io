@@ -1,16 +1,20 @@
 import TerrainStage from './diffusion/TerrainStage'
 import Layers, { fill, written } from './scol/Layers'
 import { heldOutPairs } from './composition/Pairs'
+import TeaseEmblem from './tease/Emblem'
 import './diffusion/exhibits.css'
 import './scol/exhibits.css'
 import './composition/exhibits.css'
+import './tease/exhibits.css'
 import './essay-figure.css'
 
 /** An essay's one drawing, small, wherever the essay is listed. */
-export default function EssayFigure({ id }: { id: 'diffusion' | 'scol' | 'composition' }) {
+export default function EssayFigure({ id }: { id: 'diffusion' | 'scol' | 'composition' | 'tease' }) {
   return (
     <figure className="essay-figure" data-kind={id}>
-      {id === 'diffusion'
+      {id === 'tease'
+        ? <TeaseEmblem />
+        : id === 'diffusion'
         ? <TerrainStage mode="emblem" step={0} still seen
           label="A loss surface with the low-loss regions of three tasks. The parameters move from the old-task optimum into the basin shared by all three tasks, inside the trust region." />
         : id === 'scol'

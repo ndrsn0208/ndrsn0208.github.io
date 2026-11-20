@@ -3,7 +3,8 @@
 The essays are part of the Vite website and follow the site design in
 `SITE_REDESIGN.md`: one typeface, hairlines, and the blue point.
 
-- `/blog/` is the Writing index. The navigation calls it Writing.
+- `/blog/` is the Blogs index. The navigation calls it Blogs.
+- `/blog/tease/` is the project page of the TEASE benchmark.
 - `/blog/continual-learning-diffusion-models/` joins the ICLR 2026 rank-1 Fisher
   paper and the NeurIPS 2026 trust region paper.
 - `/blog/self-consolidating-language-models/` is the SCoL essay.
@@ -26,6 +27,8 @@ thirty research blogs. Their text was rewritten on 2026-11-12 to the rules in
 | `Exhibit.tsx` | The frame every figure sits in, and its controls. |
 | `Bars.tsx` | Measured values as bars. |
 | `Frontier.tsx` | Two measurements of each method as one point, with the Pareto frontier, or one path per method. The same numbers sit in a table for assistive technology. |
+| `Curves.tsx` | Measured values along an ordered axis, one line per series. One series is blue and carries its numbers. `Readout` sets a chart's main figures large above it. |
+| `Columns.tsx` | Measured values as columns from zero, one column per series in every group. |
 | `MathBlock.tsx` | A displayed equation. |
 | `format.ts` | Inline marks, share-image addresses, and `essayType`. No imports, because the static build reads it. |
 | `essay.css` | All essay and figure styles. |
@@ -367,6 +370,194 @@ Scientific contracts:
 - `modes` is a diagram of a one-dimensional mixture. It carries no measurement.
 - Do not write that the model has no mode at a held-out pair. At t = 300, 9.7%
   of the ascents from a held-out pair keep it.
+
+## TEASE
+
+`src/blog/tease/`, at `/blog/tease/`, added on 2026-11-20. It is a project page
+for a benchmark, built on the essay system. The headline is the paper's title
+after the colon: "A benchmark for test-time systematic generalization in
+embodied agents". The author asked for it under Blogs and not in the homepage's
+News. Their brief: introduce the project and the results of the four frontier
+models, interactive, with charts in the look of a frontier lab's model post, no
+comparison with prior work, no slogans, no small text, no defensive writing, one
+term per concept, and no abbreviation at its first use except common ones.
+
+Corrections by the author on the same day, after the first and the second version:
+
+- **The third level is test-time continual learning. Do not call it a stream.**
+  The paper's Figure 1 titles its three drawings Atom, Composite and Test-time
+  continual learning. The paper's text, its analysis files and the benchmark's
+  repository still say "stream level" and "stream". The page does not: the
+  level is "test-time continual learning", its tables are played in a
+  "sequence" of eight stages, and the two conditions are "with notes" and
+  "alone". `tools/tease_evidence.py` reads the keys named `stream` and writes
+  `continualLearning` with `notes` and `alone`. A test fails if the word
+  appears on the page.
+- **The paper's main results come first.** The opening figure is the paper's
+  Figure 1 drawn again (`results`): the four frontier models on the three
+  levels. The table played along its plan, which opened the first version, is
+  the figure of the first section.
+- **The models have the colours of the paper's figures.** The palette is "dusk"
+  in the paper's `labstyle.py`: GPT-6.2 Astra `#2B5480`, Claude Fable 5.2
+  `#7A68A6`, GPT-6.2 Sol `#CF6F87`, Claude Opus 5.5 `#F0A860`. They are set in
+  `exhibits.css` (`--tease-astra` and so on), with a lighter value of the same
+  hue for the black appearance. This page is the one place on the site where a
+  chart has more colours than the blue. Blue stays what it is in the frame and
+  in the pictures: the point of the path, the rule of the level in the opening
+  figure, the rings and the working object.
+- **The results of the third level read plainly.** The author read the first
+  version of that section and asked why GPT-6.2 Astra has 83 at stage 8 when it
+  had 63 before. The 83 is with notes and the 63 the same tables alone, and the
+  section had not said so in plain words. It now opens with what the two
+  results are and with that very case in numbers, its heading names the two
+  conditions, and the figure writes the gain under every stage.
+
+**No paper, no code, no references yet.** The paper is not public yet and
+both repositories are private (2026-11-20), so the page links to neither and
+has no papers section and no references. `papers` and `references` are empty,
+and `Essay.tsx` leaves both sections out. When the paper is public, add its
+publication id to `papers`, a link to `links`, and the usage section from the
+repository's README. The author line is the one on the author's slides (Zekun
+Wang, Georgia Institute of Technology). Ask the author before adding names.
+
+**The story** is the paper's without its related work, in an order that brings
+results forward. The opening figure gives the main results. Then a table
+played along its plan, the atoms, and what the agent receives and one turn,
+with the four models. Each level is followed by its results: the atom level and
+systematicity, the composite level and composition with the reference agents,
+test-time continual learning and what notes add. The three findings of the
+analysis close the page. Section headings are the paper's own, except the first
+("A task is a table of everyday objects with a goal"), the one of the third
+level, and the one of its results ("With notes from shorter tables, the models
+solve more of the same tables"), which names the two conditions the figure
+compares.
+
+**The drawing** is the table: the renders the agent receives, with every object
+under a letter. The figures of the benchmark are built from them. The share
+image of the page is still the table (`face.tease` in
+`scripts/render-essay-cards.mjs`). On the index pages the page's emblem is one
+play as a row of moves (`Emblem.tsx`).
+
+**The opening figure** (`Results` in `exhibits.tsx`) has one drawing per level,
+side by side: pairs right as columns, composite tables solved within a budget
+from k to twice k moves, and composite tables solved with notes by stage within
+k moves, the budget the paper's figure draws in colour. Above each drawing
+stand the figures of the model chosen above the figure. The path walks the
+three levels and the blue rule marks the one it stands at. From 940px down the
+three have no room side by side, and only that level is shown. The lines of
+these small drawings cross, so the numbers of the model in blue stand above
+the drawing and not on its line, and names are the short ones (Astra, Fable,
+Sol, Opus), since the full names are the words that choose the model directly
+above.
+
+**Charts.** `Curves.tsx` and `Columns.tsx` (shared, in `src/blog/essay/`) were
+written for this page. Every model has its colour in every chart, as a line, a
+point or a column. The reader chooses a model above a chart, where each name
+carries its colour as a ring and the chosen one is filled (`tabColors` on
+`Exhibit`). The chosen model is the heavy line and carries its numbers, and
+`Readout` sets its main figures large above the drawing. Text is never set in a
+model's colour: the orange and the rose are too light for type. Lines are named
+at their ends. Grey is what is not a model: the same tables played alone, and
+the reference agents, which are dashed. A path under a chart moves through
+budgets or through the parts of an argument. In `gain` the line in the model's
+colour is the share solved with notes and the grey line the same tables alone.
+A row under the axis (`rows` of `Curves`) gives the gain at every stage. On a
+phone that figure writes whole numbers, since the stages stand closer.
+
+Terms, from the paper's own term sheet (`notes/TERMS.md` in the paper's
+repository). Use them in every sentence, figure and note.
+
+| Concept | Term | Not |
+| --- | --- | --- |
+| The benchmark | TEASE (Test-Time Embodied Agent Systematicity Evaluation), expanded once | |
+| One task instance | table | scene, episode, puzzle, problem |
+| The record that decides what a move does | the object table | catalog, database |
+| Anything on a table | object | thing, item |
+| A visible physical property | attribute | property, feature, affordance |
+| What an attribute enables | function: cut, hook, poke, heat, pound, contain, tie, pry | action, skill |
+| An attribute with its function | atom | primitive, rule |
+| An object made for a function | typical tool | usual, canonical, standard tool |
+| An object that has the attribute and is no typical tool | non-typical object | unusual, atypical, substitute |
+| The object on a table that can do the step | working object | carrier, answer |
+| An object that comes close to the attribute and lacks it | near-miss object | lure, distractor, decoy |
+| The working object's twin without the attribute | counterpart | lookalike, twin |
+| The two tables of a pair | positive table, negative table, pair | solvable, unsolvable |
+| One call by the agent | move: `use`, `tie`, `none()` | action, call |
+| The agent's run through a table | play | episode |
+| One step of the shortest way to the goal | step. A table has k steps | hop |
+| The moves of a shortest way to the goal | plan | solution, sequence |
+| A move that does a step of the plan | plan step | correct move |
+| The table at its start or after a plan step | state | |
+| The first move at a state does the step | the step is done at the first try | first-try rate |
+| The table ends with a step not done | the step is left open | open step |
+| The levels | atom level, composite level, test-time continual learning (the third level) | stream level, puzzle level, curriculum |
+| The eight stages that one run of the third level plays in order | sequence. There are eight sequences | stream, order, curriculum |
+| A table played after the earlier stages, with the agent's notes | with notes | in the stream |
+| A table played with no earlier table | played alone | cold, isolated, from scratch |
+| The share solved with notes minus the share of the same tables solved alone, in points | gain. Over the tables of stages 2 to 8, with its standard error, it is the paired difference | improvement, lift, boost |
+| What the agent writes after a stage | notes | memory, reflection |
+| The number of moves a run is read at | budget: k, 10 or twice k moves | cap, horizon |
+| Goal reached within the budget | solved | success, completed |
+| The agent says the goal cannot be reached | answers `none()` | declines, refuses |
+| A move that changes nothing | nothing happens | no-op, wasted |
+| Reference agents | oracle, the agent that knows the plan, random moves | optimal, informed |
+| The systems under test | model. Vision-language model, written out | LLM, VLM |
+| A container, tube, shelf or cabinet the hand cannot open | closed place | fixture |
+
+| Figure | What it shows |
+| --- | --- |
+| `results` | The opening figure: the main results of the four models, one drawing per level. |
+| `table` | A composite table of five steps from above, before each move of its plan, with the tool and the target of the move ringed and shown close up. |
+| `atoms` | The eight atoms: for each function a non-typical object that has the attribute and a similar-looking object that lacks it. |
+| `turn` | What the agent receives: four views, every object close up, the text. Then a move carried out by the robot hand, and its result. |
+| `pair` | A pair of tables of the atom level that differ in one object. |
+| `pairs` | Positive tables, negative tables and pairs right, as columns. |
+| `moves` | The recorded moves of the four models on the pair shown in `pair`. |
+| `functions` | Negative tables right by function, one point per model. |
+| `play` | One play of the table of five steps, read at the budgets k and twice k. |
+| `budget` | Composite tables solved within a budget from k to twice k moves, with the scripted agents and the oracle. |
+| `steps` | Composite tables solved by the number of steps, with the level of k separate one-move tables. |
+| `stages` | Test-time continual learning: a sequence of eight stages, the notes between them, the same tables alone. |
+| `gain` | Test-time continual learning by stage, with notes and alone, at three budgets, with the gain under every stage. It rests on twice k moves, where the text's example reads off it. |
+| `first` | States at which the first move is a plan step by the steps still to do, and steps done at the first try by where the tool comes from. |
+| `open` | Reached steps left open, for steps that free an object and steps that make a tool. |
+| `shown` | With notes minus the same tables alone, by what the earlier stages have shown. |
+
+Scientific contracts:
+
+- `evidence.ts` is written by `tools/tease_evidence.py` in the author's
+  `papers-2026-11` folder, outside this repository, from the paper's analysis
+  files (`numbers.json`, `attempts.json`, `moves_summary.json`,
+  `controls.json`, `ref_agents.json`). It holds counts with their totals. Do
+  not edit it by hand. The tool prints the numbers the paper's text quotes.
+- Every number in `article.ts` is in the paper's text or tables, or is a range
+  over the four models computed from those counts.
+- The pictures are the renders the agent receives, copied from the author's
+  H200 machine and cut by `tools/tease_assets.py` in the same folder. Nothing
+  is redrawn. The names of objects under pictures are for the reader. The agent
+  gets only letters.
+- In `budget` and in the composite drawing of `results` each curve is the cubic
+  through the values at k and at twice k that is closest to the values between,
+  as in the paper's figure. Its points are the measured values. Every other
+  chart joins measured values.
+- The third drawing of `results` and its two figures are at the budget of k
+  moves, as in the paper's Figure 1 and in the table of the repository's
+  README. The shares with notes and alone (53.8% and 46.9% for GPT-6.2 Astra)
+  are in the paper's main table.
+- The dashed line in `steps` is the model's share of positive atom tables
+  raised to the power k. The paper states it for GPT-6.2 Astra (83.1% and
+  47.6%).
+- `moves` shows recorded plays of the pair `cut/G00`, read from the run
+  records of the four models on the H200 machine. `play` shows the play of
+  GPT-6.2 Astra that the paper's figure of the composite level shows.
+- The notes quoted in `stages` and in the last section are the ones the paper
+  quotes.
+- The example that opens the results of the third level (GPT-6.2 Astra, stage
+  8, within twice k moves: 82.5% with notes, 62.5% alone) is 33 of 40 and 25 of
+  40 in the paper's table of the third level by stage. The composite level's
+  own tables of eight steps give 63.3% (19 of 30) at that budget. They are
+  other tables: the composite tables of the sequences are 211 different tables,
+  of which 45 are also tables of the composite level (the paper's appendix).
 
 ## Paper assets
 

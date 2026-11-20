@@ -10,7 +10,7 @@ function BlogIndexContent() {
 
   useBlogMetadata({
     title: 'Blogs · Zekun Wang',
-    description: 'Research essays on continual learning in diffusion models and continual context consolidation in language models.',
+    description: 'A benchmark for test-time systematic generalization in embodied agents, and research essays on compositional generalization and continual learning in diffusion models and on continual context consolidation in language models.',
     path: '/blog/',
     image: essayCard('diffusion', 'essay'),
     imageAlt: 'Continual Learning Diffusion Models. Generative replay with a rank-1 Fisher trust region.',

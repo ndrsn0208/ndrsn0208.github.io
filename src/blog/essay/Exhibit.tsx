@@ -26,7 +26,7 @@ export type ExhibitView = {
 
 const origin = 'https://ndrsn0208.github.io'
 
-export default function Exhibit({ id, spec, essay, lead = false, rest = 0, dwell = 3400, progress, onSeen, children }: {
+export default function Exhibit({ id, spec, essay, lead = false, rest = 0, dwell = 3400, tabColors, progress, onSeen, children }: {
   id: string
   spec: EssayExhibit
   /** The essay the figure belongs to. */
@@ -37,6 +37,8 @@ export default function Exhibit({ id, spec, essay, lead = false, rest = 0, dwell
   rest?: number
   /** How long each station holds while playing, in milliseconds. */
   dwell?: number | readonly number[]
+  /** The colour each instance keeps in the drawing, when the instances are told apart by colour. Its word then carries it. */
+  tabColors?: readonly string[]
   /** A recording's position from 0 to 1, when the path follows a recording instead of stations. */
   progress?: { value: number, playing: boolean, toggle: () => void, seek: (value: number) => void }
   /** Told when the figure comes on or off screen. */
@@ -133,9 +135,10 @@ export default function Exhibit({ id, spec, essay, lead = false, rest = 0, dwell
         <span id={`${uid}-about`}>{spec.description}</span>
       </figcaption>
 
-      {spec.tabs && <div className="exhibit-tabs" role="group" aria-label={spec.tabsLabel ?? spec.title}>
+      {spec.tabs && <div className="exhibit-tabs" role="group" aria-label={spec.tabsLabel ?? spec.title} data-keyed={tabColors ? '' : undefined}>
         {spec.tabs.map((label, index) => (
-          <button type="button" key={label} aria-pressed={tab === index} onClick={() => setTab(index)}>{label}</button>
+          <button type="button" key={label} aria-pressed={tab === index} onClick={() => setTab(index)}
+            style={tabColors ? { '--tab': tabColors[index] } as CSSProperties : undefined}>{label}</button>
         ))}
       </div>}
 

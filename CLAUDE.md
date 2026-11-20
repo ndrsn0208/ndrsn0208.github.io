@@ -58,9 +58,10 @@ first-person bio ("I'm a third-year PhD student ... Prior to that, ..."), one
 sentence on the research, and the research interests. It must not make the
 drawing smaller or wrap the name: beside the name from 1240px, under the
 drawing below that. Keep it that short. Below the drawing are News (from `src/data/news.json`,
-which the owner wants on the homepage), six selected papers, and the three
-essays. Do not add small explanatory text anywhere on the
-site's own pages.
+which the owner wants on the homepage), six selected papers, and the pages
+under Blogs: three essays and the project page of the TEASE benchmark
+(`/blog/tease/`, 2026-11-20, which the owner did not want in News). Do not add
+small explanatory text anywhere on the site's own pages.
 
 Traffic is counted with Google Analytics through `src/lib/analytics.ts`
 (`analytics.google` in `src/data/config.json`, the ID from Google's snippet).

@@ -25,6 +25,7 @@ const MobileStudio = lazy(() => import('./designs/mobile/MobileStudio'))
 const ScolPost = lazy(() => import('./blog/scol/ScolPost'))
 const DiffusionPost = lazy(() => import('./blog/diffusion/DiffusionPost'))
 const CompositionPost = lazy(() => import('./blog/composition/CompositionPost'))
+const TeasePost = lazy(() => import('./blog/tease/TeasePost'))
 
 function PhotographyRedirect() {
   const { search } = useLocation()
@@ -67,6 +68,8 @@ createRoot(root).render(
         <Route path="/blog/continual-learning-diffusion-models/figures/:figureId" element={page(<DiffusionPost />)} />
         <Route path="/blog/test-time-compositional-generalization" element={page(<CompositionPost />)} />
         <Route path="/blog/test-time-compositional-generalization/figures/:figureId" element={page(<CompositionPost />)} />
+        <Route path="/blog/tease" element={page(<TeasePost />)} />
+        <Route path="/blog/tease/figures/:figureId" element={page(<TeasePost />)} />
         <Route path="/still" element={<Suspense fallback={<div style={{ minHeight: '100svh', background: 'var(--still-screen, #000000)' }} />}><StillStudio /></Suspense>} />
         <Route path="/typography/*" element={<Suspense fallback={<div style={{ minHeight: '100svh', background: '#ffffff' }} />}><TypographyStudio /></Suspense>} />
         <Route path="/mobile/*" element={<Suspense fallback={<div style={{ minHeight: '100svh', background: '#ffffff' }} />}><MobileStudio /></Suspense>} />
