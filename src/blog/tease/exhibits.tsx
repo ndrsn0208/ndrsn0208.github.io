@@ -504,13 +504,16 @@ function Steps() {
   )
 }
 
+/* With notes and alone, by stage. The figure rests on k moves, the budget of the opening figure's third drawing,
+   so that its figures and its line with notes are the ones the reader has seen there. */
+
 /** A difference in points, with its sign, and with its standard error where it has one. */
 const signed = (value: number, digits: number) => { const text = Math.abs(value).toFixed(digits); return `${Number(text) === 0 ? '' : value > 0 ? '+' : '−'}${text}` }
 const points = (value: number, error?: number) => `${signed(value, 1)}${error === undefined ? '' : ` ± ${error.toFixed(1)}`}`
 
 function Gain() {
   return (
-    <Exhibit id="gain" spec={specs.gain} essay={essay} rest={2} dwell={[5200, 4200, 5600]} tabColors={colors}>
+    <Exhibit id="gain" spec={specs.gain} essay={essay} rest={0} dwell={[5200, 4200, 5600]} tabColors={colors}>
       {({ step, tab }) => {
         const run = continualLearning[models[tab].id][budgets[step]]
         const budget = ['k', '10', 'twice k'][step]

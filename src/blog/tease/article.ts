@@ -62,8 +62,8 @@ export const teaseEssay = {
       ],
     },
     {
-      id: 'atom-level',
-      label: 'Atom level',
+      id: 'pairs-of-tables',
+      label: 'Pairs of tables',
       heading: 'The atom level pairs a positive table with a negative table',
       blocks: [
         { p: 'The atom level asks whether a model uses an attribute where it is and only where it is. Every table of this level needs one move, and the tables come in pairs. On the positive table exactly one object can do the step. This working object is a non-typical object, such as a sharp stone flake for cutting a sewn sack open. Every other object on the table is a near-miss object, which comes close to the attribute and lacks it: a typical tool without the attribute, an object in a state without it, an object that falls short by a degree one can see, or an object that has only a part of the attribute.' },
@@ -73,8 +73,8 @@ export const teaseEssay = {
       ],
     },
     {
-      id: 'systematicity',
-      label: 'Systematicity',
+      id: 'atom-level',
+      label: 'Atom level',
       heading: 'Models use an attribute where it is, and also act where it is absent',
       blocks: [
         { p: 'On the positive tables, where a non-typical object is the only working object, the first move of every model reaches the goal on 87.5% to 96.4% of the tables. On the negative tables, where the right answer is none(), the first move is none() on 42.3% to 75.3% of the tables. **Pairs with both tables right therefore fall to between 38.5% for GPT-6.2 Sol and 70.9% for GPT-6.2 Astra**, against 0% for an agent that always acts and 0% for one that always answers none().' },
@@ -86,8 +86,8 @@ export const teaseEssay = {
       ],
     },
     {
-      id: 'composite-level',
-      label: 'Composite level',
+      id: 'plans-and-budgets',
+      label: 'Plans and budgets',
       heading: 'A composite table needs k steps, and one play is scored at every budget',
       blocks: [
         { p: 'The composite level asks whether a model chains the atoms when a goal needs several steps. A composite table needs k steps of k different functions, with 30 tables for each k from 2 to 8. A step frees an object from a closed place, makes a tool that is not on the table, or acts on the goal object. A tool is made by changing one object or by tying two. The object that a step frees or makes is the tool or the target of a later step. The table shown above, with the goal “get L down from N,” needs five steps.' },
@@ -97,8 +97,8 @@ export const teaseEssay = {
       ],
     },
     {
-      id: 'composition',
-      label: 'Composition',
+      id: 'composite-level',
+      label: 'Composite level',
       heading: 'The share solved within k moves falls fast with the number of steps',
       blocks: [
         { p: 'Within k moves, where every move must be a plan step, the models solve 9.1% to 34.3% of the composite tables, against 100% for the oracle. With twice k moves they solve 25.8% to 75.2%. **GPT-6.2 Astra is the best model at every budget from k to twice k**, and no model solves any table in fewer than k moves.' },
@@ -110,8 +110,8 @@ export const teaseEssay = {
       ],
     },
     {
-      id: 'continual-learning',
-      label: 'Test-time continual learning',
+      id: 'stages-and-notes',
+      label: 'Stages and notes',
       heading: 'Test-time continual learning is measured in stages, against the same tables played alone',
       blocks: [
         { p: 'The third level measures test-time continual learning: whether a model solves tables within fewer moves after it has played shorter ones. The tables are played in a sequence of eight stages. Stage 1 holds five atom tables of one function. Stage i, for i from 2 to 8, holds up to five composite tables of i steps. Their functions are the function of stage 1 and the one function that each later stage adds. There are eight sequences, and each function comes first in one sequence. Their 315 tables are 40 atom tables and 275 composite tables. The composite tables are 211 different tables, of which 45 are also tables of the composite level.' },
@@ -120,12 +120,12 @@ export const teaseEssay = {
       ],
     },
     {
-      id: 'notes',
-      label: 'Notes',
-      heading: 'With notes from shorter tables, the models solve more of the same tables',
+      id: 'continual-learning',
+      label: 'Test-time continual learning',
+      heading: 'Every model solves more tables with its notes than alone',
       blocks: [
-        { p: 'Each composite table of a sequence has two results at a budget. One is from its stage, where the agent holds the notes it wrote after the shorter stages. The other is from the same table played alone, with no notes. The difference between the two is what the notes add. **At stage 8, GPT-6.2 Astra solves 62.5% of the tables within twice k moves alone and 82.5% of the same tables with notes.**' },
-        { p: 'Every model solves more of the composite tables of the sequences with notes than alone, at each of the three budgets. Within k moves the paired differences with their standard errors are 6.9 ± 2.7 points for GPT-6.2 Astra (53.8% against 46.9%), 15.6 ± 2.9 for Claude Fable 5.2, 5.8 ± 2.9 for GPT-6.2 Sol and 3.6 ± 2.2 for Claude Opus 5.5. At the budget of twice k they are 9.5 ± 2.2 points for GPT-6.2 Astra (86.9% against 77.5%), 14.2 ± 3.1 for Claude Fable 5.2 and 20.1 ± 3.3 for Claude Opus 5.5. For GPT-6.2 Sol the shares with notes and alone are comparable at this budget (73.1% against 70.5%), with a difference of 2.5 ± 2.9 points.' },
+        { p: 'Test-time continual learning compares two plays of each composite table at the same budget. One is at its stage, where the agent holds the notes it wrote after the earlier stages. The other is the same table alone, with no notes. **Within k moves, GPT-6.2 Astra solves 53.8% of the 275 tables with notes and 46.9% of the same tables alone.** The opening figure shows the first of these shares at every stage, for the four models. The figure below sets the same tables alone beside it.' },
+        { p: 'Every model solves more of these tables with notes than alone, at each of the three budgets. Within k moves the paired differences with their standard errors are 6.9 ± 2.7 points for GPT-6.2 Astra, 15.6 ± 2.9 for Claude Fable 5.2, 5.8 ± 2.9 for GPT-6.2 Sol and 3.6 ± 2.2 for Claude Opus 5.5. At the budget of twice k they are 9.5 ± 2.2 points for GPT-6.2 Astra (86.9% against 77.5%), 14.2 ± 3.1 for Claude Fable 5.2 and 20.1 ± 3.3 for Claude Opus 5.5. For GPT-6.2 Sol the shares with notes and alone are comparable at this budget (73.1% against 70.5%), with a difference of 2.5 ± 2.9 points.' },
         { exhibit: 'gain' },
         { p: 'At the budgets twice k and 10 moves, the gain is larger at stages 6 to 8, the long tables that come last, than at stages 2 to 5 for every model. At twice k the gain is 8.3 to 26.5 points at stages 6 to 8 and −1.9 to +15.1 points at stages 2 to 5.' },
       ],
@@ -312,7 +312,7 @@ export const teaseEssay = {
     },
     gain: {
       title: 'Test-time continual learning by stage: with notes and alone',
-      description: 'For each of four models and each of three budgets, the share of the composite tables of a stage that the model solves with notes, the share of the same tables that it solves alone, and the gain, their difference in points, by stage. Every model solves more tables with notes than alone at each budget. At stage 8, GPT-6.2 Astra solves 82.5% of the tables within twice k moves with notes and 62.5% alone.',
+      description: 'For each of four models and each of three budgets, the share of the composite tables of a stage that the model solves with notes, the share of the same tables that it solves alone, and the gain, their difference in points, by stage. Every model solves more tables with notes than alone at each budget. Within k moves, GPT-6.2 Astra solves 53.8% of the 275 tables with notes and 46.9% of the same tables alone.',
       wide: true,
       tabs: models,
       tabsLabel: 'The model shown',

@@ -405,12 +405,26 @@ Corrections by the author on the same day, after the first and the second versio
   chart has more colours than the blue. Blue stays what it is in the frame and
   in the pictures: the point of the path, the rule of the level in the opening
   figure, the rings and the working object.
-- **The results of the third level read plainly.** The author read the first
-  version of that section and asked why GPT-6.2 Astra has 83 at stage 8 when it
-  had 63 before. The 83 is with notes and the 63 the same tables alone, and the
-  section had not said so in plain words. It now opens with what the two
-  results are and with that very case in numbers, its heading names the two
-  conditions, and the figure writes the gain under every stage.
+- **The results of the third level read plainly, and agree with the opening
+  figure.** The author read that section twice and was confused twice. First:
+  why does GPT-6.2 Astra have 83 at stage 8 when it had 63 before. The 83 is
+  with notes and the 63 the same tables alone. Then, after it was live: the
+  heading "With notes from shorter tables, the models solve more of the same
+  tables" could not be understood, and the numbers did not match the results of
+  test-time continual learning. They did not: the opening figure is at the
+  budget of k moves (53.8% against 46.9% for GPT-6.2 Astra), and the section's
+  figure rested on twice k (86.9% against 77.5%). Rules that follow:
+  - A figure of a level rests on the numbers the opening figure shows for that
+    level. `gain` rests on k moves, and a test compares its two figures with
+    the opening figure's.
+  - The section opens by naming the level, says what the two plays are, and
+    gives those same numbers. Its heading is "Every model solves more tables
+    with its notes than alone".
+  - In the outline the results of a level stand under the level's name, as in
+    the opening figure: Atom level, Composite level, Test-time continual
+    learning. The section before each says how the level is built: Pairs of
+    tables, Plans and budgets, Stages and notes.
+  - The figure writes the gain under every stage.
 
 **No paper, no code, no references yet.** The paper is not public yet and
 both repositories are private (2026-11-20), so the page links to neither and
@@ -428,9 +442,8 @@ systematicity, the composite level and composition with the reference agents,
 test-time continual learning and what notes add. The three findings of the
 analysis close the page. Section headings are the paper's own, except the first
 ("A task is a table of everyday objects with a goal"), the one of the third
-level, and the one of its results ("With notes from shorter tables, the models
-solve more of the same tables"), which names the two conditions the figure
-compares.
+level, and the one of its results ("Every model solves more tables with its
+notes than alone"), which names the two conditions the figure compares.
 
 **The drawing** is the table: the renders the agent receives, with every object
 under a letter. The figures of the benchmark are built from them. The share
@@ -518,7 +531,7 @@ repository). Use them in every sentence, figure and note.
 | `budget` | Composite tables solved within a budget from k to twice k moves, with the scripted agents and the oracle. |
 | `steps` | Composite tables solved by the number of steps, with the level of k separate one-move tables. |
 | `stages` | Test-time continual learning: a sequence of eight stages, the notes between them, the same tables alone. |
-| `gain` | Test-time continual learning by stage, with notes and alone, at three budgets, with the gain under every stage. It rests on twice k moves, where the text's example reads off it. |
+| `gain` | Test-time continual learning by stage, with notes and alone, at three budgets, with the gain under every stage. It rests on k moves, the budget of the opening figure, so that both show the same figures. |
 | `first` | States at which the first move is a plan step by the steps still to do, and steps done at the first try by where the tool comes from. |
 | `open` | Reached steps left open, for steps that free an object and steps that make a tool. |
 | `shown` | With notes minus the same tables alone, by what the earlier stages have shown. |
@@ -552,12 +565,14 @@ Scientific contracts:
   GPT-6.2 Astra that the paper's figure of the composite level shows.
 - The notes quoted in `stages` and in the last section are the ones the paper
   quotes.
-- The example that opens the results of the third level (GPT-6.2 Astra, stage
-  8, within twice k moves: 82.5% with notes, 62.5% alone) is 33 of 40 and 25 of
-  40 in the paper's table of the third level by stage. The composite level's
-  own tables of eight steps give 63.3% (19 of 30) at that budget. They are
-  other tables: the composite tables of the sequences are 211 different tables,
-  of which 45 are also tables of the composite level (the paper's appendix).
+- The example that opens the results of the third level (GPT-6.2 Astra within
+  k moves: 53.8% of the 275 tables with notes, 46.9% alone) is in the paper's
+  main table and its text. At stage 8 within twice k moves the figure shows
+  82.5% with notes and 62.5% alone, 33 of 40 and 25 of 40 in the paper's table
+  of the third level by stage. The composite level's own tables of eight steps
+  give 63.3% (19 of 30) at that budget. They are other tables: the composite
+  tables of the sequences are 211 different tables, of which 45 are also tables
+  of the composite level (the paper's appendix).
 
 ## Paper assets
 

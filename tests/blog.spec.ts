@@ -428,7 +428,15 @@ test('the benchmark page opens with the main results, shows a table along its pl
   await expect(results.locator('.exhibit-say')).toContainText('15.0% to 53.8% of these tables with notes and 11.3% to 46.9% of the same tables alone')
   // The third level is test-time continual learning. Nothing on the page calls it a stream.
   expect((await page.locator('.essay-summary, .essay-section, figure.exhibit').allTextContents()).join(' ')).not.toMatch(/stream/i)
-  await expect(page.locator('#continual-learning > h2')).toHaveText('Test-time continual learning is measured in stages, against the same tables played alone')
+  await expect(page.locator('#stages-and-notes > h2')).toHaveText('Test-time continual learning is measured in stages, against the same tables played alone')
+  // The results of a level stand under the level's name, as in the opening figure.
+  if (page.viewportSize()!.width >= 1240) {
+    const outline = await page.getByRole('navigation', { name: 'On this page', exact: true }).locator('a').allTextContents()
+    expect(outline.filter(label => ['Atom level', 'Composite level', 'Test-time continual learning'].includes(label))).toEqual(['Atom level', 'Composite level', 'Test-time continual learning'])
+  }
+  // What the opening figure says of test-time continual learning for the model chosen there, to compare below.
+  await results.getByRole('button', { name: 'GPT-6.2 Astra', exact: true }).click()
+  const opening = (await results.locator('.readout dd').allTextContents()).slice(3)
 
   // The table of five steps rests on the first move of its plan, with its tool and its target named for the reader.
   const table = figure(page, 'table')
@@ -468,16 +476,21 @@ test('the benchmark page opens with the main results, shows a table along its pl
   // Test-time continual learning: with notes, alone, and their paired difference, at each budget.
   const gain = figure(page, 'gain')
   await gain.scrollIntoViewIfNeeded()
+  // It rests on k moves, the budget of the opening figure, and shows the two figures the opening figure shows. The text gives them too.
+  await expect(station(page, 'gain', 'k moves')).toHaveAttribute('aria-current', 'step')
+  await expect(gain.locator('.readout dd')).toHaveText(['53.8%', '46.9%', '+6.9 ± 2.7'])
+  expect((await gain.locator('.readout dd').allTextContents()).slice(0, 2)).toEqual(opening)
+  await expect(page.locator('#continual-learning > h2')).toHaveText('Every model solves more tables with its notes than alone')
+  await expect(page.locator('#continual-learning')).toContainText('solves 53.8% of the 275 tables with notes and 46.9% of the same tables alone')
+  await expect(gain.locator('.curves-series[data-ours] .curves-value').last()).toContainText('17.5')
+  await expect(gain.getByRole('table')).toContainText('Gain (points)')
+  // Within twice k moves, stage 8: 82.5% with notes, 62.5% of the same tables alone, a gain of 20 points.
+  await station(page, 'gain', 'Twice k moves').click()
   await expect(gain.locator('.readout dd')).toHaveText(['86.9%', '77.5%', '+9.5 ± 2.2'])
-  // Where it rests, GPT-6.2 Astra within twice k moves, stage 8 reads as the text says: 82.5% with notes, 62.5% alone, a gain of 20 points.
-  await expect(page.locator('#notes > h2')).toHaveText('With notes from shorter tables, the models solve more of the same tables')
-  await expect(page.locator('#notes')).toContainText('solves 62.5% of the tables within twice k moves alone and 82.5% of the same tables with notes')
   await expect(gain.locator('.curves-series[data-ours] .curves-value').last()).toContainText('82.5')
   await expect(gain.locator('.curves-series:not([data-ours]) .curves-value').last()).toContainText('62.5')
   await expect(gain.locator('.curves-row-value').last()).toContainText('+20.0')
-  await expect(gain.getByRole('table')).toContainText('Gain (points)')
   await station(page, 'gain', 'k moves').click()
-  await expect(gain.locator('.readout dd')).toHaveText(['53.8%', '46.9%', '+6.9 ± 2.7'])
   await gain.getByRole('button', { name: 'Claude Fable 5.2', exact: true }).click()
   await expect(gain.locator('.readout dd')).toHaveText(['37.1%', '21.5%', '+15.6 ± 2.9'])
 
